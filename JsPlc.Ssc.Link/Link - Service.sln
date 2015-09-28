@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Repository", "JsPlc.Ssc.Link.Repository\JsPlc.Ssc.Link.Repository.csproj", "{B995B495-D846-4EB5-80FB-B55B71028B94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Service", "JsPlc.Ssc.Link.Service\JsPlc.Ssc.Link.Service.csproj", "{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{3800EA94-E158-4537-8C89-3807013DFD14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +21,16 @@ Global
 		{B995B495-D846-4EB5-80FB-B55B71028B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B995B495-D846-4EB5-80FB-B55B71028B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B995B495-D846-4EB5-80FB-B55B71028B94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B995B495-D846-4EB5-80FB-B55B71028B94} = {9FEB778D-8E8F-4B83-9D00-6E9D2CF25AEF}
+		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9} = {3800EA94-E158-4537-8C89-3807013DFD14}
 	EndGlobalSection
 EndGlobal
