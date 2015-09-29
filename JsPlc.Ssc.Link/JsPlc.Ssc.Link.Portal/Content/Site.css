@@ -35,8 +35,8 @@ header.link-banner {
 }
 
 .tab-heading {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0;
+    padding-left: 0;
     background-color: #333333;
 }
 
@@ -51,14 +51,21 @@ img.logo {
 img.comp-logo {
     height: 60px;
 }
+div, span, h1, h2, h3, h4, h5, h6 {
+    font-family: Mary Ann, Arial, sans-serif;
+}
 .apptitle {
     color: #04ACCF;
+    font-weight: bold;
+    font-size: 22pt;
 }
 .appTitle2 {
     color: #056791;
 }
 .subtitleText {
     color: #02A8C4;
+    font-weight: bold;
+    font-size: 12pt;
 }
 /*.subtitleText {
     color: #04B0D6;
