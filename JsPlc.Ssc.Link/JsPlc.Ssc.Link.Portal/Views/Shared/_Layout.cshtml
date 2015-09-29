@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")">
+    <link rel="shortcut icon icon" type="image/ico" href="favicon.ico" />
     <title>@ViewBag.Title - Links Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -46,7 +48,7 @@
             </div>
         </div>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid body-content">
         @RenderBody()
         <hr />
         <footer>
