@@ -1,6 +1,9 @@
 ﻿@{
     ViewBag.Title = "Welcome to Links";
 }
+<div class="row">
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "welcome" } })
+</div>
 <div id="welcome">
     <h2><span class="apptitle">Links:</span> <span class="appTitle2">our new approach to performance</span></h2>
     <p>
