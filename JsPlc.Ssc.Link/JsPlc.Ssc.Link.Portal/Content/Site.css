@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+header.link-banner {
+    position: relative;
+    padding: 30px 15px;
+    text-align: center;
+    color: rgba(255,255,255,.8);
+    background-color:#1975FF;
+    background-image: url('Images/bg.png');
+    margin-bottom: 40px;
+    font-size: 20px;
+}
