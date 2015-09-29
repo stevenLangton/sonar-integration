@@ -54,6 +54,7 @@ img.comp-logo {
 div, span, h1, h2, h3, h4, h5, h6 {
     font-family: Mary Ann, Arial, sans-serif;
 }
+/*div { display: block; float: none;}*/
 .apptitle {
     color: #04ACCF;
     font-weight: bold;
@@ -65,8 +66,16 @@ div, span, h1, h2, h3, h4, h5, h6 {
 .subtitleText {
     color: #02A8C4;
     font-weight: bold;
-    font-size: 12pt;
+    font-size: 10pt;
 }
-/*.subtitleText {
-    color: #04B0D6;
-}*/
+.right {
+    float: right;
+}
+.speechBubble {
+    background-image: url('Images/speach_bubble_blue_ncs.PNG');
+    background-repeat: no-repeat;
+    width: 350px;
+    height: 380px;
+    padding: 10px;
+    color: white;
+}
