@@ -27,9 +27,10 @@ header.link-banner {
     position: relative;
     padding: 15px 15px;
     text-align: center;
-    color: rgba(255,255,255,.8);
-    background-color:#1975FF;
-    background-image: url('Images/bg.png');
+    color: #1D728F;
+    background-color: white;
+    /*background-color:#1975FF;*/
+    /*background-image: url('Images/bg.png');*/
     font-size: 20px;
 }
 
@@ -41,4 +42,12 @@ header.link-banner {
 
 li.tab-heading.active a {
     background-color: lavender;
+}
+
+img.logo {
+    height: 120px;
+}
+
+img.comp-logo {
+    height: 60px;
 }
