@@ -25,13 +25,31 @@ textarea {
 
 header.link-banner {
     position: relative;
-    padding: 30px 15px;
+    padding: 15px 15px;
     text-align: center;
-    color: rgba(255,255,255,.8);
-    background-color:#1975FF;
-    background-image: url('Images/bg.png');
-    margin-bottom: 40px;
+    color: #1D728F;
+    background-color: white;
+    /*background-color:#1975FF;*/
+    /*background-image: url('Images/bg.png');*/
     font-size: 20px;
+}
+
+.tab-heading {
+    padding-right: 0px;
+    padding-left: 0px;
+    background-color: #333333;
+}
+
+li.tab-heading.active a {
+    background-color: lavender;
+}
+
+img.logo {
+    height: 120px;
+}
+
+img.comp-logo {
+    height: 60px;
 }
 .apptitle {
     color: #04ACCF;
