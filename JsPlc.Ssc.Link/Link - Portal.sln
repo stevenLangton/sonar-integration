@@ -3,9 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj", "{A5A6F815-7A8D-463F-9F01-E2610E533A4B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portal", "Portal", "{BE94DAAE-F62A-471A-A2E9-4548E716D8DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9D64B288-9C57-4D7E-A8F3-46B96D3F3427}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj", "{56E4348B-CEE2-45A1-B27B-06A619EB5ABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal.Tests", "JsPlc.Ssc.Link.Portal.Tests\JsPlc.Ssc.Link.Portal.Tests.csproj", "{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,15 +22,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5A6F815-7A8D-463F-9F01-E2610E533A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5A6F815-7A8D-463F-9F01-E2610E533A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5A6F815-7A8D-463F-9F01-E2610E533A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5A6F815-7A8D-463F-9F01-E2610E533A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E4348B-CEE2-45A1-B27B-06A619EB5ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E4348B-CEE2-45A1-B27B-06A619EB5ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E4348B-CEE2-45A1-B27B-06A619EB5ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E4348B-CEE2-45A1-B27B-06A619EB5ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A5A6F815-7A8D-463F-9F01-E2610E533A4B} = {BE94DAAE-F62A-471A-A2E9-4548E716D8DD}
+		{56E4348B-CEE2-45A1-B27B-06A619EB5ABE} = {BE94DAAE-F62A-471A-A2E9-4548E716D8DD}
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70} = {BE94DAAE-F62A-471A-A2E9-4548E716D8DD}
 	EndGlobalSection
 EndGlobal
