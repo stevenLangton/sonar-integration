@@ -50,11 +50,12 @@
     </header>
     <div class="container-fluid body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</p>
-        </footer>
     </div>
+    <nav class="navbar navbar-default link-footer" role="navigation">
+        <div class="container-fluid">
+            <p>&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</p>
+        </div>
+    </nav>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
