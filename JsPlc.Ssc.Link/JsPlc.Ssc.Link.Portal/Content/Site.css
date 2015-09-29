@@ -80,3 +80,12 @@ div, span, h1, h2, h3, h4, h5, h6 {
     color: white;
     margin-top: -100px;
 }
+/*.subtitleText {
+    color: #04B0D6;
+}*/
+
+.link-footer {
+    background-color: #04ACCF;
+    padding-left: 15px;
+    padding-top: 15px;
+}
