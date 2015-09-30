@@ -35,8 +35,8 @@ header.link-banner {
 }
 
 .tab-heading {
-    padding-right: 0;
-    padding-left: 0;
+    /*padding-right: 0;
+    padding-left: 0;*/
     background-color: #333333;
 }
 
