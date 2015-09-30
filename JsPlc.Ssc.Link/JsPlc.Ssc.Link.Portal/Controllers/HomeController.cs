@@ -32,5 +32,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             return View();
         }
+
+        public ActionResult LinkForm()
+        {
+            ViewBag.Message = "LinkForm.";
+
+            return View();
+        }
     }
 }

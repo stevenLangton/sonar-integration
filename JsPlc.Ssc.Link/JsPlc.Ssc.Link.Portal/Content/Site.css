@@ -103,3 +103,15 @@ div, span, h1, h2, h3, h4, h5, h6 {
     padding-left: 15px;
     padding-top: 15px;
 }
+
+
+ /*needed for accordian menu*/
+    .panel-group .panel-heading a:after {
+  content: '-';
+  float:right;
+  right: 20px;
+  top:5px;
+}
+.panel-group .panel-heading a.collapsed:after {
+  content: '+';
+}
