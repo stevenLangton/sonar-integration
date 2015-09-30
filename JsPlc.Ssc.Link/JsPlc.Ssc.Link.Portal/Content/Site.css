@@ -78,6 +78,7 @@ div, span, h1, h2, h3, h4, h5, h6 {
     height: 380px;
     padding: 10px;
     color: white;
+    margin-top: -100px;
 }
 /*.subtitleText {
     color: #04B0D6;
