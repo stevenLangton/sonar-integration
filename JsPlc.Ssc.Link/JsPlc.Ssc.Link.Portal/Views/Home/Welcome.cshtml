@@ -4,7 +4,7 @@
 <div class="row">
     @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "welcome" } })
 </div>
-<div id="welcome" style="margin: 20px;">
+<div id="welcome">
     <h2><span class="apptitle">Links:</span> <span class="appTitle2">our new approach to performance</span></h2>
     <p>
         <span class="subtitleText">All around our business, we’re constantly looking for new and better ways to operate, so we can achieve even more as a team.</span>
@@ -17,26 +17,34 @@
             <p>
                 <strong>That’s why we’re launching Links.</strong> Links are regular, individual discussions with your manager – but instead of following a tick list and sticking to a formal rating structure, they’re all about identifying and acknowledging the difference you make every day.
             </p>
-        </div>
-        <div class="col-lg-6" style="background-color: #02ABCA; padding: 10px;">
-            <h3>So what does <strong>the difference I make </strong>really mean?</h3>
-            <div>
-                <p><strong>It’s what you do</strong></p>
-                Your key personal achievements that contribute to your team, the business or our customers
-                <p><strong>It’s how you do it</strong></p>
-                The way you go about delivering those achievements, aligned to our values
-                <p><strong>It’s collaboration, how we work better together</strong></p>
-                The difference you make to and through others – sharing knowledge, contributing to their growth and success and building on their ideas. It means making the broadest difference, as this is when you have the greatest impact
+            <div class="speechBubble">
+                <h3 class="subtitleText">Think Link</h3>
+                We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.
             </div>
         </div>
-        <div class="site-col-md-down-2"></div>
-        <div class="col-lg-3 speechBubble">
-            <h3>Think Link</h3>
-            We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.
+
+        <div class="col-lg-2 infoBar">
+            <h3>So what does <strong>the difference I make </strong>really mean?</h3>
+            <ul>
+                <li>
+                    <strong>It’s what you do</strong>
+                    <p>Your key personal achievements that contribute to your team, the business or our customers</p>
+                </li>
+                <li>
+                    <strong>It’s how you do it</strong><p>
+                        The way you go about delivering those achievements, aligned to our values
+                    </p>
+                </li>
+                <li>
+                    <strong>It’s collaboration, how we work better together</strong>
+                    <p>The difference you make to and through others – sharing knowledge, contributing to their growth and success and building on their ideas. It means making the broadest difference, as this is when you have the greatest impact</p>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="row">
-        <div class="text-right moreLink">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-3 moreLink">
             <p><a href="~/Content/Static/Links Leaflet.pdf" target="_blank">Read More</a></p>
         </div>
     </div>
