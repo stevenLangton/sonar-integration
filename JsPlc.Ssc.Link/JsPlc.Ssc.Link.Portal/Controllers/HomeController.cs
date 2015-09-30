@@ -10,7 +10,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View("Welcome");
         }
 
         public ActionResult About()
