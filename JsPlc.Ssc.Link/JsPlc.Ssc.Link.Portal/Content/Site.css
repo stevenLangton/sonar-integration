@@ -76,14 +76,28 @@ div, span, h1, h2, h3, h4, h5, h6 {
     background-repeat: no-repeat;
     width: 350px;
     height: 380px;
-    padding: 10px;
+    padding: 20px;
     color: white;
     margin-top: -100px;
+}
+.speechBubble h3 {
+    font-size: 18pt;
+}
+.moreLink{
+    margin-right: 10%;
+    font-size: 18pt;
 }
 /*.subtitleText {
     color: #04B0D6;
 }*/
-
+@media screen and (max-width: 1200px) {
+    .site-col-md-down-2 {
+        margin-top: 100px;
+        visibility: visible;
+        height: 10px;
+        /*background-color: yellow;*/
+    }
+}
 .link-footer {
     background-color: #04ACCF;
     padding-left: 15px;
