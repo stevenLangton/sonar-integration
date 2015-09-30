@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 5px;
     padding-bottom: 20px;
 }
 
@@ -39,6 +39,7 @@ header.link-banner {
     padding-left: 0;*/
     background-color: #333333;
     padding: 0 40px;
+    font-size: 120%;
 }
 
 li.tab-heading.active a {
