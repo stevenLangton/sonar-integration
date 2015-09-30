@@ -35,8 +35,8 @@ header.link-banner {
 }
 
 .tab-heading {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0;
+    padding-left: 0;
     background-color: #333333;
 }
 
@@ -51,15 +51,55 @@ img.logo {
 img.comp-logo {
     height: 60px;
 }
+div, span, h1, h2, h3, h4, h5, h6 {
+    font-family: Mary Ann, Arial, sans-serif;
+}
+/*div { display: block; float: none;}*/
 .apptitle {
     color: #04ACCF;
+    font-weight: bold;
+    font-size: 22pt;
 }
 .appTitle2 {
     color: #056791;
 }
 .subtitleText {
     color: #02A8C4;
+    font-weight: bold;
+    font-size: 10pt;
+}
+.right {
+    float: right;
+}
+.speechBubble {
+    background-image: url('Images/speach_bubble_blue_ncs.PNG');
+    background-repeat: no-repeat;
+    width: 350px;
+    height: 380px;
+    padding: 20px;
+    color: white;
+    margin-top: -100px;
+}
+.speechBubble h3 {
+    font-size: 18pt;
+}
+.moreLink{
+    margin-right: 10%;
+    font-size: 18pt;
 }
 /*.subtitleText {
     color: #04B0D6;
 }*/
+@media screen and (max-width: 1200px) {
+    .site-col-md-down-2 {
+        margin-top: 100px;
+        visibility: visible;
+        height: 10px;
+        /*background-color: yellow;*/
+    }
+}
+.link-footer {
+    background-color: #04ACCF;
+    padding-left: 15px;
+    padding-top: 15px;
+}

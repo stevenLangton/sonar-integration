@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")">
+    <link rel="shortcut icon icon" type="image/ico" href="favicon.ico" />
     <title>@ViewBag.Title - Links Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -41,18 +43,19 @@
                     </h2>
                 </div>
                 <div class="col-sm-2 ">
-                    <img src="~/Content/Images/Logo.gif" class="comp-logo pull-right" />
+                    <img src="~/Content/Images/Logo.gif" class="comp-logo pull-sm-right" />
                 </div>
             </div>
         </div>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</p>
-        </footer>
     </div>
+    <nav class="navbar navbar-default link-footer" role="navigation">
+        <div class="container-fluid">
+            <p>&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</p>
+        </div>
+    </nav>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

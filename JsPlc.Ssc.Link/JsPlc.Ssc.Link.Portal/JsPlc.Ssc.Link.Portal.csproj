@@ -181,6 +181,7 @@
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
+    <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
