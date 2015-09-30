@@ -13,9 +13,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("Welcome");
         }
 
-        public ActionResult About()
+        public ActionResult Meeting()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Link Meeting.";
 
             return View();
         }
