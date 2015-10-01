@@ -35,7 +35,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [Authorize]
         public ActionResult Team()
         {
-            ViewBag.Message = "My Team";
+            ViewBag.Message = "Team for - " + User.Identity.GetUserName();
 
             return View();
         }
