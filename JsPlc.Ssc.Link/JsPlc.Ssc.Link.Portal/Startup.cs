@@ -19,7 +19,6 @@ namespace JsPlc.Ssc.Link.Portal
         public void Configuration(IAppBuilder app)
         {
             // Enable tracing, debugging and what not..
-            // Checks for production if any
             new Startup().Configuration(app);
         }
     }
