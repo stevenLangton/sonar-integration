@@ -13,9 +13,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("Welcome");
         }
 
-        public ActionResult Meeting()
+        public ActionResult LinkForm()
         {
-            ViewBag.Message = "Link Meeting.";
+            ViewBag.Message = "Link Meeting Form.";
 
             return View();
         }
@@ -29,13 +29,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public ActionResult Welcome()
         {
             //ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult LinkForm()
-        {
-            ViewBag.Message = "LinkForm.";
 
             return View();
         }
