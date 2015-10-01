@@ -180,6 +180,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-JsPlc.Ssc.Link.Portal-20150929100116.mdf" />
+    <Content Include="App_Data\aspnet-JsPlc.Ssc.Link.Portal-20150929100116_log.ldf">
+      <DependentUpon>aspnet-JsPlc.Ssc.Link.Portal-20150929100116.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -255,10 +259,10 @@
     <Content Include="Views\LinkForm.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
+    <Content Include="Views\Home\LinkReport.cshtml" />
+    <Content Include="Views\Home\Team.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -282,7 +286,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59387</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -1,10 +1,11 @@
 ﻿@{
     ViewBag.Title = "New Link Form";
 }
+<div class="row">
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "create" } })
+</div>
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
-
-
 <ol class="breadcrumb">
     <li class="active">Colleague Name</li>
     <li class="active">Colleague ID</li>

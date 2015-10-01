@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -13,9 +14,28 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("Welcome");
         }
 
-        public ActionResult Meeting()
+        [Authorize]
+        public ActionResult LinkForm()
         {
-            ViewBag.Message = "Link Meeting.";
+            // for now, may this should show any Ongoing(InProgress) LinkForm or NewLinkForm if no ongoing exists.
+
+            ViewBag.Message = "Link Meeting Form for - " + User.Identity.GetUserName();
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult LinkReport()
+        {
+            ViewBag.Message = "Link Report for - " + User.Identity.GetUserName();
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Team()
+        {
+            ViewBag.Message = "Team for - " + User.Identity.GetUserName();
 
             return View();
         }
@@ -29,13 +49,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public ActionResult Welcome()
         {
             //ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult LinkForm()
-        {
-            ViewBag.Message = "LinkForm.";
 
             return View();
         }
