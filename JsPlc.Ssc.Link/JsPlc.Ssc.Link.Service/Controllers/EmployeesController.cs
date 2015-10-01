@@ -1,36 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
     public class EmployeesController : BaseController
     {
-        // GET: api/Employee
-        public IEnumerable<string> Get()
+
+        // GET: api/Employees/5
+        public IHttpActionResult GetEmployee(int id)
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_db.GetEmployee(id));
         }
 
-        // GET: api/Employee/5
-        public IHttpActionResult Get(int id)
+        // GET: api/Employees/?managerId=1
+        public IHttpActionResult GetEmployees([FromUri]int managerId)
         {
-            return  Ok(_db.GetEmployee(id));
+            return Ok(_db.GetEmployees(managerId));
         }
 
-        // POST: api/Employee
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Employee/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Employee/5
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
