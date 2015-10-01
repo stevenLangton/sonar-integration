@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,15 +12,16 @@ namespace JsPlc.Ssc.Link.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Period")]
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Period Start")]
         public DateTime Start { get; set; }
 
         [Required]
-        [Display(Name = "Period End")]
         public DateTime End { get; set; }
+
+        public ICollection<LinkMeeting> Meetings { get; set; }
+
+        public ICollection<Question> Questions { get; set; } 
     }
 }
