@@ -227,6 +227,9 @@
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.config.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -274,6 +277,7 @@
     <Content Include="Views\LinkForm\Create.cshtml" />
     <Content Include="Views\Home\LinkReport.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
+    <Content Include="Views\LinkForm\LinkMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />
