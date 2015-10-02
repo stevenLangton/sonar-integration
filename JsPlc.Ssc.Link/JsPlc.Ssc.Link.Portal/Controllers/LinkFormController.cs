@@ -34,7 +34,7 @@
                 HttpResponseMessage response = client.GetAsync("api/questions/1").Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Questions>>().Result;
+                    ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
                 }
                 else
                 {
