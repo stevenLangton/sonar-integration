@@ -31,10 +31,11 @@
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // New code:
-                HttpResponseMessage response = client.GetAsync("api/questions/1").Result;
+                HttpResponseMessage response = client.GetAsync("api/questions/?periodid=1").Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Questions>>().Result;
+                    ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
+                
                 }
                 else
                 {
@@ -42,9 +43,9 @@
                 }
             }
 
+            var linkModel = new LinkForm { questions = ViewBag.result };
 
-
-            return View();
+            return View("Create1", linkModel);
         }
 
         // POST: LinkForm/Create
@@ -53,9 +54,27 @@
         {
             try
             {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("LinkForm");
+
+                List<Question> xxx = new List<Question>();
+
+                foreach (var key in collection.AllKeys)
+                {
+                    //var id = collection[key];
+
+                    var value = collection[key];
+
+                    Question yyy = new Question();
+
+                    yyy.stringAnswer = value;
+
+                    xxx.Add(yyy);
+                }
+
+                string name = Request.Form["period"];
+                string date = Request.Form["date"];
+
+                return RedirectToAction("Details");
             }
             catch
             {

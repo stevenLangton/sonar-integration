@@ -255,6 +255,8 @@
     <Content Include="Views\LinkForm.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
+    <Content Include="Views\LinkForm\Create1.cshtml" />
+    <Content Include="Views\LinkForm\CreateQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

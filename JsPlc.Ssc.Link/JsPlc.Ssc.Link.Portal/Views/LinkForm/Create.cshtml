@@ -3,72 +3,153 @@
     ViewBag.Title = "Create";
 }
 
-<h2>New Link Form</h2>
 
-<ol class="breadcrumb">
-    <li class="active">Colleague Name</li>
-    <li class="active">Colleague ID</li>
-    <li class="active">Line Manger Name</li>
-    <li class="active">Line Manger ID</li>
-</ol>
+
+<form action="/LinkForm/Create" method="post">
 
 
 
-<!-- Columns are always 50% wide, on mobile and desktop -->
-<div class="row">
-    <div class="col-xs-6">
-        <h3>Looking Forward</h3>
+
+    <h2>New Link Form</h2>
+
+    <ol class="breadcrumb">
+        <li class="active">Colleague Name</li>
+        <li class="active">Colleague ID</li>
+        <li class="active">Line Manger Name</li>
+        <li class="active">Line Manger ID</li>
+    </ol>
 
 
-        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+
+    <!-- Columns are always 50% wide, on mobile and desktop -->
+    @{
+        int counter1 = 0;
+        int counter2 = 0;
+    }
+
+    <h2>Create</h2>
 
 
-            @foreach (var p in ViewBag.Result)
-            {
-             
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                            <strong>Q.</strong> @p.Description
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <strong>Colleague Comments</strong>
-                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
 
-                        <strong>Line Manager Comments</strong>
-                        <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
-                    </div>
-                </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <h3>Looking Forward</h3>
+
+
+
+
+            <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+
+
+                @foreach (var p in ViewBag.Result)
+                {
+
+                    counter1++;
+                    if (counter1 <= 2)
+                    {
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne@(p.Id)" aria-expanded="true" aria-controls="collapseOne1">
+                                        <strong>Q.</strong> @p.Description @p.Id
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne@(p.Id)" class="panel-collapse collapse @(counter1 == 1 ? "in" : "")" role="tabpanel" aria-labelledby="headingOne@(p.Id)">
+
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <label for="@(p.Id)">Colleague Comments</label>
+                                        <textarea name="@(p.Id)" class="form-control" rows="5"></textarea>-
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="@(p.Id)">Colleague Comments</label>
+                                        <textarea name="@(p.Id)" class="form-control" rows="5"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+
+
             </div>
-                
-            }
-
 
         </div>
 
+        <div class="col-xs-6">
+            <h3>Looking Forward</h3>
+            <form role="form">
+                <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+
+
+                    @foreach (var p in ViewBag.Result)
+                    {
+
+                        counter2++;
+                        if (counter2 > 2)
+                        {
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo@(p.Id)" aria-expanded="true" aria-controls="collapseTwo@(p.Id)">
+                                            <strong>Q.</strong> @p.Description @p.Id
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo@(p.Id)" class="panel-collapse collapse @(counter2 == 3 ? "in" : "")" role="tabpanel" aria-labelledby="headingTwo@(p.Id)">
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label for="@(p.Id)">Colleague Comments</label>
+                                            <textarea type="text" name="@(p.Id)" class="form-control" rows="5"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="@(p.Id)">Line Manager Comments</label>
+                                            <textarea name="@(p.Id)" class="form-control" rows="5"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    }
+
+
+                </div>
+
+        </div>
+
+
+
     </div>
 
-    <div class="col-xs-6">
-        <h3>Looking Forward</h3>
-      
+
+
+
+    <br />
+
+
+
+    <div class="well" style="text-align:right;">
+
+
+
+        Complete <input id="Checkbox1" type="checkbox" /> <input type="submit" class="btn btn-default" value="Save" /> &nbsp; <button type="button" class="btn btn-default">Download</button>
 
     </div>
 
+</form>
 
 
-
-
-</div>
-
-<br />
-
-<div class="well" style="text-align:right;">
-
-    Complete <input id="Checkbox1" type="checkbox" /> <button type="button" class="btn btn-default">Save</button> &nbsp; <button type="button" class="btn btn-default">Download</button>
-
-</div>
     
