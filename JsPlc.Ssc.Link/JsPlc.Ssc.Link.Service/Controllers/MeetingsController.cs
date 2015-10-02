@@ -6,23 +6,40 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     public class MeetingsController : BaseController
     {
 
-       //GET :
+       //GET: /api/Meetings/10
         [HttpGet]
-        public IHttpActionResult GetMeetings([FromUri] int employeeId)
+        public IHttpActionResult GetMeeting(int Id)
         {
-            return null;
+            var meeting = _db.GetMeeting(Id);
+
+            if (meeting == null)
+                return NotFound();
+
+            return Ok(meeting);
         }
 
         //GET: /api/Meetings/10
         [HttpGet]
-        public IHttpActionResult GetMeeting(int Id)
+        public IHttpActionResult GetMeetings(int employeeId)
         {
-            return Ok(_db.GetMeeting(Id));
+            return Ok(_db.GetMeetings(employeeId));
+        }
+
+        //GET: /api/Meetings/?employeeId=1
+        [HttpGet]
+        public IHttpActionResult CreateMeeting([FromUri]int employeeId, int periodId)
+        {
+            var meeting = _db.CreateMeeting(employeeId, periodId);
+
+            if (meeting == null)
+                return NotFound();
+
+            return Ok(meeting);
         }
 
         // POST: api/Meetings
         [HttpPost]
-        public IHttpActionResult Post(LinkMeeting meeting )
+        public IHttpActionResult SaveMeeting(LinkMeeting meeting )
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -33,7 +50,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         }
 
         // PUT: api/Meetings/5
-        public void Put(int id, [FromBody]string value)
+        public void UpdateMeeting(int id, [FromBody]string value)
         {
         }
     }

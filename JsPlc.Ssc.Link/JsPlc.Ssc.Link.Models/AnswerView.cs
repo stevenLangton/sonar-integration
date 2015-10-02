@@ -2,7 +2,7 @@
 {
     public class AnswerView
     {
-        public int? Id { get; set; }
+        public int? AnswerId { get; set; }
         public string Question { get; set; }
         public int QuestionId { get; set; }
         public string CollegueComment { get; set; }

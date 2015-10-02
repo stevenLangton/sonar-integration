@@ -5,7 +5,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     public class PeriodsController : BaseController
     {
         // GET: api/Periods
-        public IHttpActionResult Get()
+        public IHttpActionResult GetPeriods()
         {
             return Ok(_db.GetPeriods());
         }
