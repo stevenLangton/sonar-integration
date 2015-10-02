@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 5px;
     padding-bottom: 20px;
 }
 
@@ -35,9 +35,11 @@ header.link-banner {
 }
 
 .tab-heading {
-    padding-right: 0;
-    padding-left: 0;
+    /*padding-right: 0;
+    padding-left: 0;*/
     background-color: #333333;
+    padding: 0 40px;
+    font-size: 120%;
 }
 
 li.tab-heading.active a {
@@ -78,28 +80,42 @@ div, span, h1, h2, h3, h4, h5, h6 {
     height: 380px;
     padding: 20px;
     color: white;
-    margin-top: -100px;
 }
-.speechBubble h3 {
+.speechBubble .subtitleText {
     font-size: 18pt;
+    color: #04ACCF;
 }
+/* Right side cyan bar on Welcome page */
+.infoBar {
+    background-color: #02ABCA;
+    padding: 20px;
+}
+.infoBar p {
+    color: #056791;
+    font-weight: bold;
+}
+.infoBar h3, .infoBar li {
+    color: white;
+}
+
 .moreLink{
     margin-right: 10%;
     font-size: 18pt;
-}
-/*.subtitleText {
-    color: #04B0D6;
-}*/
-@media screen and (max-width: 1200px) {
-    .site-col-md-down-2 {
-        margin-top: 100px;
-        visibility: visible;
-        height: 10px;
-        /*background-color: yellow;*/
-    }
 }
 .link-footer {
     background-color: #04ACCF;
     padding-left: 15px;
     padding-top: 15px;
+}
+
+
+ /*needed for accordian menu*/
+    .panel-group .panel-heading a:after {
+  content: '-';
+  float:right;
+  right: 20px;
+  top:5px;
+}
+.panel-group .panel-heading a.collapsed:after {
+  content: '+';
 }

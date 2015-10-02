@@ -1,20 +1,39 @@
-﻿@{ 
-   string tabName = ViewData["tabName"].ToString().ToLower();
+﻿@{
+    string tabName = ViewData["tabName"].ToString().ToLower();
 }
 
-<div class="tabs" id="mainTabs">
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="@(tabName == "welcome" ? "active" : "") col-sm-3 tab-heading">
-            <a href="~/Home/Welcome">Welcome</a>
-        </li>
-        <li role="presentation" class="@(tabName == "create" ? "active" : "") col-sm-3 tab-heading">
-            <a href="~/Home/About">Create New</a>
-        </li>
-        <li role="presentation" class="@(tabName == "report" ? "active" : "") col-sm-3 tab-heading">
-            <a href="~/Home/Welcome">My Link Report</a>
-        </li>
-        <li role="presentation" class="@(tabName == "team" ? "active" : "") col-sm-3 tab-heading">
-            <a href="~/Home/Index">My Team</a>
-        </li>
-    </ul>
+<div class="navbar navbar-inverse" id="mainTabs">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*@Html.ActionLink("Link", "Welcome", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li role="presentation" class="@(tabName == "welcome" ? "active" : "") tab-heading">
+                    @Html.ActionLink("Welcome", "Welcome", "Home")
+                </li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li role="presentation" class="@(tabName == "create" ? "active" : "") tab-heading">
+                        @Html.ActionLink("Create New", "LinkForm", "Home")
+                    </li>
+                    <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
+                        @Html.ActionLink("My Link Report", "LinkReport", "Home")
+                    </li>
+                    <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
+                        @Html.ActionLink("My Team", "Team", "Home")
+                    </li>
+                }
+                <li role="presentation" class="@(tabName == "contact" ? "active" : "") tab-heading">
+                    @Html.ActionLink("Contact", "Contact", "Home")
+                </li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
 </div>

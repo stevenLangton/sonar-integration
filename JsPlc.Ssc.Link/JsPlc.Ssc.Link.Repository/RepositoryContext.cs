@@ -12,8 +12,9 @@ namespace JsPlc.Ssc.Link.Repository
         public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Period> Periods { get; set; }
         public IDbSet<User> Users { get; set; }
-        public IDbSet<LinkMeeting> Performance { get; set; }
+        public IDbSet<LinkMeeting> Meeting { get; set; }
 
+        
         public RepositoryContext() : base("name=LinkRepository") { }
 
         public RepositoryContext(DbConnection connection) : base(connection, true) { }
@@ -21,6 +22,7 @@ namespace JsPlc.Ssc.Link.Repository
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();   
         }
     }
 }

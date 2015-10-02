@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "My Team";
+}
+<div class="row">
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "team" } })
+</div>
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<ol class="breadcrumb">
+    <li class="active">IS THIS NEEDED on this page..</li>
+    <li class="active">Colleague Name</li>
+    <li class="active">Colleague ID</li>
+    <li class="active">Line Manger Name</li>
+    <li class="active">Line Manger ID</li>
+</ol>
+
+<div class="row">
+    <div class="col-xs-6">
+        My Team content will be listed here..
+    </div>
+</div>
