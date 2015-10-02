@@ -1,6 +1,8 @@
 ﻿using System.Configuration;
 using System.Drawing;
 using System.Web.Helpers;
+using System.Web.Script.Services;
+using System.Web.Services.Description;
 using JsPlc.Ssc.Link.Portal.Models.MockData;
 using System;
 using System.Collections.Generic;
@@ -17,23 +19,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     public class LinkFormController : Controller
     {
-        public JsonResult CreateForm(int periodId)
+        [ScriptMethod(UseHttpGet = true)]
+        public JsonResult GetLinkForm(int periodId)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"]);
+                //client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"]);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 // New code:
-                HttpResponseMessage response = client.GetAsync("api/questions/?periodId=1").Result;
+                HttpResponseMessage response =
+                    client.GetAsync(String.Format("{0}/api/questions/?periodId={1}", 
+                    ConfigurationManager.AppSettings["ServicesBaseUrl"],periodId)).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
                 }
                 else
                 {
-                    ViewBag.result = "Error, Unable to connect to service.";
+                    return new JsonResult
+                    {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = "Error"
+                    };
                 }
             }
             var linkForm = MockData.MockLinkForm();
@@ -41,6 +50,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             var jsonData = new JsonResult
             {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = linkForm
             };
             return jsonData;
