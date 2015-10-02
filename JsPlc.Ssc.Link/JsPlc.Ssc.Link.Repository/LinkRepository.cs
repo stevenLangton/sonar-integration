@@ -57,11 +57,17 @@ namespace JsPlc.Ssc.Link.Repository
             return result;
         }
 
+        public IEnumerable<MeetingView> GetMeetings(int employeeId)
+        {
+            return null;
+        }
+
         public EmployeeView GetEmployee(int id)
         {
             
             var employee = (from e in db.Employees where e.Id==id
-                           join m in db.Employees on e.ManagerId equals m.Id
+                           join m in db.Employees on e.ManagerId equals m.Id into m_join
+                           from m in m_join.DefaultIfEmpty()
                            select new EmployeeView
                             {
                                 Id = e.Id,
@@ -104,10 +110,6 @@ namespace JsPlc.Ssc.Link.Repository
         {
             db.Dispose();
         }
-
-        public void GetMeetings(int employeeId)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

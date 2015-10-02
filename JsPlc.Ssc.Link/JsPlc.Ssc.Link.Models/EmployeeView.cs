@@ -12,7 +12,7 @@
 
         public string EmailAddress { get; set; }
 
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
 
         public string ManagerName { get; set; }
     }

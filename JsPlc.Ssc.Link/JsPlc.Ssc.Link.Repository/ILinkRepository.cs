@@ -8,7 +8,7 @@ namespace JsPlc.Ssc.Link.Repository
         IEnumerable<Period> GetPeriods();
         IEnumerable<Question> GetQuestions(int periodId);
         MeetingView GetMeeting(int meetingId);
-        void GetMeetings(int employeeId);
+        IEnumerable<MeetingView> GetMeetings(int employeeId);
         EmployeeView GetEmployee(int employeeId);
         IEnumerable<Employee> GetEmployees(int managerId);
         int SaveMeeting(LinkMeeting meeting);
