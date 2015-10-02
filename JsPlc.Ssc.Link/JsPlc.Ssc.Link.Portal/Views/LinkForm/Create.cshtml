@@ -1,11 +1,8 @@
-﻿@Model = LinkForm
-@{
+﻿@{
     ViewBag.Title = "Create";
 }
 
 <h2>New Link Form</h2>
-<!-- Build a knockout ajax GET to get LinkForm with Questions. -->
-<!-- Parse the ViewModel back in a postback -->
 
 <ol class="breadcrumb">
     <li class="active">Colleague Name</li>
@@ -15,69 +12,121 @@
 </ol>
 
 <!-- Columns are always 50% wide, on mobile and desktop -->
-<div class="row">
-    <div class="col-xs-6">
-        <h3>Looking Forward</h3>
-
-
+<div class="row" id="linkpage">
+    <div class="col-xs-6" style="border: solid 1px black;">
+        <h3>Looking Back</h3>
+        <!-- LinkForm data items here -->
+        <div>
+            Meeting Date: <input type="text" id="MeetingDate" data-bind="value: $root.MeetingDate" /><br />
+            Complete <input id="Checkbox1" type="checkbox" data-bind="checked: $root.Completed" />
+        </div>
+        <hr />
+        <h2>QUESTIONS:</h2>
+        <br />
+        <!-- QUESTIONS Loop around this -->
         <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
-
-
-            @foreach (var p in ViewBag.Result)
-            {
-             
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                            <strong>Q.</strong> @p.Description
+                            <strong>Q.</strong><span name="question1">blah blah</span>
                         </a>
                     </h4>
                 </div>
+
                 <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
-                        <strong>Colleague Comments</strong>
-                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                        <textarea name="answer1"></textarea><br />
+                        @*<strong>Colleague Comments</strong>
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>*@
+                        <textarea name="answer2"></textarea>
 
-                        <strong>Line Manager Comments</strong>
-                        <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                        @*<strong>Line Manager Comments</strong>
+                            <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>*@
                     </div>
                 </div>
             </div>
-                
-            }
-
-
         </div>
 
     </div>
 
+
     <div class="col-xs-6">
         <h3>Looking Forward</h3>
-      
-
+        <!-- Link form for next period say..-->
     </div>
-
-
-
-
-
-</div>
+</div><!-- /koex -->
 
 <br />
-
+<hr/>
 <div class="well" style="text-align:right;">
-
-    Complete <input id="Checkbox1" type="checkbox" /> <button type="button" class="btn btn-default">Save</button> &nbsp; <button type="button" class="btn btn-default">Download</button>
-
+    @*Complete <input id="Checkbox1" type="checkbox" data-bind="checked: $root.Completed" />*@
+    <button type="button" class="btn btn-default">Save</button> &nbsp; <button type="button" class="btn btn-default">Download</button>
 </div>
-<script type="text/javascript">
-        require(["jquery", "knockout"], function($, ko) {
-            $(document).ready(function() {
-                alert("Hello jquery");
-            }); 
-        });
-</script>
-    
 
-   
+<script type="text/javascript">
+    require(["jquery", "knockout"], function ($, ko) {
+
+        function PageViewModel() {
+
+            var self = this;
+
+            var dtoDataModel=ko.observable("");
+
+            self.dataModel = dtoDataModel;
+            self.dataAvailable = false;
+
+            self.binder = function () { };
+
+            self.loadPageData = function () {
+                // GET LinkForm Data
+                $.ajax({
+                    url: "LinkForm/GetLinkForm/?periodId=1",
+                    method: "GET"
+                })
+                    .done(function (data) {
+                        if (data == "Error") {
+                            $('#msgs').html("Error - no data");
+                            self.dataAvailable = true;
+                        }
+                        else {
+                            $('#msgs').html("Fetch success");
+                            data.MeetingDate = "03/10/2015";
+                            data.Completed = true;
+                            dtoDataModel(data);
+                            self.dataAvailable = true;
+                            debugger;
+                            self.binder();
+                        }
+                    })
+                    .fail(function () {
+                        self.dataAvailable = true;
+                        $('#msgs').html("Error occured");
+
+                        // if cannot load LinkMeeting for the given period
+                    });
+            }
+
+            self.saveLinkForm = function () {
+                // POST LinkForm data back to server.
+            }
+        }
+
+        $(document).ready(function () {
+
+            var vm = new PageViewModel();
+
+            var binder = function () {
+                debugger;
+                if (vm.dataAvailable) {
+                    ko.applyBindings(vm.dataModel, $("#linkpage")[0]);
+                }
+            }
+            vm.binder = binder;
+            vm.loadPageData();
+
+        });
+    });
+</script>
+
+

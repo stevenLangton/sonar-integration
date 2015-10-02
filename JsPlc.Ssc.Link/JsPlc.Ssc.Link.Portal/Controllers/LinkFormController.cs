@@ -66,8 +66,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public ActionResult Create()
         {
             // assuming we're creating a new Link Meeting for now
-            LinkForm model = MockData.MockLinkForm();
-            return View("LinkMeeting", model);
+            //LinkForm model = MockData.MockLinkForm();
+            return View();//"LinkMeeting", model);
         }
 
         // POST: LinkForm/Create

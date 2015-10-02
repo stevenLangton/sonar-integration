@@ -32,48 +32,4 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 <script type="text/javascript">
-    require(["jquery", "knockout"], function ($, ko) {
-
-        function PageViewModel() {
-
-            var self = this;
-
-            var dtoDataModel = ko.observable();
-
-            self.dataModel = ko.observable(dtoDataModel);
-
-            self.loadPageData = function() {
-                debugger;
-                    // GET LinkForm Data
-                $.ajax({
-                        url: "LinkForm/GetLinkForm/?periodId=1",
-                        method: "GET"
-                    })
-                    .done(function (data) {
-                        if (data == "Error") {
-                            $('#msgs').html("Error - no data");
-                        }
-                        else {
-                            $('#msgs').html("Fetch success");
-                            debugger;
-                            dtoDataModel = data;
-                        }
-                    })
-                    .fail(function () {
-                    $('#msgs').html("Error occured");
-
-                    // if cannot load LinkMeeting for the given period
-                });
-            }
-            self.saveLinkForm = function() {
-                // POST LinkForm data back to server.
-            }
-        }
-
-        $(document).ready(function () {
-            debugger;
-            var vm = new PageViewModel();
-            vm.loadPageData();
-        });
-    });
 </script>
