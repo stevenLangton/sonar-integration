@@ -5,12 +5,11 @@ using System.Web;
 
 namespace JsPlc.Ssc.Link.Portal.Models
 {
-    public class Questions
+    public class Question
     {
         public int Id { get; set; }
         public string Description { get; set; }
         public int PeriodId { get; set; }
-      
-      
+        public Answer Answer { get; set; }
     }
 }

@@ -8,6 +8,8 @@
     <title>@ViewBag.Title - Links Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src="~/Scripts/require.js"></script>
+    <script type="text/javascript" src="~/Scripts/require.config.js"></script>
     <meta name="description" content="Links application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
 <body>
@@ -33,19 +35,17 @@
                 </div>
             </div>*@
     </div>
-    <div class="row" style="padding: 0 40%">
-        <small>
-            <div class="visible-xs">XtraSmall</div>
-            <div class="visible-sm">Small</div>
-            <div class="visible-md">Medium</div>
-            <div class="visible-lg">Large</div>
-        </small>
+    <div class="row" style="padding: 0 40%; font-size: smaller">
+        <div class="visible-xs">XtraSmall</div>
+        <div class="visible-sm">Small</div>
+        <div class="visible-md">Medium</div>
+        <div class="visible-lg">Large</div>
     </div>
     <header class="link-banner">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4 col-xs-5">
-                    <img src="~/Content/Images/LinkLogo.png" class="logo pull-left" alt="Link logo" title="Link logo"/>
+                    <img src="~/Content/Images/LinkLogo.png" class="logo pull-left" alt="Link logo" title="Link logo" />
                 </div>
                 <div class="col-md-5 col-sm-7" style="display:inline-block;">
                     <h2>State-of-the-art colleagues appraisal system.</h2>
@@ -71,8 +71,9 @@
         </div>
     </nav>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*@Scripts.Render("~/bundles/knockout")*@
+    @*@RenderSection("scripts", required: false)*@
 </body>
 </html>

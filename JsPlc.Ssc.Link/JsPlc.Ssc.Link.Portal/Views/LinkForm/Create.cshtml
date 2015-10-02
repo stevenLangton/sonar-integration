@@ -1,9 +1,11 @@
-﻿
+﻿@Model = LinkForm
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>New Link Form</h2>
+<!-- Build a knockout ajax GET to get LinkForm with Questions. -->
+<!-- Parse the ViewModel back in a postback -->
 
 <ol class="breadcrumb">
     <li class="active">Colleague Name</li>
@@ -11,8 +13,6 @@
     <li class="active">Line Manger Name</li>
     <li class="active">Line Manger ID</li>
 </ol>
-
-
 
 <!-- Columns are always 50% wide, on mobile and desktop -->
 <div class="row">
@@ -71,4 +71,13 @@
     Complete <input id="Checkbox1" type="checkbox" /> <button type="button" class="btn btn-default">Save</button> &nbsp; <button type="button" class="btn btn-default">Download</button>
 
 </div>
+<script type="text/javascript">
+        require(["jquery", "knockout"], function($, ko) {
+            $(document).ready(function() {
+                alert("Hello jquery");
+            }); 
+        });
+</script>
     
+
+   
