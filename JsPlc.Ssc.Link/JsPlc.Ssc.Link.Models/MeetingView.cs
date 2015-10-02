@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace JsPlc.Ssc.Link.Models
 {
@@ -11,10 +12,10 @@ namespace JsPlc.Ssc.Link.Models
         public string ManagerName { get; set; }
         public int PeriodId { get; set; }
         public string PeriodDescription { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public MeetingStatus Status { get; set; }
         public DateTime MeetingDate { get; set; }
-        public int QuestionId { get; set; }
-        public string ColleagueComments { get; set; }
-        public string ManagerComments { get; set; }
+        public IEnumerable<AnswerView> Questions { get; set; }
     }
 }

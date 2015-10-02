@@ -25,19 +25,14 @@ namespace JsPlc.Ssc.Link.Repository
 
         public MeetingView GetMeeting(int meetingId)
         {
-            var result = (from m in db.Meeting
+            // Get meeting details along with manager details
+            var meeting = (from m in db.Meeting
                 join p in db.Periods on m.PeriodId equals p.Id
-                join q in db.Questions on m.PeriodId equals q.PeriodId into q_join
-                from q in q_join.DefaultIfEmpty()
-                join a in db.Answers
-                    on new {m.Id, Column1 = q.Id}
-                    equals new {Id = a.LinkMeetingId, Column1 = a.QuestionId} into a_join
-                from a in a_join.DefaultIfEmpty()
-                join e in db.Employees on new {EmployeeId = m.EmployeeId} equals new {EmployeeId = e.Id} into e_join
+                join e in db.Employees on m.EmployeeId equals e.Id into e_join
                 from e in e_join.DefaultIfEmpty()
-                join mm in db.Employees on new {ManagerId = e.ManagerId} equals new {ManagerId = mm.Id} into mm_join
-                from mm in mm_join.DefaultIfEmpty()
-                where m.Id == meetingId
+                join mm in db.Employees on e.ManagerId equals mm.Id into m_join
+                from mm in m_join.DefaultIfEmpty()
+                where m.Id== meetingId
                 select new MeetingView()
                 {
                     MeetingId = m.Id,
@@ -45,16 +40,29 @@ namespace JsPlc.Ssc.Link.Repository
                     PeriodId = m.PeriodId,
                     PeriodDescription = p.Description,
                     EmployeeId = e.EmployeeId,
-                    EmployeeName = string.Concat(e.FirstName, e.LastName),
+                    EmployeeName = string.Concat(e.FirstName," "+ e.LastName),
                     ManagerId = mm.EmployeeId,
-                    ManagerName = string.Concat(mm.FirstName, mm.LastName),
+                    ManagerName = string.Concat(mm.FirstName," "+ mm.LastName),
                     Status = m.Status,
-                    QuestionId = q.Id,
-                    ColleagueComments = a.ColleagueComments,
-                    ManagerComments = a.ManagerComments
+                    Start = p.Start,
+                    End=p.End
                 }).FirstOrDefault();
 
-            return result;
+            //Get questions with answers for particular meeting
+            var question = from q in db.Questions
+                           join a in db.Answers on new {q.Id, LinkMeetingId = meetingId }  equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
+                from a in a_join.DefaultIfEmpty()
+                select new AnswerView()
+                {
+                    Id = a.Id,
+                    QuestionId = q.Id,
+                    Question = q.Description,
+                    CollegueComment = a.ColleagueComments,
+                    ManagerComment = a.ManagerComments
+                };
+
+            meeting.Questions = question;
+            return meeting;
         }
 
         public IEnumerable<MeetingView> GetMeetings(int employeeId)
