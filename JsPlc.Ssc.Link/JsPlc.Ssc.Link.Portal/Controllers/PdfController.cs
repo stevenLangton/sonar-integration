@@ -13,9 +13,21 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     public class PdfController : Controller
     {
+        private Lazy<LinkServiceFacade> _LinkService;
+
+        public PdfController()
+        {
+            _LinkService = new Lazy<LinkServiceFacade>();
+        }
+
         // GET: Pdf
         public ActionResult New()
         {
+            //Test
+            _LinkService.Value.GetAMeeting(1);
+
+            //End test
+
             String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
 
             MemoryStream newFileStream = new MemoryStream();
