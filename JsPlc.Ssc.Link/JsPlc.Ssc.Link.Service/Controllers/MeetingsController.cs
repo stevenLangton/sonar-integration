@@ -39,12 +39,12 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
         // POST: api/Meetings
         [HttpPost]
-        public IHttpActionResult SaveMeeting(LinkMeeting meeting )
+        public IHttpActionResult SaveMeeting(MeetingView meetingView )
         {
             if (!ModelState.IsValid)
                 return BadRequest();
             
-            _db.SaveMeeting(meeting);
+            _db.SaveMeeting(meetingView);
             return Ok();
             //return CreatedAtRoute("api/answers", meeting, meeting);
         }

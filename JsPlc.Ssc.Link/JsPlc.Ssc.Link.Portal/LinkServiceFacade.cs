@@ -24,7 +24,7 @@ namespace JsPlc.Ssc.Link.Portal
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public void GetQuestion(Int32 Id)
+        public void GetQuestion(int Id)
         {
             HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + Id.ToString()).Result;
 
@@ -38,7 +38,7 @@ namespace JsPlc.Ssc.Link.Portal
             }
         }
 
-        public MeetingView GetMeeting(Int32 Id)
+        public MeetingView GetMeeting(int Id)
         {
             HttpResponseMessage response = _client.Value.GetAsync("meetings/" + Id.ToString()).Result;
 

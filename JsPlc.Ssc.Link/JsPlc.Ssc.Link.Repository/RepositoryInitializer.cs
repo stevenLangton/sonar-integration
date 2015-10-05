@@ -20,12 +20,11 @@ namespace JsPlc.Ssc.Link.Repository
             context.SaveChanges();
 
             var questions = new List<Question> { 
-            new Question{Id=1,Description="What am I going to do make more of a difference?", PeriodId = 1},
-            new Question{Id=2,Description="How will I learn and grow to make even more of a difference?" , PeriodId = 1},
-            new Question{Id=3,Description="My career goals: How can I learn and grow to be the best I can be?" , PeriodId = 1},
-            new Question{Id=4,Description="What contributions have I made and what was the resulting difference?" , PeriodId = 1},
-            new Question{Id=5,Description="Where could I have made a greater difference?" , PeriodId = 1}
-            
+            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?" , PeriodId = 1},
+            new Question{Id=2,Description="Where could I have made a greater difference?" , PeriodId = 1},
+            new Question{Id=3,Description="What am I going to do make more of a difference?", PeriodId = 1},
+            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?" , PeriodId = 1},
+            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?" , PeriodId = 1}
             };
             
             questions.ForEach(c => context.Questions.Add(c));            
@@ -79,16 +78,16 @@ namespace JsPlc.Ssc.Link.Repository
             context.SaveChanges();
 
             var answers = new List<Answer>{
-                new Answer{Id=1, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=1,LinkMeetingId = 1},
-                new Answer{Id=2, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=2 ,LinkMeetingId = 1},
-                new Answer{Id=3, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=3,LinkMeetingId = 1},
-                new Answer{Id=4, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=4,LinkMeetingId = 1},
-                new Answer{Id=5, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=5,LinkMeetingId = 1},
-                new Answer{Id=6, ManagerComments="More Organizational skills", ColleagueComments="I can contribute my organizational skills and my ability to work well in a group.", QuestionId=1, LinkMeetingId = 10},
-                new Answer{Id=7, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=2, LinkMeetingId = 10},
-                new Answer{Id=8, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=3, LinkMeetingId = 10},
-                new Answer{Id=9, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=4, LinkMeetingId = 10},
-                new Answer{Id=10, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=5, LinkMeetingId = 10}
+                new Answer{Id=1, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 1},
+                new Answer{Id=2, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId = 1},
+                new Answer{Id=3, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 1},
+                new Answer{Id=4, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 1},
+                new Answer{Id=5, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 1},
+                new Answer{Id=6, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1, LinkMeetingId = 10},
+                new Answer{Id=7, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2, LinkMeetingId = 10},
+                new Answer{Id=8, ManagerComments="More Organizational skills", ColleagueComments="I can contribute my organizational skills and my ability to work well in a group.", QuestionId=3, LinkMeetingId = 10},
+                new Answer{Id=9, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4, LinkMeetingId = 10},
+                new Answer{Id=10, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5, LinkMeetingId = 10}
              };
 
             answers.ForEach(c => context.Answers.Add(c));
