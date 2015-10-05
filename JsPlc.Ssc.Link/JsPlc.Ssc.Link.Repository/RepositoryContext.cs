@@ -8,10 +8,15 @@ namespace JsPlc.Ssc.Link.Repository
     public class RepositoryContext:DbContext,IRepositoryContext
     {
         public IDbSet<Question> Questions { get; set; }
+
         public IDbSet<Answer> Answers { get; set; }
+
         public IDbSet<Employee> Employees { get; set; }
+
         public IDbSet<Period> Periods { get; set; }
+
         public IDbSet<User> Users { get; set; }
+
         public IDbSet<LinkMeeting> Meeting { get; set; }
 
         
