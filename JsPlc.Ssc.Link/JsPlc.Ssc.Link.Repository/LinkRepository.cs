@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using JsPlc.Ssc.Link.Models;
 
@@ -15,12 +16,12 @@ namespace JsPlc.Ssc.Link.Repository
 
         public IEnumerable<Period> GetPeriods()
         {
-            return db.Periods.ToList();
+            return db.Periods.ToList().OrderBy(p=>p.Id);
         }
 
         public IEnumerable<Question> GetQuestions(int periodId)
         {
-           return db.Questions.Where(q => q.PeriodId == periodId);
+           return db.Questions.Where(q => q.PeriodId == periodId).OrderBy(q=>q.Id);
         }
 
         public EmployeeView GetEmployee(int id)
@@ -59,7 +60,7 @@ namespace JsPlc.Ssc.Link.Repository
                 from e in e_join.DefaultIfEmpty()
                 join mm in db.Employees on e.ManagerId equals mm.Id into m_join
                 from mm in m_join.DefaultIfEmpty()
-                where m.Id== meetingId
+                where m.Id== meetingId 
                 select new MeetingView()
                 {
                     MeetingId = m.Id,
@@ -77,13 +78,14 @@ namespace JsPlc.Ssc.Link.Repository
 
             //Get questions with answers for particular meeting
             var question = from q in db.Questions
-                           join a in db.Answers on new {q.Id, LinkMeetingId = meetingId }  equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
+                join a in db.Answers on new {q.Id, LinkMeetingId = meetingId} equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
                 from a in a_join.DefaultIfEmpty()
-                select new AnswerView()
+                where q.PeriodId==meeting.PeriodId
+                select new QuestionView()
                 {
-                    AnswerId  = a.Id,
                     QuestionId = q.Id,
                     Question = q.Description,
+                    AnswerId = a.Id,
                     CollegueComment = a.ColleagueComments,
                     ManagerComment = a.ManagerComments
                 };
@@ -116,7 +118,7 @@ namespace JsPlc.Ssc.Link.Repository
             //Get questions with answers for particular meeting
             var question = from q in db.Questions 
                            where q.PeriodId==periodId
-                           select new AnswerView()
+                           select new QuestionView()
                            {
                                QuestionId = q.Id,
                                Question = q.Description,
@@ -133,21 +135,33 @@ namespace JsPlc.Ssc.Link.Repository
             return null;
         }
 
-        public int SaveMeeting(LinkMeeting meeting)
+        public int SaveMeeting(MeetingView view)
         {
+            int empId = db.Employees.Where(e => e.EmployeeId == view.EmployeeId).Select(e => e.Id).FirstOrDefault();
 
-            var result= db.Meeting.Add(meeting);
-            
-            if (meeting.Answers != null)
+            LinkMeeting meeting = new LinkMeeting()
             {
-                foreach (var answer in meeting.Answers)
-                {
-                    answer.LinkMeetingId = result.Id;
-                    db.Answers.Add(answer);
-                }
-            }
-
+                EmployeeId = empId,
+                PeriodId = view.PeriodId,
+                MeetingDate = view.MeetingDate,
+                Status = view.Status
+            };
+            var result= db.Meeting.Add(meeting);
             db.SaveChanges();
+
+            foreach (var answer in view.Questions)
+            {
+                Answer _answer = new Answer()
+                {
+                     ColleagueComments = answer.CollegueComment,
+                     ManagerComments = answer.ManagerComment,
+                     QuestionId = answer.QuestionId,
+                     LinkMeetingId = result.Id
+                };
+                db.Answers.Add(_answer);
+                db.SaveChanges();
+            }
+            
             return result.Id;
         }
 
