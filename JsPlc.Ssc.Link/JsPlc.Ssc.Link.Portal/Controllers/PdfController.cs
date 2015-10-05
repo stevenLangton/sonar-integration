@@ -32,9 +32,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             var AppSettings = ConfigurationManager.AppSettings;
 
+            var AppBasePath = Request.ApplicationPath;
+
             var MeetingTemplateFileName = AppSettings["MeetingTemplateFileName"]??@"\PdfTemplates\MeetingTemplate.pdf";
 
-            var TemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
+            //var TemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
+            
+            var TemplateFileName = Path.Combine(AppBasePath, MeetingTemplateFileName);
+            TemplateFileName = HttpContext.Server.MapPath(TemplateFileName);
 
             MakeMeetingPdf(newFileStream, TemplateFileName, MeetingId);//TODO: Get meeting id from input
 
