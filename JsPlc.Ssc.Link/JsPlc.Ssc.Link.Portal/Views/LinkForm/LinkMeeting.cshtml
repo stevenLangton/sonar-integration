@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "LinkMeeting";
+}
+
+<h2>LinkMeeting</h2>
+
+<div>
+    <h4>LinkForm</h4>
+    <hr />
+    <div id="msgs" style="background-color: silver; font-weight: bold"></div>
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Completed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Completed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeetingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MeetingDate)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<script type="text/javascript">
+</script>
