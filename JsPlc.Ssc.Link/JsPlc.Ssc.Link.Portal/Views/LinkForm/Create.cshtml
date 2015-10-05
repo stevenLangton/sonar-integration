@@ -70,7 +70,7 @@
 </div>
 
 <script type="text/javascript">
-    require(["jquery", "knockout"], function ($, ko) {
+    require(["jquery", "knockout", "moment"], function ($, ko, moment) {
 
         function PageViewModel() {
 
@@ -78,8 +78,9 @@
             var buildViewModels = function(data) {
                 var meeting = new MeetingViewModel(); // build this.. later
                 debugger;
-                
-                self.dataModel.MeetingDate = ko.observable(data.MeetingDate);
+                var mdate = moment(data.MeetingDate);
+
+                self.dataModel.MeetingDate = ko.observable(mdate);
                 self.dataModel.Id = ko.observable(data.Id);
                 self.dataModel.Completed = ko.observable(data.Completed);
             };
