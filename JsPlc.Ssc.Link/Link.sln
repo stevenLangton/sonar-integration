@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj", "{A5A6F815-7A8D-463F-9F01-E2610E533A4B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9} = {90A5415E-8A42-4AAA-875B-33EEB0FC69B9}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portal", "Portal", "{BE94DAAE-F62A-471A-A2E9-4548E716D8DD}"
 EndProject
@@ -14,6 +17,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{AF9C31F9-6DCE-4FE3-B3EF-9DA495FAF663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Service", "JsPlc.Ssc.Link.Service\JsPlc.Ssc.Link.Service.csproj", "{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{551CB1B4-E458-451B-914E-94CABB5F91DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Models", "JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj", "{589E97D6-1D3D-4214-9871-005E7B01E4B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +40,10 @@ Global
 		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +52,6 @@ Global
 		{A5A6F815-7A8D-463F-9F01-E2610E533A4B} = {BE94DAAE-F62A-471A-A2E9-4548E716D8DD}
 		{B995B495-D846-4EB5-80FB-B55B71028B94} = {9FEB778D-8E8F-4B83-9D00-6E9D2CF25AEF}
 		{90A5415E-8A42-4AAA-875B-33EEB0FC69B9} = {AF9C31F9-6DCE-4FE3-B3EF-9DA495FAF663}
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5} = {551CB1B4-E458-451B-914E-94CABB5F91DB}
 	EndGlobalSection
 EndGlobal
