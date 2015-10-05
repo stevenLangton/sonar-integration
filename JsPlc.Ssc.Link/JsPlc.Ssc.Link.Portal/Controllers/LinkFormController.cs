@@ -5,6 +5,7 @@ using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Script.Services;
 using System.Web.Services.Description;
+using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Models.MockData;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     public class LinkFormController : Controller
     {
         [ScriptMethod(UseHttpGet = true)]
-        public JsonResult GetLinkForm(int periodId)
+        public JsonResult GetLinkForm(int employeeId, int periodId)
         {
             using (var client = new HttpClient())
             {
@@ -33,11 +34,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
                 // New code:
                 HttpResponseMessage response =
-                    client.GetAsync(String.Format("{0}/api/questions/?periodId={1}",
-                    ConfigurationManager.AppSettings["ServicesBaseUrl"], periodId)).Result;
+                    client.GetAsync(String.Format("{0}/api/Meetings/?employeeId={1}&periodId={2}",
+                    ConfigurationManager.AppSettings["ServicesBaseUrl"], employeeId, periodId)).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    ViewBag.result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
+                    ViewBag.result = response.Content.ReadAsAsync<MeetingView>().Result;
                 }
                 else
                 {
@@ -48,13 +49,13 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                     };
                 }
             }
-            var linkForm = MockData.MockLinkForm();
-            linkForm.Questions = ViewBag.result;
+            //var linkForm = MockData.MockLinkForm();
+            //linkForm.Questions = ViewBag.result;
 
             var jsonData = new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = linkForm
+                Data = ViewBag.result
             };
             return jsonData;
         }
@@ -62,7 +63,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.HttpPost]
         public HttpResponseMessage PostLinkForm(FormCollection formData)
         {
-            var jsonData = formData["LinkForm"];
+            var jsonData = formData["linkForm"];
             
             // WE HAVE JSON Data... 
             // TODO - Convert Json to LinkForm object

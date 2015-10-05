@@ -8,66 +8,93 @@
     <div id="msgs"></div>
     <form id="myform" method="post" data-bind="submit: saveLinkForm">
         <ol class="breadcrumb">
-            <li class="active">Colleague Name</li>
-            <li class="active">Colleague ID</li>
-            <li class="active">Line Manger Name</li>
-            <li class="active">Line Manger ID</li>
+            <li class="active">
+                <strong>Colleague: </strong><span data-bind="text: $root.dataModel().EmployeeName  + ' (' + $root.dataModel().EmployeeId + ')'"></span>
+            </li>
+            <li class="active">
+                <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
+            </li>
         </ol>
 
         <!-- Columns are always 50% wide, on mobile and desktop -->
-        <div class="row">
+        <div class="row" data-bind="with: dataModel, visible: dataAvailable">
             <!--Looking Back -->
-            <div class="col-xs-6" style="border: solid 1px black;" data-bind="visible: $root.dataAvailable">
+            <div class="col-xs-6">
                 <h3>Looking Back</h3>
                 <!-- LinkForm data items here -->
-                <div>
-                    Meeting Date: <input type="text" id="MeetingDate" data-bind="value: $root.dataModel.MeetingDate" name="MeetingDate" /><br />
-                    Complete <input id="Checkbox1" type="checkbox" data-bind="checked: $root.dataModel.Completed" name="Completed" />
-                </div>
-                <hr />
-                <h2>QUESTIONS:</h2>
-                <br />
-                <!-- QUESTIONS Loop around this -->
-                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                                    <strong>Q.</strong><span name="question1">blah blah</span>
-                                </a>
-                            </h4>
+                <div style="border: solid 1px black;">
+                    <h4>QUESTIONS:</h4>
+                    <br />
+                    <!-- QUESTIONS Loop around this -->
+                    <div data-bind="foreach: LookingBackQuestions">
+                        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, name: 'Question[' + QuestionId + '].Question'"></span>
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <textarea xdata-bind="text: name: "></textarea><br />
+                                        <textarea name="answer2"></textarea>
+                                    </div>
+                                </div>
+                            </div><!-- / question -->
                         </div>
 
-                        <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <textarea name="answer1"></textarea><br />
-                                @*<strong>Colleague Comments</strong>
-                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>*@
-                                <textarea name="answer2"></textarea>
-
-                                @*<strong>Line Manager Comments</strong>
-                                    <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>*@
-                            </div>
-                        </div>
                     </div>
-                </div><!-- / question -->
+                </div>
             </div>
-
             <!-- Looking Forward -->
             <div class="col-xs-6">
                 <h3>Looking Forward</h3>
-                <!-- Link form for next period say..-->
+                <!-- LinkForm data items here -->
+                <div style="border: solid 1px black;">
+                    <h4>QUESTIONS:</h4>
+                    <br />
+                    <!-- QUESTIONS Loop around this -->
+                    <div data-bind="foreach: LookingFwdQuestions">
+                        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, name: 'Question[' + QuestionId + '].Question'"></span>
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <textarea xdata-bind="text: name: "></textarea><br />
+                                        <textarea name="answer2"></textarea>
+                                    </div>
+                                </div>
+                            </div><!-- / question -->
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div><!-- / ko linkpage -->
+
+        </div>
 
         <br />
         <hr />
         <div class="well" style="text-align:right;">
+            <div>
+                Meeting Date: <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" name="MeetingDate" /><br />
+                Complete <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
+            </div>
+            <hr />
             <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
             &nbsp; <a href="pdf/new/?MeetingId=10" class="btn btn-default">Download</a>
         </div>
     </form>
-</div>
+</div><!-- / ko linkpage -->
 
 <script type="text/javascript">
     require(["jquery", "knockout", "moment"], function ($, ko, moment) {
@@ -75,14 +102,32 @@
         function PageViewModel() {
 
             var self = this;
-            var buildViewModels = function(data) {
-                var meeting = new MeetingViewModel(); // build this.. later
-                debugger;
-                var mdate = moment(data.MeetingDate);
+            var buildViewModels = function (data) {
+                var mdate = moment(data.MeetingDate).day() + "/" + moment(data.MeetingDate).month() + "/" + moment(data.MeetingDate).year();
 
-                self.dataModel.MeetingDate = ko.observable(mdate);
-                self.dataModel.Id = ko.observable(data.Id);
-                self.dataModel.Completed = ko.observable(data.Completed);
+                debugger;
+                var meet = {
+                    EmployeeId: data.EmployeeId,
+                    ManagerId: data.ManagerId,
+                    ManagerName: data.ManagerName,
+                    EmployeeName: data.EmployeeName,
+                    MeetingDate: moment(data.MeetingDate).toLocaleString(),
+                    MeetingId: data.MeetingId,
+                    Completed: data.Status,
+                    LookingBackQuestions: [],
+                    LookingFwdQuestions: []
+                };
+                meet.LookingBackQuestions = data.Questions.slice(0, 2);
+                meet.LookingFwdQuestions = data.Questions.slice(2, 5);
+
+                //ko.utils.arrayForEach(data.Questions, function (ques) {
+                //    meet.Questions.push(ques);
+                //    // if no answers in question, add an answer model into question to receive input
+                //    //if (!ques.AnswwerId)
+                //            //AnswerId: 0, ColleagueComment: "", ManagerComment: ""
+                //    //}
+                //});
+                self.dataModel(meet);
             };
             self.dataModel = ko.observable(""); // LinkForm object
             self.dataAvailable = ko.observable(false);
@@ -92,7 +137,7 @@
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function () {
                 $.ajax({
-                    url: "LinkForm/GetLinkForm/?periodId=1",
+                    url: "LinkForm/GetLinkForm/?employeeId=1&periodId=1",
                     method: "GET"
                 })
                     .done(function (data) {
@@ -105,8 +150,9 @@
                             debugger;
                             buildViewModels(data);
                             // hardcode some data (ideally, this data is populated by user on form)
-                            //data.MeetingDate("03/10/2015");
-                            //data.Completed(true);
+
+                            //data.MeetingDate = "03/10/2015";
+                            //data.Completed = true;
                             //self.dataModel(data);
 
                             self.dataAvailable(true);
@@ -121,28 +167,14 @@
                     });
             }
 
-            $("#myform").submit(function () {
-                var jqxhr = $.post('LinkForm/PostLinkForm', $('#myform').serialize())
-                    .success(function () {
-                        var loc = jqxhr.getResponseHeader('Location');
-                        var a = $('<a/>', { href: loc, text: loc });
-                        $('#message').html(a);
-                    })
-                    .error(function () {
-                        $('#message').html("Error posting the update.");
-                    });
-                return false;
-            });
-
             // ### POST LinkForm data back to server.
             self.saveLinkForm = function () {
                 console.log("Form data:" + $('#myform').serialize());
                 console.log("Form data(json):" + ko.toJSON(self.dataModel));
                 $.ajax({
                     url: "LinkForm/PostLinkForm",
-                    type: "POST",
                     method: "POST",
-                    data: { "LinkForm": ko.toJSON(self.dataModel) },
+                    data: { "linkForm": ko.toJSON(self.dataModel) },
                     contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
                 })
                 .done(function (data) {
@@ -159,6 +191,7 @@
             }
         }
 
+        // Not used yet.
         function MeetingViewModel() {
             self.Id = ko.observable('');
             self.MeetingDate = ko.observable('');
@@ -183,6 +216,7 @@
             var vm = new PageViewModel();
 
             var binder = function () {
+                debugger;
                 ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
             };
             vm.bind = binder;
@@ -192,4 +226,3 @@
         });
     });
 </script>
-
