@@ -22,7 +22,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         // GET: Pdf
-        public ActionResult New()
+        public ActionResult New(int MeetingId)
         {
             //End test
 
@@ -36,12 +36,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             var TemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
 
-            MakeMeetingPdf(newFileStream, TemplateFileName, 10);//TODO: Get meeting id from input
+            MakeMeetingPdf(newFileStream, TemplateFileName, MeetingId);//TODO: Get meeting id from input
 
             return File(newFileStream.GetBuffer(), MimeTypeStr, "Meeting.pdf");
         }
 
-        public MemoryStream MakeMeetingPdf(MemoryStream newFileStream, string fileNameExisting, Int32 MeetingId)
+        public MemoryStream MakeMeetingPdf(MemoryStream newFileStream, string fileNameExisting, int MeetingId)
         {
             using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open))
             {
