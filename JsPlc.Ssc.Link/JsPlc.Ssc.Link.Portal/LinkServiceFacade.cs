@@ -1,6 +1,8 @@
-﻿using JsPlc.Ssc.Link.Portal.Models;
+﻿using JsPlc.Ssc.Link.Models;
+//using JsPlc.Ssc.Link.Portal.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -15,22 +17,38 @@ namespace JsPlc.Ssc.Link.Portal
         public LinkServiceFacade()
         {
             _client = new Lazy<HttpClient>();
-            _client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.Service/api/");
+            //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.Service/api/");
+            _client.Value.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"] + "/api/");
+            
             _client.Value.DefaultRequestHeaders.Accept.Clear();
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public void GetAMeeting(Int64 MeetingId)
+        public void GetQuestion(Int32 Id)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + MeetingId.ToString()).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + Id.ToString()).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                var result = response.Content.ReadAsAsync<IEnumerable<Questions>>().Result;
+                var result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
             }
             else
             {
                 //ViewBag.result = "Error, Unable to connect to service.";
+            }
+        }
+
+        public MeetingView GetMeeting(Int32 Id)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("meetings/" + Id.ToString()).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsAsync<MeetingView>().Result;
+            }
+            else
+            {
+                return null;
             }
         }
 

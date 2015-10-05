@@ -292,6 +292,12 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj">
+      <Project>{589e97d6-1d3d-4214-9871-005e7b01e4b5}</Project>
+      <Name>JsPlc.Ssc.Link.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

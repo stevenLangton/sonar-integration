@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "Js
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal.Tests", "JsPlc.Ssc.Link.Portal.Tests\JsPlc.Ssc.Link.Portal.Tests.csproj", "{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Models", "JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj", "{589E97D6-1D3D-4214-9871-005E7B01E4B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
