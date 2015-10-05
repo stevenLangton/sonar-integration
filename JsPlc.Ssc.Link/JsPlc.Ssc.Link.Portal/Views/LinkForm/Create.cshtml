@@ -3,65 +3,68 @@
 }
 
 <h2>New Link Form</h2>
+<div id="linkpage"> <!-- knockout binding to this -->
+    <form id="myform" method="post" data-bind="submit: saveLinkForm">
+        <ol class="breadcrumb">
+            <li class="active">Colleague Name</li>
+            <li class="active">Colleague ID</li>
+            <li class="active">Line Manger Name</li>
+            <li class="active">Line Manger ID</li>
+        </ol>
 
-<ol class="breadcrumb">
-    <li class="active">Colleague Name</li>
-    <li class="active">Colleague ID</li>
-    <li class="active">Line Manger Name</li>
-    <li class="active">Line Manger ID</li>
-</ol>
-
-<!-- Columns are always 50% wide, on mobile and desktop -->
-<div class="row" id="linkpage">
-    <div class="col-xs-6" style="border: solid 1px black;">
-        <h3>Looking Back</h3>
-        <!-- LinkForm data items here -->
-        <div>
-            Meeting Date: <input type="text" id="MeetingDate" data-bind="value: $root.MeetingDate" /><br />
-            Complete <input id="Checkbox1" type="checkbox" data-bind="checked: $root.Completed" />
-        </div>
-        <hr />
-        <h2>QUESTIONS:</h2>
-        <br />
-        <!-- QUESTIONS Loop around this -->
-        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                            <strong>Q.</strong><span name="question1">blah blah</span>
-                        </a>
-                    </h4>
+        <!-- Columns are always 50% wide, on mobile and desktop -->
+        <div class="row">
+            <!--Looking Back -->
+            <div class="col-xs-6" style="border: solid 1px black;" data-bind="visible: $root.dataAvailable">
+                <h3>Looking Back</h3>
+                <!-- LinkForm data items here -->
+                <div>
+                    Meeting Date: <input type="text" id="MeetingDate" data-bind="value: $root.dataModel.MeetingDate" name="MeetingDate" /><br />
+                    Complete <input id="Checkbox1" type="checkbox" data-bind="checked: $root.dataModel.Completed" name="Completed" />
                 </div>
+                <hr />
+                <h2>QUESTIONS:</h2>
+                <br />
+                <!-- QUESTIONS Loop around this -->
+                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+                                    <strong>Q.</strong><span name="question1">blah blah</span>
+                                </a>
+                            </h4>
+                        </div>
 
-                <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <textarea name="answer1"></textarea><br />
-                        @*<strong>Colleague Comments</strong>
-                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>*@
-                        <textarea name="answer2"></textarea>
+                        <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <textarea name="answer1"></textarea><br />
+                                @*<strong>Colleague Comments</strong>
+                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>*@
+                                <textarea name="answer2"></textarea>
 
-                        @*<strong>Line Manager Comments</strong>
-                            <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>*@
+                                @*<strong>Line Manager Comments</strong>
+                                    <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>*@
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </div><!-- / question -->
             </div>
+
+            <!-- Looking Forward -->
+            <div class="col-xs-6">
+                <h3>Looking Forward</h3>
+                <!-- Link form for next period say..-->
+            </div>
+        </div><!-- / ko linkpage -->
+
+        <br />
+        <hr />
+        <div class="well" style="text-align:right;">
+            <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
+            &nbsp; <button type="button" class="btn btn-default">Download</button>
         </div>
-
-    </div>
-
-
-    <div class="col-xs-6">
-        <h3>Looking Forward</h3>
-        <!-- Link form for next period say..-->
-    </div>
-</div><!-- /koex -->
-
-<br />
-<hr/>
-<div class="well" style="text-align:right;">
-    @*Complete <input id="Checkbox1" type="checkbox" data-bind="checked: $root.Completed" />*@
-    <button type="button" class="btn btn-default">Save</button> &nbsp; <button type="button" class="btn btn-default">Download</button>
+    </form>
 </div>
 
 <script type="text/javascript">
@@ -71,15 +74,13 @@
 
             var self = this;
 
-            var dtoDataModel=ko.observable("");
+            self.dataModel = ko.observable(""); // LinkForm object
+            self.dataAvailable = ko.observable(false);
 
-            self.dataModel = dtoDataModel;
-            self.dataAvailable = false;
+            self.bind = function () { };
 
-            self.binder = function () { };
-
+            // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function () {
-                // GET LinkForm Data
                 $.ajax({
                     url: "LinkForm/GetLinkForm/?periodId=1",
                     method: "GET"
@@ -87,28 +88,63 @@
                     .done(function (data) {
                         if (data == "Error") {
                             $('#msgs').html("Error - no data");
-                            self.dataAvailable = true;
+                            self.dataAvailable(false);
                         }
                         else {
                             $('#msgs').html("Fetch success");
-                            data.MeetingDate = "03/10/2015";
-                            data.Completed = true;
-                            dtoDataModel(data);
-                            self.dataAvailable = true;
                             debugger;
-                            self.binder();
+                            // hardcode some data (ideally, this data is populated by user on form)
+                            data.MeetingDate("03/10/2015");
+                            data.Completed = true;
+
+                            self.dataModel(data);
+                            self.dataAvailable(true);
+                            self.bind();
                         }
                     })
                     .fail(function () {
-                        self.dataAvailable = true;
+                        self.dataAvailable(false);
                         $('#msgs').html("Error occured");
 
                         // if cannot load LinkMeeting for the given period
                     });
             }
 
+            $("#myform").submit(function () {
+                var jqxhr = $.post('LinkForm/PostLinkForm', $('#myform').serialize())
+                    .success(function () {
+                        var loc = jqxhr.getResponseHeader('Location');
+                        var a = $('<a/>', { href: loc, text: loc });
+                        $('#message').html(a);
+                    })
+                    .error(function () {
+                        $('#message').html("Error posting the update.");
+                    });
+                return false;
+            });
+
+            // ### POST LinkForm data back to server.
             self.saveLinkForm = function () {
-                // POST LinkForm data back to server.
+                console.log("Form data:" + $('#myform').serialize());
+                console.log("Form data(json):" + ko.toJSON(self.dataModel));
+                $.ajax({
+                    url: "LinkForm/PostLinkForm",
+                    type: "POST",
+                    method: "POST",
+                    data: {"LinkForm" : ko.toJSON(self.dataModel) }, 
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
+                })
+                .done(function (data) {
+                    debugger;
+                    // msg success and redirect to another page if needed
+                    // Define a standard message format for Post(aka Create) Response returned,
+                    //  which should contain location header for created resource.
+                    // We should redirect to that returned resource location URL.
+                    // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
+                })
+                .fail(function (jqXhr, textStatus, errorThrown) {
+                    // msg failure
+                });
             }
         }
 
@@ -117,16 +153,13 @@
             var vm = new PageViewModel();
 
             var binder = function () {
-                debugger;
-                if (vm.dataAvailable) {
-                    ko.applyBindings(vm.dataModel, $("#linkpage")[0]);
-                }
-            }
-            vm.binder = binder;
-            vm.loadPageData();
+                ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
+            };
+            vm.bind = binder;
 
+            // Show meeting data once loaded from GET
+            vm.loadPageData();
         });
     });
 </script>
-
 
