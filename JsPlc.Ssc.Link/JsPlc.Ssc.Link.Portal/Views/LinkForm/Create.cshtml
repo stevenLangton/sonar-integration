@@ -9,7 +9,7 @@
     <form id="myform" method="post" data-bind="submit: saveLinkForm">
         <ol class="breadcrumb">
             <li class="active">
-                <strong>Colleague: </strong><span data-bind="text: $root.dataModel().EmployeeName  + ' (' + $root.dataModel().EmployeeId + ')'"></span>
+                <strong>Collegue: </strong><span data-bind="text: $root.dataModel().EmployeeName  + ' (' + $root.dataModel().EmployeeId + ')'"></span>
             </li>
             <li class="active">
                 <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
@@ -27,20 +27,23 @@
                     <br />
                     <!-- QUESTIONS Loop around this -->
                     <div data-bind="foreach: LookingBackQuestions">
-                        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                        <div class="panel-group" data-bind="'id': 'accordion' + QuestionId" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-heading" role="tab" data-bind="'id': 'heading' + QuestionId">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, name: 'Question[' + QuestionId + '].Question'"></span>
+                                        <a role="button" data-toggle="collapse" data-bind="'data-parent': '#accordion' + QuestionId, href: '#collapse' + QuestionId" aria-expanded="true" aria-controls="collapseOne1">
+                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
+                                        <span class="row">
+                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, 'name': ('CollegueComment-' + QuestionId)" cols="400" rows="4"></textarea><br />
+                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, 'name': ('ManagerComment-' + QuestionId)" cols="400" rows="4"></textarea>
+                                        </span>
                                     </h4>
                                 </div>
 
-                                <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div data-bind="id: '#collapse' + QuestionId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
-                                        <textarea xdata-bind="text: name: "></textarea><br />
-                                        <textarea name="answer2"></textarea>
+                                        <!-- text areas for answers here -->
                                     </div>
                                 </div>
                             </div><!-- / question -->
@@ -58,20 +61,23 @@
                     <br />
                     <!-- QUESTIONS Loop around this -->
                     <div data-bind="foreach: LookingFwdQuestions">
-                        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                        <div class="panel-group" data-bind="'id': 'accordion' + QuestionId" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-heading" role="tab" data-bind="'id': 'heading' + QuestionId">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
-                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, name: 'Question[' + QuestionId + '].Question'"></span>
+                                        <a role="button" data-toggle="collapse" data-bind="'data-parent': '#accordion' + QuestionId, href: '#collapse' + QuestionId" aria-expanded="true" aria-controls="collapseOne1">
+                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
+                                        <span class="row">
+                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, 'name': ('CollegueComment-' + QuestionId)" cols="400" rows="4"></textarea><br />
+                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, 'name': ('ManagerComment-' + QuestionId)" cols="400" rows="4"></textarea>
+                                        </span>
                                     </h4>
                                 </div>
 
-                                <div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div data-bind="id: 'collapse' + QuestionId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
-                                        <textarea xdata-bind="text: name: "></textarea><br />
-                                        <textarea name="answer2"></textarea>
+                                        <!-- text areas for answers here -->
                                     </div>
                                 </div>
                             </div><!-- / question -->
@@ -84,14 +90,17 @@
 
         <br />
         <hr />
-        <div class="well" style="text-align:right;">
-            <div>
+        <div class="container-fluid well row col-xs-12" style="text-align: left;">
+            <div class="col-xs-6 right">
                 Meeting Date: <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" name="MeetingDate" /><br />
                 Complete <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
             </div>
-            <hr />
-            <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
-            &nbsp; <a href="pdf/new/?MeetingId=10" class="btn btn-default">Download</a>
+            <div class="col-xs-4 right">
+                <p>
+                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
+                    &nbsp; <a href="pdf/new/?MeetingId=10" class="btn btn-default">Download</a>
+                </p>
+            </div>
         </div>
     </form>
 </div><!-- / ko linkpage -->
@@ -103,15 +112,13 @@
 
             var self = this;
             var buildViewModels = function (data) {
-                var mdate = moment(data.MeetingDate).day() + "/" + moment(data.MeetingDate).month() + "/" + moment(data.MeetingDate).year();
-
-                debugger;
+                var meetingLocaleDate = moment(data.MeetingDate).format("DD/MM/YYYY");
                 var meet = {
                     EmployeeId: data.EmployeeId,
                     ManagerId: data.ManagerId,
                     ManagerName: data.ManagerName,
                     EmployeeName: data.EmployeeName,
-                    MeetingDate: moment(data.MeetingDate).toLocaleString(),
+                    MeetingDate: meetingLocaleDate,
                     MeetingId: data.MeetingId,
                     Completed: data.Status,
                     LookingBackQuestions: [],
@@ -124,9 +131,10 @@
                 //    meet.Questions.push(ques);
                 //    // if no answers in question, add an answer model into question to receive input
                 //    //if (!ques.AnswwerId)
-                //            //AnswerId: 0, ColleagueComment: "", ManagerComment: ""
+                //            //AnswerId: 0, CollegueComment: "", ManagerComment: ""
                 //    //}
                 //});
+                debugger;
                 self.dataModel(meet);
             };
             self.dataModel = ko.observable(""); // LinkForm object
@@ -171,6 +179,7 @@
             self.saveLinkForm = function () {
                 console.log("Form data:" + $('#myform').serialize());
                 console.log("Form data(json):" + ko.toJSON(self.dataModel));
+                debugger;
                 $.ajax({
                     url: "LinkForm/PostLinkForm",
                     method: "POST",
@@ -178,7 +187,6 @@
                     contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
                 })
                 .done(function (data) {
-                    debugger;
                     // msg success and redirect to another page if needed
                     // Define a standard message format for Post(aka Create) Response returned,
                     //  which should contain location header for created resource.
