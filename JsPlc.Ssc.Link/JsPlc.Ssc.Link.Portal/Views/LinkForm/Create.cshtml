@@ -3,7 +3,9 @@
 }
 
 <h2>New Link Form</h2>
-<div id="linkpage"> <!-- knockout binding to this -->
+<div id="linkpage">
+    <!-- knockout binding to this -->
+    <div id="msgs"></div>
     <form id="myform" method="post" data-bind="submit: saveLinkForm">
         <ol class="breadcrumb">
             <li class="active">Colleague Name</li>
@@ -73,7 +75,14 @@
         function PageViewModel() {
 
             var self = this;
-
+            var buildViewModels = function(data) {
+                var meeting = new MeetingViewModel(); // build this.. later
+                debugger;
+                
+                self.dataModel.MeetingDate = ko.observable(data.MeetingDate);
+                self.dataModel.Id = ko.observable(data.Id);
+                self.dataModel.Completed = ko.observable(data.Completed);
+            };
             self.dataModel = ko.observable(""); // LinkForm object
             self.dataAvailable = ko.observable(false);
 
@@ -93,11 +102,12 @@
                         else {
                             $('#msgs').html("Fetch success");
                             debugger;
+                            buildViewModels(data);
                             // hardcode some data (ideally, this data is populated by user on form)
-                            data.MeetingDate("03/10/2015");
-                            data.Completed = true;
+                            //data.MeetingDate("03/10/2015");
+                            //data.Completed(true);
+                            //self.dataModel(data);
 
-                            self.dataModel(data);
                             self.dataAvailable(true);
                             self.bind();
                         }
@@ -131,7 +141,7 @@
                     url: "LinkForm/PostLinkForm",
                     type: "POST",
                     method: "POST",
-                    data: {"LinkForm" : ko.toJSON(self.dataModel) }, 
+                    data: { "LinkForm": ko.toJSON(self.dataModel) },
                     contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
                 })
                 .done(function (data) {
@@ -146,6 +156,25 @@
                     // msg failure
                 });
             }
+        }
+
+        function MeetingViewModel() {
+            self.Id = ko.observable('');
+            self.MeetingDate = ko.observable('');
+            self.Completed = ko.observable('');
+            self.Questions = ko.observableArray([]);
+        }
+
+        function QuestionViewModel() {
+            self.Id = ko.observable('');
+            self.QuestionText = ko.observable('');
+            self.Answers = ko.observableArray([]);
+        }
+
+        function AnswerViewModel() {
+            self.Id = ko.observable('');
+            self.EmployeeComments = ko.observable('');
+            self.ManagerComments = ko.observable('');
         }
 
         $(document).ready(function () {
