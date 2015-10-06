@@ -18,7 +18,7 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"]);
+                //client.BaseAddress = new Uri();
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -31,9 +31,11 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 //}
 
                 // HTTP POST
-                
+                var serviceUrl = String.Format("{0}api/Meetings", ConfigurationManager.AppSettings["ServicesBaseUrl"]);
+                Trace.WriteLine("serviceUrl:" + serviceUrl);
                 Trace.WriteLine("Sending meeting for create:" + meetingViewJson);
-                var response = await client.PostAsJsonAsync("api/Meetings", meetingViewJson);
+                var response = await client.PostAsJsonAsync(serviceUrl,meetingViewJson);
+
                 if (!response.IsSuccessStatusCode)
                     return new HttpResponseMessage {StatusCode = HttpStatusCode.NotImplemented};
                 

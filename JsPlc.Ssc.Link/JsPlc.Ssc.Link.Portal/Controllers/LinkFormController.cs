@@ -26,7 +26,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     public class LinkFormController : Controller
     {
         [ScriptMethod(UseHttpGet = true)]
-        public JsonResult GetLinkForm(int employeeId, int periodId)
+        public JsonResult GetLinkForm(string employeeId, int periodId)
         {
             using (var client = new HttpClient())
             {

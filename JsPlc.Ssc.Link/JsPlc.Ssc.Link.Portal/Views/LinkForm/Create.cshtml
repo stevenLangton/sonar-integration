@@ -9,7 +9,7 @@
     <form id="myform" method="post" data-bind="submit: saveLinkForm">
         <ol class="breadcrumb">
             <li class="active">
-                <strong>Collegue: </strong><span data-bind="text: $root.dataModel().EmployeeName  + ' (' + $root.dataModel().EmployeeId + ')'"></span>
+                <strong>Collegue: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
             </li>
             <li class="active">
                 <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
@@ -121,9 +121,10 @@
                 debugger;
                 meetingView = {
                     EmployeeId: data.EmployeeId,
+                    ColleagueId: data.ColleagueId,
                     ManagerId: data.ManagerId,
                     ManagerName: data.ManagerName,
-                    EmployeeName: data.EmployeeName,
+                    ColleagueName: data.ColleagueName,
                     MeetingDate: meetingDate,
                     MeetingId: data.MeetingId,
                     Completed: data.Status,
@@ -159,7 +160,7 @@
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function () {
                 $.ajax({
-                    url: "LinkForm/GetLinkForm/?employeeId=1&periodId=1",
+                    url: "LinkForm/GetLinkForm/?employeeId=e001&periodId=1", // Hardcoded Meeting GET for now...
                     method: "GET"
                 })
                     .done(function (data) {
@@ -191,6 +192,7 @@
 
                 // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
                 var data = self.dataModel();
+                data.Questions = [];
                 ko.utils.arrayForEach(data.LookingBackQuestions, function(ques) {
                     data.Questions.push(ques);
                 });
