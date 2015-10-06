@@ -9,7 +9,9 @@ require.config({
         "jqueryval": "jquery.validate.min",
         "knockout": "knockout-3.3.0.debug",
         "moment": 'moment-with-locales',
-        "helpers": "Utils/helpers"
+        "helpers": "Utils/helpers",
+        "linkDatePickers": "utils/linkDatePickers",
+        "bootstrap-datepicker": "bootstrap-datepicker"
         //komoment: 'path/to/komoment', // KoMoment potentially useful
         //"datatables": "DataTables/jquery.dataTables",
 
