@@ -35,8 +35,8 @@
                                             <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
                                         <span class="row">
-                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, 'name': 'CollegueComment'" cols="400" rows="4"></textarea><br />
-                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, 'name': 'ManagerComment'" cols="400" rows="4"></textarea>
+                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" cols="400" rows="4"></textarea><br />
+                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" cols="400" rows="4"></textarea>
                                         </span>
                                     </h4>
                                 </div>
@@ -69,8 +69,8 @@
                                             <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
                                         <span class="row">
-                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, 'name': 'CollegueComment'" cols="400" rows="4"></textarea><br />
-                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, 'name': 'ManagerComment'" cols="400" rows="4"></textarea>
+                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" cols="400" rows="4"></textarea><br />
+                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" cols="400" rows="4"></textarea>
                                         </span>
                                     </h4>
                                 </div>
@@ -111,32 +111,45 @@
         function PageViewModel() {
 
             var self = this;
+
+            var meetingView;
             var buildViewModels = function (data) {
-                var meetingLocaleDate = moment(data.MeetingDate).format("DD/MM/YYYY");
-                var meet = {
+                // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
+                moment.lang("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+                var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+
+                debugger;
+                meetingView = {
                     EmployeeId: data.EmployeeId,
                     ManagerId: data.ManagerId,
                     ManagerName: data.ManagerName,
                     EmployeeName: data.EmployeeName,
-                    MeetingDate: meetingLocaleDate,
+                    MeetingDate: meetingDate,
                     MeetingId: data.MeetingId,
                     Completed: data.Status,
-                    LookingBackQuestions: ko.observableArray([]),
-                    LookingFwdQuestions: ko.observableArray([]),
+                    LookingBackQuestions: [],
+                    LookingFwdQuestions: [],
                     Questions: []
                 };
-                meet.LookingBackQuestions(data.Questions.slice(0, 2));
-                meet.LookingFwdQuestions(data.Questions.slice(2, 5));
+                ko.utils.arrayForEach(data.Questions, function(ques) {
+                    if (!ques.CollegueComment)
+                        {ques.CollegueComment = "colleague type here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                    if (!ques.ManagerComment)
+                    { ques.ManagerComment = "manager type here"; }
+                });
+
+                meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
+                meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
 
                 //ko.utils.arrayForEach(data.Questions, function (ques) {
-                //    meet.Questions.push(ques);
+                //    meetingView.Questions.push(ques);
                 //    // if no answers in question, add an answer model into question to receive input
                 //    //if (!ques.AnswwerId)
                 //            //AnswerId: 0, CollegueComment: "", ManagerComment: ""
                 //    //}
                 //});
                 debugger;
-                self.dataModel(meet);
+                self.dataModel(meetingView);
             };
             self.dataModel = ko.observable(""); // LinkForm object
             self.dataAvailable = ko.observable(false);
@@ -158,12 +171,6 @@
                             $('#msgs').html("Fetch success");
                             debugger;
                             buildViewModels(data);
-                            // hardcode some data (ideally, this data is populated by user on form)
-
-                            //data.MeetingDate = "03/10/2015";
-                            //data.Completed = true;
-                            //self.dataModel(data);
-
                             self.dataAvailable(true);
                             self.bind();
                         }
@@ -181,56 +188,69 @@
                 console.log("Form data:" + $('#myform').serialize());
                 console.log("Form data(json):" + ko.toJSON(self.dataModel));
                 console.log("Self.DataModel:" + self.dataModel());
+
                 // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
-                debugger;
                 var data = self.dataModel();
-                ko.utils.arrayForEach(data.LookingBackQuestions(), function(ques) {
+                ko.utils.arrayForEach(data.LookingBackQuestions, function(ques) {
                     data.Questions.push(ques);
                 });
-                ko.utils.arrayForEach(data.LookingFwdQuestions(), function (ques) {
+                ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
                     data.Questions.push(ques);
                 });
+                debugger;
                 // end copy questions to model.
 
-                
                 $.ajax({
-                    url: "LinkForm/PostLinkForm",
-                    method: "POST",
-                    data:  self.dataModel(), //$('#myform').serialize(), //"linkForm":  self.dataModel },
-                    contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
-                })
-                .done(function (data) {
-                    // msg success and redirect to another page if needed
-                    // Define a standard message format for Post(aka Create) Response returned,
-                    //  which should contain location header for created resource.
-                    // We should redirect to that returned resource location URL.
-                    // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
-                })
-                .fail(function (jqXhr, textStatus, errorThrown) {
-                    // msg failure
-                });
+                        url: "LinkForm/PostLinkForm",
+                        method: "POST",
+                        data: self.dataModel(),
+                        contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
+
+                        // ## PostBack as FormCollection
+                        // data: "linkForm"=self.dataModel
+                        // contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+
+                        // ## Postback as Json
+                        // data: JSON.stringify(model)
+                        // contentType: 'application/json'
+                        // dataType:"json",
+                    })
+                    .done(function(response) {
+
+                        debugger;
+                        if (response.statusCode == "OK") {
+                            $('#msgs').html("<strong>" + response + "</strong>");
+                        } else {
+                            $('#msgs').html("<strong>Failed to create meeting:" + response + "</strong>");
+                        }
+                        // msg success and redirect to another page if needed
+                        // Define a standard message format for Post(aka Create) Response returned,
+                        //  which should contain location header for created resource.
+                        // We should redirect to that returned resource location URL.
+                        // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
+                    })
+                    .fail(function(jqXhr, textStatus, errorThrown) {
+                        // msg failure
+                        $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
+                    });
             }
         }
 
         // Not used yet.
-        function MeetingViewModel() {
-            self.Id = ko.observable('');
-            self.MeetingDate = ko.observable('');
-            self.Completed = ko.observable('');
-            self.Questions = ko.observableArray([]);
-        }
+        //function MeetingViewModel() {
+        //    self.Id = ko.observable('');
+        //    self.MeetingDate = ko.observable('');
+        //    self.Completed = ko.observable('');
+        //    self.Questions = ko.observableArray([]);
+        //}
 
-        function QuestionViewModel() {
-            self.Id = ko.observable('');
-            self.QuestionText = ko.observable('');
-            self.Answers = ko.observableArray([]);
-        }
-
-        function AnswerViewModel() {
-            self.Id = ko.observable('');
-            self.EmployeeComments = ko.observable('');
-            self.ManagerComments = ko.observable('');
-        }
+        //function QuestionViewModel() {
+        //    //self.QuestionId = ko.observable('');
+        //    //self.Question = ko.observable('');
+        //    //self.AnswerId = ko.observable('');
+        //    //self.CollegueComment = ko.observable('');
+        //    //self.ManagerComment = ko.observable('');
+        //}
 
         $(document).ready(function () {
 

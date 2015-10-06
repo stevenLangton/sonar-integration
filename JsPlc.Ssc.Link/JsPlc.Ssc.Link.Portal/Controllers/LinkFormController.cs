@@ -1,11 +1,13 @@
 ﻿using System.Configuration;
 using System.Drawing;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Script.Services;
 using System.Web.Services.Description;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Models.MockData;
 using System;
 using System.Collections.Generic;
@@ -61,26 +63,39 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public HttpResponseMessage PostLinkForm([FromBody]MeetingView meetingView)
+        public async Task<HttpResponseMessage> PostLinkForm([FromBody]MeetingView meetingView)
         {
+            #region 'Old approach = Receiving FormCollection' 
+            // Get Json data in FormCollection formdata
             //var jsonData = formData["linkForm"];
-            
-            // WE HAVE JSON Data... 
-            // TODO - Convert Json to LinkForm object
 
-            //var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
-            
-           
-            // Post this LinkForm back to service Api for persistence
-            // http://www.asp.net/web-api/overview/advanced/sending-html-form-data,-part-1#sending_complex_types
+            // Convert Json to LinkForm object
+            // var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
+            #endregion
 
-            //using (var client = new HttpClient())
-            //{
+         
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
-            //}
 
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            // validate the linkForm MeetingView and then post it back to Service Api
+            var meetingViewJson = JsonConvert.SerializeObject(meetingView);
+
+            if (ModelState.IsValid)
+            {
+                var response = await LinkServiceCaller.RunAsync(meetingViewJson);
+                if (response.IsSuccessStatusCode)
+                {
+                    Uri meetingUrl = response.Headers.Location;
+                    response.Content = new StringContent("Meeting saved at:" + meetingUrl);
+                } // else may want to redirect to diff Url or set an error message etc
+                return response;
+            }
+     
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.NotFound,
+                Content = new StringContent(meetingViewJson)
+            };
         }
 
         // GET: LinkForm/Details/5
