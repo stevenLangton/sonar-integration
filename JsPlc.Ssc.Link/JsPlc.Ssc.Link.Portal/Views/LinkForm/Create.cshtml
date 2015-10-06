@@ -123,6 +123,7 @@
                     EmployeeId: data.EmployeeId,
                     ColleagueId: data.ColleagueId,
                     ManagerId: data.ManagerId,
+                    PeriodId: data.PeriodId,
                     ManagerName: data.ManagerName,
                     ColleagueName: data.ColleagueName,
                     MeetingDate: meetingDate,
@@ -134,9 +135,9 @@
                 };
                 ko.utils.arrayForEach(data.Questions, function(ques) {
                     if (!ques.CollegueComment)
-                        {ques.CollegueComment = "colleague type here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                        {ques.CollegueComment = "colleague comments here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                     if (!ques.ManagerComment)
-                    { ques.ManagerComment = "manager type here"; }
+                    { ques.ManagerComment = "manager comments here"; }
                 });
 
                 meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
