@@ -61,14 +61,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public HttpResponseMessage PostLinkForm(FormCollection formData)
+        public HttpResponseMessage PostLinkForm([FromBody]MeetingView meetingView)
         {
-            var jsonData = formData["linkForm"];
+            //var jsonData = formData["linkForm"];
             
             // WE HAVE JSON Data... 
             // TODO - Convert Json to LinkForm object
 
-            var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
+            //var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
             
            
             // Post this LinkForm back to service Api for persistence
