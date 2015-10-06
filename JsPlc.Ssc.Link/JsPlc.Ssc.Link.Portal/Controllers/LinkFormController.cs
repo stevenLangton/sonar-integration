@@ -107,6 +107,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: LinkForm/Create
         public ActionResult Create()
         {
+            ViewBag.Title = "Create Link Form"; 
             // assuming we're creating a new Link Meeting for now
             //LinkForm model = MockData.MockLinkForm();
             return View();//"LinkMeeting", model);
