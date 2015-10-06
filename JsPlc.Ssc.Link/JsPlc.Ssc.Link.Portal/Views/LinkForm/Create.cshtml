@@ -221,10 +221,10 @@
                     .done(function(response) {
 
                         debugger;
-                        if (response.statusCode == "OK") {
-                            $('#msgs').html("<strong>" + response + "</strong>");
+                        if (response.indexOf("StatusCode: 200") >= 0) {
+                            $('#msgs').html("<strong>Meeting created</strong>");
                         } else {
-                            $('#msgs').html("<strong>Failed to create meeting:" + response + "</strong>");
+                            $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
                         }
                         // msg success and redirect to another page if needed
                         // Define a standard message format for Post(aka Create) Response returned,
