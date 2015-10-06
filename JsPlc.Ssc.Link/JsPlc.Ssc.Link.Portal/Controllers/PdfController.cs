@@ -86,7 +86,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                         value = MeetingData.ManagerName;
                         break;
                     case "ColleagueName":
-                        value = MeetingData.EmployeeName;
+                        value = MeetingData.ColleagueName;
                         break;
                     case "ColleagueComments1":
                         value = MeetingData.Questions.ToArray<QuestionView>()[0].CollegueComment;
