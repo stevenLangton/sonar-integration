@@ -24,25 +24,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Pdf
         public ActionResult New(int MeetingId)
         {
-            //End test
-
-            String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
-
-            MemoryStream newFileStream = new MemoryStream();
-
+            var AppBasePath = Request.ApplicationPath;
             var AppSettings = ConfigurationManager.AppSettings;
 
-            var AppBasePath = Request.ApplicationPath;
-
             var MeetingTemplateFileName = AppSettings["MeetingTemplateFileName"]??@"\PdfTemplates\MeetingTemplate.pdf";
+            MeetingTemplateFileName = Path.Combine(AppBasePath, MeetingTemplateFileName);
+            MeetingTemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
 
-            //var TemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
-            
-            var TemplateFileName = Path.Combine(AppBasePath, MeetingTemplateFileName);
-            TemplateFileName = HttpContext.Server.MapPath(TemplateFileName);
+            MemoryStream newFileStream = new MemoryStream();
+            MakeMeetingPdf(newFileStream, MeetingTemplateFileName, MeetingId);
 
-            MakeMeetingPdf(newFileStream, TemplateFileName, MeetingId);//TODO: Get meeting id from input
-
+            String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
             return File(newFileStream.GetBuffer(), MimeTypeStr, "Meeting.pdf");
         }
 
@@ -55,14 +47,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
                 // PdfStamper, which will create new pdf
                 var stamper = new PdfStamper(pdfReader, newFileStream);
-
-                //var form = stamper.AcroFields;
-                //var fieldKeys = form.Fields.Keys;
-
-                //foreach (string fieldKey in fieldKeys)
-                //{
-                //    form.SetField(fieldKey, "Diesel Scrum!State-of-the art colleagues appraisal system.");
-                //}
 
                 MeetingView MeetingData = _LinkService.Value.GetMeeting(MeetingId);
 
