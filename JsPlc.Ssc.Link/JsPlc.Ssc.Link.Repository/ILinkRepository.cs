@@ -10,12 +10,12 @@ namespace JsPlc.Ssc.Link.Repository
         IEnumerable<Question> GetQuestions(int periodId);
         
         MeetingView GetMeeting(int meetingId);
-        IEnumerable<MeetingView> GetMeetings(int employeeId);
-        MeetingView CreateMeeting(int meetingId, int periodId);
+        IEnumerable<MeetingView> GetMeetings(string employeeId);
+        MeetingView CreateMeeting(string employeeId, int periodId);
         int SaveMeeting(MeetingView meeting);
 
-        EmployeeView GetEmployee(int employeeId);
-        IEnumerable<Employee> GetEmployees(int managerId);
+        EmployeeView GetEmployee(string employeeId);
+        IEnumerable<EmployeeView> GetEmployees(string managerId);
         
         void Dispose();
     }

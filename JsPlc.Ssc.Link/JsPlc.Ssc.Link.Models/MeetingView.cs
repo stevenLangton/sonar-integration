@@ -7,9 +7,11 @@ namespace JsPlc.Ssc.Link.Models
     {
         public int MeetingId { get; set; }
 
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
-        public string EmployeeName { get; set; }
+        public string ColleagueId { get; set; }
+
+        public string ColleagueName { get; set; }
 
         public string ManagerId { get; set; }
 

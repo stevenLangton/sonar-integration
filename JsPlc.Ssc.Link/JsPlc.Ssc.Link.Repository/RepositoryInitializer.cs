@@ -32,16 +32,16 @@ namespace JsPlc.Ssc.Link.Repository
 
            
             var employees=new List<Employee>{
-                new Employee{Id=1, FirstName="Vasundhara", LastName="Chimakurthi", EmployeeId= "E001", ManagerId=10, EmailAddress="Vasundhara.B@sainsburys.co.uk"},
-                new Employee{Id=2, FirstName="Laxmi", LastName="Nagaraja", EmployeeId="E002", ManagerId=9, EmailAddress="Laxmi.N@sainsburys.co.uk"},
-                new Employee{Id=3, FirstName="Tim", LastName="Morrison", EmployeeId="E003", ManagerId=9, EmailAddress="Tim.M@sainsburys.co.uk"},
-                new Employee{Id=4, FirstName="Chris", LastName="Atkin", EmployeeId="E004", ManagerId=9, EmailAddress="Chris.A@sainsburys.co.uk"},
-                new Employee{Id=5, FirstName="Luan", LastName="Au", EmployeeId="E005", ManagerId=10, EmailAddress="Luan.A@sainsburys.co.uk"},
-                new Employee{Id=6, FirstName="Praveen", LastName="Kumar", EmployeeId="E006", ManagerId=10, EmailAddress="Praveen.K@sainsburys.co.uk"},
-                new Employee{Id=7, FirstName="Steven", LastName="A", EmployeeId="E007", ManagerId=10, EmailAddress="Steven.A@sainsburys.co.uk"},
-                new Employee{Id=8, FirstName="Anis", LastName="Batilwala", EmployeeId="E008", ManagerId=9, EmailAddress="Anis.B@sainsburys.co.uk"},
-                new Employee{Id=9, FirstName="Mohammed", LastName="Tahir", EmployeeId="E009", ManagerId=0, EmailAddress="Mohammed.T@sainsburys.co.uk"},
-                new Employee{Id=10, FirstName="Sandip", LastName="Vaidya", EmployeeId="E0010", ManagerId=0, EmailAddress="Sandip.V@sainsburys.co.uk"}
+                new Employee{Id=1, FirstName="Vasundhara", LastName="Chimakurthi", ColleagueId= "E001", ManagerId="E0010", EmailAddress="Vasundhara.B@sainsburys.co.uk"},
+                new Employee{Id=2, FirstName="Laxmi", LastName="Nagaraja", ColleagueId="E002", ManagerId="E009", EmailAddress="Laxmi.N@sainsburys.co.uk"},
+                new Employee{Id=3, FirstName="Tim", LastName="Morrison", ColleagueId="E003", ManagerId="E009", EmailAddress="Tim.M@sainsburys.co.uk"},
+                new Employee{Id=4, FirstName="Chris", LastName="Atkin", ColleagueId="E004", ManagerId="E009", EmailAddress="Chris.A@sainsburys.co.uk"},
+                new Employee{Id=5, FirstName="Luan", LastName="Au", ColleagueId="E005", ManagerId="E0010", EmailAddress="Luan.A@sainsburys.co.uk"},
+                new Employee{Id=6, FirstName="Praveen", LastName="Kumar", ColleagueId="E006", ManagerId="E0010", EmailAddress="Praveen.K@sainsburys.co.uk"},
+                new Employee{Id=7, FirstName="Steven", LastName="A", ColleagueId="E007", ManagerId="E0010", EmailAddress="Steven.A@sainsburys.co.uk"},
+                new Employee{Id=8, FirstName="Anis", LastName="Batilwala", ColleagueId="E008", ManagerId="E009", EmailAddress="Anis.B@sainsburys.co.uk"},
+                new Employee{Id=9, FirstName="Mohammed", LastName="Tahir", ColleagueId="E009", ManagerId=string.Empty, EmailAddress="Mohammed.T@sainsburys.co.uk"},
+                new Employee{Id=10, FirstName="Sandip", LastName="Vaidya", ColleagueId="E0010", ManagerId=string.Empty, EmailAddress="Sandip.V@sainsburys.co.uk"}
             };
 
             employees.ForEach(c=>context.Employees.Add(c));

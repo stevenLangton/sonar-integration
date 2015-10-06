@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
@@ -6,15 +7,25 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     {
 
         // GET: api/Employees/5
-        public IHttpActionResult GetEmployee(int id)
+        public IHttpActionResult GetEmployee(string id)
         {
-            return Ok(_db.GetEmployee(id));
+            var employee = _db.GetEmployee(id);
+            
+            if(employee==null)
+                return NotFound();
+
+            return Ok(employee);
         }
 
         // GET: api/Employees/?managerId=1
-        public IHttpActionResult GetEmployees([FromUri]int managerId)
+        public IHttpActionResult GetEmployees([FromUri]string managerId)
         {
-            return Ok(_db.GetEmployees(managerId));
+            var employees = _db.GetEmployees(managerId);
+
+            if(employees==null)
+                return NotFound();
+
+            return Ok(employees);
         }
 
        

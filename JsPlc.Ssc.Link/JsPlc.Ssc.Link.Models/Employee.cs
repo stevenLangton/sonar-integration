@@ -11,7 +11,7 @@ namespace JsPlc.Ssc.Link.Models
         public int Id { get; set; }
 
         [Required]
-        public string EmployeeId { get; set; }
+        public string ColleagueId { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -23,7 +23,7 @@ namespace JsPlc.Ssc.Link.Models
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
 
-        public int ManagerId { get; set; }
+        public string ManagerId { get; set; }
 
         public ICollection<LinkMeeting> Meetings { get; set; }
     }
