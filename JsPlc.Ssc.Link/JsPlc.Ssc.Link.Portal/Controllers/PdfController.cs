@@ -89,19 +89,19 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                         value = MeetingData.ColleagueName;
                         break;
                     case "ColleagueComments1":
-                        value = MeetingData.Questions.ToArray<QuestionView>()[0].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[0].ColleagueComment;
                         break;
                     case "ColleagueComments2":
-                        value = MeetingData.Questions.ToArray<QuestionView>()[1].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[1].ColleagueComment;
                         break;
                     case "ColleagueComments3":
-                        value = MeetingData.Questions.ToArray<QuestionView>()[2].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[2].ColleagueComment;
                         break;
                     case "ColleagueComments4":
-                        value = MeetingData.Questions.ToArray<QuestionView>()[3].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[3].ColleagueComment;
                         break;
                     case "ColleagueComments5":
-                        value = MeetingData.Questions.ToArray<QuestionView>()[4].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[4].ColleagueComment;
                         break;
                     case "ManagerComments1":
                         value = MeetingData.Questions.ToArray<QuestionView>()[0].ManagerComment;

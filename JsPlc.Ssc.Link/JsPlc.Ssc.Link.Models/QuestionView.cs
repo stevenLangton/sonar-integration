@@ -8,7 +8,7 @@
 
         public int? AnswerId { get; set; }
 
-        public string CollegueComment { get; set; }
+        public string ColleagueComment { get; set; }
 
         public string ManagerComment { get; set; }
     }
