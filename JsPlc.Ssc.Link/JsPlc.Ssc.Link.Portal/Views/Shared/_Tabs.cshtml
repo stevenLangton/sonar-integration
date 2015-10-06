@@ -20,7 +20,7 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li role="presentation" class="@(tabName == "create" ? "active" : "") tab-heading">
-                        @Html.ActionLink("Create New", "LinkForm", "Home")
+                        @Html.ActionLink("Create New", "create", "LinkForm")
                     </li>
                     <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
                         @Html.ActionLink("My Link Report", "LinkReport", "Home")

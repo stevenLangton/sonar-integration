@@ -22,26 +22,23 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         // GET: Pdf
-        public ActionResult New()
+        public ActionResult New(int MeetingId)
         {
-            //End test
-
-            String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
-
-            MemoryStream newFileStream = new MemoryStream();
-
+            var AppBasePath = Request.ApplicationPath;
             var AppSettings = ConfigurationManager.AppSettings;
 
             var MeetingTemplateFileName = AppSettings["MeetingTemplateFileName"]??@"\PdfTemplates\MeetingTemplate.pdf";
+            MeetingTemplateFileName = Path.Combine(AppBasePath, MeetingTemplateFileName);
+            MeetingTemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
 
-            var TemplateFileName = HttpContext.Server.MapPath(MeetingTemplateFileName);
+            MemoryStream newFileStream = new MemoryStream();
+            MakeMeetingPdf(newFileStream, MeetingTemplateFileName, MeetingId);
 
-            MakeMeetingPdf(newFileStream, TemplateFileName, 10);//TODO: Get meeting id from input
-
+            String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
             return File(newFileStream.GetBuffer(), MimeTypeStr, "Meeting.pdf");
         }
 
-        public MemoryStream MakeMeetingPdf(MemoryStream newFileStream, string fileNameExisting, Int32 MeetingId)
+        public MemoryStream MakeMeetingPdf(MemoryStream newFileStream, string fileNameExisting, int MeetingId)
         {
             using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open))
             {
@@ -50,14 +47,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
                 // PdfStamper, which will create new pdf
                 var stamper = new PdfStamper(pdfReader, newFileStream);
-
-                //var form = stamper.AcroFields;
-                //var fieldKeys = form.Fields.Keys;
-
-                //foreach (string fieldKey in fieldKeys)
-                //{
-                //    form.SetField(fieldKey, "Diesel Scrum!State-of-the art colleagues appraisal system.");
-                //}
 
                 MeetingView MeetingData = _LinkService.Value.GetMeeting(MeetingId);
 
@@ -100,34 +89,34 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                         value = MeetingData.EmployeeName;
                         break;
                     case "ColleagueComments1":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[0].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[0].CollegueComment;
                         break;
                     case "ColleagueComments2":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[1].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[1].CollegueComment;
                         break;
                     case "ColleagueComments3":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[2].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[2].CollegueComment;
                         break;
                     case "ColleagueComments4":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[3].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[3].CollegueComment;
                         break;
                     case "ColleagueComments5":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[4].CollegueComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[4].CollegueComment;
                         break;
                     case "ManagerComments1":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[0].ManagerComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[0].ManagerComment;
                         break;
                     case "ManagerComments2":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[1].ManagerComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[1].ManagerComment;
                         break;
                     case "ManagerComments3":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[2].ManagerComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[2].ManagerComment;
                         break;
                     case "ManagerComments4":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[3].ManagerComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[3].ManagerComment;
                         break;
                     case "ManagerComments5":
-                        value = MeetingData.Questions.ToArray<AnswerView>()[4].ManagerComment;
+                        value = MeetingData.Questions.ToArray<QuestionView>()[4].ManagerComment;
                         break;
                 };
 
