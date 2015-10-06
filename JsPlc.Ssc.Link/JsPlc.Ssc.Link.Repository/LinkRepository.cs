@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Pipes;
 using System.Linq;
-using System.Net.Sockets;
 using JsPlc.Ssc.Link.Models;
 
 namespace JsPlc.Ssc.Link.Repository
@@ -100,7 +98,7 @@ namespace JsPlc.Ssc.Link.Repository
                     QuestionId = q.Id,
                     Question = q.Description,
                     AnswerId = a.Id,
-                    CollegueComment = a.ColleagueComments,
+                    ColleagueComment = a.ColleagueComments,
                     ManagerComment = a.ManagerComments
                 };
 
@@ -168,7 +166,7 @@ namespace JsPlc.Ssc.Link.Repository
             {
                 Answer _answer = new Answer()
                 {
-                     ColleagueComments = answer.CollegueComment,
+                     ColleagueComments = answer.ColleagueComment,
                      ManagerComments = answer.ManagerComment,
                      QuestionId = answer.QuestionId,
                      LinkMeetingId = result.Id
