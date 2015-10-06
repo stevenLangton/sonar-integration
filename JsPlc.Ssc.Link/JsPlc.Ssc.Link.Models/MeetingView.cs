@@ -5,15 +5,15 @@ namespace JsPlc.Ssc.Link.Models
 {
     public class MeetingView
     {
-        public int MeetingId { get; set; }
+        public int MeetingId { get; set; } // DB id
 
-        public int EmployeeId { get; set; }
+        public int EmployeeId { get; set; } // DB id
 
-        public string ColleagueId { get; set; }
+        public string ColleagueId { get; set; } // E001 etc..
 
         public string ColleagueName { get; set; }
 
-        public string ManagerId { get; set; }
+        public string ManagerId { get; set; } // M001 etc..
 
         public string ManagerName { get; set; }
 
