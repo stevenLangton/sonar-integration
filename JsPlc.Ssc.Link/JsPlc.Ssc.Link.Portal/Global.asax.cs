@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Portal.ModelBinding;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -18,6 +20,9 @@ namespace JsPlc.Ssc.Link.Portal
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             RouteConfig.RegisterApiRoutes(new HttpConfiguration());
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            
+            // App specific model binding.
+            BindersConfig.RegisterModelBinders();
         }
     }
 }
