@@ -212,6 +212,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.png" />
+    <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
@@ -228,6 +229,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\App\common.js" />
+    <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -249,6 +252,7 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\text.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
