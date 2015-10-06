@@ -161,7 +161,7 @@
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function () {
                 $.ajax({
-                    url: "LinkForm/GetLinkForm/?employeeId=e001&periodId=1", // Hardcoded Meeting GET for now...
+                    url: "LinkForm/GetLinkForm/?employeeId=e006&periodId=1", // Hardcoded Meeting GET for now...
                     method: "GET"
                 })
                     .done(function (data) {
@@ -219,11 +219,11 @@
                         // dataType:"json",
                     })
                     .done(function(response) {
-
-                        debugger;
                         if (response.indexOf("StatusCode: 200") >= 0) {
+                            window.alert("Meeting created");
                             $('#msgs').html("<strong>Meeting created</strong>");
                         } else {
+                            window.alert("Meeting creation failed");
                             $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
                         }
                         // msg success and redirect to another page if needed
@@ -234,6 +234,7 @@
                     })
                     .fail(function(jqXhr, textStatus, errorThrown) {
                         // msg failure
+                        window.alert("Meeting creation failed");
                         $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
                     });
             }
