@@ -20,6 +20,7 @@ namespace JsPlc.Ssc.Link.Portal.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public int PeriodId { get; set; }
-        public string stringAnswer { get; set; }
+        public string ColleageComments { get; set; }
+        public string ManagerComments { get; set; }
     }
 }

@@ -43,13 +43,18 @@
 
         @foreach (var q in Model.questions)
         {
+            
+            
+            
+           
             <div class="form-group">
                 @Html.Label(q.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextArea("Question.stringAnswer" + q.Id, q.stringAnswer, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessage("Question.stringAnswer" + q.Id, "", new { @class = "text-danger" })
+                     @Html.TextArea("Question.ColleageComments" + q.Id, q.ColleageComments, new { htmlAttributes = new { @class = "form-control" } })
+                     @Html.TextArea("Question.ManagerComments" + q.Id, q.ManagerComments, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
+
         }
 
 

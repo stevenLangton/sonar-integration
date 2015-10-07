@@ -50,31 +50,34 @@
 
         // POST: LinkForm/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(LinkForm LinkForm)
         {
             try
             {
+                
+                
 
 
-                List<Question> xxx = new List<Question>();
+                //List<Question> xxx = new List<Question>();
 
-                foreach (var key in collection.AllKeys)
-                {
-                    //var id = collection[key];
+                //foreach (var key in collection.AllKeys)
+                //{
+                //    //var id = collection[key];
 
-                    var value = collection[key];
+                //    var value = collection[key];
 
-                    Question yyy = new Question();
+                //    Question yyy = new Question();
 
-                    yyy.stringAnswer = value;
+                //    yyy.ManagerComments = value;
 
-                    xxx.Add(yyy);
-                }
+                //    xxx.Add(yyy);
+                //}
 
-                string name = Request.Form["period"];
-                string date = Request.Form["date"];
+                //string name = Request.Form["period"];
+                //string date = Request.Form["date"];
 
-                return RedirectToAction("Details");
+                //return RedirectToAction("Details");
+                return View();
             }
             catch
             {
