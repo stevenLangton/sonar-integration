@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public string EmployeeId { get; set; }
+        public string ColleagueId { get; set; }
 
         public string FirstName { get; set; }
 
@@ -12,7 +12,7 @@
 
         public string EmailAddress { get; set; }
 
-        public int ManagerId { get; set; }
+        public string ManagerId { get; set; }
 
         public string ManagerName { get; set; }
     }

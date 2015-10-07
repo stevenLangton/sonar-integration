@@ -174,9 +174,9 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
-# SQL Server files
-*.mdf
-*.ldf
+# SQL Server files (amended for now)
+#PK comment *.mdf
+#PK comment *.ldf
 
 # Business Intelligence projects
 *.rdl.data
@@ -194,3 +194,5 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/JsPlc.Ssc.Link/JsPlc.Ssc.Link.Service/App_Data/ASPNETDB.MDF
+/JsPlc.Ssc.Link/JsPlc.Ssc.Link.Service/App_Data/aspnetdb_log.ldf

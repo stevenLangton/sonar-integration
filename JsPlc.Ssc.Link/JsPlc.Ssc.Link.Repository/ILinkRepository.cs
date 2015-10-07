@@ -5,12 +5,18 @@ namespace JsPlc.Ssc.Link.Repository
 {
     public interface ILinkRepository
     {
-        IEnumerable<Question> GetQuestions(int periodId);
-        //IEnumerable<AnswerView> GetAnswers(AnswerParams parmas);
-        IEnumerable<Answer> GetAnswers(int meetingId);
-        EmployeeView GetEmployee(int employeeId);
-        void SaveMeeting(LinkMeeting meeting);
+        IEnumerable<Period> GetPeriods();
 
+        IEnumerable<Question> GetQuestions(int periodId);
+        
+        MeetingView GetMeeting(int meetingId);
+        IEnumerable<MeetingView> GetMeetings(string employeeId);
+        MeetingView CreateMeeting(string employeeId, int periodId);
+        int SaveMeeting(MeetingView meeting);
+
+        EmployeeView GetEmployee(string employeeId);
+        IEnumerable<EmployeeView> GetEmployees(string managerId);
+        
         void Dispose();
     }
 }

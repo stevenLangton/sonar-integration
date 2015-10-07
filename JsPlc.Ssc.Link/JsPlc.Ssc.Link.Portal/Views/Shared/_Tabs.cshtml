@@ -17,15 +17,18 @@
                 <li role="presentation" class="@(tabName == "welcome" ? "active" : "") tab-heading">
                     @Html.ActionLink("Welcome", "Welcome", "Home")
                 </li>
-                <li role="presentation" class="@(tabName == "create" ? "active" : "") tab-heading">
-                    @Html.ActionLink("Create New", "Meeting", "Home")
-                </li>
-                <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
-                    @Html.ActionLink("My Link Report", "Welcome", "Home")
-                </li>
-                <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
-                    @Html.ActionLink("My Team", "Welcome", "Home")
-                </li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li role="presentation" class="@(tabName == "create" ? "active" : "") tab-heading">
+                        @Html.ActionLink("Create New", "create", "LinkForm")
+                    </li>
+                    <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
+                        @Html.ActionLink("My Link Report", "LinkReport", "Home")
+                    </li>
+                    <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
+                        @Html.ActionLink("My Team", "Team", "Home")
+                    </li>
+                }
                 <li role="presentation" class="@(tabName == "contact" ? "active" : "") tab-heading">
                     @Html.ActionLink("Contact", "Contact", "Home")
                 </li>
