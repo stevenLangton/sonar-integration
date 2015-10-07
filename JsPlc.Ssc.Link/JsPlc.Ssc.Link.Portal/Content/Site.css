@@ -34,20 +34,11 @@ header.link-banner {
     font-size: 20px;
 }
 
-.tab-heading {
-    /*padding-right: 0;
-    padding-left: 0;*/
-    background-color: #333333;
-    padding: 0 40px;
-    font-size: 120%;
-}
 
-li.tab-heading.active a {
-    background-color: lavender;
-}
 
 img.logo {
-    height: 120px;
+    height: 80px;
+    margin-left:-20px;
 }
 
 img.comp-logo {
@@ -128,3 +119,57 @@ textarea {
      width: 304px;
      height: 236px;
 }
+
+
+/* Main Menu */
+
+#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;}
+
+.tab-heading {
+    /*padding-right: 0;
+    padding-left: 0;*/
+    background-color: #333333;
+    padding: 0 40px;
+    font-size: 120%;
+}
+
+li.tab-heading.active a 
+{
+text-decoration: none;
+background-color: #4b4b4b;
+   
+}
+
+.navbar {
+border-radius: 0px;
+}
+
+.navbar {
+    position: relative;
+    min-height: 0px;
+    margin-bottom: 20px;
+}
+
+
+
+.nav > li > a:active
+{
+text-decoration: none;
+background-color: #4b4b4b;
+}
+
+
+
+
+.nav > li > a {
+position: relative;
+display: block;
+padding-top: 12px;
+padding-bottom: 12px;
+color:#ffffff;
+
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-size:80%;
+
+}
+

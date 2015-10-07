@@ -46,7 +46,7 @@
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                                     <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                                     </div>
@@ -56,7 +56,7 @@
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                         </div>
@@ -98,7 +98,7 @@
                                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                                     <div class="panel-body">
                                                 <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                                 </span>
                                             </div>
@@ -108,7 +108,7 @@
                                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                                             <div class="panel-body">
                                                 <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                                 </span>
                                 </div>
@@ -192,7 +192,7 @@
                     url: "LinkForm/GetLinkForm/?employeeId=e006&periodId=1", // Hardcoded Meeting GET for now...
                     method: "GET"
                 })
-                    .done(function (data) {
+                    .done(function (data, textStatus, jqXhr) {
                         if (data == "Error") {
                             $('#msgs').html("Error - no data");
                             self.dataAvailable(false);
@@ -246,13 +246,17 @@
                         // contentType: 'application/json'
                         // dataType:"json",
                     })
-                    .done(function(response) {
-                        if (response.indexOf("StatusCode: 200") >= 0) {
+                    .done(function (response, textStatus, jqXhr) {
+                        if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
                             window.alert("Meeting created");
                             $('#msgs').html("<strong>Meeting created</strong>");
-                        } else {
+                        }
+                        else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
                             window.alert("Meeting creation failed");
                             $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
+                        }
+                        else { // UI validation errors
+                            displayErrors(response.ModelErrors);
                         }
                         // msg success and redirect to another page if needed
                         // Define a standard message format for Post(aka Create) Response returned,
@@ -267,6 +271,7 @@
                     });
             }
 
+            // todo parse response.ModelErrors dictionary
             var displayErrors = function(errors) {
                 for (var i = 0; i < errors.length; i++) {
                     $("<label for='" + errors[i].Key + "' class='error'></label>")

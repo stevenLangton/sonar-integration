@@ -192,7 +192,11 @@
     </Compile>
     <Compile Include="Helpers\CreatedContentActionResult.cs" />
     <Compile Include="Helpers\Extensions\ModelStateHelper.cs" />
+    <Compile Include="Helpers\LinkJsonResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helpers\LinkServiceCaller.cs" />
+    <Compile Include="Helpers\Extensions\ToJsonResult.cs" />
     <Compile Include="LinkServiceFacade.cs" />
     <Compile Include="ModelBinding\MeetingViewModelBinder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
