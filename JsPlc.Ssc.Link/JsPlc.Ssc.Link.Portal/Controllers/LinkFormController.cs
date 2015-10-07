@@ -62,7 +62,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // Convert Json to LinkForm object
             // var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
             #endregion
-
          
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
@@ -70,6 +69,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // validate the linkForm MeetingView and then post it back to Service Api
             var meetingViewJson = JsonConvert.SerializeObject(meetingView);
 
+            // Return ModelState errors in json 
+            // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
                 var response = await LinkServiceCaller.RunAsync(meetingViewJson);
@@ -80,6 +81,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 } // else may want to redirect to diff Url or set an error message etc
                 return response;
             }
+            //else
+            //{
+            //    return (ModelState);
+            // or return Json(ModelState.Values.SelectMany(x => x.Errors));
+            //}
      
             return new HttpResponseMessage
             {
