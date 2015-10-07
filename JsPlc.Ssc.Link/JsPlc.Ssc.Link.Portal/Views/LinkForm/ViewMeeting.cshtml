@@ -27,39 +27,39 @@
                 <h3>Looking Back</h3>
                 <!-- LinkForm data items here -->
 
-                    <h4>QUESTIONS:</h4>
-                    <br />
+                <h4>QUESTIONS:</h4>
+                <br />
 
-                    <!-- QUESTIONS Loop around this -->
+                <!-- QUESTIONS Loop around this -->
                 <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
 
-                            <div class="panel panel-default">
+                    <div class="panel panel-default">
                         <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
+                            <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
-                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
-                                        </a>
-                                    </h4>
-                                </div>
+                                    <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                </a>
+                            </h4>
+                        </div>
 
                         <!-- ko if: $index() == 0 -->
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
+                            <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
                         <!-- /ko -->
                         <!-- ko if: $index() != 0 -->
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
-                        </div>
+                            </div>
                         </div>
                         <!-- /ko -->
 
@@ -71,49 +71,49 @@
 
 
 
-            
+
 
             <!-- Looking Forward -->
             <div class="col-xs-6">
                 <h3>Looking Forward</h3>
                 <!-- LinkForm data items here -->
-        
-                    <h4>QUESTIONS:</h4>
-                    <br />
-                    <!-- QUESTIONS Loop around this -->
-                 
 
-                        <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+                <h4>QUESTIONS:</h4>
+                <br />
+                <!-- QUESTIONS Loop around this -->
 
-                            <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
-                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
-                                        </a>
-                                    </h4>
-                                </div>
 
-                                        <!-- ko if: $index() == 0 -->
-                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
-                                                <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                                </span>
-                                            </div>
-                                    </div>
-                                        <!-- /ko -->
-                                        <!-- ko if: $index() != 0 -->
-                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                                            <div class="panel-body">
-                                                <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                                </span>
-                                </div>
+                <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
+                                    <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                </a>
+                            </h4>
                         </div>
-                                        <!-- /ko -->
+
+                        <!-- ko if: $index() == 0 -->
+                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: $index() != 0 -->
+                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
 
 
                     </div>
@@ -192,14 +192,14 @@
                     url: "LinkForm/GetLinkForm/?employeeId=e006&periodId=1", // Hardcoded Meeting GET for now...
                     method: "GET"
                 })
-                    .done(function (data, textStatus, jqXhr) {
+                    .done(function (data) {
                         if (data == "Error") {
                             $('#msgs').html("Error - no data");
                             self.dataAvailable(false);
                         }
                         else {
                             $('#msgs').html("Fetch success");
-                            
+
                             buildViewModels(data);
                             self.dataAvailable(true);
                             self.bind();
@@ -228,7 +228,7 @@
                 ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
                     data.Questions.push(ques);
                 });
-                
+
                 // end copy questions to model.
 
                 $.ajax({
@@ -246,17 +246,13 @@
                         // contentType: 'application/json'
                         // dataType:"json",
                     })
-                    .done(function (response, textStatus, jqXhr) {
-                        if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
+                    .done(function(response) {
+                        if (response.indexOf("StatusCode: 200") >= 0) {
                             window.alert("Meeting created");
                             $('#msgs').html("<strong>Meeting created</strong>");
-                        }
-                        else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
+                        } else {
                             window.alert("Meeting creation failed");
                             $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
-                        }
-                        else { // UI validation errors
-                            displayErrors(response.ModelErrors);
                         }
                         // msg success and redirect to another page if needed
                         // Define a standard message format for Post(aka Create) Response returned,
@@ -271,7 +267,6 @@
                     });
             }
 
-            // todo parse response.ModelErrors dictionary
             var displayErrors = function(errors) {
                 for (var i = 0; i < errors.length; i++) {
                     $("<label for='" + errors[i].Key + "' class='error'></label>")
@@ -292,7 +287,7 @@
 
             }
 
-            // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy")); 
+            // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy"));
             // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
 
             var vm = new PageViewModel();

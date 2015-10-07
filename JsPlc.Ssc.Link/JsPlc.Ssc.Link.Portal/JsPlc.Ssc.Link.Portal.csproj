@@ -185,13 +185,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinkFormController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CreatedContentActionResult.cs" />
     <Compile Include="Helpers\Extensions\ModelStateHelper.cs" />
+    <Compile Include="Helpers\LinkJsonResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helpers\LinkServiceCaller.cs" />
+    <Compile Include="Helpers\Extensions\ToJsonResult.cs" />
     <Compile Include="LinkServiceFacade.cs" />
     <Compile Include="ModelBinding\MeetingViewModelBinder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -371,7 +376,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
     <Content Include="Views\Home\LinkReport.cshtml" />
-    <Content Include="Views\Home\Team.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\LinkForm\ViewMeeting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />

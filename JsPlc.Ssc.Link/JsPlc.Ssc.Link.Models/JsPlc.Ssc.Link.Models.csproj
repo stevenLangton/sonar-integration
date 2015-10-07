@@ -64,12 +64,14 @@
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeView.cs" />
     <Compile Include="LinkMeeting.cs" />
+    <Compile Include="LinkMeetingView.cs" />
     <Compile Include="MeetingView.cs" />
     <Compile Include="Period.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="AnswerParams.cs" />
     <Compile Include="QuestionView.cs" />
+    <Compile Include="TeamView.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

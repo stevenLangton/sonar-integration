@@ -15,7 +15,7 @@ namespace JsPlc.Ssc.Link.Repository
         int SaveMeeting(MeetingView meeting);
 
         EmployeeView GetEmployee(string employeeId);
-        IEnumerable<EmployeeView> GetEmployees(string managerId);
+        IEnumerable<TeamView> GetTeam(string managerId);
         
         void Dispose();
     }
