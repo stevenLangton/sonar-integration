@@ -12,7 +12,7 @@ namespace JsPlc.Ssc.Link.Models
 
         public string ColleagueId { get; set; } // E001 etc..
 
-        [StringLength(maximumLength: 5, ErrorMessage = "Testing Model validation - ColleagueName over 50 chars, way too long")]
+        [StringLength(maximumLength: 500, ErrorMessage = "Testing Model validation - ColleagueName over 50 chars, way too long")]
         public string ColleagueName { get; set; }
 
         public string ManagerId { get; set; } // M001 etc..

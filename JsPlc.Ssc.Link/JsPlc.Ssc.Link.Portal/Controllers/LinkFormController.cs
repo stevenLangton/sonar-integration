@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
+using WebGrease.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -57,7 +59,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public async Task<HttpResponseMessage> PostLinkForm([FromBody] MeetingView meetingView)
+        public async Task<JsonResult> PostLinkForm([FromBody] MeetingView meetingView)
         {
             #region 'Old approach = Receiving FormCollection' 
 
@@ -72,6 +74,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
+            HttpResponseMessage response = null;
             // validate the linkForm MeetingView and then post it back to Service Api
             var meetingViewJson = JsonConvert.SerializeObject(meetingView);
 
@@ -79,23 +82,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
-                var response = await LinkServiceCaller.RunAsync(meetingViewJson);
+                response = await LinkServiceCaller.RunAsync(meetingViewJson);
                 if (response.IsSuccessStatusCode)
                 {
                     Uri meetingUrl = response.Headers.Location;
-                    response.Content = new StringContent("Meeting saved at:" + meetingUrl);
-                } // else may want to redirect to diff Url or set an error message etc
-                return response;
+                    return response.ToJsonResult(null, null, "ApiSuccess");
+
+                    // else may want to redirect to diff Url or set an error message etc
+                }
+                return response.ToJsonResult(null, null, "ApiFail");
             }
 
             var errorList = ModelState.ToDictionary(
                 kvp => kvp.Key,
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
-            var javaScriptSerializer = new
-                System.Web.Script.Serialization.JavaScriptSerializer();
-            string jsonString = javaScriptSerializer.Serialize(errorList);
-            var badResult = new StringContent(jsonString);
+            //var javaScriptSerializer = new
+            //    System.Web.Script.Serialization.JavaScriptSerializer();
+            //string jsonString = javaScriptSerializer.Serialize(errorList);
+            var badRequestResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest
+            };
+            // key and string of arrays
+            return badRequestResponse.ToJsonResult(null, errorList, "UIValidationErrors" );
 
             //else
             //{
@@ -103,12 +113,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // or return Json(ModelState.Values.SelectMany(x => x.Errors));
             // or ModelState.Errors(); (extension method)
             //}
-
-            return new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.BadRequest,
-                Content = new StringContent(jsonString)
-            };
 
         }
 
