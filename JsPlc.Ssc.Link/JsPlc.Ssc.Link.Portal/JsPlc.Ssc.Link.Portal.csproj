@@ -190,6 +190,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CreatedContentActionResult.cs" />
+    <Compile Include="Helpers\Extensions\ModelStateHelper.cs" />
     <Compile Include="Helpers\LinkServiceCaller.cs" />
     <Compile Include="LinkServiceFacade.cs" />
     <Compile Include="ModelBinding\MeetingViewModelBinder.cs" />
@@ -221,6 +223,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.png" />
+    <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
@@ -237,6 +240,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\App\common.js" />
+    <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -321,7 +326,9 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\text.min.js" />
     <None Include="Scripts\Utils\helpers.js" />
+    <Content Include="Scripts\Utils\linkDatePickers.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

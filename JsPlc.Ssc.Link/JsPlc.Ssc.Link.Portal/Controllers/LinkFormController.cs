@@ -1,14 +1,18 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
+using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
+using System.Web.Http.Results;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
+using System;
+using System.Web.Mvc;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
@@ -53,23 +57,26 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public async Task<HttpResponseMessage> PostLinkForm([FromBody]MeetingView meetingView)
+        public async Task<HttpResponseMessage> PostLinkForm([FromBody] MeetingView meetingView)
         {
             #region 'Old approach = Receiving FormCollection' 
+
             // Get Json data in FormCollection formdata
             //var jsonData = formData["linkForm"];
 
             // Convert Json to LinkForm object
             // var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
+
             #endregion
 
-         
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
             // validate the linkForm MeetingView and then post it back to Service Api
             var meetingViewJson = JsonConvert.SerializeObject(meetingView);
 
+            // Return ModelState errors in json 
+            // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
                 var response = await LinkServiceCaller.RunAsync(meetingViewJson);
@@ -80,12 +87,29 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 } // else may want to redirect to diff Url or set an error message etc
                 return response;
             }
-     
+
+            var errorList = ModelState.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+            var javaScriptSerializer = new
+                System.Web.Script.Serialization.JavaScriptSerializer();
+            string jsonString = javaScriptSerializer.Serialize(errorList);
+            var badResult = new StringContent(jsonString);
+
+            //else
+            //{
+            //    return (ModelState);
+            // or return Json(ModelState.Values.SelectMany(x => x.Errors));
+            // or ModelState.Errors(); (extension method)
+            //}
+
             return new HttpResponseMessage
             {
-                StatusCode = HttpStatusCode.NotFound,
-                Content = new StringContent(meetingViewJson)
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent(jsonString)
             };
+
         }
 
         // GET: LinkForm/Details/5
