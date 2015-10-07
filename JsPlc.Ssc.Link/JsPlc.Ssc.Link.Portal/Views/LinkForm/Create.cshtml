@@ -123,6 +123,7 @@
 
             var meetingView;
             var buildViewModels = function (data) {
+                moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
                 // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
                 var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
@@ -246,16 +247,28 @@
         $(document).ready(function () {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
 
+            // http://stackoverflow.com/questions/26487765/bootstrap-datepicker-set-language-globally
+            // set locales
+            try {
+                $.fn.datepicker.defaults.language = 'en-GB';
+                $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
+            } catch (e) {
+
+            }
+
             // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy")); 
             // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
 
             var vm = new PageViewModel();
 
             var binder = function () {
-                $.fn.datepicker.defaults.language = 'en-GB';
                 ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
-                $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
-                $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
+// set locales
+                try {
+                    $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
+                } catch (e) {
+
+                }
             };
             vm.bind = binder;
 
