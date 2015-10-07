@@ -9,6 +9,7 @@ require.config({
         "jqueryval": "jquery.validate.min",
         "knockout": "knockout-3.3.0.debug",
         "moment": 'moment-with-locales',
+        "helpers": "Utils/helpers",
         "text": "text.min",
         //komoment: 'path/to/komoment', // KoMoment potentially useful
         //"datatables": "DataTables/jquery.dataTables",
