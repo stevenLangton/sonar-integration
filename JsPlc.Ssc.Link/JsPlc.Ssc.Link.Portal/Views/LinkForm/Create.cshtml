@@ -10,10 +10,10 @@
 <div id="linkpage">
     <!-- knockout binding to this -->
     <div id="msgs"></div>
-    <form id="myform" method="post" data-bind="submit: saveLinkForm" class="form-group input-group-sm">
+    <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
         <ol class="breadcrumb">
             <li class="active">
-                <strong>Collegue: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
+                <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
             </li>
             <li class="active">
                 <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
@@ -39,7 +39,7 @@
                                             <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
                                         <span class="row">
-                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" cols="400" rows="4"></textarea><br />
+                                            Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" cols="400" rows="4"></textarea><br />
                                             Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" cols="400" rows="4"></textarea>
                                         </span>
                                     </h4>
@@ -73,7 +73,7 @@
                                             <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
                                         <span class="row">
-                                            Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" cols="400" rows="4"></textarea><br />
+                                            Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" cols="400" rows="4"></textarea><br />
                                             Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" cols="400" rows="4"></textarea>
                                         </span>
                                     </h4>
@@ -110,14 +110,18 @@
 </div><!-- / ko linkpage -->
 
 <script type="text/javascript">
-    require(["helpers", "jquery", "knockout", "moment", "linkDatePickers", "bootstrap-datepicker"], function (helpers, $, ko, moment, linkDatePickers, datepicker) {
+    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
 
         function PageViewModel() {
 
             var self = this;
 
-            var meetingView;
+            self.dataModel = ko.observable(""); // LinkForm object
+            self.dataAvailable = ko.observable(false);
 
+            self.bind = function () { };
+
+            var meetingView;
             var buildViewModels = function (data) {
                 // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
                 moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
@@ -139,8 +143,8 @@
                 };
 
                 ko.utils.arrayForEach(data.Questions, function (ques) {
-                    if (!ques.CollegueComment)
-                        {ques.CollegueComment = "colleague comments here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                    if (!ques.ColleagueComment)
+                        {ques.ColleagueComment = "colleague comments here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                     if (!ques.ManagerComment)
                     { ques.ManagerComment = "manager comments here"; }
                 });
@@ -148,20 +152,8 @@
                 meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
                 meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
 
-                //ko.utils.arrayForEach(data.Questions, function (ques) {
-                //    meetingView.Questions.push(ques);
-                //    // if no answers in question, add an answer model into question to receive input
-                //    //if (!ques.AnswwerId)
-                //            //AnswerId: 0, CollegueComment: "", ManagerComment: ""
-                //    //}
-                //});
-                debugger;
                 self.dataModel(meetingView);
             };
-            self.dataModel = ko.observable(""); // LinkForm object
-            self.dataAvailable = ko.observable(false);
-
-            self.bind = function () { };
 
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function () {
@@ -176,7 +168,7 @@
                         }
                         else {
                             $('#msgs').html("Fetch success");
-                            debugger;
+                            
                             buildViewModels(data);
                             self.dataAvailable(true);
                             self.bind();
@@ -205,7 +197,7 @@
                 ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
                     data.Questions.push(ques);
                 });
-                debugger;
+                
                 // end copy questions to model.
 
                 $.ajax({
@@ -215,11 +207,11 @@
                         contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
 
                         // ## PostBack as FormCollection
-                        // data: "linkForm"=self.dataModel
+                        // data: "linkForm"=self.dataModel()
                         // contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 
                         // ## Postback as Json
-                        // data: JSON.stringify(model)
+                        // data: JSON.stringify(self.dataModel())
                         // contentType: 'application/json'
                         // dataType:"json",
                     })
@@ -237,7 +229,14 @@
                         // We should redirect to that returned resource location URL.
                         // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
                     })
-                    .fail(function(jqXhr, textStatus, errorThrown) {
+                    .error(function (a, b, c) {
+                        debugger;
+                        console.log("a:" + a.toString());
+                        console.log("b:" + b.toString());
+                        console.log("c:" + c.toString());
+                    })
+
+                    .fail(function (jqXhr, textStatus, errorThrown) {
                         // msg failure
                         window.alert("Meeting creation failed");
                         $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
@@ -250,13 +249,10 @@
             var vm = new PageViewModel();
 
             var binder = function () {
-                debugger;
+                $('.datepicker').datepicker({ language: "en-GB" });
                 ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
-                $('.datepicker').datepicker();
             };
             vm.bind = binder;
-
-            //linkDatePickers.datePickerInit();
 
             // TODO - use this later if we want to navigate to pages using query strings
             //var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);

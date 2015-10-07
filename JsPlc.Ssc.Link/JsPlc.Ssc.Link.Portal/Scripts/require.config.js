@@ -3,15 +3,20 @@ require.config({
     waitSeconds: 200,
     baseUrl: "Scripts",
     paths: {
-        "bootstrap": "bootstrap.min",
         "modernizr": "modernizr-2.6.2",
         "jquery": "jquery-1.10.2",
         "jqueryval": "jquery.validate.min",
         "knockout": "knockout-3.3.0.debug",
         "moment": 'moment-with-locales',
+        "bootstrap": "bootstrap.min",
+        "bootstrap-datepicker": "bootstrap-datepicker",
+        "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
+
+        // LINK Specific js files.
         "helpers": "Utils/helpers",
         "linkDatePickers": "utils/linkDatePickers",
-        "bootstrap-datepicker": "bootstrap-datepicker"
+        //"bootstrap-datepickerGB": "bootstrap-datepicker.en-GB.min.js", //"bootstrap-datepicker"
+
         //komoment: 'path/to/komoment', // KoMoment potentially useful
         //"datatables": "DataTables/jquery.dataTables",
 
