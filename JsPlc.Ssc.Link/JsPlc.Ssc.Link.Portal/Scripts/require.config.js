@@ -10,6 +10,8 @@ require.config({
         "knockout": "knockout-3.3.0.debug",
         "moment": 'moment-with-locales',
         "helpers": "Utils/helpers",
+        "linkDatePickers": "utils/linkDatePickers",
+        "bootstrap-datepicker": "bootstrap-datepicker"
         "text": "text.min",
         //komoment: 'path/to/komoment', // KoMoment potentially useful
         //"datatables": "DataTables/jquery.dataTables",
