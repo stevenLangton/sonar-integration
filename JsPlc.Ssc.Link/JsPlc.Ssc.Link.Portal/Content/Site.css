@@ -119,3 +119,8 @@ div, span, h1, h2, h3, h4, h5, h6 {
 .panel-group .panel-heading a.collapsed:after {
   content: '+';
 }
+
+.photo {
+     width: 304px;
+     height: 236px;
+}
