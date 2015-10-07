@@ -40,7 +40,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public MemoryStream MakeMeetingPdf(MemoryStream newFileStream, string fileNameExisting, int MeetingId)
         {
-            using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open))
+            using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open, FileAccess.Read))
             {
                 // Open existing PDF template
                 var pdfReader = new PdfReader(existingFileStream);
