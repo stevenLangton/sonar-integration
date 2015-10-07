@@ -45,20 +45,49 @@ namespace JsPlc.Ssc.Link.Repository
             return employee;
         }
 
-        public IEnumerable<EmployeeView> GetEmployees(string managerId)
-        {
-            var employees = (from e in db.Employees
-                where e.ManagerId == managerId
-                select new EmployeeView()
-                {
-                    Id = e.Id,
-                    ColleagueId = e.ColleagueId,
-                    FirstName = e.FirstName,
-                    LastName = e.LastName,
-                    ManagerId = e.ManagerId,
-                    EmailAddress = e.EmailAddress
-                });
+        //public IEnumerable<EmployeeView> GetEmployees(string managerId)
+        //{
+        //    var employees = (from e in db.Employees
+        //        where e.ManagerId == managerId
+        //        orderby e.FirstName,e.LastName
+        //        select new EmployeeView()
+        //        {
+        //            Id = e.Id,
+        //            ColleagueId = e.ColleagueId,
+        //            FirstName = e.FirstName,
+        //            LastName = e.LastName,
+        //            ManagerId = e.ManagerId,
+        //            EmailAddress = e.EmailAddress
+        //        });
 
+        //    return employees.ToList();
+        //}
+
+        public IEnumerable<TeamView> GetTeam(string managerId)
+        {
+            IEnumerable<TeamView> employees = (from e in db.Employees
+                             where e.ManagerId == managerId
+                             orderby e.FirstName, e.LastName
+                             select new TeamView()
+                             {
+                                 Id = e.Id,
+                                 ColleagueId = e.ColleagueId,
+                                 FirstName = e.FirstName,
+                                 LastName = e.LastName,
+                                 Meetings = (from m in db.Meeting
+                                             orderby m.PeriodId
+                                            where m.EmployeeId == e.Id
+                                            select new LinkMeetingView()
+                                            {
+                                                Id = m.Id,
+                                                MeetingDate = m.MeetingDate,
+                                                PeriodId = m.PeriodId,
+                                                Status = m.Status
+    
+                                            }).ToList(),
+                                 EmailAddress = e.EmailAddress
+                          });
+           
             return employees.ToList();
         }
 
