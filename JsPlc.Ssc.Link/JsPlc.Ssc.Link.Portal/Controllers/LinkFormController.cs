@@ -1,18 +1,17 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
-using System.Text;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
-using System;
-using System.Web.Mvc;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
@@ -93,7 +92,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
             var javaScriptSerializer = new
-                System.Web.Script.Serialization.JavaScriptSerializer();
+                JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(errorList);
             var badResult = new StringContent(jsonString);
 
@@ -163,6 +162,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 return View();
             }
+        }
+
+        [System.Web.Mvc.HttpGet]
+        public ActionResult ViewMeeting(int? meetingId)
+        {
+            ViewBag.Title = "My Team";
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response =
+                    client.GetAsync(String.Format("{0}/api/meetings/{1}",
+                    ConfigurationManager.AppSettings["ServicesBaseUrl"], meetingId)).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var meeting = response.Content.ReadAsAsync<MeetingView>().Result;
+                    return View(meeting);
+                }
+
+            }
+            return View();
         }
     }
 }

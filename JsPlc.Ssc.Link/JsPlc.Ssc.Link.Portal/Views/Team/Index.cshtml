@@ -1,4 +1,6 @@
-﻿@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
+﻿@using JsPlc.Ssc.Link.Portal.Controllers
+@using JsPlc.Ssc.Link.Portal.Models
+@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
 
 
 <div class="row">
@@ -27,7 +29,7 @@
                 <td>
                     @foreach (var meeting in employee.Meetings)
                     {
-                        @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "", new {id = meeting.Id})
+                        @Html.ActionLink(meeting.MeetingDate.ToShortDateString(),"ViewMeeting","LinkForm", new { id = meeting.Id },null)
                         <br/>
                     }
                 </td>
