@@ -40,7 +40,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public MemoryStream MakeMeetingPdf(MemoryStream newFileStream, string fileNameExisting, int MeetingId)
         {
-            using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open))
+            using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open, FileAccess.Read))
             {
                 // Open existing PDF template
                 var pdfReader = new PdfReader(existingFileStream);
@@ -124,6 +124,90 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             }
 
         }//SetPdfFormFields
+
+        #region Experimental
+        interface ILinkPdfTemplate
+        {
+            //string TemplateFileName { get; set; }
+            void SetPdfFormFields(PdfStamper stamper);
+            MemoryStream MakePdf();
+        }
+
+        public class PdfMeetingTemplate : ILinkPdfTemplate
+        {
+            MeetingView Data { get; set; }
+            string TemplateFileName {get;set;}
+
+            public PdfMeetingTemplate(MeetingView MeetingData, string _TemplateFileName)
+            {
+                Data = MeetingData;
+                TemplateFileName = _TemplateFileName;
+            }
+
+            public MemoryStream MakePdf()
+            {
+                return new MemoryStream();
+            }
+
+            public void SetPdfFormFields(PdfStamper stamper)
+            {
+                var form = stamper.AcroFields;
+                var fieldKeys = form.Fields.Keys;
+
+                string value = String.Empty;
+
+                foreach (string fieldKey in fieldKeys)
+                {
+                    switch (fieldKey)
+                    {
+                        case "Date":
+                            value = Data.MeetingDate.ToShortDateString();
+                            break;
+                        case "ManagerName":
+                            value = Data.ManagerName;
+                            break;
+                        case "ColleagueName":
+                            value = Data.ColleagueName;
+                            break;
+                        case "ColleagueComments1":
+                            value = Data.Questions.ToArray<QuestionView>()[0].ColleagueComment;
+                            break;
+                        case "ColleagueComments2":
+                            value = Data.Questions.ToArray<QuestionView>()[1].ColleagueComment;
+                            break;
+                        case "ColleagueComments3":
+                            value = Data.Questions.ToArray<QuestionView>()[2].ColleagueComment;
+                            break;
+                        case "ColleagueComments4":
+                            value = Data.Questions.ToArray<QuestionView>()[3].ColleagueComment;
+                            break;
+                        case "ColleagueComments5":
+                            value = Data.Questions.ToArray<QuestionView>()[4].ColleagueComment;
+                            break;
+                        case "ManagerComments1":
+                            value = Data.Questions.ToArray<QuestionView>()[0].ManagerComment;
+                            break;
+                        case "ManagerComments2":
+                            value = Data.Questions.ToArray<QuestionView>()[1].ManagerComment;
+                            break;
+                        case "ManagerComments3":
+                            value = Data.Questions.ToArray<QuestionView>()[2].ManagerComment;
+                            break;
+                        case "ManagerComments4":
+                            value = Data.Questions.ToArray<QuestionView>()[3].ManagerComment;
+                            break;
+                        case "ManagerComments5":
+                            value = Data.Questions.ToArray<QuestionView>()[4].ManagerComment;
+                            break;
+                    };
+
+                    form.SetField(fieldKey, value);
+                }
+            }
+        }
+
+        #endregion
+
     }
 }
 

@@ -1,24 +1,14 @@
 ﻿using System.Configuration;
-using System.Drawing;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Script.Services;
-using System.Web.Services.Description;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
-using JsPlc.Ssc.Link.Portal.Models.MockData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-
 using System.Net.Http;
 using System.Net.Http.Headers;
-
-using JsPlc.Ssc.Link.Portal.Models;
 using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
@@ -72,7 +62,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // Convert Json to LinkForm object
             // var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
             #endregion
-
          
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
@@ -80,6 +69,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // validate the linkForm MeetingView and then post it back to Service Api
             var meetingViewJson = JsonConvert.SerializeObject(meetingView);
 
+            // Return ModelState errors in json 
+            // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
                 var response = await LinkServiceCaller.RunAsync(meetingViewJson);
@@ -90,6 +81,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 } // else may want to redirect to diff Url or set an error message etc
                 return response;
             }
+            //else
+            //{
+            //    return (ModelState);
+            // or return Json(ModelState.Values.SelectMany(x => x.Errors));
+            //}
      
             return new HttpResponseMessage
             {
