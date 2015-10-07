@@ -7,6 +7,9 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+
+<script src="~/Scripts/bootstrap.js"></script>
+
 <div id="linkpage">
     <!-- knockout binding to this -->
     <div id="msgs"></div>
@@ -26,69 +29,100 @@
             <div class="col-xs-6">
                 <h3>Looking Back</h3>
                 <!-- LinkForm data items here -->
-                <div style="border: solid 1px black;">
+
                     <h4>QUESTIONS:</h4>
                     <br />
+
                     <!-- QUESTIONS Loop around this -->
-                    <div data-bind="foreach: LookingBackQuestions">
-                        <div class="panel-group" data-bind="'id': 'accordion' + QuestionId" role="tablist" aria-multiselectable="true">
+                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
+
                             <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" data-bind="'id': 'heading' + QuestionId">
+                        <div class="panel-heading" role="tab">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-bind="'data-parent': '#accordion' + QuestionId, href: '#collapse' + QuestionId" aria-expanded="true" aria-controls="collapseOne1">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
                                             <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
-                                        <span class="row">
-                                            Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" cols="400" rows="4"></textarea><br />
-                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" cols="400" rows="4"></textarea>
-                                        </span>
                                     </h4>
                                 </div>
 
-                                <div data-bind="id: '#collapse' + QuestionId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <!-- ko if: $index() == 0 -->
+                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                                     <div class="panel-body">
-                                        <!-- text areas for answers here -->
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
                                     </div>
                                 </div>
-                            </div><!-- / question -->
+                        <!-- /ko -->
+                        <!-- ko if: $index() != 0 -->
+                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
                         </div>
+                        </div>
+                        <!-- /ko -->
 
                     </div>
+
                 </div>
+
             </div>
+
+
+
+            
+
             <!-- Looking Forward -->
             <div class="col-xs-6">
                 <h3>Looking Forward</h3>
                 <!-- LinkForm data items here -->
-                <div style="border: solid 1px black;">
+        
                     <h4>QUESTIONS:</h4>
                     <br />
                     <!-- QUESTIONS Loop around this -->
-                    <div data-bind="foreach: LookingFwdQuestions">
-                        <div class="panel-group" data-bind="'id': 'accordion' + QuestionId" role="tablist" aria-multiselectable="true">
+                 
+
+                        <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+
                             <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" data-bind="'id': 'heading' + QuestionId">
+                                        <div class="panel-heading" role="tab">
                                     <h4 class="panel-title">
-                                        <a role="button" data-toggle="collapse" data-bind="'data-parent': '#accordion' + QuestionId, href: '#collapse' + QuestionId" aria-expanded="true" aria-controls="collapseOne1">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
                                             <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
                                         </a>
-                                        <span class="row">
-                                            Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" cols="400" rows="4"></textarea><br />
-                                            Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" cols="400" rows="4"></textarea>
-                                        </span>
                                     </h4>
                                 </div>
 
-                                <div data-bind="id: 'collapse' + QuestionId" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <!-- ko if: $index() == 0 -->
+                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                                     <div class="panel-body">
-                                        <!-- text areas for answers here -->
+                                                <span class="row">
+                                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                                </span>
+                                            </div>
                                     </div>
+                                        <!-- /ko -->
+                                        <!-- ko if: $index() != 0 -->
+                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                                            <div class="panel-body">
+                                                <span class="row">
+                                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                                </span>
                                 </div>
-                            </div><!-- / question -->
                         </div>
+                                        <!-- /ko -->
+
+
                     </div>
                 </div>
             </div>
+
 
         </div>
 
@@ -269,3 +303,5 @@
         });
     });
 </script>
+
+<script src="~/Scripts/bootstrap.js"></script>

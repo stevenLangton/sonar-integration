@@ -75,5 +75,12 @@
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @*@Scripts.Render("~/bundles/knockout")*@
     @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+    require(['bootstrap'], function () {
+    });
+    </script> 
+
 </body>
 </html>
