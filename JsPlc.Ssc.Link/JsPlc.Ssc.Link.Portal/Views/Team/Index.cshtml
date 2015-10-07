@@ -1,0 +1,45 @@
+﻿@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
+
+
+<div class="row">
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "MyTeam" } })
+</div>
+<h2>My Team</h2>
+
+<div>
+    <hr />
+    <table class="table" style="width: 70%">
+        <thead>
+            <tr>
+                <td><strong>Colleague Id</strong></td>
+                <td><strong>First Name</strong></td>
+                <td><strong>Last Name</strong></td>
+                <td><strong>Meetings </strong></td>
+            </tr>
+        </thead>
+
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(e => employee.ColleagueId)</td>
+                <td>@Html.DisplayFor(e => employee.FirstName)</td>
+                <td>@Html.DisplayFor(e => employee.LastName)</td>
+                <td>
+                    @foreach (var meeting in employee.Meetings)
+                    {
+                        @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "", new {id = meeting.Id})
+                        <br/>
+                    }
+                </td>
+
+            </tr>
+
+            @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+
+        }
+    </table>
+</div>
+<p>
+    
+    @*@Html.ActionLink("Back to List", "Index")*@
+</p>

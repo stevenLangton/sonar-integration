@@ -7,6 +7,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     {
 
         // GET: api/Employees/5
+        [HttpGet]
         public IHttpActionResult GetEmployee(string id)
         {
             var employee = _db.GetEmployee(id);
@@ -18,9 +19,10 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         }
 
         // GET: api/Employees/?managerId=1
-        public IHttpActionResult GetEmployees([FromUri]string managerId)
+        [HttpGet]
+        public IHttpActionResult GetTeam([FromUri]string managerId)
         {
-            var employees = _db.GetEmployees(managerId);
+            var employees = _db.GetTeam(managerId);
 
             if(employees==null)
                 return NotFound();
