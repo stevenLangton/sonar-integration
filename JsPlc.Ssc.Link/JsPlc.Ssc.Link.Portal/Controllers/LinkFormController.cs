@@ -1,24 +1,14 @@
 ﻿using System.Configuration;
-using System.Drawing;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Script.Services;
-using System.Web.Services.Description;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
-using JsPlc.Ssc.Link.Portal.Models.MockData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-
 using System.Net.Http;
 using System.Net.Http.Headers;
-
-using JsPlc.Ssc.Link.Portal.Models;
 using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
