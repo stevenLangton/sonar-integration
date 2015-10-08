@@ -261,6 +261,7 @@
                         .done(function (response, textStatus, jqXhr) {
                             if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
                                 window.alert("Meeting created");
+                                window.location.href = window.location = common.getSiteRoot() + "/Team";
                                 $('#msgs').html("<strong>Meeting created</strong>");
                             }
                             else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
