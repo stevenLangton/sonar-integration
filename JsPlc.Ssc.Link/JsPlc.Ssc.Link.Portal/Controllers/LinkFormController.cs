@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,8 @@ using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
+using WebGrease.Css.Extensions;
+using WebGrease.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -120,7 +123,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                     return response.ToJsonResult(null, null, "ApiSuccess");
 
                     // else may want to redirect to diff Url or set an error message etc
-            }
+                }
                 return response.ToJsonResult(null, null, "ApiFail");
             }
 
@@ -128,15 +131,21 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 kvp => kvp.Key,
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
-            //var javaScriptSerializer = new
-            //    System.Web.Script.Serialization.JavaScriptSerializer();
-            //string jsonString = javaScriptSerializer.Serialize(errorList);
+            var errArray = new List<KeyValuePair<string, string[]>>();
+            errorList.ForEach(kvp =>
+            {
+                if (kvp.Value.Any())
+                {
+                    errArray.Add(kvp);
+                }
+            });
+
             var badRequestResponse = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.BadRequest
             };
             // key and string of arrays
-            return badRequestResponse.ToJsonResult(null, errorList, "UIValidationErrors" );
+            return badRequestResponse.ToJsonResult(null, errArray, "UIValidationErrors");
 
             //else
             //{
@@ -147,11 +156,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         }
 
-        // GET: LinkForm/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //// GET: LinkForm/Details/5
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: LinkForm/Create
         public ActionResult Create(string employeeId, int? periodId)
@@ -162,27 +171,27 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();//"LinkMeeting", model);
         }
 
-        // POST: LinkForm/Create
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+        //// POST: LinkForm/Create
+        //[System.Web.Mvc.HttpPost]
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add insert logic here
 
-                return RedirectToAction("LinkForm");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("LinkForm");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: LinkForm/Edit/52
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: LinkForm/Edit/5
         [System.Web.Mvc.HttpPost]
@@ -196,7 +205,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("LinkForm");
+                //return View();
             }
         }
 
