@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
+using WebGrease.Css.Extensions;
 using WebGrease.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
@@ -97,15 +98,21 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 kvp => kvp.Key,
                 kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
-            //var javaScriptSerializer = new
-            //    System.Web.Script.Serialization.JavaScriptSerializer();
-            //string jsonString = javaScriptSerializer.Serialize(errorList);
+            var errArray = new List<KeyValuePair<string, string[]>>();
+            errorList.ForEach(kvp =>
+            {
+                if (kvp.Value.Any())
+                {
+                    errArray.Add(kvp);
+                }
+            });
+
             var badRequestResponse = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.BadRequest
             };
             // key and string of arrays
-            return badRequestResponse.ToJsonResult(null, errorList, "UIValidationErrors" );
+            return badRequestResponse.ToJsonResult(null, errArray, "UIValidationErrors");
 
             //else
             //{
