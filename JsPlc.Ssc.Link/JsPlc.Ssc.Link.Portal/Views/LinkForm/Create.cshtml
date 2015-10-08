@@ -356,6 +356,7 @@
             // TODO - use this later if we want to init or navigate to pages using query strings
             var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
             var empId = pageQueryParams["employeeId"];
+            var periodId = pageQueryParams["periodId"];
             console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
 
             // Show meeting data once loaded from GET
