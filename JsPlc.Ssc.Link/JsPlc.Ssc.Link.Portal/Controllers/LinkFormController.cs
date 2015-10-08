@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
-using System.Text;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
+using System.Web.Mvc;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
-using System;
-using System.Web.Mvc;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
@@ -55,6 +53,41 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = ViewBag.result
+            };
+            return jsonData;
+        }
+
+
+        [ScriptMethod(UseHttpGet = true)]
+        public JsonResult GetMeetingView(int meetingId)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response =
+                    client.GetAsync(String.Format("{0}/api/meetings/{1}",
+                        ConfigurationManager.AppSettings["ServicesBaseUrl"], meetingId)).Result;
+
+                // Build a MeetingView Json response.
+                if (response.IsSuccessStatusCode)
+                {
+                    ViewBag.result = response.Content.ReadAsAsync<MeetingView>().Result;
+                }
+                else
+                {
+                    return new JsonResult
+                    {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = "Error"
+                    };
+                }
+            }
+            var jsonData = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = ViewBag.result // MeetingView
             };
             return jsonData;
         }
@@ -123,14 +156,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         }
 
-        // GET: LinkForm/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //// GET: LinkForm/Details/5
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: LinkForm/Create
-        public ActionResult Create()
+        public ActionResult Create(string employeeId, int? periodId)
         {
             ViewBag.Title = "Create Link Form"; 
             // assuming we're creating a new Link Meeting for now
@@ -138,27 +171,27 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();//"LinkMeeting", model);
         }
 
-        // POST: LinkForm/Create
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+        //// POST: LinkForm/Create
+        //[System.Web.Mvc.HttpPost]
+        //public ActionResult Create(FormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add insert logic here
 
-                return RedirectToAction("LinkForm");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction("LinkForm");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
-        // GET: LinkForm/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        // GET: LinkForm/Edit/52
+        //public ActionResult Edit(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: LinkForm/Edit/5
         [System.Web.Mvc.HttpPost]
@@ -172,8 +205,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("LinkForm");
+                //return View();
             }
         }
+
+        [System.Web.Mvc.HttpGet]
+        public ActionResult ViewMeeting(int? id)
+        {
+            ViewBag.Title = "My Team";
+
+            return View();
+        }
+
     }
 }

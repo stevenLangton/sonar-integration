@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "team" } })
+</div>
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div id="linkpage">
+    <!-- knockout binding to this -->
+    <div id="msgs"></div>
+        <ol class="breadcrumb">
+            <li class="active">
+                <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
+            </li>
+            <li class="active">
+                <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
+            </li>
+        </ol>
+
+        <!-- Columns are always 50% wide, on mobile and desktop -->
+        <div class="row" data-bind="with: dataModel, visible: dataAvailable">
+            <!--Looking Back -->
+            <div class="col-xs-6">
+                <h3>Looking Back</h3>
+                <!-- LinkForm data items here -->
+
+                <h4>QUESTIONS:</h4>
+                <br />
+
+                <!-- QUESTIONS Loop around this -->
+                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
+                                    <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                </a>
+                            </h4>
+                        </div>
+
+                        <!-- ko if: $index() == 0 -->
+                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: $index() != 0 -->
+                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <!-- Looking Forward -->
+            <div class="col-xs-6">
+                <h3>Looking Forward</h3>
+                <!-- LinkForm data items here -->
+
+                <h4>QUESTIONS:</h4>
+                <br />
+                <!-- QUESTIONS Loop around this -->
+
+
+                <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
+                                    <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                </a>
+                            </h4>
+                        </div>
+
+                        <!-- ko if: $index() == 0 -->
+                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko if: $index() != 0 -->
+                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body">
+                                <span class="row">
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <br />
+        <hr />
+        <div class="container-fluid well row col-xs-12" style="text-align: left;">
+            <div class="col-xs-6 right">
+                Meeting Date: <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control" readonly name="MeetingDate" />
+                Meeting Complete: <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
+            </div><br />
+        </div>
+</div><!-- / ko linkpage -->
+
+<script type="text/javascript">
+    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
+
+        function PageViewModel() {
+
+            var self = this;
+
+            self.dataModel = ko.observable(""); // LinkForm object
+            self.dataAvailable = ko.observable(false);
+
+            self.bind = function () { };
+
+            var meetingView;
+            var buildViewModels = function (data) {
+                moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+                // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
+                var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+
+                meetingView = {
+                    EmployeeId: data.EmployeeId,
+                    ColleagueId: data.ColleagueId,
+                    ManagerId: data.ManagerId,
+                    PeriodId: data.PeriodId,
+                    ManagerName: data.ManagerName,
+                    ColleagueName: data.ColleagueName,
+                    MeetingDate: meetingDate,
+                    MeetingId: data.MeetingId,
+                    Completed: data.Status,
+                    LookingBackQuestions: [],
+                    LookingFwdQuestions: [],
+                    Questions: []
+                };
+
+                ko.utils.arrayForEach(data.Questions, function (ques) {
+                    if (!ques.ColleagueComment)
+                        {ques.ColleagueComment = "colleague comments here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                    if (!ques.ManagerComment)
+                    { ques.ManagerComment = "manager comments here"; }
+                });
+
+                meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
+                meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
+
+                self.dataModel(meetingView);
+            };
+
+            // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
+            self.loadPageData = function (meetingId) {
+                $.ajax({
+                    url: "LinkForm/GetMeetingView/?meetingId=" + meetingId, 
+                    method: "GET"
+                })
+                    .done(function (data) {
+                        if (data == "Error") {
+                            $('#msgs').html("Error - no data");
+                            self.dataAvailable(false);
+                        }
+                        else {
+                            $('#msgs').html("Fetch success");
+
+                            buildViewModels(data);
+                            self.dataAvailable(true);
+                            self.bind();
+                        }
+                    })
+                    .fail(function () {
+                        self.dataAvailable(false);
+                        $('#msgs').html("Error occured");
+
+                        // if cannot load LinkMeeting for the given period
+                    });
+            }
+        }
+
+        $(document).ready(function () {
+            moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+            // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy"));
+            // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
+
+            var vm = new PageViewModel();
+
+            var binder = function () {
+                ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
+            };
+            vm.bind = binder;
+
+            // TODO - use this later if we want to init or navigate to pages using query strings
+            //var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
+            //var empId = pageQueryParams["employeeId"];
+            //console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
+
+            var meetingId = 0;
+            var comps = window.location.href.split("/");
+            if (comps) {
+                var lastCompIndex = comps.length - 1;
+                meetingId = comps[lastCompIndex];
+            }
+            console.log("Trying to call ajax with MeetingId: " + meetingId);
+            // Show meeting data once loaded from GET
+            vm.loadPageData(meetingId);
+        });
+    });
+</script>
+

@@ -2,7 +2,7 @@
 
 
 <div class="row">
-    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "MyTeam" } })
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "team" } })
 </div>
 <h2>My Team</h2>
 
@@ -15,6 +15,8 @@
                 <td><strong>First Name</strong></td>
                 <td><strong>Last Name</strong></td>
                 <td><strong>Meetings </strong></td>
+                <td></td>
+                
             </tr>
         </thead>
 
@@ -24,14 +26,18 @@
                 <td>@Html.DisplayFor(e => employee.ColleagueId)</td>
                 <td>@Html.DisplayFor(e => employee.FirstName)</td>
                 <td>@Html.DisplayFor(e => employee.LastName)</td>
+                
                 <td>
-                    @foreach (var meeting in employee.Meetings)
+                    @if (employee.Meetings != null)
                     {
-                        @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "", new {id = meeting.Id})
-                        <br/>
+                        foreach (var meeting in employee.Meetings)
+                        {
+                            @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.Id }, null)
+                            <br />
+                        }
                     }
                 </td>
-
+                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { employeeId = employee.ColleagueId, periodId = 1 },null)</td>
             </tr>
 
             @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
