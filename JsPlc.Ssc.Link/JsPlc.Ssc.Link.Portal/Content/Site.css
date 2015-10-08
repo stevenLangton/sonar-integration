@@ -1,6 +1,5 @@
 ﻿body {
-    padding-top: 5px;
-    padding-bottom: 20px;
+  
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -32,6 +31,11 @@ header.link-banner {
     /*background-color:#1975FF;*/
     /*background-image: url('Images/bg.png');*/
     font-size: 20px;
+}
+
+header.link-banner{
+    padding-left:70px;
+    padding-right:70px;
 }
 
 
@@ -94,9 +98,17 @@ div, span, h1, h2, h3, h4, h5, h6 {
     font-size: 18pt;
 }
 .link-footer {
-    background-color: #04ACCF;
-    padding-left: 15px;
-    padding-top: 15px;
+    background-color:#333333;
+    padding: 20px;
+    padding-left:70px;
+    padding-right:70px;
+    border-top:#EF6600 solid 2px;
+
+      position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+ 
 }
 
 
@@ -123,13 +135,14 @@ textarea {
 
 /* Main Menu */
 
-#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;}
+#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;padding-right:70px;}
+
 
 .tab-heading {
     /*padding-right: 0;
     padding-left: 0;*/
     background-color: #333333;
-    padding: 0 40px;
+    padding: 0 20px;
     font-size: 120%;
 }
 
@@ -147,7 +160,8 @@ border-radius: 0px;
 .navbar {
     position: relative;
     min-height: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
 }
 
 
@@ -172,4 +186,9 @@ font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans
 font-size:80%;
 
 }
+
+.myPageContainer {margin-left:50px;margin-right:50px;}
+
+.breadcrumb {margin-bottom:0px;}
+
 
