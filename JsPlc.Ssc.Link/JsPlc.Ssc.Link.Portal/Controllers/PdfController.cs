@@ -41,6 +41,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         // GET: Pdf
+        [HttpPost]
         public ActionResult MakeFromJson(MeetingView MeetingData)
         {
             AppBasePath = Request.ApplicationPath;
@@ -48,8 +49,25 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             PdfMeetingTemplate template = new PdfMeetingTemplate(MeetingData, GetPdfTemplateFileName());
             PdfMaker maker = new PdfMaker(template);
 
+            MemoryStream ms = maker.MakePdf();
+            string fName = "Meeting.pdf";
+
+            Session[fName] = ms;
+
+            return Json(new { success = true, fName }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult DownloadPdf(string fName)
+        {
+            var ms = Session[fName] as MemoryStream;
+            if(ms == null)
+                return new EmptyResult();
+            Session[fName] = null;
+
             String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
-            return File(maker.MakePdf().GetBuffer(), MimeTypeStr, "Meeting.pdf");
+
+            return File(ms.GetBuffer(), MimeTypeStr, fName);
         }
 
         private string GetPdfTemplateFileName()
