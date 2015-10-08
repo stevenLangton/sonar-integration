@@ -1,11 +1,7 @@
 ﻿@{
     ViewBag.Title = "Create";
 }
-<div class="row">
-    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "create" } })
-</div>
 
-<div class="myPageContainer">
     <h2>@ViewBag.Title.</h2>
     <div id="linkpage">
         <!-- knockout binding to this -->
@@ -23,7 +19,7 @@
             <!-- Columns are always 50% wide, on mobile and desktop -->
             <div class="row" data-bind="with: dataModel, visible: dataAvailable">
                 <!--Looking Back -->
-                <div class="col-xs-6">
+                <div class="col-md-6">
                     <h3>Looking Back</h3>
                     <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
@@ -70,7 +66,7 @@
 
 
                 <!-- Looking Forward -->
-                <div class="col-xs-6">
+                <div class="col-md-6">
                     <h3>Looking Forward</h3>
                     <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
@@ -146,7 +142,7 @@
             </div>
         </form>
     </div><!-- / ko linkpage -->
-</div>
+
 <script type="text/javascript">
     require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
 

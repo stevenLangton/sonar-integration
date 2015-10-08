@@ -13,28 +13,28 @@
     <meta name="description" content="Links application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
 <body>
-    <div>
-        @*<div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        @Html.ActionLink("Link", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                        @Html.Partial("_LoginPartial")
-                    </div>
+    @*<div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Link", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
-            </div>*@
-    </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </div>*@
     <div class="row hidden" style="padding: 0 40%; font-size: smaller">
         <div class="visible-xs">XtraSmall</div>
         <div class="visible-sm">Small</div>
@@ -42,7 +42,7 @@
         <div class="visible-lg">Large</div>
     </div>
     <header class="link-banner link-header">
-        <div class="container-fluid">
+        <div class="container">
 
             <div class="row">
                 <div class="col-md-4">
@@ -51,7 +51,7 @@
                 <div class="col-md-4">
                     <h2>Colleague Appraisal System.</h2>
                 </div>
-                <div class="col-md-4 pull-right">
+                <div class="col-md-4" style="text-align:right;">
                     <img src="~/Content/Images/Logo.gif" class="comp-logo" alt="Sainsbury's Logo" title="Sainsbury's Logo" />
                 </div>
             </div>
@@ -72,35 +72,44 @@
     @*<div class="row">
             @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "welcome" } })
         </div>*@
-    <div class="container-fluid body-content">
-        @RenderBody()
+
+    <div class="row">
+        @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", @ViewBag.Title } })
     </div>
 
-    <nav class="navbar navbar-bottonavbar navbar-default link-footer" role="navigation" style="color:#ffffff;">
-      
-            <div class="row">
-                <div class="col-md-4">
-                    <h4>Useful Links</h4>
-                    <a href="#">Home</a><br/>
-                    <a href="#">My Link Reports</a><br />
-                    <a href="#">My Team</a><br />
-                    <a href="#">Login</a>
-                </div>
-                <div class="col-md-4">
-                    <h4>Link Help</h4>
-                </div>
-                <div class="col-md-4">
-                    <h4>Think Link</h4>
+   
+
+    <div class="container">
+        @RenderBody()
+
+    </div>
+        <nav class="navbar navbar-bottonavbar navbar-default link-footer" role="navigation" style="color:#ffffff;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Useful Links</h4>
+                        <a href="#">Home</a><br />
+                        <a href="#">My Link Reports</a><br />
+                        <a href="#">My Team</a><br />
+                        <a href="#">Login</a>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Link Help</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Think Link</h4>
                         We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</div>
+                </div>
             </div>
-            </div>
-        <br/><br />
-            <div class="row">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</div>
-            </div>
-       
-    </nav>
+
+</nav>
+ 
 
 
    
