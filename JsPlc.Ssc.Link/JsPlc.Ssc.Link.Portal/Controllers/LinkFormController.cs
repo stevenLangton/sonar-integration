@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
@@ -166,7 +167,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Create(string employeeId, int? periodId)
         {
-            ViewBag.Title = "Create Link Form"; 
+            ViewBag.Title = "Create Link Form";
+            if (String.IsNullOrEmpty(employeeId) || !periodId.HasValue)
+            {
+                return RedirectToAction("Welcome", "Home");
+            }
             // assuming we're creating a new Link Meeting for now
             //LinkForm model = MockData.MockLinkForm();
             return View();//"LinkMeeting", model);
