@@ -1,4 +1,6 @@
-﻿namespace JsPlc.Ssc.Link.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace JsPlc.Ssc.Link.Models
 {
     public class QuestionView
     {
@@ -8,8 +10,10 @@
 
         public int? AnswerId { get; set; }
 
+       [StringLength(maximumLength: 50, ErrorMessage = "Colleague comment cannot be more than 5000 chars.")]
         public string ColleagueComment { get; set; }
 
-        public string ManagerComment { get; set; }
+       [StringLength(maximumLength: 50, ErrorMessage = "Manager comment cannot be more than 5000 chars.")]
+       public string ManagerComment { get; set; }
     }
 }
