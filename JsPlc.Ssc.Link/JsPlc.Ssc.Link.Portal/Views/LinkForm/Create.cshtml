@@ -1,149 +1,134 @@
 ﻿@{
     ViewBag.Title = "Create";
 }
-<style>
-    .linkErrorMsg {
-        font-weight: bold;
-        color: red;
-    }
 
-    .linkInfoMsg {
-        font-weight: bold;
-        color: #313131;
-    }
-</style>
-<div class="row">
-    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "create" } })
-</div>
-
-<div class="myPageContainer">
     <h2>@ViewBag.Title.</h2>
-<div id="linkpage">
-    <!-- knockout binding to this -->
+    <div id="linkpage">
+        <!-- knockout binding to this -->
         <!--<div id="msgs"></div>-->
-    <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
-        <ol class="breadcrumb">
-            <li class="active">
-                <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
-            </li>
-            <li class="active">
-                <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
-            </li>
-        </ol>
+        <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
+            <ol class="breadcrumb">
+                <li class="active">
+                    <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
+                </li>
+                <li class="active">
+                    <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
+                </li>
+            </ol>
 
-        <!-- Columns are always 50% wide, on mobile and desktop -->
-        <div class="row" data-bind="with: dataModel, visible: dataAvailable">
-            <!--Looking Back -->
-            <div class="col-xs-6">
-                <h3>Looking Back</h3>
-                <!-- LinkForm data items here -->
+            <!-- Columns are always 50% wide, on mobile and desktop -->
+            <div class="row" data-bind="with: dataModel, visible: dataAvailable">
+                <!--Looking Back -->
+                <div class="col-md-6">
+                    <h3>Looking Back</h3>
+                    <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
-                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
+                    <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
 
-                            <div class="panel panel-default">
-                        <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
-                                            <strong>Q.</strong><span data-bind="text: Question, 'name': 'Question[' + QuestionId + '].Question'"></span>
-                                        </a>
-                                    </h4>
-                                </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
+                                        <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                    </a>
+                                </h4>
+                            </div>
 
-                        <!-- ko if: $index() == 0 -->
-                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
-                                <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                </span>
-                                    </div>
+                            <!-- ko if: $index() == 0 -->
+                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
                                 </div>
-                        <!-- /ko -->
-                        <!-- ko if: $index() != 0 -->
-                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                            <div class="panel-body">
-                                <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                </span>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: $index() != 0 -->
+                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+
                         </div>
-                        </div>
-                        <!-- /ko -->
 
                     </div>
 
                 </div>
 
-            </div>
 
 
 
-            
 
-            <!-- Looking Forward -->
-            <div class="col-xs-6">
-                <h3>Looking Forward</h3>
-                <!-- LinkForm data items here -->
+                <!-- Looking Forward -->
+                <div class="col-md-6">
+                    <h3>Looking Forward</h3>
+                    <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
-                 
 
-                        <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
 
-                            <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
-                                            <strong>Q.</strong><span data-bind="text: Question, 'name': 'Question[' + QuestionId + '].Question'"></span>
-                                        </a>
-                                    </h4>
+                    <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
+                                        <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <!-- ko if: $index() == 0 -->
+                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
                                 </div>
-
-                                        <!-- ko if: $index() == 0 -->
-                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
-                                                <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                                </span>
-                                            </div>
-                                    </div>
-                                        <!-- /ko -->
-                                        <!-- ko if: $index() != 0 -->
-                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                                            <div class="panel-body">
-                                                <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                                </span>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: $index() != 0 -->
+                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
                                 </div>
+                            </div>
+                            <!-- /ko -->
+
+
                         </div>
-                                        <!-- /ko -->
-
-
                     </div>
                 </div>
+
+
             </div>
-
-
-        </div>
 
 
             <div class="row">
-            <div class="col-xs-12">
-                    <div class="container-fluid well" style="text-align: left;">
+                <div class="col-xs-12">
                     Meeting Date:
+                    <div class="container-fluid well" style="text-align: left;">
                         <div class="row">
                             <div class="col-md-6">
                                 <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control" readonly name="MeetingDate" width="200" />
                             </div>
                             <div class="col-md-6">
-                <p class="right">
+                                <p class="right">
                                     Meeting Complete: <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
-                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
-                    &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
-                </p>
-            </div>
-        </div>
+                                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
+                                    &nbsp; <a href="pdf/makefromdb/?MeetingId=10" class="btn btn-default">Download</a>
+                                </p>
+                            </div>
+                        </div>
 
 
 
@@ -155,11 +140,11 @@
 
                 </div>
             </div>
-    </form>
-</div><!-- / ko linkpage -->
-</div>
+        </form>
+    </div><!-- / ko linkpage -->
+
 <script type="text/javascript">
-    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB","common"], function (helpers, $, ko, moment, datepicker, datePickerGb,common) {
+    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
 
         function PageViewModel() {
 
@@ -193,14 +178,13 @@
 
                 ko.utils.arrayForEach(data.Questions, function (ques) {
                     if (!ques.ColleagueComment)
-                    { ques.ColleagueComment = ""; } // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                        {ques.ColleagueComment = "colleague comments here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                     if (!ques.ManagerComment)
                     { ques.ManagerComment = "manager comments here"; }
                 });
 
                 meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
                 meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
-                meetingView.Questions = data.Questions;
 
                 self.dataModel(meetingView);
             };
@@ -290,38 +274,12 @@
                     });
             }
 
-
-            ///
-            self.downloadLinkFormAsPdf = function () {
-                var MeetingView = self.dataModel();//Not quite the same
-                var param = { MeetingData: MeetingView };
-                $promise = common.callService("post", "/Pdf/MakeFromJson", param);
-                $promise.done(function (data) {
-                    if (data.success) {
-                        window.location = common.getSiteRoot() + "/Pdf/DownloadPdf/" + "?fName=" + data.fName;
-                    }
-                });
-
-            };
-
-            // parse response.3 dictionary
-            var displayErrors = function (errors) {
-                var errorsList = "";
+            // todo parse response.ModelErrors dictionary
+            var displayErrors = function(errors) {
                 for (var i = 0; i < errors.length; i++) {
-                    errorsList = errorsList + "<li>" + errors[i].Value[0] + "</li>"; // todo, this is also an array, so another for needed
-                    //errors[i].Key = errors[i].Key.replace("[", "__");
-                    //errors[i].Key = errors[i].Key.replace("]", "__");
-                    //                    var elementName = "[name='" + errors[i].Key + "']";
-                    //                    console.log("Looking for elements with error: " + elementName);
-                    //;                    $("<label for='" + errors[i].Key + "' class='error' style='color:red'></label>")
-                    //                        .html(errors[i].Value[0]).appendTo($(elementName).parent());
+                    $("<label for='" + errors[i].Key + "' class='error'></label>")
+                    .html(errors[i].Value[0]).appendTo($("input#" + errors[i].Key).parent());
                 }
-                $("#msgs").html("<ul class='linkErrorMsg'>" + errorsList + "</ul>");
-                window.alert("Validation errors, please see top of screen for remedial action.");
-                }
-
-            self.getMeetingView = function () {
-                return self.dataModel();
             }
         }
 
@@ -359,9 +317,8 @@
             console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
 
             // Show meeting data once loaded from GET
-            vm.loadPageData(empId, periodId);
-
-            var MeetingViewJsonForPdf = vm.getMeetingView();
+            vm.loadPageData();
         });
     });
 </script>
+

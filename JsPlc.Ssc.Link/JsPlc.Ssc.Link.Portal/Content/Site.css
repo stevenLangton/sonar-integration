@@ -2,11 +2,7 @@
   
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -42,7 +38,7 @@ header.link-banner{
 
 img.logo {
     height: 80px;
-    margin-left:-20px;
+
 }
 
 img.comp-logo {
@@ -71,7 +67,8 @@ div, span, h1, h2, h3, h4, h5, h6 {
 .speechBubble {
     background-image: url('Images/speach_bubble_blue_ncs.PNG');
     background-repeat: no-repeat;
-    width: 350px;
+    background-size:contain;
+    width: 250px;
     height: 380px;
     padding: 20px;
     color: white;
@@ -79,6 +76,7 @@ div, span, h1, h2, h3, h4, h5, h6 {
 .speechBubble .subtitleText {
     font-size: 18pt;
     color: #04ACCF;
+   
 }
 /* Right side cyan bar on Welcome page */
 .infoBar {
@@ -135,14 +133,14 @@ textarea {
 
 /* Main Menu */
 
-#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;padding-right:70px;}
+#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;}
 
 
 .tab-heading {
     /*padding-right: 0;
     padding-left: 0;*/
     background-color: #333333;
-    padding: 0 20px;
+    padding: 0 0 0 0px;
     font-size: 120%;
 }
 
@@ -187,7 +185,6 @@ font-size:80%;
 
 }
 
-.myPageContainer {margin-left:50px;margin-right:50px;}
 
 .breadcrumb {margin-bottom:0px;}
 
