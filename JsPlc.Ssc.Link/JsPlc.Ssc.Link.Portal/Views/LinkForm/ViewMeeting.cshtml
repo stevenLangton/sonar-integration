@@ -2,7 +2,7 @@
     ViewBag.Title = "Create";
 }
 <div class="row">
-    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "create" } })
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "team" } })
 </div>
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
@@ -10,7 +10,6 @@
 <div id="linkpage">
     <!-- knockout binding to this -->
     <div id="msgs"></div>
-    <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
         <ol class="breadcrumb">
             <li class="active">
                 <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
@@ -46,7 +45,7 @@
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
@@ -56,7 +55,7 @@
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
@@ -98,7 +97,7 @@
                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
@@ -108,7 +107,7 @@
                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: CollegueComment, value:CollegueComment" rows="4"></textarea><br />
+                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
@@ -130,14 +129,7 @@
                 Meeting Date: <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control" readonly name="MeetingDate" />
                 Meeting Complete: <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
             </div><br />
-            <div class="col-xs-12">
-                <p class="right">
-                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
-                    &nbsp; <a href="pdf/makefromdb/?MeetingId=10" class="btn btn-default">Download</a>
-                </p>
-            </div>
         </div>
-    </form>
 </div><!-- / ko linkpage -->
 
 <script type="text/javascript">
@@ -187,9 +179,9 @@
             };
 
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
-            self.loadPageData = function () {
+            self.loadPageData = function (meetingId) {
                 $.ajax({
-                    url: "LinkForm/GetLinkForm/?employeeId=e006&periodId=1", // Hardcoded Meeting GET for now...
+                    url: "LinkForm/GetMeetingView/?meetingId=" + meetingId, 
                     method: "GET"
                 })
                     .done(function (data) {
@@ -212,81 +204,10 @@
                         // if cannot load LinkMeeting for the given period
                     });
             }
-
-            // ### POST LinkForm data back to server.
-            self.saveLinkForm = function () {
-                console.log("Form data:" + $('#myform').serialize());
-                console.log("Form data(json):" + ko.toJSON(self.dataModel));
-                console.log("Self.DataModel:" + self.dataModel());
-
-                // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
-                var data = self.dataModel();
-                data.Questions = [];
-                ko.utils.arrayForEach(data.LookingBackQuestions, function(ques) {
-                    data.Questions.push(ques);
-                });
-                ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
-                    data.Questions.push(ques);
-                });
-
-                // end copy questions to model.
-
-                $.ajax({
-                        url: "LinkForm/PostLinkForm",
-                        method: "POST",
-                        data: self.dataModel(),
-                        contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
-
-                        // ## PostBack as FormCollection
-                        // data: "linkForm"=self.dataModel()
-                        // contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-
-                        // ## Postback as Json
-                        // data: JSON.stringify(self.dataModel())
-                        // contentType: 'application/json'
-                        // dataType:"json",
-                    })
-                    .done(function(response) {
-                        if (response.indexOf("StatusCode: 200") >= 0) {
-                            window.alert("Meeting created");
-                            $('#msgs').html("<strong>Meeting created</strong>");
-                        } else {
-                            window.alert("Meeting creation failed");
-                            $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
-                        }
-                        // msg success and redirect to another page if needed
-                        // Define a standard message format for Post(aka Create) Response returned,
-                        //  which should contain location header for created resource.
-                        // We should redirect to that returned resource location URL.
-                        // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
-                    })
-                    .fail(function (jqXhr, textStatus, errorThrown) {
-                        // msg failure
-                        window.alert("Meeting creation failed");
-                        $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
-                    });
-            }
-
-            var displayErrors = function(errors) {
-                for (var i = 0; i < errors.length; i++) {
-                    $("<label for='" + errors[i].Key + "' class='error'></label>")
-                    .html(errors[i].Value[0]).appendTo($("input#" + errors[i].Key).parent());
-                }
-            }
         }
 
         $(document).ready(function () {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-
-            // http://stackoverflow.com/questions/26487765/bootstrap-datepicker-set-language-globally
-            // set locales
-            try {
-                $.fn.datepicker.defaults.language = 'en-GB';
-                $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
-            } catch (e) {
-
-            }
-
             // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy"));
             // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
 
@@ -294,22 +215,23 @@
 
             var binder = function () {
                 ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
-// set locales
-                try {
-                    $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
-                } catch (e) {
-
-                }
             };
             vm.bind = binder;
 
             // TODO - use this later if we want to init or navigate to pages using query strings
-            var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
-            var empId = pageQueryParams["employeeId"];
-            console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
+            //var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
+            //var empId = pageQueryParams["employeeId"];
+            //console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
 
+            var meetingId = 0;
+            var comps = window.location.href.split("/");
+            if (comps) {
+                var lastCompIndex = comps.length - 1;
+                meetingId = comps[lastCompIndex];
+            }
+            console.log("Trying to call ajax with MeetingId: " + meetingId);
             // Show meeting data once loaded from GET
-            vm.loadPageData();
+            vm.loadPageData(meetingId);
         });
     });
 </script>
