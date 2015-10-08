@@ -4,142 +4,149 @@
 <div class="row">
     @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "create" } })
 </div>
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<div id="linkpage">
-    <!-- knockout binding to this -->
-    <div id="msgs"></div>
-    <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
-        <ol class="breadcrumb">
-            <li class="active">
-                <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
-            </li>
-            <li class="active">
-                <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
-            </li>
-        </ol>
+<div class="myPageContainer">
+    <h2>@ViewBag.Title.</h2>
+    <div id="linkpage">
+        <!-- knockout binding to this -->
+        <!--<div id="msgs"></div>-->
+        <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
+            <ol class="breadcrumb">
+                <li class="active">
+                    <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
+                </li>
+                <li class="active">
+                    <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
+                </li>
+            </ol>
 
-        <!-- Columns are always 50% wide, on mobile and desktop -->
-        <div class="row" data-bind="with: dataModel, visible: dataAvailable">
-            <!--Looking Back -->
-            <div class="col-xs-6">
-                <h3>Looking Back</h3>
-                <!-- LinkForm data items here -->
-
-                    <h4>QUESTIONS:</h4>
-                    <br />
-
+            <!-- Columns are always 50% wide, on mobile and desktop -->
+            <div class="row" data-bind="with: dataModel, visible: dataAvailable">
+                <!--Looking Back -->
+                <div class="col-xs-6">
+                    <h3>Looking Back</h3>
+                    <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
-                <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
+                    <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
 
-                            <div class="panel panel-default">
-                        <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
-                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
-                                        </a>
-                                    </h4>
-                                </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
+                                        <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                    </a>
+                                </h4>
+                            </div>
 
-                        <!-- ko if: $index() == 0 -->
-                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
-                                <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                </span>
-                                    </div>
+                            <!-- ko if: $index() == 0 -->
+                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
                                 </div>
-                        <!-- /ko -->
-                        <!-- ko if: $index() != 0 -->
-                        <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                            <div class="panel-body">
-                                <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                </span>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: $index() != 0 -->
+                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+
                         </div>
-                        </div>
-                        <!-- /ko -->
 
                     </div>
 
                 </div>
 
+
+
+
+
+                <!-- Looking Forward -->
+                <div class="col-xs-6">
+                    <h3>Looking Forward</h3>
+                    <!-- LinkForm data items here -->
+                    <!-- QUESTIONS Loop around this -->
+
+
+                    <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
+                                        <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <!-- ko if: $index() == 0 -->
+                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: $index() != 0 -->
+                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">
+                                    <span class="row">
+                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
 
-
-            
-
-            <!-- Looking Forward -->
-            <div class="col-xs-6">
-                <h3>Looking Forward</h3>
-                <!-- LinkForm data items here -->
-        
-                    <h4>QUESTIONS:</h4>
-                    <br />
-                    <!-- QUESTIONS Loop around this -->
-                 
-
-                        <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
-
-                            <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
-                                            <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
-                                        </a>
-                                    </h4>
-                                </div>
-
-                                        <!-- ko if: $index() == 0 -->
-                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
-                                                <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                                </span>
-                                            </div>
-                                    </div>
-                                        <!-- /ko -->
-                                        <!-- ko if: $index() != 0 -->
-                                        <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                                            <div class="panel-body">
-                                                <span class="row">
-                                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                                </span>
-                                </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Meeting Date:
+                    <div class="container-fluid well" style="text-align: left;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control" readonly name="MeetingDate" width="200" />
+                            </div>
+                            <div class="col-md-6">
+                                <p class="right">
+                                    Meeting Complete: <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
+                                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
+                                    &nbsp; <a href="pdf/makefromdb/?MeetingId=10" class="btn btn-default">Download</a>
+                                </p>
+                            </div>
                         </div>
-                                        <!-- /ko -->
+
+
+
+
+
 
 
                     </div>
+
                 </div>
             </div>
-
-
-        </div>
-
-        <br />
-        <hr />
-        <div class="container-fluid well row col-xs-12" style="text-align: left;">
-            <div class="col-xs-6 right">
-                Meeting Date: <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control" readonly name="MeetingDate" />
-                Meeting Complete: <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
-            </div><br />
-            <div class="col-xs-12">
-                <p class="right">
-                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
-                    &nbsp; <a href="pdf/makefromdb/?MeetingId=10" class="btn btn-default">Download</a>
-                </p>
-            </div>
-        </div>
-    </form>
-</div><!-- / ko linkpage -->
-
+        </form>
+    </div><!-- / ko linkpage -->
+</div>
 <script type="text/javascript">
     require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
 
