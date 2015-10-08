@@ -163,6 +163,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         //}
 
         // GET: LinkForm/Create
+        [System.Web.Mvc.Authorize]
         public ActionResult Create(string employeeId, int? periodId)
         {
             ViewBag.Title = "Create Link Form"; 
@@ -211,6 +212,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.Authorize]
         public ActionResult ViewMeeting(int? id)
         {
             ViewBag.Title = "My Team";

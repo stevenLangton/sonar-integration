@@ -13,9 +13,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     {
         // GET: Team/Create
         [HttpGet]
+        [Authorize]
         public ActionResult Index()
         {
-            ViewBag.Title = "My Team";
+            ViewBag.Title = "Team";
 
             using (var client = new HttpClient())
             {
