@@ -1,7 +1,16 @@
-﻿@{
-    ViewBag.Title = "Create";
-}
+﻿<style>
+    .linkErrorMsg {
+        font-weight: bold;
+        color: red;
+    }
 
+    .linkInfoMsg {
+        font-weight: bold;
+        color: #313131;
+    }
+</style>
+
+<div class="myPageContainer">
     <h2>@ViewBag.Title.</h2>
     <div id="linkpage">
         <!-- knockout binding to this -->
@@ -123,9 +132,9 @@
                             <div class="col-md-10">
                                 <p class="right">
                                     <strong>Meeting Complete:</strong> <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
-                                        <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
-                                        &nbsp; <a href="pdf/makefromdb/?MeetingId=10" class="btn btn-default">Download</a>
-</p>
+                                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
+                                    &nbsp; &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
+                                </p>
                             </div>
                         </div>
 
@@ -141,99 +150,100 @@
             </div>
         </form>
     </div><!-- / ko linkpage -->
+</div>
+    <script type="text/javascript">
+        require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "common"], function (helpers, $, ko, moment, datepicker, datePickerGb, common) {
 
-<script type="text/javascript">
-    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
+            function PageViewModel() {
 
-        function PageViewModel() {
+                var self = this;
 
-            var self = this;
+                self.dataModel = ko.observable(""); // LinkForm object
+                self.dataAvailable = ko.observable(false);
 
-            self.dataModel = ko.observable(""); // LinkForm object
-            self.dataAvailable = ko.observable(false);
+                self.bind = function () { };
 
-            self.bind = function () { };
+                var meetingView;
+                var buildViewModels = function (data) {
+                    moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+                    // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
+                    var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
-            var meetingView;
-            var buildViewModels = function (data) {
-                moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-                // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
-                var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+                    meetingView = {
+                        EmployeeId: data.EmployeeId,
+                        ColleagueId: data.ColleagueId,
+                        ManagerId: data.ManagerId,
+                        PeriodId: data.PeriodId,
+                        ManagerName: data.ManagerName,
+                        ColleagueName: data.ColleagueName,
+                        MeetingDate: meetingDate,
+                        MeetingId: data.MeetingId,
+                        Completed: data.Status,
+                        LookingBackQuestions: [],
+                        LookingFwdQuestions: [],
+                        Questions: []
+                    };
 
-                meetingView = {
-                    EmployeeId: data.EmployeeId,
-                    ColleagueId: data.ColleagueId,
-                    ManagerId: data.ManagerId,
-                    PeriodId: data.PeriodId,
-                    ManagerName: data.ManagerName,
-                    ColleagueName: data.ColleagueName,
-                    MeetingDate: meetingDate,
-                    MeetingId: data.MeetingId,
-                    Completed: data.Status,
-                    LookingBackQuestions: [],
-                    LookingFwdQuestions: [],
-                    Questions: []
+                    ko.utils.arrayForEach(data.Questions, function (ques) {
+                        if (!ques.ColleagueComment)
+                        { ques.ColleagueComment = ""; } // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                        if (!ques.ManagerComment)
+                        { ques.ManagerComment = ""; }
+                    });
+
+                    meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
+                    meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
+                    meetingView.Questions = data.Questions;
+
+                    self.dataModel(meetingView);
                 };
 
-                ko.utils.arrayForEach(data.Questions, function (ques) {
-                    if (!ques.ColleagueComment)
-                        {ques.ColleagueComment = "";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
-                    if (!ques.ManagerComment)
-                    { ques.ManagerComment = ""; }
-                });
-
-                meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
-                meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
-
-                self.dataModel(meetingView);
-            };
-
-            // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
-            self.loadPageData = function (employeeId,periodId) {
-                $.ajax({
-                    url: "LinkForm/GetLinkForm/?employeeId" + "employeeId"+"="+employeeId+"&"+"periodId="+periodId, // Hardcoded Meeting GET for now...
-                    method: "GET"
-                })
-                    .done(function (data, textStatus, jqXhr) {
-                        if (data == "Error") {
-                            $('#msgs').html("Error - no data");
-                            self.dataAvailable(false);
-                        }
-                        else {
-                           // $('#msgs').html("Fetch success");
-                            
-                            buildViewModels(data);
-                            self.dataAvailable(true);
-                            self.bind();
-                        }
+                // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
+                self.loadPageData = function (employeeId, periodId) {
+                    $.ajax({
+                        url: "LinkForm/GetLinkForm/?" + "employeeId" + "=" + employeeId + "&" + "periodId=" + periodId, // Hardcoded Meeting GET for now...
+                        method: "GET"
                     })
-                    .fail(function () {
-                        self.dataAvailable(false);
-                        $('#msgs').html("Error occured");
+                        .done(function (data, textStatus, jqXhr) {
+                            if (data == "Error") {
+                                $('#msgs').html("Error - no data");
+                                self.dataAvailable(false);
+                            }
+                            else {
+                                // $('#msgs').html("Fetch success");
 
-                        // if cannot load LinkMeeting for the given period
+                                buildViewModels(data);
+                                self.dataAvailable(true);
+                                self.bind();
+                            }
+                        })
+                        .fail(function () {
+                            self.dataAvailable(false);
+                            $('#msgs').html("Error occured");
+
+                            // if cannot load LinkMeeting for the given period
+                        });
+                }
+
+                // ### POST LinkForm data back to server.
+                self.saveLinkForm = function () {
+                    console.log("Form data:" + $('#myform').serialize());
+                    console.log("Form data(json):" + ko.toJSON(self.dataModel));
+                    console.log("Self.DataModel:" + self.dataModel());
+
+                    // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
+                    var data = self.dataModel();
+                    data.Questions = [];
+                    ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {
+                        data.Questions.push(ques);
                     });
-            }
+                    ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
+                        data.Questions.push(ques);
+                    });
 
-            // ### POST LinkForm data back to server.
-            self.saveLinkForm = function () {
-                console.log("Form data:" + $('#myform').serialize());
-                console.log("Form data(json):" + ko.toJSON(self.dataModel));
-                console.log("Self.DataModel:" + self.dataModel());
+                    // end copy questions to model.
 
-                // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
-                var data = self.dataModel();
-                data.Questions = [];
-                ko.utils.arrayForEach(data.LookingBackQuestions, function(ques) {
-                    data.Questions.push(ques);
-                });
-                ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
-                    data.Questions.push(ques);
-                });
-                
-                // end copy questions to model.
-
-                $.ajax({
+                    $.ajax({
                         url: "LinkForm/PostLinkForm",
                         method: "POST",
                         data: self.dataModel(),
@@ -248,77 +258,103 @@
                         // contentType: 'application/json'
                         // dataType:"json",
                     })
-                    .done(function (response, textStatus, jqXhr) {
-                        if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
-                            window.alert("Meeting created");
-                            $('#msgs').html("<strong>Meeting created</strong>");
-                        }
-                        else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
+                        .done(function (response, textStatus, jqXhr) {
+                            if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
+                                window.alert("Meeting created");
+                                $('#msgs').html("<strong>Meeting created</strong>");
+                            }
+                            else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
+                                window.alert("Meeting creation failed");
+                                $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
+                            }
+                            else { // UI validation errors
+                                displayErrors(response.ModelErrors);
+                            }
+                            // msg success and redirect to another page if needed
+                            // Define a standard message format for Post(aka Create) Response returned,
+                            //  which should contain location header for created resource.
+                            // We should redirect to that returned resource location URL.
+                            // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
+                        })
+                        .fail(function (jqXhr, textStatus, errorThrown) {
+                            // msg failure
                             window.alert("Meeting creation failed");
-                            $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
-                        }
-                        else { // UI validation errors
-                            displayErrors(response.ModelErrors);
-                        }
-                        // msg success and redirect to another page if needed
-                        // Define a standard message format for Post(aka Create) Response returned,
-                        //  which should contain location header for created resource.
-                        // We should redirect to that returned resource location URL.
-                        // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
-                    })
-                    .fail(function (jqXhr, textStatus, errorThrown) {
-                        // msg failure
-                        window.alert("Meeting creation failed");
-                        $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
-                    });
-            }
+                            $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
+                        });
+                }
 
-            // todo parse response.ModelErrors dictionary
-            var displayErrors = function(errors) {
-                for (var i = 0; i < errors.length; i++) {
-                    $("<label for='" + errors[i].Key + "' class='error'></label>")
-                    .html(errors[i].Value[0]).appendTo($("input#" + errors[i].Key).parent());
+                ///
+                self.downloadLinkFormAsPdf = function () {
+                    var MeetingView = self.dataModel();//Not quite the same
+                    var param = { MeetingData: MeetingView };
+                    var $promise = common.callService("post", "/Pdf/MakeFromJson", param);
+                    $promise.done(function (data) {
+                        if (data.success) {
+                            window.location = common.getSiteRoot() + "/Pdf/DownloadPdf/" + "?fName=" + data.fName;
+                        }
+                    });
+
+                };
+
+                // todo parse response.ModelErrors dictionary
+                var displayErrors = function (errors) {
+                    for (var i = 0; i < errors.length; i++) {
+                        errorsList = errorsList + "<li>" + errors[i].Value[0] + "</li>"; // todo, this is also an array, so another for needed
+                        //errors[i].Key = errors[i].Key.replace("[", "__");
+                        //errors[i].Key = errors[i].Key.replace("]", "__");
+                        //                    var elementName = "[name='" + errors[i].Key + "']";
+                        //                    console.log("Looking for elements with error: " + elementName);
+                        //;                    $("<label for='" + errors[i].Key + "' class='error' style='color:red'></label>")
+                        //                        .html(errors[i].Value[0]).appendTo($(elementName).parent());
+                    }
+                    $("#msgs").html("<ul class='linkErrorMsg'>" + errorsList + "</ul>");
+                    window.alert("Validation errors, please see top of screen for remedial action.");
+                }
+
+                self.getMeetingView = function () {
+                    return self.dataModel();
                 }
             }
-        }
 
-        $(document).ready(function () {
-            moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+            $(document).ready(function () {
+                moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
 
-            // http://stackoverflow.com/questions/26487765/bootstrap-datepicker-set-language-globally
-            // set locales
-            try {
-                $.fn.datepicker.defaults.language = 'en-GB';
-                $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
-            } catch (e) {
-
-            }
-
-            // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy")); 
-            // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
-
-            var vm = new PageViewModel();
-
-            var binder = function () {
-                ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
-// set locales
+                // http://stackoverflow.com/questions/26487765/bootstrap-datepicker-set-language-globally
+                // set locales
                 try {
+                    $.fn.datepicker.defaults.language = 'en-GB';
                     $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
                 } catch (e) {
 
                 }
-            };
-            vm.bind = binder;
 
-            // TODO - use this later if we want to init or navigate to pages using query strings
-            var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
-            var empId = pageQueryParams["employeeId"];
-            var periodId = pageQueryParams["periodId"];
-            console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
+                // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy"));
+                // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
 
-            // Show meeting data once loaded from GET
-            vm.loadPageData(empId,periodId);
+                var vm = new PageViewModel();
+
+                var binder = function () {
+                    ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
+                    // set locales
+                    try {
+                        $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
+                    } catch (e) {
+
+                    }
+                };
+                vm.bind = binder;
+
+                // TODO - use this later if we want to init or navigate to pages using query strings
+                var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
+                var empId = pageQueryParams["employeeId"];
+                var periodId = pageQueryParams["periodId"];
+                console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
+
+                // Show meeting data once loaded from GET
+                vm.loadPageData(empId, periodId);
+
+                var MeetingViewJsonForPdf = vm.getMeetingView();
+            });
         });
-    });
-</script>
+    </script>
 
