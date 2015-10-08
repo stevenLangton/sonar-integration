@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Link Meeting";
 }
 <div class="row">
     @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "team" } })
@@ -36,7 +36,7 @@
                         <div class="panel-heading" role="tab">
                             <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
-                                    <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                    <strong>Q.</strong><span data-bind="text: Question,  'name': 'Question[' + QuestionId + '].Question'"></span>
                                 </a>
                             </h4>
                         </div>
@@ -45,8 +45,8 @@
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    Colleague Comment:<br /><textarea readonly="readonly" data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea readonly="readonly" data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
@@ -55,8 +55,8 @@
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    Colleague Comment:<br /><textarea readonly="readonly" data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea readonly="readonly" data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="panel-heading" role="tab">
                             <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
-                                    <strong>Q.</strong><span data-bind="text: Question + ', Id=' + QuestionId, 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                    <strong>Q.</strong><span data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></span>
                                 </a>
                             </h4>
                         </div>
@@ -97,8 +97,8 @@
                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    Colleague Comment:<br /><textarea readonly="readonly" data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea readonly="readonly" data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
@@ -107,8 +107,8 @@
                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
                                 <span class="row">
-                                    Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                    Colleague Comment:<br /><textarea readonly="readonly" data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    Manager Comment:<br /><textarea readonly="readonly" data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
@@ -125,9 +125,9 @@
         <br />
         <hr />
         <div class="container-fluid well row col-xs-12" style="text-align: left;">
-            <div class="col-xs-6 right">
-                Meeting Date: <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control" readonly name="MeetingDate" />
-                Meeting Complete: <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
+            <div class="col-xs-2 right">
+                <strong>Meeting Date:</strong> <span id="MeetingDate" data-bind="text: dataModel().MeetingDate" class="" readonly="readonly" name="MeetingDate"></span><br />
+                <strong>Meeting Complete: </strong><input id="Checkbox1" d type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" />
             </div><br />
         </div>
 </div><!-- / ko linkpage -->
@@ -190,7 +190,7 @@
                             self.dataAvailable(false);
                         }
                         else {
-                            $('#msgs').html("Fetch success");
+                           // $('#msgs').html("Fetch success");
 
                             buildViewModels(data);
                             self.dataAvailable(true);
