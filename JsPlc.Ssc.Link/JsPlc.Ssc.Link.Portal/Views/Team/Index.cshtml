@@ -10,8 +10,8 @@
                 <td><strong>Colleague Id</strong></td>
                 <td><strong>First Name</strong></td>
                 <td><strong>Last Name</strong></td>
-                <td><strong>Meetings </strong></td>
                 <td><strong>Meeting </strong></td>
+                <td><strong>Meetings </strong></td>
                 <td></td>
                 
             </tr>
@@ -23,7 +23,7 @@
                 <td>@Html.DisplayFor(e => employee.ColleagueId)</td>
                 <td>@Html.DisplayFor(e => employee.FirstName)</td>
                 <td>@Html.DisplayFor(e => employee.LastName)</td>
-                
+                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { employeeId = employee.ColleagueId, periodId = 1 }, null)</td>
                 <td>
                     @if (employee.Meetings != null)
                     {
@@ -34,7 +34,7 @@
                         }
                     }
                 </td>
-                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { employeeId = employee.ColleagueId, periodId = 1 },null)</td>
+                
             </tr>
 
             @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@

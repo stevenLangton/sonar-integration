@@ -75,6 +75,7 @@ namespace JsPlc.Ssc.Link.Repository
                                  FirstName = e.FirstName,
                                  LastName = e.LastName,
                                  Meetings = (from m in db.Meeting
+                                             where m.PeriodId==1
                                              orderby m.PeriodId
                                             where m.EmployeeId == e.Id
                                             select new LinkMeetingView()
