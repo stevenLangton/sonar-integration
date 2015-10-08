@@ -85,16 +85,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PdfControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="PdfTemplates\MeetingTemplate.pdf" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj">
+      <Project>{589e97d6-1d3d-4214-9871-005e7b01e4b5}</Project>
+      <Name>JsPlc.Ssc.Link.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj">
       <Project>{56E4348B-CEE2-45A1-B27B-06A619EB5ABE}</Project>
       <Name>JsPlc.Ssc.Link.Portal</Name>
