@@ -189,9 +189,9 @@
             };
 
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
-            self.loadPageData = function () {
+            self.loadPageData = function (employeeId,periodId) {
                 $.ajax({
-                    url: "LinkForm/GetLinkForm/?employeeId=e006&periodId=1", // Hardcoded Meeting GET for now...
+                    url: "LinkForm/GetLinkForm/?employeeId" + "employeeId"+"="+employeeId+"&"+"periodId="+periodId, // Hardcoded Meeting GET for now...
                     method: "GET"
                 })
                     .done(function (data, textStatus, jqXhr) {
@@ -313,10 +313,11 @@
             // TODO - use this later if we want to init or navigate to pages using query strings
             var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
             var empId = pageQueryParams["employeeId"];
+            var periodId = pageQueryParams["periodId"];
             console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
 
             // Show meeting data once loaded from GET
-            vm.loadPageData();
+            vm.loadPageData(empId,periodId);
         });
     });
 </script>
