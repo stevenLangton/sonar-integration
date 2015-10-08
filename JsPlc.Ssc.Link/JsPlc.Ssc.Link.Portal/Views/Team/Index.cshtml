@@ -1,5 +1,4 @@
 ﻿@using JsPlc.Ssc.Link.Portal.Controllers
-@using JsPlc.Ssc.Link.Portal.Models
 @model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
 
 
@@ -17,6 +16,8 @@
                 <td><strong>First Name</strong></td>
                 <td><strong>Last Name</strong></td>
                 <td><strong>Meetings </strong></td>
+                <td></td>
+                
             </tr>
         </thead>
 
@@ -26,6 +27,7 @@
                 <td>@Html.DisplayFor(e => employee.ColleagueId)</td>
                 <td>@Html.DisplayFor(e => employee.FirstName)</td>
                 <td>@Html.DisplayFor(e => employee.LastName)</td>
+                
                 <td>
                     @foreach (var meeting in employee.Meetings)
                     {
@@ -33,7 +35,7 @@
                         <br/>
                     }
                 </td>
-
+                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { employeeId = employee.ColleagueId, periodId = 1 },null)</td>
             </tr>
 
             @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@

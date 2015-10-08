@@ -154,7 +154,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         // GET: LinkForm/Create
-        public ActionResult Create()
+        public ActionResult Create(string employeeId, int? periodId)
         {
             ViewBag.Title = "Create Link Form"; 
             // assuming we're creating a new Link Meeting for now
