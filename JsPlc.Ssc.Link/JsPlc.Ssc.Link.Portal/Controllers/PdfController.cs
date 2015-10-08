@@ -114,9 +114,13 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                             break;
                         case "ManagerName":
                             value = MeetingData.ManagerName;
+                            if (!String.IsNullOrEmpty(MeetingData.ManagerId))
+                                value = value + " (" + MeetingData.ManagerId + ")";
                             break;
                         case "ColleagueName":
                             value = MeetingData.ColleagueName;
+                            if (!String.IsNullOrEmpty(MeetingData.ColleagueId))
+                                value = value + " (" + MeetingData.ColleagueId + ")";
                             break;
                         case "ColleagueComments1":
                             value = MeetingData.Questions.ToArray<QuestionView>()[0].ColleagueComment;
