@@ -14,7 +14,7 @@
     <h2>@ViewBag.Title.</h2>
     <div id="linkpage">
         <!-- knockout binding to this -->
-        <!--<div id="msgs"></div>-->
+        <div id="msgs"></div>
         <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
             <ol class="breadcrumb">
                 <li class="active">
@@ -299,6 +299,7 @@
 
                 // todo parse response.ModelErrors dictionary
                 var displayErrors = function (errors) {
+                    var errorsList = "";
                     for (var i = 0; i < errors.length; i++) {
                         errorsList = errorsList + "<li>" + errors[i].Value[0] + "</li>"; // todo, this is also an array, so another for needed
                         //errors[i].Key = errors[i].Key.replace("[", "__");
