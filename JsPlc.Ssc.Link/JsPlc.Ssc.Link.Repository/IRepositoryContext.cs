@@ -14,8 +14,6 @@ namespace JsPlc.Ssc.Link.Repository
 
         IDbSet<Period> Periods { get; }
 
-        IDbSet<User> Users { get; }
-
         IDbSet<LinkMeeting> Meeting { get; set; }
     }
 }

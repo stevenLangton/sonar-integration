@@ -10,21 +10,29 @@ namespace JsPlc.Ssc.Link.Repository
         protected override void Seed(RepositoryContext context)
         {
          var periods = new List<Period>{
-                new Period{Id=1, Description="Q1", Start=new DateTime(2015,01,01),End=new DateTime(2015,03,31)},
-                new Period{Id=2, Description="Q2", Start=new DateTime(2015,04,01),End=new DateTime(2015,06,30)},
-                new Period{Id=3, Description="Q3", Start=new DateTime(2015,07,01),End=new DateTime(2015,09,30)},
-                new Period{Id=4, Description="Q4", Start=new DateTime(2015,10,01),End=new DateTime(2015,12,31)}
+                new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
+                new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
+                new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},
+                new Period{Id=4, Description="Q4", Start=new DateTime(2015,01,01),End=new DateTime(2015,03,31), Year = "2014/15"},
+                new Period{Id=5, Description="Q1", Start=new DateTime(2015,04,01),End=new DateTime(2015,06,30), Year = "2015/16"},
+                new Period{Id=6, Description="Q2", Start=new DateTime(2015,07,01),End=new DateTime(2015,09,30), Year = "2015/16"},
+                new Period{Id=7, Description="Q3", Start=new DateTime(2015,10,01),End=new DateTime(2015,12,31), Year = "2015/16"},
+                new Period{Id=8, Description="Q4", Start=new DateTime(2016,01,01),End=new DateTime(2016,03,31), Year = "2015/16"},
+                new Period{Id=9, Description="Q1", Start=new DateTime(2016,04,01),End=new DateTime(2016,06,30), Year = "2016/17"},
+                new Period{Id=10, Description="Q2", Start=new DateTime(2016,07,01),End=new DateTime(2016,09,30), Year = "2016/17"},
+                new Period{Id=11, Description="Q3", Start=new DateTime(2016,10,01),End=new DateTime(2016,12,31), Year = "2016/17"},
+                new Period{Id=12, Description="Q4", Start=new DateTime(2017,01,01),End=new DateTime(2017,03,31), Year = "2016/17"}
             };
 
             periods.ForEach(c => context.Periods.Add(c));
             context.SaveChanges();
 
             var questions = new List<Question> { 
-            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?" , PeriodId = 1},
-            new Question{Id=2,Description="Where could I have made a greater difference?" , PeriodId = 1},
-            new Question{Id=3,Description="What am I going to do make more of a difference?", PeriodId = 1},
-            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?" , PeriodId = 1},
-            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?" , PeriodId = 1}
+            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?" },
+            new Question{Id=2,Description="Where could I have made a greater difference?" },
+            new Question{Id=3,Description="What am I going to do make more of a difference?" },
+            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?" },
+            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?" }
             };
             
             questions.ForEach(c => context.Questions.Add(c));            
@@ -40,41 +48,38 @@ namespace JsPlc.Ssc.Link.Repository
                 new Employee{Id=6, FirstName="Praveen", LastName="Kumar", ColleagueId="E006", ManagerId="E0010", EmailAddress="Praveen.K@sainsburys.co.uk"},
                 new Employee{Id=7, FirstName="Steven", LastName="A", ColleagueId="E007", ManagerId="E0010", EmailAddress="Steven.A@sainsburys.co.uk"},
                 new Employee{Id=8, FirstName="Anis", LastName="Batilwala", ColleagueId="E008", ManagerId="E009", EmailAddress="Anis.B@sainsburys.co.uk"},
-                new Employee{Id=9, FirstName="Mohammed", LastName="Tahir", ColleagueId="E009", ManagerId=string.Empty, EmailAddress="Mohammed.T@sainsburys.co.uk"},
-                new Employee{Id=10, FirstName="Sandip", LastName="Vaidya", ColleagueId="E0010", ManagerId=string.Empty, EmailAddress="Sandip.V@sainsburys.co.uk"}
+                new Employee{Id=9, FirstName="Mohammed", LastName="Tahir", ColleagueId="E009", ManagerId="E0011", EmailAddress="Mohammed.T@sainsburys.co.uk"},
+                new Employee{Id=10, FirstName="Sandip", LastName="Vaidya", ColleagueId="E0010", ManagerId="E0011", EmailAddress="Sandip.V@sainsburys.co.uk"},
+                new Employee{Id=11, FirstName="Mike", LastName="Gwyer",  ColleagueId="E0011", ManagerId=string.Empty, EmailAddress="Mike.G@sainsburys.co.uk"},
+                new Employee{Id=12, FirstName="Ridley", LastName="Scott",  ColleagueId="E0012", ManagerId=string.Empty, EmailAddress="ridley.scott@sainsburys.co.uk"},
+                new Employee{Id=13, FirstName="Joss", LastName="Whedon",  ColleagueId="E0013", ManagerId=string.Empty, EmailAddress="joss.whedon@sainsburys.co.uk"},
+                new Employee{Id=14, FirstName="Rick", LastName="Deckard",  ColleagueId="E0014", ManagerId="E0012", EmailAddress="rick.deckard@sainsburys.co.uk"},
+                new Employee{Id=15, FirstName="Ellen", LastName="Ripley",  ColleagueId="E0015", ManagerId="E0012", EmailAddress="ellen.ripley@sainsburys.co.uk"},
+                new Employee{Id=16, FirstName="Malcolm", LastName="Reynolds",  ColleagueId="E0016", ManagerId="E0013", EmailAddress="malcolm.reynolds@sainsburys.co.uk"},
+                new Employee{Id=17, FirstName="Zoe", LastName="Washburne",  ColleagueId="E0017", ManagerId="E0013", EmailAddress="zoe.washburne@sainsburys.co.uk"},
+
             };
 
             employees.ForEach(c=>context.Employees.Add(c));
             context.SaveChanges();
+         
 
-            var users = new List<User>{
-                new User{Id=1, UserName= "Sandip.V@sainsburys.co.uk", EmployeeId=10, Password="testing" },
-                new User{Id=2, UserName="Mohammed.T@sainsburys.co.uk", EmployeeId=9, Password="testing" },
-                new User{Id=3, UserName="Vasundhara.B@sainsburys.co.uk", EmployeeId=1, Password="testing" },
-                new User{Id=4, UserName="Luan.A@sainsburys.co.uk", EmployeeId=5, Password="testing" },
-                new User{Id=5, UserName="Praveen.K@sainsburys.co.uk", EmployeeId=6, Password="testing" },
-                new User{Id=6, UserName="Steven.A@sainsburys.co.uk", EmployeeId=7, Password="testing" },
+            var meetings=new List<LinkMeeting>{
+
+                new LinkMeeting{Id=1, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" ,MeetingDate = new DateTime(2015,10,01)},
+                new LinkMeeting{Id=2, EmployeeId=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,10)},
+                new LinkMeeting{Id=3, EmployeeId=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,12)},
+                new LinkMeeting{Id=4, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,13)},
+                new LinkMeeting{Id=5, EmployeeId=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,14)},
+                new LinkMeeting{Id=6, EmployeeId=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,15)},
+                new LinkMeeting{Id=7, EmployeeId=1, ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,18)},
+                new LinkMeeting{Id=8, EmployeeId=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,20)},
+                new LinkMeeting{Id=9, EmployeeId=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,21)},
+                new LinkMeeting{Id=10, EmployeeId=10, ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,23)},
+                new LinkMeeting{Id=11, EmployeeId=10, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,30)},
             };
 
-            users.ForEach(c=>context.Users.Add(c));
-            context.SaveChanges();
-
-            var performance=new List<LinkMeeting>{
-
-                new LinkMeeting{Id=1, EmployeeId=1, PeriodId=1, Status=MeetingStatus.Completed , MeetingDate = new DateTime(2015,10,01)},
-                new LinkMeeting{Id=2, EmployeeId=5, PeriodId=1, Status=MeetingStatus.Completed, MeetingDate = new DateTime(2015,10,10)},
-                new LinkMeeting{Id=3, EmployeeId=6, PeriodId=1, Status=MeetingStatus.Completed , MeetingDate = new DateTime(2015,10,12)},
-                new LinkMeeting{Id=4, EmployeeId=1, PeriodId=2, Status=MeetingStatus.Completed , MeetingDate = new DateTime(2015,10,13)},
-                new LinkMeeting{Id=5, EmployeeId=5, PeriodId=2, Status=MeetingStatus.Completed, MeetingDate = new DateTime(2015,10,14)},
-                new LinkMeeting{Id=6, EmployeeId=6, PeriodId=2, Status=MeetingStatus.Completed, MeetingDate = new DateTime(2015,10,15)},
-                new LinkMeeting{Id=7, EmployeeId=1, PeriodId=3, Status=MeetingStatus.InComplete, MeetingDate = new DateTime(2015,10,18)},
-                new LinkMeeting{Id=8, EmployeeId=5, PeriodId=3, Status=MeetingStatus.InComplete, MeetingDate = new DateTime(2015,10,20)},
-                new LinkMeeting{Id=9, EmployeeId=6, PeriodId=3, Status=MeetingStatus.InComplete, MeetingDate = new DateTime(2015,10,21)},
-                new LinkMeeting{Id=10, EmployeeId=10, PeriodId=1, Status=MeetingStatus.Completed, MeetingDate = new DateTime(2015,10,23)},
-                new LinkMeeting{Id=11, EmployeeId=10, PeriodId=2, Status=MeetingStatus.InComplete, MeetingDate = new DateTime(2015,10,30)},
-            };
-
-            performance.ForEach(c=>context.Meeting.Add(c));
+            meetings.ForEach(c => context.Meeting.Add(c));
             context.SaveChanges();
 
             var answers = new List<Answer>{
