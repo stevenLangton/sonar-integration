@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using JsPlc.Ssc.Link.Models;
 
@@ -44,24 +45,6 @@ namespace JsPlc.Ssc.Link.Repository
 
             return employee;
         }
-
-        //public IEnumerable<EmployeeView> GetEmployees(string managerId)
-        //{
-        //    var employees = (from e in db.Employees
-        //        where e.ManagerId == managerId
-        //        orderby e.FirstName,e.LastName
-        //        select new EmployeeView()
-        //        {
-        //            Id = e.Id,
-        //            ColleagueId = e.ColleagueId,
-        //            FirstName = e.FirstName,
-        //            LastName = e.LastName,
-        //            ManagerId = e.ManagerId,
-        //            EmailAddress = e.EmailAddress
-        //        });
-
-        //    return employees.ToList();
-        //}
 
         public IEnumerable<TeamView> GetTeam(string managerId)
         {
@@ -182,30 +165,59 @@ namespace JsPlc.Ssc.Link.Repository
         {
             int empId = db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
 
-            LinkMeeting meeting = new LinkMeeting()
+            var meeting = new LinkMeeting()
             {
                 EmployeeId = empId,
                 PeriodId = view.PeriodId,
                 MeetingDate = view.MeetingDate,
                 Status = view.Status
             };
+
             var result= db.Meeting.Add(meeting);
             db.SaveChanges();
 
-            foreach (var answer in view.Questions)
+            foreach (var answer in view.Questions.Select(answer => new Answer()
             {
-                Answer _answer = new Answer()
-                {
-                     ColleagueComments = answer.ColleagueComment,
-                     ManagerComments = answer.ManagerComment,
-                     QuestionId = answer.QuestionId,
-                     LinkMeetingId = result.Id
-                };
-                db.Answers.Add(_answer);
+                ColleagueComments = answer.ColleagueComment,
+                ManagerComments = answer.ManagerComment,
+                QuestionId = answer.QuestionId,
+                LinkMeetingId = result.Id
+            }))
+            {
+                db.Answers.Add(answer);
                 db.SaveChanges();
             }
             
             return result.Id;
+        }
+
+        public void UpdateMeeting(MeetingView view)
+        {
+            var meeting = db.Meeting.FirstOrDefault(m => m.Id == view.MeetingId);
+           
+            if (meeting != null)
+            {
+                var linkMeeting = new LinkMeeting()
+                {
+                    MeetingDate = view.MeetingDate,
+                    Status = view.Status,
+                    Id = view.MeetingId
+                };
+                db.Meeting.AddOrUpdate(linkMeeting);
+                db.SaveChanges();
+            }
+
+            foreach (var answer in view.Questions.Select(answer => new Answer()
+            {
+                ColleagueComments = answer.ColleagueComment,
+                ManagerComments = answer.ManagerComment,
+                QuestionId = answer.QuestionId,
+                LinkMeetingId = view.MeetingId
+            }))
+            {
+                db.Answers.AddOrUpdate(answer);
+                db.SaveChanges();
+            } 
         }
 
         public void Dispose()
