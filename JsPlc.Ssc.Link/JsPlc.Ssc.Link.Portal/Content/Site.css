@@ -3,6 +3,9 @@
 }
 
 
+h1 {font-size:170%;}
+h2 {font-size:170%;}
+h3 {font-size:150%;}
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -144,14 +147,15 @@ textarea {
     background-color: #333333;
     padding: 0 0 0 0px;
     font-size: 120%;
+    
 }
 
-li.tab-heading.active a 
-{
-text-decoration: none;
-background-color: #4b4b4b;
-   
+.navbar-inverse .navbar-nav > li > a {
+  color:#ffffff;
 }
+
+
+
 
 .navbar {
 border-radius: 0px;
@@ -166,28 +170,37 @@ border-radius: 0px;
 
 
 
-.nav > li > a:active
-{
-text-decoration: none;
-background-color: #4b4b4b;
-}
-
-
-
 
 .nav > li > a {
 position: relative;
 display: block;
 padding-top: 12px;
 padding-bottom: 12px;
-color:#ffffff;
-
 font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-size:80%;
 
 }
 
+.navbar-inverse .navbar-nav > li > a:hover {
+  color:#EF6600;
+}
+
+.nav {margin-left:-25px;}
 
 .breadcrumb {margin-bottom:0px;}
+
+
+
+
+
+
+.link-footer {color:#ffffff;}
+.link-footer > h4 {font-size:80%;}
+
+.footerlinks {list-style:none;padding:0px;margin:0px;}
+.footerlinks li a{color:#ffffff;}
+.footerlinks li a:hover{ color:#EF6600;text-decoration: none;}
+
+.footerP { font-size:90%; }
 
 
