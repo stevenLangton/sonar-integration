@@ -1,4 +1,5 @@
-﻿//Must omit extension on right side (in values)
+﻿/// <reference path="App/Services/LinkService.js" />
+//Must omit extension on right side (in values)
 require.config({
     waitSeconds: 200,
     baseUrl: "Scripts",
@@ -24,7 +25,10 @@ require.config({
 
         //"ko-binding-handlers": "App/ko-binding-handlers",
 
-        "RegisterKoComponents": "App/kocomponents/RegisterKoComponents"
+        "RegisterKoComponents": "App/kocomponents/RegisterKoComponents",
+
+        //Services
+        "LinkService": "App/Services/LinkService"
 
     },
     shim: {
