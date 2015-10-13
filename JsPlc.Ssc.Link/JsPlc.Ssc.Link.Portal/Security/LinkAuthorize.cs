@@ -18,7 +18,7 @@ namespace JsPlc.Ssc.Link.Portal.Security
 
         private bool HasDirectReports(HttpContextBase httpContext)
         {
-            if (httpContext.User.Identity.Name.Contains("Sandip"))
+            if (httpContext.User.Identity.Name.ToLower().Contains("sandip"))
             {
                 // Query LinkRepo to see if any direct reports
                 // call API to get HasDirectReports (dont use DB directly)

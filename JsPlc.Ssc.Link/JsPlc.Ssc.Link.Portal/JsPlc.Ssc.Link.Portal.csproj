@@ -243,6 +243,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="JSLintNet.json" />
     <None Include="Properties\PublishProfiles\Link-PubPraveen.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
