@@ -9,7 +9,6 @@ namespace JsPlc.Ssc.Link.Portal.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public int PeriodId { get; set; }
         public Answer Answer { get; set; }
     }
 }

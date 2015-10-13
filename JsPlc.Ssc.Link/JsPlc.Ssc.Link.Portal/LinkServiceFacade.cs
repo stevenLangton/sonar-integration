@@ -1,4 +1,5 @@
-﻿using JsPlc.Ssc.Link.Models;
+﻿using System.Globalization;
+using JsPlc.Ssc.Link.Models;
 //using JsPlc.Ssc.Link.Portal.Models;
 using System;
 using System.Collections.Generic;
@@ -24,33 +25,37 @@ namespace JsPlc.Ssc.Link.Portal
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public void GetQuestion(int Id)
+        public void GetQuestion(int id)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + Id.ToString()).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + id).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
             }
-            else
-            {
-                //ViewBag.result = "Error, Unable to connect to service.";
-            }
         }
 
-        public MeetingView GetMeeting(int Id)
+        public MeetingView GetMeeting(int id)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("meetings/" + Id.ToString()).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("meetings/" + id.ToString(CultureInfo.InvariantCulture)).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 return response.Content.ReadAsAsync<MeetingView>().Result;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
+
+        public MeetingView GetNewMeetingView(string colleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("meetings/?colleagueId=" + colleagueId).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsAsync<MeetingView>().Result;
+            }
+            return null;
+         }
 
         public void Dispose()
         {
