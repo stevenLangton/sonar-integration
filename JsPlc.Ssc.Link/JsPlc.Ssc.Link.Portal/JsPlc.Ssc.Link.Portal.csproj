@@ -337,6 +337,7 @@
     <Content Include="Scripts\UriJs\CustomBuiltURI.js" />
     <Content Include="Scripts\UriJs\URI.fragmentQuery.js" />
     <Content Include="Scripts\UriJs\URI.fragmentURI.js" />
+    <Content Include="Scripts\UriJs\URI.js" />
     <Content Include="Scripts\Utils\linkDatePickers.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -383,6 +384,7 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\LinkForm\ViewMeeting.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
+    <Content Include="Views\Home\JSVars.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />

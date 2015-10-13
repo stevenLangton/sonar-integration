@@ -165,8 +165,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         //}
 
         // GET: LinkForm/Create
-        //[System.Web.Mvc.Authorize]
-        [LinkAuthorizeManager]
+        [System.Web.Mvc.Authorize]
+        //[LinkAuthorizeManager] // might be needed for ManagerApproval method. Not needed here yet as Create can be called by Mgr or Employee.
         public ActionResult Create(string employeeId, int? periodId)
         {
             ViewBag.Title = "Create Link Form";
