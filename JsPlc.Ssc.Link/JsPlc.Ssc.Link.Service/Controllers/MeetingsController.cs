@@ -28,9 +28,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         //GET: /api/Meetings/?employeeId=1
         [HttpGet]
         
-        public IHttpActionResult CreateMeeting([FromUri]string employeeId)
+        public IHttpActionResult CreateMeeting([FromUri]string colleagueId)
         {
-            var meeting = _db.CreateMeeting(employeeId);
+            var meeting = _db.CreateMeeting(colleagueId);
 
             if (meeting == null)
                 return NotFound();

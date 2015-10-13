@@ -121,11 +121,11 @@ namespace JsPlc.Ssc.Link.Repository
             return null;
         }
 
-        public MeetingView CreateMeeting(string employeeId)
+        public MeetingView CreateMeeting(string colleagueId)
         {
             // Get meeting details along with manager details
             var meeting = (from e in db.Employees
-                            where e.ColleagueId == employeeId
+                           where e.ColleagueId == colleagueId
                             join m in db.Employees on e.ManagerId equals m.ColleagueId into m_join
                             from m in m_join.DefaultIfEmpty()
                             select new MeetingView
