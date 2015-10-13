@@ -13,6 +13,7 @@ using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
+using JsPlc.Ssc.Link.Portal.Security;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
 using WebGrease.Extensions;
@@ -164,7 +165,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         //}
 
         // GET: LinkForm/Create
-        [System.Web.Mvc.Authorize]
+        //[System.Web.Mvc.Authorize]
+        [LinkAuthorizeManager]
         public ActionResult Create(string employeeId, int? periodId)
         {
             ViewBag.Title = "Create Link Form";

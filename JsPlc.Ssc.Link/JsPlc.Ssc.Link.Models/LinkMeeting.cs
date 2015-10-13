@@ -11,13 +11,16 @@ namespace JsPlc.Ssc.Link.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; } 
-        
-        public int PeriodId { get; set; }
+        public int EmployeeId { get; set; }
+
+        public string  ManagerId { get; set; } 
+      
+        [Required]
+        public MeetingStatus ColleagueSignOff { get; set; }
 
         [Required]
-        public MeetingStatus Status { get; set; }
-
+        public MeetingStatus ManagerSignOff { get; set; }
+        
         [Required]
         public DateTime MeetingDate { get; set; }
 

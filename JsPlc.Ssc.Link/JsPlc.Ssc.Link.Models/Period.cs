@@ -15,13 +15,13 @@ namespace JsPlc.Ssc.Link.Models
         public string Description { get; set; }
 
         [Required]
+        public string Year { get; set; }
+
+        [Required]
         public DateTime Start { get; set; }
 
         [Required]
         public DateTime End { get; set; }
-
-        public ICollection<LinkMeeting> Meetings { get; set; }
-
-        public ICollection<Question> Questions { get; set; } 
+        
     }
 }

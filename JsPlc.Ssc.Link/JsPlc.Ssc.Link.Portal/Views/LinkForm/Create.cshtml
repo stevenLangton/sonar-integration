@@ -15,7 +15,7 @@
 </style>
 
 <div class="myPageContainer">
-    <h2>@ViewBag.Title.</h2>
+    <h2>@ViewBag.Title</h2>
     <div id="linkpage">
         <!-- knockout binding to this -->
         <div id="msgs"></div>
@@ -195,6 +195,7 @@
                         { ques.ManagerComment = ""; }
                     });
 
+                    // TODO split questions by type
                     meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
                     meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
                     meetingView.Questions = data.Questions;

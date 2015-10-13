@@ -2,6 +2,9 @@
 @using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+    var managerCheck = "";
+    //var isManager = User.IsInRole("Users"); // doesnt work
+       
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
@@ -9,13 +12,18 @@
     <ul class="nav navbar-nav navbar-right">
         <li class="tab-heading">
             @{
+                // TODO move to a common place, probably not here.                
                 var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
-                var currentUser = manager.FindById(User.Identity.GetUserId());                 
+                var currentUser = manager.FindById(User.Identity.GetUserId());
             }
-            @if (currentUser != null && currentUser.FirstName != null)
+            @if (currentUser.IsLineManager()) // works, but now how do we put authorize attribute on Action methods (custom code), (or we check in code for manager, and return unauth result if not manager) 
+            {
+                managerCheck = "- (IsManager)";
+            }
+            @if (currentUser.FirstName != null)
             {
                 @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-                @Html.ActionLink("Hello " + currentUser.FirstName + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello " + currentUser.FirstName + "!" + managerCheck, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             }
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>

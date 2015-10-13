@@ -17,6 +17,25 @@
         });
     </script>
     <meta name="description" content="Links application for Colleague-Manager Link Meetings and Performance appraisals" />
+    <script>
+        var linkapp_settings = {
+            // @**@ Url.Content is of WebViewPage
+            // VirtualPathUtility.ToAbsolute("~/url/"); equiv of WebPageView > Url.Content for C#
+            // window.location = Url in JS
+
+            fullUrlNoHash: '@UriPartial.Query',
+            path: '@UriPartial.Path',
+            tilde: '@Url.Content("~")',
+            virtualDir: '@Url.Content("~")',
+
+            // 17th Nov - 700 mgr trial.
+            // #something=somevalue||somethingelse=somevalueelse
+            hash: window.location.hash,
+        }
+        var a = linkapp_settings;
+        console.log("Server variables: \n UriPartial.Query:" + a.fullUrlNoHash + ", UriPartial.Path:" + a.path + ", Url.Content('~'):" + a.tilde + ", virtualDir:" + a.virtualDir + ", hash:" + a.hash);
+</script>
+
 </head>
 <body>
     @*<div>
@@ -52,10 +71,10 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <img src="~/Content/Images/LinkLogo.png" class="logo pull-left" alt="Link logo" title="Link logo" width="120" />
+                    <a href="~/Home/Welcome"><img src="~/Content/Images/LinkLogo.png" class="logo pull-left" alt="Link logo" title="Link logo" width="120" /></a>
                 </div>
                 <div class="col-md-4">
-                    <h2>Colleague Appraisal System.</h2>
+                    <h2 style="font-size:130%;">My Performance &amp; Development</h2>
                 </div>
                 <div class="col-md-4" style="text-align:right;">
                     <img src="~/Content/Images/Logo.gif" class="comp-logo" alt="Sainsbury's Logo" title="Sainsbury's Logo" />
@@ -94,22 +113,24 @@
     <div id="footer" style="z-index: -1000" class="row">
         
 
-        <div class="navbar navbar-inner navbar-bottom link-footer" style="color:#ffffff;font-size:80%;">
+        <div class="navbar navbar-inner navbar-bottom link-footer">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>Useful Links</h4>
-                        <a href="#">Home</a><br />
-                        <a href="#">My Link Reports</a><br />
-                        <a href="#">My Team</a><br />
-                        <a href="#">Login</a>
+                        <h4>Useful Pages</h4>
+                        <ul class="footerlinks">
+                            <li><a href="~/Home/Welcome">Home</a></li>
+                            <li><a href="~/Home/LinkReport">My Link Report</a></li>
+                            <li><a href="~/Account/Login">Login</a></li>
+                            <li><a href="~/Account/Register">Register</a></li>
+                        </ul>
                     </div>
                     <div class="col-md-4">
                         <h4>Link Help</h4>
                     </div>
                     <div class="col-md-4">
                         <h4>Think Link</h4>
-                        We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.
+                        <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
                     </div>
                 </div>
                 <br /><br />

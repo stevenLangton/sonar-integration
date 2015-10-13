@@ -7,12 +7,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         
         //GET /api/questions/?periodid=1
         [HttpGet]
-        public IHttpActionResult GetQuestions([FromUri]int periodId)
+        public IHttpActionResult GetQuestions()
         {
-            if(periodId==0)
-                return BadRequest();
-
-            return Ok(_db.GetQuestions(periodId));
+            return Ok(_db.GetQuestions());
         }
     }
 }
