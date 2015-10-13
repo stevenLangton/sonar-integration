@@ -20,7 +20,7 @@ namespace JsPlc.Ssc.Link.Portal.Models
         public bool IsLineManager()
         {
             var username = UserName; // what's the logged in User's name or other props.
-            if (username.Contains("Sandip"))
+            if (username.ToLower().Contains("sandip"))
             {
                 return true;
             }

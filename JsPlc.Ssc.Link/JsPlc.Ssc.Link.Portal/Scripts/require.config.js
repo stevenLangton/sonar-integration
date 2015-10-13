@@ -1,4 +1,5 @@
-﻿//Must omit extension on right side (in values)
+﻿/// <reference path="App/Services/LinkService.js" />
+//Must omit extension on right side (in values)
 require.config({
     waitSeconds: 200,
     baseUrl: "Scripts",
@@ -11,6 +12,9 @@ require.config({
         "bootstrap": "bootstrap.min",
         "bootstrap-datepicker": "bootstrap-datepicker",
         "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
+        "URI": "UriJs/Uri",
+        "fragmentQuery": "UriJs/URI.fragmentQuery",
+        "fragmentUri": "UriJs/URI.fragmentUri",
 
         // LINK Specific js files.
         "helpers": "Utils/helpers",
@@ -24,7 +28,10 @@ require.config({
 
         //"ko-binding-handlers": "App/ko-binding-handlers",
 
-        "RegisterKoComponents": "App/kocomponents/RegisterKoComponents"
+        "RegisterKoComponents": "App/kocomponents/RegisterKoComponents",
+
+        //Services
+        "LinkService": "App/Services/LinkService"
 
     },
     shim: {
@@ -37,6 +44,11 @@ require.config({
     },
     map: {
         //typeahead: "typeahead-helper!typeahead.bundle"
+        "URI": {
+            "IPv6": "URIjs/CustomBuiltURI",
+            "punycode": "URIjs/CustomBuiltURI",
+            "SecondLevelDomains": "URIjs/CustomBuiltURI"
+        }
 
     }
 });

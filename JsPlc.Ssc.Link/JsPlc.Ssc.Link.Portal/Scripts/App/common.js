@@ -24,7 +24,7 @@
     var callService = function (verb, url, jsonArgs) {
         var $promise = $.ajax({
             data: jsonArgs,
-            url: siteRoot+url,
+            url: siteRoot + url,
             type: verb,
             dataType: "json"
         });
@@ -36,8 +36,8 @@
         setSiteRoot: setSiteRoot,
         getSiteRoot: getSiteRoot,
         randomString: randomString,
-        uiDateFormat : uiDateFormat,
+        uiDateFormat: uiDateFormat,
         serverDateFormat: serverDateFormat,
         callService: callService
-    }
+    };
 });
