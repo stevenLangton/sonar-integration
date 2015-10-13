@@ -27,6 +27,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
         //GET: /api/Meetings/?employeeId=1
         [HttpGet]
+        
         public IHttpActionResult CreateMeeting([FromUri]string employeeId, int periodId)
         {
             var meeting = _db.CreateMeeting(employeeId, periodId);
@@ -44,14 +45,17 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
             
-            _db.SaveMeeting(meetingView);
-            return Ok();
+            return Ok(_db.SaveMeeting(meetingView));
             //return CreatedAtRoute("api/answers", meeting, meeting);
         }
 
         // PUT: api/Meetings/5
-        public void UpdateMeeting(int id, [FromBody]string value)
+        [HttpPut]
+        public IHttpActionResult UpdateMeeting(int id, [FromBody]MeetingView meetingView)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+            _db.UpdateMeeting(id,meetingView);
         }
     }
 }

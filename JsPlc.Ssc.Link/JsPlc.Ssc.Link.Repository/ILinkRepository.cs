@@ -13,6 +13,7 @@ namespace JsPlc.Ssc.Link.Repository
         IEnumerable<MeetingView> GetMeetings(string employeeId);
         MeetingView CreateMeeting(string employeeId, int periodId);
         int SaveMeeting(MeetingView meeting);
+        void UpdateMeeting(MeetingView meeting);
 
         EmployeeView GetEmployee(string employeeId);
         IEnumerable<TeamView> GetTeam(string managerId);

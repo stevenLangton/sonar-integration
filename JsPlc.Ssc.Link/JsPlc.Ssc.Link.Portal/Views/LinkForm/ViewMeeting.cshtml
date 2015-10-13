@@ -163,11 +163,11 @@
 
                 ko.utils.arrayForEach(data.Questions, function (ques) {
                     if (!ques.ColleagueComment)
-                        {ques.ColleagueComment = "colleague comments here";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                        {ques.ColleagueComment = "";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                     if (!ques.ManagerComment)
-                    { ques.ManagerComment = "manager comments here"; }
+                    { ques.ManagerComment = ""; }
                 });
-
+                // TODO split questions by type
                 meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
                 meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
 
