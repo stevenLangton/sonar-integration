@@ -18,12 +18,12 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(meeting);
         }
 
-        //GET: /api/Meetings/10
-        [HttpGet]
-        public IHttpActionResult GetMeetings(string Id)
-        {
-            return Ok(_db.GetMeetings(Id));
-        }
+        ////GET: /api/Meetings/10
+        //[HttpGet]
+        //public IHttpActionResult GetMeetings(string Id)
+        //{
+        //    return Ok(_db.GetMeetings(Id));
+        //}
 
         //GET: /api/Meetings/?employeeId=1
         [HttpGet]
