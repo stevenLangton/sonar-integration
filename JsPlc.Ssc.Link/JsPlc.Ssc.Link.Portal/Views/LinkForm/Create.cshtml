@@ -1,4 +1,8 @@
-﻿<style>
+﻿
+@{
+    ViewBag.Title = "Team";
+}
+<style>
     .linkErrorMsg {
         font-weight: bold;
         color: red;
@@ -11,7 +15,7 @@
 </style>
 
 <div class="myPageContainer">
-    <h2>@ViewBag.Title.</h2>
+    <h2>@ViewBag.Title</h2>
     <div id="linkpage">
         <!-- knockout binding to this -->
         <div id="msgs"></div>
@@ -260,8 +264,9 @@
                     })
                         .done(function (response, textStatus, jqXhr) {
                             if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
+                                debugger;
                                 window.alert("Meeting created");
-                                window.location.href = window.location = common.getSiteRoot() + "/Team";
+                                window.location.href = common.getSiteRoot() + "Team";
                                 $('#msgs').html("<strong>Meeting created</strong>");
                             }
                             else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
@@ -288,13 +293,19 @@
                 self.downloadLinkFormAsPdf = function () {
                     var MeetingView = self.dataModel();//Not quite the same
                     var param = { MeetingData: MeetingView };
-                    var $promise = common.callService("post", "/Pdf/MakeFromJson", param);
-                    $promise.done(function (data) {
-                        if (data.success) {
-                            window.location = common.getSiteRoot() + "/Pdf/DownloadPdf/" + "?fName=" + data.fName;
-                        }
-                    });
-
+                    //var $promise = common.callService("post", "Pdf/MakeFromJson", param);
+                    $.ajax({
+                        url: common.getSiteRoot() + "Pdf/MakeFromJson",
+                        method: "POST",
+                        data: param
+                    })
+                        .done(function (data) {
+                            if (data.success) {
+                                //window.location.href = "http://localhost/Pdf/DownloadPdf/" + "?fName=" + data.fName;
+                                debugger;
+                                window.location.href = common.getSiteRoot() + "Pdf/DownloadPdf/" + "?fName=" + data.fName;
+                            }
+                        });
                 };
 
                 // todo parse response.ModelErrors dictionary

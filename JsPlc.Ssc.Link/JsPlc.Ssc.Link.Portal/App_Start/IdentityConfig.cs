@@ -40,6 +40,16 @@ namespace JsPlc.Ssc.Link.Portal
         {
         }
 
+        public override Task<bool> IsInRoleAsync(string userId, string role)
+        {
+            // TODO Custom code which tells us whether
+            // Call base method to Identify role enrollment = base.IsInRoleAsync(userId, role)
+            // If base call gives false, call an AplicationMethod to check to see if that userId (equiv EmployeeId) has direct reports or not:
+            //      If that method returns 
+            return null;
+            //return base.IsInRoleAsync(userId, role);
+        }
+
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
@@ -83,7 +93,9 @@ namespace JsPlc.Ssc.Link.Portal
             {
                 manager.UserTokenProvider = 
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+            
             }
+           
             return manager;
         }
     }

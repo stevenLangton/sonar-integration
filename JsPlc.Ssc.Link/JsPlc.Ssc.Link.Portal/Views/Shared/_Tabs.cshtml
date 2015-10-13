@@ -1,5 +1,9 @@
-﻿@{
+﻿@using JsPlc.Ssc.Link.Portal.Models
+@using Microsoft.AspNet.Identity
+@{
     string tabName = ViewData["tabName"].ToString().ToLower();
+    var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var currentUser = manager.FindById(User.Identity.GetUserId());
 }
 
 <div class="navbar navbar-inverse" id="mainTabs">
@@ -26,7 +30,7 @@
                     <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
                         @Html.ActionLink("My Link Report", "LinkReport", "Home")
                     </li>
-                    if (User.Identity.Name.ToLower().Contains("sandip"))
+                    if (currentUser.IsLineManager())//.Identity.Name.ToLower().Contains("sandip"))
                      {
                         <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
                             @Html.ActionLink("My Team", "Index", "Team")

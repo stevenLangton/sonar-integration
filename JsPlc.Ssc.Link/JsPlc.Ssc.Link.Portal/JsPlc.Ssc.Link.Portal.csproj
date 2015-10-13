@@ -207,6 +207,7 @@
     <Compile Include="Models\MockData\MockData.cs" />
     <Compile Include="Models\Questions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\LinkAuthorize.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -332,7 +333,10 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\text.min.js" />
-    <Content Include="Scripts\Utils\helpers.js" />
+    <None Include="Scripts\Utils\helpers.js" />
+    <Content Include="Scripts\UriJs\CustomBuiltURI.js" />
+    <Content Include="Scripts\UriJs\URI.fragmentQuery.js" />
+    <Content Include="Scripts\UriJs\URI.fragmentURI.js" />
     <Content Include="Scripts\Utils\linkDatePickers.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -375,10 +379,10 @@
     <Content Include="Views\Home\LinkForm.cshtml" />
     <Content Include="Views\LinkForm.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\LinkForm\Create.cshtml" />
     <Content Include="Views\Home\LinkReport.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\LinkForm\ViewMeeting.cshtml" />
+    <Content Include="Views\LinkForm\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />
