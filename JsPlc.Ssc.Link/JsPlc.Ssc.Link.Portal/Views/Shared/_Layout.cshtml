@@ -1,4 +1,6 @@
-﻿@using System.Configuration;
+﻿@using System.Activities.Statements
+@using Microsoft.Ajax.Utilities
+@using System.Configuration;
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,25 +19,6 @@
         });
     </script>
     <meta name="description" content="Links application for Colleague-Manager Link Meetings and Performance appraisals" />
-    <script>
-        var linkapp_settings = {
-            // @**@ Url.Content is of WebViewPage
-            // VirtualPathUtility.ToAbsolute("~/url/"); equiv of WebPageView > Url.Content for C#
-            // window.location = Url in JS
-
-            fullUrlNoHash: '@UriPartial.Query',
-            path: '@UriPartial.Path',
-            tilde: '@Url.Content("~")',
-            virtualDir: '@Url.Content("~")',
-
-            // 17th Nov - 700 mgr trial.
-            // #something=somevalue||somethingelse=somevalueelse
-            hash: window.location.hash,
-        }
-        var a = linkapp_settings;
-        console.log("Server variables: \n UriPartial.Query:" + a.fullUrlNoHash + ", UriPartial.Path:" + a.path + ", Url.Content('~'):" + a.tilde + ", virtualDir:" + a.virtualDir + ", hash:" + a.hash);
-</script>
-
 </head>
 <body>
     @*<div>

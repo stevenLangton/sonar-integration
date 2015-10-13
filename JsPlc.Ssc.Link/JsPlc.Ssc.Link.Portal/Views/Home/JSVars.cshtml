@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "JSVars";
+}
+
+<h2>JSVars</h2>
+
+<script>
+        require(["URI"], function (URI) {
+            var myuri = new URI(window.location.href);
+            var linkappSettings = {
+                absUrl: window.location.href,
+                directory: myuri.directory(), // slashed path (in MVC , no filename
+                path: myuri.path(),
+                segment: myuri.segment(),
+                filename: myuri.filename(),
+                virtualDir: '@Url.Content("~")',
+                qryString: myuri.query(),
+                hash: myuri.fragment(),
+                relUrl: function () {
+                    var qrystr = (myuri.query() == '') ? '' : '?' + myuri.query();
+                    var hash1 = (myuri.fragment() == '') ? '' : '#' + myuri.fragment();
+                    return myuri.directory() + myuri.path() + qrystr + hash1;
+                }
+            }
+
+            //http://localhost/JsPlc.Ssc.Link.Portal/Home/Welcome?something=myvalue&other=newval#anchorInpage=1
+            var a = linkappSettings;
+            console.log("Server variables: " +
+                        "\n absUrl:" + a.absUrl +
+                        ", \n directory:" + a.directory +
+                        ", \n path:" + a.path +
+                        ", \n segment: " + a.segment +  // JsPlc.Ssc.Link.Portal,Home,Welcome,
+                        ", \n filename:" + a.filename +
+                        ", \n virtualDir:" + a.virtualDir +
+                        ", \n qryString: " + a.qryString +
+                        ", \n hash: " + a.hash +
+                        ", \n relUrl: " + a.relUrl());
+            /* on my machine
+
+    browser address = http://localhost/JsPlc.Ssc.Link.Portal/Home/jsvars?something=myvalue&other=newval#anchorInpage=1
+
+    ## Server variables:
+ absUrl:http://localhost/JsPlc.Ssc.Link.Portal/Home/jsvars?something=myvalue&other=newval#anchorInpage=1, 
+ directory:/JsPlc.Ssc.Link.Portal/Home, 
+ path:/JsPlc.Ssc.Link.Portal/Home/jsvars, 
+ segment: JsPlc.Ssc.Link.Portal,Home,jsvars, // not much use I think 
+ filename:jsvars, // last element of path
+ virtualDir:/JsPlc.Ssc.Link.Portal/, // Where does ~ point as per server
+ qryString: something=myvalue&other=newval, 
+ hash: anchorInpage=1, 
+ relUrl: /JsPlc.Ssc.Link.Portal/Home/JsPlc.Ssc.Link.Portal/Home/jsvars?something=myvalue&other=newval#anchorInpage=1
+            */
+        });
+</script>
+

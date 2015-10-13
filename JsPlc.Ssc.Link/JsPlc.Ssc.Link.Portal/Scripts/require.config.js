@@ -12,6 +12,9 @@ require.config({
         "bootstrap": "bootstrap.min",
         "bootstrap-datepicker": "bootstrap-datepicker",
         "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
+        "URI": "UriJs/Uri",
+        "fragmentQuery": "UriJs/URI.fragmentQuery",
+        "fragmentUri": "UriJs/URI.fragmentUri",
 
         // LINK Specific js files.
         "helpers": "Utils/helpers",
@@ -41,6 +44,11 @@ require.config({
     },
     map: {
         //typeahead: "typeahead-helper!typeahead.bundle"
+        "URI": {
+            "IPv6": "URIjs/CustomBuiltURI",
+            "punycode": "URIjs/CustomBuiltURI",
+            "SecondLevelDomains": "URIjs/CustomBuiltURI"
+        }
 
     }
 });
