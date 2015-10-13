@@ -17,10 +17,23 @@ namespace JsPlc.Ssc.Link.Portal.Models
         [Required]
         public string LastName { get; set; }
 
+        public bool IsLineManager()
+        {
+            var username = UserName; // what's the logged in User's name or other props.
+            if (username.Contains("Sandip"))
+            {
+                return true;
+            }
+            return false; // custom code to check this application role against LinkRepository
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+           
+            //var currentUser = manager.FindById(userIdentity.GetUserId());
+
             // Add custom user claims here
             return userIdentity;
         }
