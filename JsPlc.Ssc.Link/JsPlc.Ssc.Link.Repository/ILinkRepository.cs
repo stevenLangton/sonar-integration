@@ -16,7 +16,8 @@ namespace JsPlc.Ssc.Link.Repository
 
         //EmployeeView GetEmployee(string employeeId);
         IEnumerable<TeamView> GetTeam(string managerId);
-        
+        bool IsManager(string userName);
+
         void Dispose();
     }
 }

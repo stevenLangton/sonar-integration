@@ -67,12 +67,14 @@ namespace JsPlc.Ssc.Link.Repository
 
         public bool IsManager(string userName)
         {
-            var id = db.Employees.FirstOrDefault(e => e.EmailAddress == userName).ColleagueId;
+            var emp = db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
+            if (emp == null) return false;
+
+            var id = emp.ColleagueId;
 
             var subEmployees = db.Employees.Where(e => e.ManagerId == id);
 
             return subEmployees.Any();
-
         }
 
         public MeetingView GetMeeting(int meetingId)
