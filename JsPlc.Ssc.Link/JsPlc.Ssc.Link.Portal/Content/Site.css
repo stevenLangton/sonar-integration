@@ -204,3 +204,7 @@ font-size:80%;
 .footerP { font-size:90%; }
 
 
+.panelX {  margin-bottom: 0px;  border:none;
+  border-radius: 0px;
+  box-shadow:none;
+}
