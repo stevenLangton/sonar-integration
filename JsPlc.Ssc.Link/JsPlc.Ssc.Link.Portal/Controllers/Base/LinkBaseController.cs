@@ -24,11 +24,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                 CurrentUser = appUser.ToUserView();
             }
 
-            TempData["CurrentUser"] = CurrentUser;
-            //ViewBag.CurrentUser = CurrentUser; // for UserView object for Views
+            TempData["CurrentUser"] = CurrentUser; // for UserView object for Views
+  
         }
 
-        //// Antyhing to do before the view finally renders.
+        //// Anything to do before the view finally renders.
         //protected override void OnActionExecuted(ActionExecutedContext filterContext)
 
         public bool IsLineManager()

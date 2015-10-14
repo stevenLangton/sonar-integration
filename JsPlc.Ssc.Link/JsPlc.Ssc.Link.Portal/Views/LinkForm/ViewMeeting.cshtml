@@ -129,7 +129,7 @@
 </div><!-- / ko linkpage -->
 
 <script type="text/javascript">
-    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB"], function (helpers, $, ko, moment, datepicker, datePickerGb) {
+    require(["helpers", "jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "common"], function (helpers, $, ko, moment, datepicker, datePickerGb, common) {
 
         function PageViewModel() {
 
@@ -143,7 +143,7 @@
             var meetingView;
             var buildViewModels = function (data) {
                 moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-                // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=1&periodId=1
+                // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=E001
                 var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
                 meetingView = {
@@ -177,7 +177,7 @@
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function (meetingId) {
                 $.ajax({
-                    url: "LinkForm/GetMeetingView/?meetingId=" + meetingId, 
+                    url: common.getSiteRoot() + "LinkForm/GetMeetingView/?meetingId=" + meetingId,
                     method: "GET"
                 })
                     .done(function (data) {

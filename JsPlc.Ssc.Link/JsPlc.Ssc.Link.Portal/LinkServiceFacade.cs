@@ -52,6 +52,17 @@ namespace JsPlc.Ssc.Link.Portal
             }
         }
 
+        public MeetingView GetNewMeetingView(string colleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("meetings/?colleagueId=" + colleagueId).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsAsync<MeetingView>().Result;
+            }
+            return null;
+        }
+
         public bool IsManager(string username)
         {
             HttpResponseMessage response = _client.Value.GetAsync("Employees/?UserName=" + username).Result;
