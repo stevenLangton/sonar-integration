@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -10,7 +11,7 @@ using Microsoft.Owin.Security;
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : LinkBaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

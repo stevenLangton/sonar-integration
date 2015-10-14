@@ -183,6 +183,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Base\LinkBaseController.cs" />
     <Compile Include="Controllers\LinkFormController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
@@ -191,6 +192,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CreatedContentActionResult.cs" />
+    <Compile Include="Helpers\Extensions\ApplicationUserExtensions.cs" />
     <Compile Include="Helpers\Extensions\ModelStateHelper.cs" />
     <Compile Include="Helpers\LinkJsonResponse.cs">
       <SubType>Code</SubType>
@@ -392,6 +394,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />
+    <Folder Include="Views\LinkBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

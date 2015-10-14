@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using JsPlc.Ssc.Link.Portal.Helpers.Api;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -19,12 +20,17 @@ namespace JsPlc.Ssc.Link.Portal.Models
 
         public bool IsLineManager()
         {
-            var username = UserName; // what's the logged in User's name or other props.
-            if (username.ToLower().Contains("sandip"))
+            //if (username.ToLower().Contains("sandip"))
+            //{
+            //    return true;
+            //}
+            //return false; // TODO custom code to check this application role against LinkRepository
+
+            using (var facade = new LinkServiceFacade())
             {
-                return true;
+                var username = UserName; // what's the logged in User's name or other props.
+                return facade.IsManager(username);
             }
-            return false; // custom code to check this application role against LinkRepository
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -70,50 +76,8 @@ namespace JsPlc.Ssc.Link.Portal.Models
         protected override void Seed(ApplicationDbContext context)
         {
             base.Seed(context);
-            const String fixedPasswordHash = "AK0SK99vnma/V/KcDnsuNkkI99KlUdwct5lMTGWfEd75eRCxY8gwHo0xskATZ6rZCA==";
-            
-            //context.Users.Add(new ApplicationUser { 
-            //    Id = "1",
-            //    UserName = "Parveen.Kumar@sainsburys.co.uk", 
-            //    Email = "Parveen.Kumar@sainsburys.co.uk",
-            //    PasswordHash = fixedPasswordHash, 
-            //    SecurityStamp = "1fd86dec-b433-42ce-ab76-fe7202995890", LockoutEnabled = true
-            //});
-            //context.Users.Add(new ApplicationUser
-            //{
-            //    Id="2",
-            //    UserName = "Steven.Farkas@sainsburys.co.uk",
-            //    Email = "Steven.Farkas@sainsburys.co.uk",
-            //    PasswordHash = fixedPasswordHash
-            //});
-            //context.Users.Add(new ApplicationUser
-            //{
-            //    Id="3",
-            //    UserName = "Vasundhara.B@sainsburys.co.uk",
-            //    Email = "Vasundhara.B@sainsburys.co.uk",
-            //    PasswordHash = fixedPasswordHash
-            //});
-            //context.Users.Add(new ApplicationUser
-            //{
-            //    Id = "4",
-            //    UserName = "Luan.Au@sainsburys.co.uk",
-            //    Email = "Luan.Au@sainsburys.co.uk",
-            //    PasswordHash = fixedPasswordHash
-            //});
-            //context.Users.Add(new ApplicationUser
-            //{
-            //    Id = "5",
-            //    UserName = "Sandip.Vaidya@sainsburys.co.uk",
-            //    Email = "Sandip.Vaidya@sainsburys.co.uk",
-            //    PasswordHash = fixedPasswordHash
-            //});
-            //context.Users.Add(new ApplicationUser
-            //{
-            //    Id = "6",
-            //    UserName = "Sunna.Syed@sainsburys.co.uk",
-            //    Email = "Sunna.Syed@sainsburys.co.uk",
-            //    PasswordHash = fixedPasswordHash
-            //});
+            // possibly register users here.
+
             context.SaveChanges();
         }
     }

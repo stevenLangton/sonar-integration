@@ -1,9 +1,15 @@
 ﻿@using JsPlc.Ssc.Link.Portal.Models
 @using Microsoft.AspNet.Identity
+@using JsPlc.Ssc.Link.Models
+
 @if (Request.IsAuthenticated)
 {
-    var managerCheck = "";
-    //var isManager = User.IsInRole("Users"); // doesnt work
+    var currentUser = TempData["CurrentUser"] as UserView;
+    string welcomeText = "";
+    if (currentUser != null && currentUser.FirstName != null)
+    {
+        welcomeText = "Hello " + currentUser.FirstName.ToString() + "!";
+    }
        
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
@@ -11,19 +17,17 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li class="tab-heading">
-            @{
-                // TODO move to a common place, probably not here.                
-                var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
-                var currentUser = manager.FindById(User.Identity.GetUserId());
-            }
-            @if (currentUser.IsLineManager()) // works, but now how do we put authorize attribute on Action methods (custom code), (or we check in code for manager, and return unauth result if not manager) 
+            @if (currentUser != null)
             {
-                managerCheck = "- (IsManager)";
-            }
-            @if (currentUser.FirstName != null)
-            {
-                @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-                @Html.ActionLink("Hello " + currentUser.FirstName + "!" + managerCheck, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                // works, but now how do we put authorize attribute on Action methods (custom code), (or we check in code for manager, and return unauth result if not manager)
+                if (currentUser.IsLineManager)
+                {
+                    welcomeText += ".";
+                }
+                if (!string.IsNullOrEmpty(welcomeText))
+                {
+                    @Html.ActionLink(welcomeText, "Index", "Manage") //, htmlAttributes: new { title = "Manage" })
+                }
             }
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>

@@ -6,10 +6,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Portal.Controllers.Base;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
-    public class TeamController : Controller
+    public class TeamController : LinkBaseController
     {
         // GET: Team/Create
         [HttpGet]

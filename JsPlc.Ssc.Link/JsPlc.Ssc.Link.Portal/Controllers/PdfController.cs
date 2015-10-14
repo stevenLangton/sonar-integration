@@ -9,11 +9,12 @@ using System.Configuration;
 using System.Web.Configuration;
 using JsPlc.Ssc.Link.Models;
 using System.Collections.Specialized;
+using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Helpers.Api;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
-    public class PdfController : Controller
+    public class PdfController : LinkBaseController
     {
         private Lazy<LinkServiceFacade> _LinkService;
         private string AppBasePath { get; set; }

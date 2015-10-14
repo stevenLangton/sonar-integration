@@ -1,9 +1,10 @@
 ﻿using System.Web.Mvc;
+using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using Microsoft.AspNet.Identity;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : LinkBaseController
     {
         public ActionResult Index()
         {

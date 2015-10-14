@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Api;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
@@ -22,7 +23,7 @@ using WebGrease.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
-    public class LinkFormController : Controller
+    public class LinkFormController : LinkBaseController
     {
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string colleagueId)
