@@ -22,6 +22,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     public class LinkFormController : Controller
     {
+
+        public ActionResult MyTeam()
+        {
+            return View();
+        }
+
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string employeeId, int periodId)
         {

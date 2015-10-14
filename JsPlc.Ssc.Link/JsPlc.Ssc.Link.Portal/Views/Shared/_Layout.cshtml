@@ -88,9 +88,7 @@
             </div>-->
         </div>
     </header>
-    @*<div class="row">
-            @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", "welcome" } })
-        </div>*@
+
 
     <div class="row">
         @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", @ViewBag.Title } })
@@ -151,6 +149,29 @@
             <script type="text/javascript">
                 require(['bootstrap'], function () {
                 });
+            </script>
+
+            <script >
+
+                require(['jquery'], function ($) {
+
+                    $('.toggle').click(function (e) {
+                        e.preventDefault();
+                        var $this = $(this);
+                        if ($this.next().hasClass('show')) {
+                            $this.next().removeClass('show');
+                            $this.next().slideUp(350);
+                        } else {
+                            $this.parent().parent().find('li .inner').removeClass('show');
+                            $this.parent().parent().find('li .inner').slideUp(350);
+                            $this.next().toggleClass('show');
+                            $this.next().slideToggle(350);
+                        }
+                    });
+
+                });
+
+                
             </script>
 
 </body>

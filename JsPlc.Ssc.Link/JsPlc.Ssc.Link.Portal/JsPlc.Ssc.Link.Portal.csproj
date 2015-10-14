@@ -383,6 +383,8 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\LinkForm\ViewMeeting.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
+    <Content Include="Views\LinkForm\MyTeam.cshtml" />
+    <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />
