@@ -13,8 +13,8 @@ require.config({
         "bootstrap-datepicker": "bootstrap-datepicker",
         "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
         "URI": "UriJs/Uri",
-        "fragmentQuery": "UriJs/URI.fragmentQuery",
-        "fragmentUri": "UriJs/URI.fragmentUri",
+        //"fragmentQuery": "UriJs/URI.fragmentQuery",
+        //"fragmentUri": "UriJs/URI.fragmentUri",
 
         // LINK Specific js files.
         "helpers": "Utils/helpers",
@@ -44,10 +44,10 @@ require.config({
     },
     map: {
         //typeahead: "typeahead-helper!typeahead.bundle"
-        "URI": {
-            "IPv6": "URIjs/CustomBuiltURI",
-            "punycode": "URIjs/CustomBuiltURI",
-            "SecondLevelDomains": "URIjs/CustomBuiltURI"
+        "URI": { // just resolve it, to suppress errors
+            "IPv6": "URIjs/punycode", 
+            "punycode": "URIjs/punycode", 
+            "SecondLevelDomains": "URIjs/punycode" 
         }
 
     }
@@ -56,4 +56,4 @@ require.config({
 //To load essential modules first
 //require(["RegisterKoComponents"]);
 //require(['jquery', 'knockout', 'ko-binding-handlers', 'text'], function ($, ko) { });//Module end
-require(['jquery', 'knockout'], function ($, ko) { });//Module end
+require(['jquery', 'knockout', 'URI'], function ($, ko, URI) { });//Module end
