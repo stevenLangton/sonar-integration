@@ -6,9 +6,9 @@
 {
     var currentUser = TempData["CurrentUser"] as UserView;
     string welcomeText = "";
-    if (currentUser != null && currentUser.FirstName != null)
+    if (currentUser != null && currentUser.Colleague != null && currentUser.Colleague.FirstName != null)
     {
-        welcomeText = "Hello " + currentUser.FirstName.ToString() + "!";
+        welcomeText = "Hello " + currentUser.Colleague.FirstName + "!";
     }
        
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -69,6 +70,15 @@ namespace JsPlc.Ssc.Link.Portal
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
         }
+
+        public EmployeeView GetColleagueByUsername(string username)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("Employees/?EmailAddress=" + username).Result;
+            var employee = response.Content.ReadAsAsync<Employee>().Result;
+
+            return response.IsSuccessStatusCode ? employee.ToEmployeeView() : null;
+        }
+
 
         public void Dispose()
         {
