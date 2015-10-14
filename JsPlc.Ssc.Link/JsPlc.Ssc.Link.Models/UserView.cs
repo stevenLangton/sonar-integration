@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace JsPlc.Ssc.Link.Models
+﻿namespace JsPlc.Ssc.Link.Models
 {
     public class UserView
     {

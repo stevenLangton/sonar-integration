@@ -62,6 +62,11 @@ namespace JsPlc.Ssc.Link.Repository
             return team;
         }
 
+        public Employee GetEmployee(string emailAddres)
+        {
+           return db.Employees.FirstOrDefault(e => e.EmailAddress == emailAddres);
+        }
+
         public bool IsManager(string userName)
         {
             var firstOrDefault = db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
@@ -75,6 +80,7 @@ namespace JsPlc.Ssc.Link.Repository
             return subEmployees.Any();
         }
 
+        // view particular meeting
         public MeetingView GetMeeting(int meetingId)
         {
             // Get meeting details along with manager details
@@ -116,11 +122,13 @@ namespace JsPlc.Ssc.Link.Repository
             return meeting;
         }
 
+        // all meetings of an employee
         public IEnumerable<MeetingView> GetMeetings(string employeeId)
         {
             return null;
         }
 
+        // create new meeting
         public MeetingView CreateMeeting(string colleagueId)
         {
             // Get meeting details along with manager details
@@ -155,6 +163,7 @@ namespace JsPlc.Ssc.Link.Repository
             return meeting;
         }
 
+        // save new meeting
         public int SaveMeeting(MeetingView view)
         {
             int empId = db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
@@ -186,13 +195,14 @@ namespace JsPlc.Ssc.Link.Repository
             return result.Id;
         }
 
+        // update the meeting
         public void UpdateMeeting(int id,MeetingView view)
         {
             var meeting = db.Meeting.FirstOrDefault(m => m.Id == id);
            
             if (meeting != null)
             {
-                var linkMeeting = new LinkMeeting()
+                var linkMeeting = new LinkMeeting
                 {
                     MeetingDate = view.MeetingDate,
                     ColleagueSignOff = view.ColleagueSignOff,
@@ -220,6 +230,7 @@ namespace JsPlc.Ssc.Link.Repository
         {
             db.Dispose();
         }
-       
+
+        
     }
 }
