@@ -8,16 +8,13 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
-using JsPlc.Ssc.Link.Portal.Security;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
-using WebGrease.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -117,7 +114,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
-            HttpResponseMessage response = null;
             // validate the linkForm MeetingView and then post it back to Service Api
             var meetingViewJson = JsonConvert.SerializeObject(meetingView);
 
@@ -125,7 +121,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
-                response = await LinkServiceCaller.RunAsync(meetingViewJson);
+                HttpResponseMessage response = await LinkServiceCaller.RunAsync(meetingViewJson);
                 if (response.IsSuccessStatusCode)
                 {
                     Uri meetingUrl = response.Headers.Location;
@@ -156,20 +152,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // key and string of arrays
             return badRequestResponse.ToJsonResult(null, errArray, "UIValidationErrors");
 
-            //else
-            //{
-            //    return (ModelState);
-            // or return Json(ModelState.Values.SelectMany(x => x.Errors));
-            // or ModelState.Errors(); (extension method)
-            //}
-
         }
-
-        //// GET: LinkForm/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
         // GET: LinkForm/Create
         [System.Web.Mvc.Authorize]
@@ -185,28 +168,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             //LinkForm model = MockData.MockLinkForm();
             return View();//"LinkMeeting", model);
         }
-
-        //// POST: LinkForm/Create
-        //[System.Web.Mvc.HttpPost]
-        //public ActionResult Create(FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction("LinkForm");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
-        // GET: LinkForm/Edit/52
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
 
         // POST: LinkForm/Edit/5
         [System.Web.Mvc.HttpPost]

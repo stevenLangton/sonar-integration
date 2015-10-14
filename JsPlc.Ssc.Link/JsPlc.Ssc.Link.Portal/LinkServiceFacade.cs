@@ -52,6 +52,13 @@ namespace JsPlc.Ssc.Link.Portal
             }
         }
 
+        public bool IsManager(string username)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("Employees/?UserName=" + username).Result;
+
+            return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+        }
+
         public void Dispose()
         {
             _client = null;
