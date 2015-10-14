@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-//using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace JsPlc.Ssc.Link.Models
 {
@@ -14,7 +14,7 @@ namespace JsPlc.Ssc.Link.Models
         [Required]
         public string Description { get; set; }
 
-  //      [JsonIgnore]
+       [ScriptIgnore]
         public ICollection<Answer> Answers { get; set; }
     }
 } 
