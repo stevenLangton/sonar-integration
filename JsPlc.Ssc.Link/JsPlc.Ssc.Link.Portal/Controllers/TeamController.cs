@@ -19,7 +19,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             ViewBag.Title = "Team";
 
-            // TODO make a facade method and use that..
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();

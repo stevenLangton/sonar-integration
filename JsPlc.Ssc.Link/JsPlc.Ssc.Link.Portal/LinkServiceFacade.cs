@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using JsPlc.Ssc.Link.Models;
+﻿using JsPlc.Ssc.Link.Models;
 //using JsPlc.Ssc.Link.Portal.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 
-namespace JsPlc.Ssc.Link.Portal.Helpers.Api
+namespace JsPlc.Ssc.Link.Portal
 {
     public class LinkServiceFacade : IDisposable
     {
@@ -25,48 +24,32 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Api
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public void GetQuestion(int id)
+        public void GetQuestion(int Id)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + id).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + Id.ToString()).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
             }
+            else
+            {
+                //ViewBag.result = "Error, Unable to connect to service.";
+            }
         }
 
-        public MeetingView GetMeeting(int id)
+        public MeetingView GetMeeting(int Id)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("meetings/" + id.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("meetings/" + Id.ToString()).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 return response.Content.ReadAsAsync<MeetingView>().Result;
             }
-            return null;
-        }
-
-        public MeetingView GetNewMeetingView(string colleagueId)
-        {
-            HttpResponseMessage response = _client.Value.GetAsync("meetings/?colleagueId=" + colleagueId).Result;
-
-            if (response.IsSuccessStatusCode)
+            else
             {
-                return response.Content.ReadAsAsync<MeetingView>().Result;
+                return null;
             }
-            return null;
-         }
-
-        public bool IsManager(string username)
-        {
-            // api/Employees/?UserName=Mike.G@sainsburys.co.uk
-            HttpResponseMessage response = _client.Value.GetAsync("Employees/?UserName=" + username).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                return response.Content.ReadAsAsync<bool>().Result;
-            }
-            return false;
         }
 
         public void Dispose()

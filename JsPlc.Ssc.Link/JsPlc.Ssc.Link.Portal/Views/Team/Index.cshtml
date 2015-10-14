@@ -23,7 +23,7 @@
                 <td>@Html.DisplayFor(e => employee.ColleagueId)</td>
                 <td>@Html.DisplayFor(e => employee.FirstName)</td>
                 <td>@Html.DisplayFor(e => employee.LastName)</td>
-                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { colleagueId = employee.ColleagueId}, null)</td>
+                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { employeeId = employee.ColleagueId, periodId = 1 }, null)</td>
                 <td>
                     @if (employee.Meetings != null)
                     {
