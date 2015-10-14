@@ -197,7 +197,7 @@
     </Compile>
     <Compile Include="Helpers\LinkServiceCaller.cs" />
     <Compile Include="Helpers\Extensions\ToJsonResult.cs" />
-    <Compile Include="LinkServiceFacade.cs" />
+    <Compile Include="Helpers\Api\LinkServiceFacade.cs" />
     <Compile Include="ModelBinding\MeetingViewModelBinder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

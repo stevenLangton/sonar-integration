@@ -14,6 +14,7 @@ using JsPlc.Ssc.Link.Models;
 
 namespace JsPlc.Ssc.Link.Portal.Helpers
 {
+    // TODO use facade method and retire this code.. Currently used for Create Meeting - POST to Api.
     public class LinkServiceCaller
     {
         public static async Task<HttpResponseMessage> RunAsync(string meetingViewJson)

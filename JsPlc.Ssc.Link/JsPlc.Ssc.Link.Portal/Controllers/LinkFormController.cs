@@ -13,6 +13,7 @@ using System.Web.Routing;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
+using JsPlc.Ssc.Link.Portal.Helpers.Api;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Security;
 using Newtonsoft.Json;
@@ -39,31 +40,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 jsonData = "Error";
             }
-            //using (var client = new HttpClient())
-            //{
-            //    client.DefaultRequestHeaders.Accept.Clear();
-            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //    // New code:
-            //    HttpResponseMessage response =
-            //        client.GetAsync(String.Format("{0}/api/Meetings/?colleagueId={1}",
-            //        ConfigurationManager.AppSettings["ServicesBaseUrl"], colleagueId)).Result;
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        MeetingView result = response.Content.ReadAsAsync<MeetingView>().Result;
-            //        ViewBag.result = result;
-            //    }
-            //    else
-            //    {
-            //        return new JsonResult
-            //        {
-            //            JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-            //            Data = "Error"
-            //        };
-            //    }
-            //}
-            ////var linkForm = MockData.MockLinkForm();
-            ////linkForm.Questions = ViewBag.result;
 
             var jsonResult = new JsonResult
             {
@@ -94,29 +70,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 jsonData = "Error";
             }
-            //using (var client = new HttpClient())
-            //{
-            //    client.DefaultRequestHeaders.Accept.Clear();
-            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //    HttpResponseMessage response =
-            //        client.GetAsync(String.Format("{0}/api/meetings/{1}",
-            //            ConfigurationManager.AppSettings["ServicesBaseUrl"], meetingId)).Result;
-
-            //    // Build a MeetingView Json response.
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        ViewBag.result = response.Content.ReadAsAsync<MeetingView>().Result;
-            //    }
-            //    else
-            //    {
-            //        return new JsonResult
-            //        {
-            //            JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-            //            Data = "Error"
-            //        };
-            //    }
-            //}
             var jsonResult = new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
