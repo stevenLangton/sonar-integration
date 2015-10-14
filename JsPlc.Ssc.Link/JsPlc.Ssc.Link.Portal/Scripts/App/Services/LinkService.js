@@ -24,12 +24,7 @@
 
     var getAllReporteeMeetings = function (managerId) {
         var jsonArgs = {managerId: managerId};
-
-        callService("get", "/api/Employees/?managerId=E0010", jsonArgs).done(function (data) {
-            var filtered = data;
-            return filtered;
-        });
-        return undefined;
+        return callService("get", "/api/Employees/?managerId=E0010", jsonArgs);
     };
 
     return {
