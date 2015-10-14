@@ -213,10 +213,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\aspnet-JsPlc.Ssc.Link.Portal-20150929100116.mdf" />
-    <Content Include="App_Data\aspnet-JsPlc.Ssc.Link.Portal-20150929100116_log.ldf">
-      <DependentUpon>aspnet-JsPlc.Ssc.Link.Portal-20150929100116.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -395,6 +391,8 @@
     <Content Include="Views\LinkForm\MyTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\ProfilePics\" />
     <Folder Include="Playpit\" />
     <Folder Include="Views\LinkBase\" />
   </ItemGroup>
