@@ -14,37 +14,32 @@ namespace JsPlc.Ssc.Link.Repository
 
         public LinkRepository(RepositoryContext context) { db = context; }
 
-        public IEnumerable<Period> GetPeriods()
+        public IEnumerable<Question> GetQuestions()
         {
-            return db.Periods.ToList().OrderBy(p=>p.Id);
+           return db.Questions.OrderBy(q=>q.Id);
         }
 
-        public IEnumerable<Question> GetQuestions(int periodId)
-        {
-           return db.Questions.Where(q => q.PeriodId == periodId).OrderBy(q=>q.Id);
-        }
+        //public EmployeeView GetEmployee(string id)
+        //{
 
-        public EmployeeView GetEmployee(string id)
-        {
+        //    var employee = (from e in db.Employees
+        //                    where e.ColleagueId == id
+        //                    join m in db.Employees on e.ManagerId equals m.ColleagueId into m_join
+        //                    from m in m_join.DefaultIfEmpty()
+        //                    select new EmployeeView
+        //                    {
+        //                        Id = e.Id,
+        //                        ColleagueId = e.ColleagueId,
+        //                        FirstName = e.FirstName,
+        //                        LastName = e.LastName,
+        //                        ManagerId = m.ColleagueId,
+        //                        ManagerName = String.Concat(m.FirstName, m.LastName),
+        //                        EmailAddress = e.EmailAddress
 
-            var employee = (from e in db.Employees
-                            where e.ColleagueId == id
-                            join m in db.Employees on e.ManagerId equals m.ColleagueId into m_join
-                            from m in m_join.DefaultIfEmpty()
-                            select new EmployeeView
-                            {
-                                Id = e.Id,
-                                ColleagueId = e.ColleagueId,
-                                FirstName = e.FirstName,
-                                LastName = e.LastName,
-                                ManagerId = m.ColleagueId,
-                                ManagerName = String.Concat(m.FirstName, m.LastName),
-                                EmailAddress = e.EmailAddress
+        //                    }).FirstOrDefault();
 
-                            }).FirstOrDefault();
-
-            return employee;
-        }
+        //    return employee;
+        //}
 
         public IEnumerable<TeamView> GetTeam(string managerId)
         {
@@ -58,16 +53,11 @@ namespace JsPlc.Ssc.Link.Repository
                                  FirstName = e.FirstName,
                                  LastName = e.LastName,
                                  Meetings = (from m in db.Meeting
-                                             where m.PeriodId==1
-                                             orderby m.PeriodId
                                             where m.EmployeeId == e.Id
                                             select new LinkMeetingView()
                                             {
                                                 Id = m.Id,
-                                                MeetingDate = m.MeetingDate,
-                                                PeriodId = m.PeriodId,
-                                                Status = m.Status
-    
+                                                MeetingDate = m.MeetingDate
                                             }).ToList(),
                                  EmailAddress = e.EmailAddress
                           });
@@ -75,37 +65,44 @@ namespace JsPlc.Ssc.Link.Repository
             return employees.ToList();
         }
 
+        public bool IsManager(string userName)
+        {
+            var emp = db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
+            if (emp == null) return false;
+
+            var id = emp.ColleagueId;
+
+            var subEmployees = db.Employees.Where(e => e.ManagerId == id);
+
+            return subEmployees.Any();
+        }
+
         public MeetingView GetMeeting(int meetingId)
         {
             // Get meeting details along with manager details
             var meeting = (from m in db.Meeting
-                join p in db.Periods on m.PeriodId equals p.Id
                 join e in db.Employees on m.EmployeeId equals e.Id into e_join
                 from e in e_join.DefaultIfEmpty()
-                join mm in db.Employees on e.ManagerId equals mm.ColleagueId into m_join
+                join mm in db.Employees on m.ManagerId equals mm.ColleagueId into m_join
                 from mm in m_join.DefaultIfEmpty()
                 where m.Id== meetingId 
                 select new MeetingView()
                 {
                     MeetingId = m.Id,
                     MeetingDate = m.MeetingDate,
-                    PeriodId = m.PeriodId,
-                    PeriodDescription = p.Description,
                     EmployeeId = e.Id,
                     ColleagueId = e.ColleagueId,
                     ColleagueName = string.Concat(e.FirstName," "+ e.LastName),
                     ManagerId = mm.ColleagueId,
                     ManagerName = string.Concat(mm.FirstName," "+ mm.LastName),
-                    Status = m.Status,
-                    Start = p.Start,
-                    End=p.End
+                    ColleagueSignOff = m.ColleagueSignOff,
+                    ManagerSignOff = m.ManagerSignOff,
                 }).FirstOrDefault();
 
             //Get questions with answers for particular meeting
             var question = from q in db.Questions
                 join a in db.Answers on new {q.Id, LinkMeetingId = meetingId} equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
                 from a in a_join.DefaultIfEmpty()
-                where q.PeriodId==meeting.PeriodId
                 select new QuestionView()
                 {
                     QuestionId = q.Id,
@@ -126,29 +123,28 @@ namespace JsPlc.Ssc.Link.Repository
             return null;
         }
 
-        public MeetingView CreateMeeting(string employeeId, int periodId)
+        public MeetingView CreateMeeting(string colleagueId)
         {
             // Get meeting details along with manager details
             var meeting = (from e in db.Employees
-                            where e.ColleagueId == employeeId
+                           where e.ColleagueId == colleagueId
                             join m in db.Employees on e.ManagerId equals m.ColleagueId into m_join
                             from m in m_join.DefaultIfEmpty()
                             select new MeetingView
                             {
                                 MeetingId = 0,
                                 MeetingDate = DateTime.Now,
-                                PeriodId = periodId,
                                 EmployeeId = e.Id,
                                 ColleagueId = e.ColleagueId,
                                 ColleagueName = string.Concat(e.FirstName, " " + e.LastName),
                                 ManagerId = m.ColleagueId,
                                 ManagerName = string.Concat(m.FirstName, " " + m.LastName),
-                                Status = 0
+                                ColleagueSignOff = 0,
+                                ManagerSignOff = 0,
                             }).FirstOrDefault();
 
             //Get questions with answers for particular meeting
             var question = from q in db.Questions 
-                           where q.PeriodId==periodId
                            select new QuestionView()
                            {
                                QuestionId = q.Id,
@@ -168,9 +164,10 @@ namespace JsPlc.Ssc.Link.Repository
             var meeting = new LinkMeeting()
             {
                 EmployeeId = empId,
-                PeriodId = view.PeriodId,
                 MeetingDate = view.MeetingDate,
-                Status = view.Status
+                ManagerId = view.ManagerId,
+                ColleagueSignOff = view.ColleagueSignOff,
+                ManagerSignOff = view.ManagerSignOff
             };
 
             var result= db.Meeting.Add(meeting);
@@ -191,16 +188,17 @@ namespace JsPlc.Ssc.Link.Repository
             return result.Id;
         }
 
-        public void UpdateMeeting(MeetingView view)
+        public void UpdateMeeting(int id,MeetingView view)
         {
-            var meeting = db.Meeting.FirstOrDefault(m => m.Id == view.MeetingId);
+            var meeting = db.Meeting.FirstOrDefault(m => m.Id == id);
            
             if (meeting != null)
             {
                 var linkMeeting = new LinkMeeting()
                 {
                     MeetingDate = view.MeetingDate,
-                    Status = view.Status,
+                    ColleagueSignOff = view.ColleagueSignOff,
+                    ManagerSignOff = view.ManagerSignOff,
                     Id = view.MeetingId
                 };
                 db.Meeting.AddOrUpdate(linkMeeting);

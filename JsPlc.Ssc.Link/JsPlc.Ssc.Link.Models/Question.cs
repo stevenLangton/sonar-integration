@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+//using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Models
 {
@@ -13,8 +14,7 @@ namespace JsPlc.Ssc.Link.Models
         [Required]
         public string Description { get; set; }
 
-        public int PeriodId { get; set; }
-        
-       public ICollection<Answer> Answers { get; set; }
+  //      [JsonIgnore]
+        public ICollection<Answer> Answers { get; set; }
     }
-}
+} 

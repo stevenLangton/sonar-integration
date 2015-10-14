@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 using System.IO;
 using iTextSharp.text.pdf;
 using System.Configuration;
 using System.Web.Configuration;
 using JsPlc.Ssc.Link.Models;
 using System.Collections.Specialized;
+using JsPlc.Ssc.Link.Portal.Helpers.Api;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {

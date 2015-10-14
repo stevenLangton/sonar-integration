@@ -48,5 +48,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             return View();
         }
+
+        public ActionResult JsVars()
+        {
+            return View();
+        }
     }
 }

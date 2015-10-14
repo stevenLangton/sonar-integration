@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,6 +13,7 @@ using System.Web.Routing;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
+using JsPlc.Ssc.Link.Portal.Helpers.Api;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Security;
 using Newtonsoft.Json;
@@ -29,75 +31,57 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [ScriptMethod(UseHttpGet = true)]
-        public JsonResult GetLinkForm(string employeeId, int periodId)
+        public JsonResult GetLinkForm(string colleagueId)
         {
-            using (var client = new HttpClient())
+            var facade = new LinkServiceFacade();
+
+            object jsonData;
+            var newMeeting = facade.GetNewMeetingView(colleagueId);
+            
+            if (newMeeting != null)
             {
-                //client.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"]);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // New code:
-                HttpResponseMessage response =
-                    client.GetAsync(String.Format("{0}/api/Meetings/?employeeId={1}&periodId={2}",
-                    ConfigurationManager.AppSettings["ServicesBaseUrl"], employeeId, periodId)).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    ViewBag.result = response.Content.ReadAsAsync<MeetingView>().Result;
-                }
-                else
-                {
-                    return new JsonResult
-                    {
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                        Data = "Error"
-                    };
-                }
+                jsonData = newMeeting;
             }
-            //var linkForm = MockData.MockLinkForm();
-            //linkForm.Questions = ViewBag.result;
+            else
+            {
+                jsonData = "Error";
+            }
 
-            var jsonData = new JsonResult
+            var jsonResult = new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = ViewBag.result
+                Data = jsonData
             };
-            return jsonData;
+            return jsonResult;
         }
 
-
+        /// <summary>
+        /// For a given MeetingId - useful for VIEW a Meeting or Edit a Meeting
+        /// </summary>
+        /// <param name="meetingId"></param>
+        /// <returns></returns>
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetMeetingView(int meetingId)
         {
-            using (var client = new HttpClient())
+            var facade = new LinkServiceFacade();
+
+            object jsonData;
+            var meeting = facade.GetMeeting(meetingId);
+
+            if (meeting != null)
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response =
-                    client.GetAsync(String.Format("{0}/api/meetings/{1}",
-                        ConfigurationManager.AppSettings["ServicesBaseUrl"], meetingId)).Result;
-
-                // Build a MeetingView Json response.
-                if (response.IsSuccessStatusCode)
-                {
-                    ViewBag.result = response.Content.ReadAsAsync<MeetingView>().Result;
-                }
-                else
-                {
-                    return new JsonResult
-                    {
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                        Data = "Error"
-                    };
-                }
+                jsonData = meeting;
             }
-            var jsonData = new JsonResult
+            else
+            {
+                jsonData = "Error";
+            }
+            var jsonResult = new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = ViewBag.result // MeetingView
+                Data = jsonData // MeetingView
             };
-            return jsonData;
+            return jsonResult;
         }
 
         [System.Web.Mvc.HttpPost]
@@ -154,29 +138,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             };
             // key and string of arrays
             return badRequestResponse.ToJsonResult(null, errArray, "UIValidationErrors");
-
-            //else
-            //{
-            //    return (ModelState);
-            // or return Json(ModelState.Values.SelectMany(x => x.Errors));
-            // or ModelState.Errors(); (extension method)
-            //}
-
         }
 
-        //// GET: LinkForm/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
         // GET: LinkForm/Create
-        //[System.Web.Mvc.Authorize]
-        [LinkAuthorizeManager]
-        public ActionResult Create(string employeeId, int? periodId)
+        [System.Web.Mvc.Authorize]
+        //[LinkAuthorizeManager] // might be needed for ManagerApproval method. Not needed here yet as Create can be called by Mgr or Employee.
+        public ActionResult Create(string colleagueId)
         {
             ViewBag.Title = "Create Link Form";
-            if (String.IsNullOrEmpty(employeeId) || !periodId.HasValue)
+            if (String.IsNullOrEmpty(colleagueId))
             {
                 return RedirectToAction("Welcome", "Home");
             }

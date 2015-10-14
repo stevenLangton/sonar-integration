@@ -18,19 +18,19 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(meeting);
         }
 
-        //GET: /api/Meetings/10
-        [HttpGet]
-        public IHttpActionResult GetMeetings(string employeeId)
-        {
-            return Ok(_db.GetMeetings(employeeId));
-        }
+        ////GET: /api/Meetings/10
+        //[HttpGet]
+        //public IHttpActionResult GetMeetings(string Id)
+        //{
+        //    return Ok(_db.GetMeetings(Id));
+        //}
 
         //GET: /api/Meetings/?employeeId=1
         [HttpGet]
         
-        public IHttpActionResult CreateMeeting([FromUri]string employeeId, int periodId)
+        public IHttpActionResult CreateMeeting([FromUri]string colleagueId)
         {
-            var meeting = _db.CreateMeeting(employeeId, periodId);
+            var meeting = _db.CreateMeeting(colleagueId);
 
             if (meeting == null)
                 return NotFound();
@@ -55,7 +55,10 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
+
             _db.UpdateMeeting(id,meetingView);
+
+            return Ok();
         }
     }
 }
