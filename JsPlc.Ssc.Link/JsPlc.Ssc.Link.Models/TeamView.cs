@@ -4,7 +4,7 @@ namespace JsPlc.Ssc.Link.Models
 {
     public class TeamView
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
 
         public string ColleagueId { get; set; }
 

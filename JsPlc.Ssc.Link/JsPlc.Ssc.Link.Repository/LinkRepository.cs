@@ -19,60 +19,60 @@ namespace JsPlc.Ssc.Link.Repository
            return db.Questions.OrderBy(q=>q.Id);
         }
 
-        //public EmployeeView GetEmployee(string id)
-        //{
-
-        //    var employee = (from e in db.Employees
-        //                    where e.ColleagueId == id
-        //                    join m in db.Employees on e.ManagerId equals m.ColleagueId into m_join
-        //                    from m in m_join.DefaultIfEmpty()
-        //                    select new EmployeeView
-        //                    {
-        //                        Id = e.Id,
-        //                        ColleagueId = e.ColleagueId,
-        //                        FirstName = e.FirstName,
-        //                        LastName = e.LastName,
-        //                        ManagerId = m.ColleagueId,
-        //                        ManagerName = String.Concat(m.FirstName, m.LastName),
-        //                        EmailAddress = e.EmailAddress
-
-        //                    }).FirstOrDefault();
-
-        //    return employee;
-        //}
-
         public IEnumerable<TeamView> GetTeam(string managerId)
         {
-            IEnumerable<TeamView> employees = (from e in db.Employees
+            IList<TeamView> team = (from e in db.Employees
                              where e.ManagerId == managerId
                              orderby e.FirstName, e.LastName
                              select new TeamView()
                              {
-                                 Id = e.Id,
+                                EmployeeId = e.Id,
                                  ColleagueId = e.ColleagueId,
                                  FirstName = e.FirstName,
                                  LastName = e.LastName,
                                  Meetings = (from m in db.Meeting
-                                            where m.EmployeeId == e.Id
-                                            select new LinkMeetingView()
-                                            {
-                                                Id = m.Id,
-                                                MeetingDate = m.MeetingDate
+                                             orderby m.MeetingDate
+                                             where m.EmployeeId == e.Id
+                                             
+                                             select new LinkMeetingView()
+                                             {
+                                                MeetingId = m.Id,
+                                                MeetingDate = m.MeetingDate,
+                                                ColleagueSignOff   = m.ColleagueSignOff,
+                                                ManagerSignOff = m.ManagerSignOff
                                             }).ToList(),
                                  EmailAddress = e.EmailAddress
-                          });
+                          }).ToList();
+
+            foreach (var member in team)
+            {
+                foreach (var meeting in member.Meetings)
+                {
+                    var mDate = meeting.MeetingDate;
+
+                    var period = (from p in db.Periods
+                        where mDate >= p.Start && mDate <= p.End
+                        select p).FirstOrDefault() ;
+
+                    meeting.Period = period.Description;
+                    meeting.Year = period.Year;
+                }
+            }
            
-            return employees.ToList();
+            return team;
         }
 
         public bool IsManager(string userName)
         {
-            var id = db.Employees.FirstOrDefault(e => e.EmailAddress == userName).ColleagueId;
+            var firstOrDefault = db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
+
+            if (firstOrDefault == null) return false;
+
+            var id = firstOrDefault.ColleagueId;
 
             var subEmployees = db.Employees.Where(e => e.ManagerId == id);
 
             return subEmployees.Any();
-
         }
 
         public MeetingView GetMeeting(int meetingId)
