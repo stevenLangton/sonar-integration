@@ -15,6 +15,16 @@
 
         meetingTree.years = getYears(colleagueMeetings);
         meetingTree.years = _.uniq(meetingTree.years);
+
+        //Add quarters
+        var addQuarters = function (item) {
+            return {
+                year: item,
+                quarters: ["Q1", "Q2", "Q3", "Q4"]
+            };
+        };
+
+        meetingTree.years = $.map(meetingTree.years, addQuarters);
     };
 
     //View model
