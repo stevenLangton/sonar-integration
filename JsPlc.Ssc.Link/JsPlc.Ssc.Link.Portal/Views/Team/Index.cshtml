@@ -42,16 +42,17 @@
         }
     </table>
 </div>
-<meeting-history></meeting-history>
-<p>
-    
-    @*@Html.ActionLink("Back to List", "Index")*@
-</p>
-<script type="text/javascript">
-    require(["jquery", "knockout", "LinkService", "RegisterKoComponents"],
-    function ($, ko, LinkService) {
-        var meetingsData = LinkService.getAllReporteeMeetings("E0010");
+<meeting-history params='data: $root[0]'></meeting-history>
+    <p>
 
-        ko.applyBindings();
-    });
-</script>
+        @*@Html.ActionLink("Back to List", "Index")*@
+    </p>
+    <script type="text/javascript">
+        require(["jquery", "knockout", "LinkService", "RegisterKoComponents"],
+        function ($, ko, LinkService) {
+            var $promise = LinkService.getAllReporteeMeetings("E0010");
+            $promise.done(function (koViewModel) {
+                ko.applyBindings(koViewModel);
+            });
+        });
+    </script>

@@ -340,6 +340,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\text.min.js" />
     <None Include="Scripts\Utils\helpers.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\UriJs\punycode.js" />
     <Content Include="Scripts\UriJs\URI.fragmentQuery.js" />
     <Content Include="Scripts\UriJs\URI.fragmentURI.js" />
