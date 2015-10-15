@@ -135,25 +135,20 @@
                             </div>
                             <div class="col-md-10">
                                 <p class="right">
-                                    <!-- TODO - Only manager can tick this.. -->
+                                    <!-- If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId then this meeting is initiated by Colleague,
+                                            else it is by manager -> This check is done in controller itself -->
+                                    <!-- Only manager can tick this.. -->
                                     <strong>Manager Signoff:</strong>
-                                    <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ManagerSignOff, value: dataModel().ManagerSignOff" name="Completed1" />
-                                    <!-- TODO - Only colleague can tick this.. -->
+                                    <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ManagerSignOff, value: dataModel().ManagerSignOff, enable: !(dataModel().ColleagueInitiated)" name="Completed1" />
+                                    <!-- Only colleague can tick this.. -->
                                     <strong>Colleague Signoff:</strong>
-                                    <input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff" name="Completed2" />
+                                    <input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated)" name="Completed2" />
 
                                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
                                     &nbsp; &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
                                 </p>
                             </div>
                         </div>
-
-
-
-
-
-
-
                     </div>
 
                 </div>
@@ -178,7 +173,6 @@
                     moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
                     // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?colleagueId=E001
                     var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
-
                     meetingView = {
                         EmployeeId: data.colleagueId,
                         ColleagueId: data.ColleagueId,
@@ -190,6 +184,7 @@
                         MeetingId: data.MeetingId,
                         ColleagueSignOff: data.ColleagueSignOff,
                         ManagerSignOff: data.ManagerSignOff,
+                        ColleagueInitiated: data.ColleagueInitiated,
                         //Completed: data.Status,
                         LookingBackQuestions: [],
                         LookingFwdQuestions: [],

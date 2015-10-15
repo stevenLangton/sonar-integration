@@ -37,6 +37,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             if (newMeeting != null)
             {
+                newMeeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == colleagueId;
                 jsonData = newMeeting;
             }
             else
