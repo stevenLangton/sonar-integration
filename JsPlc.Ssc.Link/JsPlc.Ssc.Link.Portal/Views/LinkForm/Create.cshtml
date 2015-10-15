@@ -245,8 +245,8 @@
 
                     // Manage bool binding to MeetingStatus.
                     // Values depend on MeetingStatus object in C#
-                    data.ColleagueSignOff = (data.ColleagueSignOff == 0) ? "InComplete": "Completed";
-                    data.ManagerSignOff = (data.ManagerSignOff == 0) ? "InComplete" : "Completed";
+                    data.ColleagueSignOff = (data.ColleagueSignOff == 0 || data.ColleagueSignOff == false) ? "InComplete" : "Completed";
+                    data.ManagerSignOff = (data.ManagerSignOff == 0 || data.ManagerSignOff == false) ? "InComplete" : "Completed";
 
                     console.log("Postback meetingDate :" + data.MeetingDate);
 
@@ -278,7 +278,8 @@
                         .done(function (response, textStatus, jqXhr) {
                             if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
                                 window.alert("Meeting created");
-                                window.location.href = common.getSiteRoot() + "Team";
+                                // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
+                                window.location.href = common.getSiteRoot() + "Team"; 
                                 $('#msgs').html("<strong>Meeting created</strong>");
                             }
                             else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {

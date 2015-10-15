@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string colleagueId)
         {
-
+         
             var facade = new LinkServiceFacade();
 
             object jsonData;
