@@ -14,6 +14,9 @@ namespace JsPlc.Ssc.Link.Models
         [Required]
         public string Description { get; set; }
 
+        [Required]
+        public string QuestionType { get; set; } // 'b' or 'f' for backward or forward
+
        [ScriptIgnore]
         public ICollection<Answer> Answers { get; set; }
     }
