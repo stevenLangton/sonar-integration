@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Security;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -15,6 +16,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Team/Create
         [HttpGet]
         [Authorize]
+        [LinkAuthorizeManager]
         public ActionResult Index()
         {
             ViewBag.Title = "Team";

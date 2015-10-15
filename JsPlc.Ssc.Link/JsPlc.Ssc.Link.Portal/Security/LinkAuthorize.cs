@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
-using JsPlc.Ssc.Link.Models;
 
 namespace JsPlc.Ssc.Link.Portal.Security
 {
@@ -18,13 +14,18 @@ namespace JsPlc.Ssc.Link.Portal.Security
 
         private bool HasDirectReports(HttpContextBase httpContext)
         {
-            if (httpContext.User.Identity.Name.ToLower().Contains("sandip"))
+            var userName = httpContext.User.Identity.Name;
+            using (var facade = new LinkServiceFacade())
             {
-                // Query LinkRepo to see if any direct reports
-                // call API to get HasDirectReports (dont use DB directly)
-                return true; // TODO code this.
+                return facade.IsManager(userName);
             }
-            return false;
+            //if (userName.ToLower().Contains("sandip"))
+            //{
+            //    // Query LinkRepo to see if any direct reports
+            //    // call API to get HasDirectReports (dont use DB directly)
+            //    return true; // TODO code this.
+            //}
+            //return false;
         }
     }
 
@@ -40,13 +41,13 @@ namespace JsPlc.Ssc.Link.Portal.Security
             //User isn't logged in
             if ( !filterContext.HttpContext.User.Identity.IsAuthenticated ) {
                 filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary( new { controller = "Account", action = "Login" } )
+                        new RouteValueDictionary( new { controller = "Account", action = "Login", reason = "Login with correct access"  } )
                 );
             }
             //User is logged in but has no access
             else {
                 filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary( new { controller = "Account", action = "NotAuthorized" } )
+                        new RouteValueDictionary(new { controller = "Account", action = "Login", reason = "This login is unauthorized." })
                 );
             }
         }
