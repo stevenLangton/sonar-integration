@@ -23,8 +23,9 @@
     };
 
     var getAllReporteeMeetings = function (managerId) {
+        debugger;
         var jsonArgs = {managerId: managerId};
-        return callService("get", "/api/Employees/?managerId=E0010", jsonArgs);
+        return callService("get", "/api/Employees", jsonArgs);
     };
 
     return {
@@ -34,3 +35,4 @@
     };
 
 });
+

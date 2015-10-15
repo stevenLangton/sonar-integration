@@ -1,4 +1,13 @@
-﻿@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
+﻿@using JsPlc.Ssc.Link.Models
+@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
+@{
+    var currentUser = TempData["CurrentUser"] as UserView;
+    string managerId = ""; // manager LoggedId, so get their colleagueId
+    if (currentUser != null && currentUser.Colleague != null && currentUser.Colleague.ColleagueId != null)
+    {
+        managerId = currentUser.Colleague.ColleagueId;
+    }
+}
 
 <h2>My Team</h2>
 
@@ -49,10 +58,16 @@
     </p>
     <script type="text/javascript">
         require(["jquery", "knockout", "LinkService", "RegisterKoComponents"],
-        function ($, ko, LinkService) {
-            var $promise = LinkService.getAllReporteeMeetings("E0010");
-            $promise.done(function (koViewModel) {
-                ko.applyBindings(koViewModel);
+            function ($, ko, LinkService) {
+
+                @*var mgrId = '@managerId';
+                console.log("Pull meetings for managerId:" + mgrId);
+                if (mgrId != '') {
+                    var $promise = LinkService.getAllReporteeMeetings(mgrId);
+                    $promise.done(function(koViewModel) {
+                        ko.applyBindings(koViewModel); // not currently used, TODO bind it to the Prettier view created by team.
+                    });
+                }*@
             });
-        });
+
     </script>
