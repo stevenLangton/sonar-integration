@@ -253,6 +253,8 @@
                     data.ColleagueSignOff = (data.ColleagueSignOff == 0) ? "InComplete": "Completed";
                     data.ManagerSignOff = (data.ManagerSignOff == 0) ? "InComplete" : "Completed";
 
+                    console.log("Postback meetingDate :" + data.MeetingDate);
+
                     data.Questions = [];
                     ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {
                         data.Questions.push(ques);
