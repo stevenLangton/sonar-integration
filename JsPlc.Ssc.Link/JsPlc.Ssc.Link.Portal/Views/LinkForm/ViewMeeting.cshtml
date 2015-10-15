@@ -123,13 +123,14 @@
         <div class="container-fluid well row col-xs-12" style="text-align: left;">
             <div class="col-xs-2 right">
                 <strong>Meeting Date:</strong> <span id="MeetingDate" data-bind="text: dataModel().MeetingDate" class="" readonly="readonly" name="MeetingDate"></span><br />
-                <strong>Meeting Complete: </strong><input id="Checkbox1" d type="checkbox" data-bind="checked: dataModel().Completed" name="Completed" disabled="disabled" />
+                <strong>Colleague Signoff: </strong><input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff" name="ColleagueSignOff" disabled="disabled" />
+                <strong>Manager Signoff: </strong><input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ManagerSignOff" name="ManagerSignOff" disabled="disabled" />
             </div><br />
         </div>
 </div><!-- / ko linkpage -->
 
 <script type="text/javascript">
-    require(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "URI", "common", "helpers"], function ($, ko, moment, datepicker, datePickerGb, URI, common, helpers) {
+    require(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "URI", "underscore", "common", "helpers"], function ($, ko, moment, datepicker, datePickerGb, URI, _, common, helpers) {
 
         function PageViewModel() {
 
@@ -155,7 +156,9 @@
                     ColleagueName: data.ColleagueName,
                     MeetingDate: meetingDate,
                     MeetingId: data.MeetingId,
-                    Completed: data.Status,
+                    //Completed: data.Status,
+                    ColleagueSignOff: data.ColleagueSignOff,
+                    ManagerSignOff: data.ManagerSignOff,
                     LookingBackQuestions: [],
                     LookingFwdQuestions: [],
                     Questions: []
@@ -167,9 +170,8 @@
                     if (!ques.ManagerComment)
                     { ques.ManagerComment = ""; }
                 });
-                // TODO split questions by type
-                meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
-                meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
+                meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'b'; });
+                meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'f'; });
 
                 self.dataModel(meetingView);
             };

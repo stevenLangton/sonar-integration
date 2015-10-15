@@ -94,12 +94,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
             // validate the linkForm MeetingView and then post it back to Service Api
-            var meetingViewJson = JsonConvert.SerializeObject(meetingView);
-
             // Return ModelState errors in json 
             // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
+                var meetingViewJson = JsonConvert.SerializeObject(meetingView);
                 HttpResponseMessage response = await LinkServiceCaller.RunAsync(meetingViewJson);
                 if (response.IsSuccessStatusCode)
                 {

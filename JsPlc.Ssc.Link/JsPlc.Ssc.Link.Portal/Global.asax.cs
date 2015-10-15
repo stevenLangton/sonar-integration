@@ -22,7 +22,7 @@ namespace JsPlc.Ssc.Link.Portal
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             
             // App specific model binding.
-            //BindersConfig.RegisterModelBinders(); not needed for now.. kept for future.
+            // BindersConfig.RegisterModelBinders(); //not needed for now.. kept for future.
         }
     }
 }
