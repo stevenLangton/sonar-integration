@@ -23,7 +23,7 @@ namespace JsPlc.Ssc.Link.Portal.Security
             //{
             //    // Query LinkRepo to see if any direct reports
             //    // call API to get HasDirectReports (dont use DB directly)
-            //    return true; // TODO code this.
+            //    return true;
             //}
             //return false;
         }

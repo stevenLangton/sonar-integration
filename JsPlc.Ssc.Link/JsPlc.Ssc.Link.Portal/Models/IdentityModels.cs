@@ -22,8 +22,9 @@ namespace JsPlc.Ssc.Link.Portal.Models
             //{
             //    return true;
             //}
-            //return false; // TODO custom code to check this application role against LinkRepository
-
+            //return false; 
+            
+            // Check this application role against LinkRepository
             using (var facade = new LinkServiceFacade())
             {
                 var username = UserName; // what's the logged in User's name or other props.
