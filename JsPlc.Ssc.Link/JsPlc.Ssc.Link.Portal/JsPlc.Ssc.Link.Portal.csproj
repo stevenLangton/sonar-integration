@@ -393,6 +393,7 @@
     <Content Include="Views\Home\JSVars.cshtml" />
     <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
     <Content Include="Views\LinkForm\MyTeam.cshtml" />
+    <Content Include="Views\LinkForm\MyDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />

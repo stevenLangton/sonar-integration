@@ -26,6 +26,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
+        public ActionResult MyDetails()
+        {
+            return View();
+        }
+
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string colleagueId)
         {
