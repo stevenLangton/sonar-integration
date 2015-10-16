@@ -389,6 +389,8 @@
     <Content Include="Views\Home\JSVars.cshtml" />
     <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
     <Content Include="Views\LinkForm\MyTeam.cshtml" />
+    <Content Include="Views\Team\_ColleagueMeetingHistory.cshtml" />
+    <Content Include="Views\Team\LinkMeetings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
