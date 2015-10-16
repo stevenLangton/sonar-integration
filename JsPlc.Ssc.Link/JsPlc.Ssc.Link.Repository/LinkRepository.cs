@@ -210,9 +210,9 @@ namespace JsPlc.Ssc.Link.Repository
         }
 
         // update the meeting
-        public void UpdateMeeting(int id,MeetingView view)
+        public void UpdateMeeting(MeetingView view)
         {
-            var meeting = _db.Meeting.FirstOrDefault(m => m.Id == id);
+            var meeting = _db.Meeting.FirstOrDefault(m => m.Id == view.MeetingId);
            
             if (meeting != null)
             {

@@ -41,12 +41,12 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         }
 
         [HttpPut] // PUT: api/Meetings/5
-        public IHttpActionResult UpdateMeeting(int id, MeetingView meetingView)
+        public IHttpActionResult UpdateMeeting( MeetingView meetingView)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _db.UpdateMeeting(id,meetingView);
+            _db.UpdateMeeting(meetingView);
 
             return Ok();
         }

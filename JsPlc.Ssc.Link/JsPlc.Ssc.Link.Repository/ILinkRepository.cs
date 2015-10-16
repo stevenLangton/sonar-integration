@@ -11,7 +11,7 @@ namespace JsPlc.Ssc.Link.Repository
         MeetingView GetMeeting(int meetingId);
         MeetingView CreateMeeting(string colleagueId);
         int SaveMeeting(MeetingView meeting);
-        void UpdateMeeting(int id,MeetingView meeting);
+        void UpdateMeeting(MeetingView meeting);
 
 
         TeamView GetMeetings(string colleagueId);
