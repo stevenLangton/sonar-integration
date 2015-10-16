@@ -5,12 +5,12 @@ using JsPlc.Ssc.Link.Models;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
+    
     public class EmployeesController : BaseController
     {
 
-       // GET: api/Employees/?emailAddress=vasu.b@sainsburys.co.uk
-        [HttpGet]
-        public IHttpActionResult GetEmployee([FromUri]string emailAddress)
+        [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
+        public IHttpActionResult GetMyDetails([FromUri]string emailAddress)
         {
             var employee = _db.GetEmployee(emailAddress);
 
@@ -19,9 +19,28 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
             return Ok(employee);
         }
+        
+        [HttpGet]
+        [Route("mymeetings/{colleagueId}")] // mymeetings/E001
+        public IHttpActionResult GetMyMeetings(string colleagueId)
+        {
+            var meetings = _db.GetMeetings(colleagueId);
+
+            if (meetings == null)
+                return NotFound();
+
+            return Ok(meetings);
+        }
+
+        [HttpGet] // api/employees/?username=vasundhara.b@sainsburys.co.uk
+        public bool IsManager([FromUri]string userName)
+        {
+            return _db.IsManager(userName);
+        }
 
         [HttpGet]
-        public IHttpActionResult GetTeam([FromUri]string managerId)
+        [Route("myteam/{managerId}")] // myteam/E0010
+        public IHttpActionResult GetMyTeam(string managerId)
         {
             var employees = _db.GetTeam(managerId);
 
@@ -33,11 +52,6 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(teamViews);
         }
 
-        // GET: api/Employees/?UserName="vasu.b@sainsburys.co.uk"
-        [HttpGet]
-        public bool IsManager([FromUri]string userName)
-        {
-            return  _db.IsManager(userName);
-        }
+        
     }
 }

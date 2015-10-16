@@ -9,14 +9,14 @@ namespace JsPlc.Ssc.Link.Repository
         IEnumerable<Question> GetQuestions();
         
         MeetingView GetMeeting(int meetingId);
-        IEnumerable<MeetingView> GetMeetings(string employeeId);
-        MeetingView CreateMeeting(string employeeId);
+        MeetingView CreateMeeting(string colleagueId);
         int SaveMeeting(MeetingView meeting);
         void UpdateMeeting(int id,MeetingView meeting);
 
-    
-        IEnumerable<TeamView> GetTeam(string managerId);
+
+        TeamView GetMeetings(string colleagueId);
         bool IsManager(string userName);
+        IEnumerable<TeamView> GetTeam(string managerId);
         
         void Dispose();
     }
