@@ -8,88 +8,104 @@ namespace JsPlc.Ssc.Link.Repository
 {
     public class LinkRepository:ILinkRepository
     {
-        private RepositoryContext db;
+        private readonly RepositoryContext _db;
 
         public LinkRepository() { }
 
-        public LinkRepository(RepositoryContext context) { db = context; }
+        public LinkRepository(RepositoryContext context) { _db = context; }
 
         public IEnumerable<Question> GetQuestions()
         {
-           return db.Questions.OrderBy(q=>q.Id);
-        }
-
-        public IEnumerable<TeamView> GetTeam(string managerId)
-        {
-            IList<TeamView> team = (from e in db.Employees
-                             where e.ManagerId == managerId
-                             orderby e.FirstName, e.LastName
-                             select new TeamView
-                             {
-                                EmployeeId = e.Id,
-                                 ColleagueId = e.ColleagueId,
-                                 FirstName = e.FirstName,
-                                 LastName = e.LastName,
-                                 Meetings = (from m in db.Meeting
-                                             orderby m.MeetingDate
-                                             where m.EmployeeId == e.Id
-                                             
-                                             select new LinkMeetingView
-                                             {
-                                                MeetingId = m.Id,
-                                                MeetingDate = m.MeetingDate,
-                                                ColleagueSignOff   = m.ColleagueSignOff,
-                                                ManagerSignOff = m.ManagerSignOff
-                                            }).ToList(),
-                                 EmailAddress = e.EmailAddress
-                          }).ToList();
-
-            foreach (var member in team)
-            {
-                foreach (var meeting in member.Meetings)
-                {
-                    var mDate = meeting.MeetingDate;
-
-                    var period = (from p in db.Periods
-                        where mDate >= p.Start && mDate <= p.End
-                        select p).FirstOrDefault() ;
-
-                    if (period == null) continue; // should not occur since each meeting should fall within a period
-
-                    meeting.Period = period.Description;
-                    meeting.Year = period.Year;
-                }
-            }
-           
-            return team;
+           return _db.Questions.OrderBy(q=>q.Id);
         }
 
         public Employee GetEmployee(string emailAddres)
         {
-           return db.Employees.FirstOrDefault(e => e.EmailAddress == emailAddres);
+            return _db.Employees.FirstOrDefault(e => e.EmailAddress == emailAddres);
+        }
+        
+        // meetings history of an employee
+        public TeamView GetMeetings(string colleagueId)
+        {
+            var firstOrDefault = _db.Employees.FirstOrDefault(e => e.ColleagueId == colleagueId);
+
+            if (firstOrDefault == null) return null;
+
+            var empId = firstOrDefault.Id;
+
+            var myReport = (from e in _db.Employees
+                .Where(e => e.Id == empId)
+                            select new TeamView
+                            {
+                                EmployeeId = e.Id,
+                                ColleagueId = e.ColleagueId,
+                                FirstName = e.FirstName,
+                                LastName = e.LastName,
+                                Meetings = (from m in _db.Meeting
+                                            orderby m.MeetingDate descending 
+                                            where m.EmployeeId == e.Id
+                                            select new LinkMeetingView
+                                            {
+                                                MeetingId = m.Id,
+                                                MeetingDate = m.MeetingDate,
+                                                ColleagueSignOff = m.ColleagueSignOff,
+                                                ManagerSignOff = m.ManagerSignOff
+                                            }).ToList(),
+                                EmailAddress = e.EmailAddress
+                            }).FirstOrDefault();
+
+            foreach (var meeting in myReport.Meetings)
+            {
+                var mDate = meeting.MeetingDate;
+
+                var period = (from p in _db.Periods
+                              where mDate >= p.Start && mDate <= p.End
+                              select p).FirstOrDefault();
+
+                if (period == null) continue; // should not occur since each meeting should fall within a period
+
+                meeting.Period = period.Description;
+                meeting.Year = period.Year;
+            }
+            return myReport;
         }
 
+        //check where login user is manager or not
         public bool IsManager(string userName)
         {
-            var firstOrDefault = db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
+            var firstOrDefault = _db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
 
             if (firstOrDefault == null) return false;
 
             var id = firstOrDefault.ColleagueId;
 
-            var subEmployees = db.Employees.Where(e => e.ManagerId == id);
+            var subEmployees = _db.Employees.Where(e => e.ManagerId == id);
 
             return subEmployees.Any();
         }
 
+        // employees and their meeting history of a manager
+        public IEnumerable<TeamView> GetTeam(string managerId)
+        {
+            var team = _db.Employees.Where(e => e.ManagerId == managerId);
+
+            var teamView = new List<TeamView>();
+
+            foreach (var employee in team)
+            {
+                teamView.Add(GetMeetings(employee.ColleagueId));
+            }
+            return teamView;
+        }
+       
         // view particular meeting
         public MeetingView GetMeeting(int meetingId)
         {
             // Get meeting details along with manager details
-            var meeting = (from m in db.Meeting
-                join e in db.Employees on m.EmployeeId equals e.Id into e_join
+            var meeting = (from m in _db.Meeting
+                join e in _db.Employees on m.EmployeeId equals e.Id into e_join
                 from e in e_join.DefaultIfEmpty()
-                join mm in db.Employees on m.ManagerId equals mm.ColleagueId into m_join
+                join mm in _db.Employees on m.ManagerId equals mm.ColleagueId into m_join
                 from mm in m_join.DefaultIfEmpty()
                 where m.Id== meetingId 
                 select new MeetingView
@@ -106,8 +122,8 @@ namespace JsPlc.Ssc.Link.Repository
                 }).FirstOrDefault();
 
             //Get questions with answers for particular meeting
-            var question = from q in db.Questions
-                join a in db.Answers on new {q.Id, LinkMeetingId = meetingId} equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
+            var question = from q in _db.Questions
+                join a in _db.Answers on new {q.Id, LinkMeetingId = meetingId} equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
                 from a in a_join.DefaultIfEmpty()
                 select new QuestionView
                 {
@@ -124,20 +140,14 @@ namespace JsPlc.Ssc.Link.Repository
 
             return meeting;
         }
-
-        // all meetings of an employee
-        public IEnumerable<MeetingView> GetMeetings(string employeeId)
-        {
-            return null;
-        }
-
+        
         // create new meeting
         public MeetingView CreateMeeting(string colleagueId)
         {
             // Get meeting details along with manager details
-            var meeting = (from e in db.Employees
+            var meeting = (from e in _db.Employees
                            where e.ColleagueId == colleagueId
-                            join m in db.Employees on e.ManagerId equals m.ColleagueId into m_join
+                            join m in _db.Employees on e.ManagerId equals m.ColleagueId into m_join
                             from m in m_join.DefaultIfEmpty()
                             select new MeetingView
                             {
@@ -153,7 +163,7 @@ namespace JsPlc.Ssc.Link.Repository
                             }).FirstOrDefault();
 
             //Get questions with answers for particular meeting
-            var question = from q in db.Questions 
+            var question = from q in _db.Questions 
                            select new QuestionView
                            {
                                QuestionId = q.Id,
@@ -170,7 +180,7 @@ namespace JsPlc.Ssc.Link.Repository
         // save new meeting
         public int SaveMeeting(MeetingView view)
         {
-            int empId = db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
+            int empId = _db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
 
             var meeting = new LinkMeeting
             {
@@ -181,8 +191,8 @@ namespace JsPlc.Ssc.Link.Repository
                 ManagerSignOff = view.ManagerSignOff
             };
 
-            var result= db.Meeting.Add(meeting);
-            db.SaveChanges();
+            var result= _db.Meeting.Add(meeting);
+            _db.SaveChanges();
 
             foreach (var answer in view.Questions.Select(answer => new Answer
             {
@@ -192,8 +202,8 @@ namespace JsPlc.Ssc.Link.Repository
                 LinkMeetingId = result.Id
             }))
             {
-                db.Answers.Add(answer);
-                db.SaveChanges();
+                _db.Answers.Add(answer);
+                _db.SaveChanges();
             }
             
             return result.Id;
@@ -202,7 +212,7 @@ namespace JsPlc.Ssc.Link.Repository
         // update the meeting
         public void UpdateMeeting(int id,MeetingView view)
         {
-            var meeting = db.Meeting.FirstOrDefault(m => m.Id == id);
+            var meeting = _db.Meeting.FirstOrDefault(m => m.Id == id);
            
             if (meeting != null)
             {
@@ -213,8 +223,8 @@ namespace JsPlc.Ssc.Link.Repository
                     ManagerSignOff = view.ManagerSignOff,
                     Id = view.MeetingId
                 };
-                db.Meeting.AddOrUpdate(linkMeeting);
-                db.SaveChanges();
+                _db.Meeting.AddOrUpdate(linkMeeting);
+                _db.SaveChanges();
             }
 
             foreach (var answer in view.Questions.Select(answer => new Answer
@@ -225,14 +235,14 @@ namespace JsPlc.Ssc.Link.Repository
                 LinkMeetingId = view.MeetingId
             }))
             {
-                db.Answers.AddOrUpdate(answer);
-                db.SaveChanges();
+                _db.Answers.AddOrUpdate(answer);
+                _db.SaveChanges();
             } 
         }
 
         public void Dispose()
         {
-            db.Dispose();
+            _db.Dispose();
         }
 
         
