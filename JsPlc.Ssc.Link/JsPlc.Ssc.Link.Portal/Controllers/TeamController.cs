@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Linq;
 using System.Web.Mvc;
-using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Security;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -15,27 +10,16 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Team/Create
         [HttpGet]
         [Authorize]
+        [LinkAuthorizeManager] // IMPORTANT Check
         public ActionResult Index()
         {
             ViewBag.Title = "Team";
-
-            using (var client = new HttpClient())
+            var managerId = CurrentUser.Colleague.ColleagueId; // Current manager is logged in - so use their ColleagueId 
+            using (var facade = new LinkServiceFacade())
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                
-                HttpResponseMessage response =
-                    client.GetAsync(String.Format("{0}/api/Employees/?managerId={1}",
-                    ConfigurationManager.AppSettings["ServicesBaseUrl"], "E0010")).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var team  = response.Content.ReadAsAsync<IEnumerable<TeamView>>().Result;
-                    return View(team.ToList());
-                }
-
+                var team = facade.GetTeamView(managerId);
+                return team == null ? View() : View(team.ToList());
             }
-            return View();
         }
     }
 }

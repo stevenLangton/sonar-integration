@@ -28,11 +28,11 @@ namespace JsPlc.Ssc.Link.Repository
             context.SaveChanges();
 
             var questions = new List<Question> { 
-            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?" },
-            new Question{Id=2,Description="Where could I have made a greater difference?" },
-            new Question{Id=3,Description="What am I going to do make more of a difference?" },
-            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?" },
-            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?" }
+            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?", QuestionType = "b"},
+            new Question{Id=2,Description="Where could I have made a greater difference?", QuestionType = "b"},
+            new Question{Id=3,Description="What am I going to do make more of a difference?", QuestionType = "f"},
+            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?", QuestionType = "f"},
+            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?", QuestionType = "f"}
             };
             
             questions.ForEach(c => context.Questions.Add(c));            

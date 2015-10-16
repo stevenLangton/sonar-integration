@@ -6,6 +6,11 @@
     //var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
     //var currentUser = manager.FindById(User.Identity.GetUserId());
     var currentUser = TempData["CurrentUser"] as UserView;
+    EmployeeView colleague;
+    if (currentUser != null)
+    {
+        colleague = currentUser.Colleague;
+    }
 }
 
 <div class="navbar navbar-inverse" id="mainTabs">

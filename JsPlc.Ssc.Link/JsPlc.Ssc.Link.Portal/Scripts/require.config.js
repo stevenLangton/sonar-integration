@@ -13,6 +13,7 @@ require.config({
         "bootstrap-datepicker": "bootstrap-datepicker",
         "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
         "URI": "UriJs/Uri",
+        "underscore": "underscore",
         //"fragmentQuery": "UriJs/URI.fragmentQuery",
         //"fragmentUri": "UriJs/URI.fragmentUri",
 

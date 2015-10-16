@@ -19,10 +19,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             var appUser = manager.FindById(User.Identity.GetUserId());
-            if (appUser!= null)
+            if (appUser != null)
             {
                 CurrentUser = appUser.ToUserView();
+                using (var facade = new LinkServiceFacade())
+                {
+                    CurrentUser.Colleague = facade.GetColleagueByUsername(appUser.UserName);
+                }
             }
+            // populate Colleague data from DB using Api
 
             TempData["CurrentUser"] = CurrentUser; // for UserView object for Views
   

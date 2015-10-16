@@ -24,7 +24,7 @@ namespace JsPlc.Ssc.Link.Repository
             IList<TeamView> team = (from e in db.Employees
                              where e.ManagerId == managerId
                              orderby e.FirstName, e.LastName
-                             select new TeamView()
+                             select new TeamView
                              {
                                 EmployeeId = e.Id,
                                  ColleagueId = e.ColleagueId,
@@ -34,7 +34,7 @@ namespace JsPlc.Ssc.Link.Repository
                                              orderby m.MeetingDate
                                              where m.EmployeeId == e.Id
                                              
-                                             select new LinkMeetingView()
+                                             select new LinkMeetingView
                                              {
                                                 MeetingId = m.Id,
                                                 MeetingDate = m.MeetingDate,
@@ -53,6 +53,8 @@ namespace JsPlc.Ssc.Link.Repository
                     var period = (from p in db.Periods
                         where mDate >= p.Start && mDate <= p.End
                         select p).FirstOrDefault() ;
+
+                    if (period == null) continue; // should not occur since each meeting should fall within a period
 
                     meeting.Period = period.Description;
                     meeting.Year = period.Year;
@@ -90,7 +92,7 @@ namespace JsPlc.Ssc.Link.Repository
                 join mm in db.Employees on m.ManagerId equals mm.ColleagueId into m_join
                 from mm in m_join.DefaultIfEmpty()
                 where m.Id== meetingId 
-                select new MeetingView()
+                select new MeetingView
                 {
                     MeetingId = m.Id,
                     MeetingDate = m.MeetingDate,
@@ -107,10 +109,11 @@ namespace JsPlc.Ssc.Link.Repository
             var question = from q in db.Questions
                 join a in db.Answers on new {q.Id, LinkMeetingId = meetingId} equals new {Id = a.QuestionId, a.LinkMeetingId} into a_join
                 from a in a_join.DefaultIfEmpty()
-                select new QuestionView()
+                select new QuestionView
                 {
                     QuestionId = q.Id,
                     Question = q.Description,
+                    QuestionType = q.QuestionType,
                     AnswerId = a.Id,
                     ColleagueComment = a.ColleagueComments,
                     ManagerComment = a.ManagerComments
@@ -151,10 +154,11 @@ namespace JsPlc.Ssc.Link.Repository
 
             //Get questions with answers for particular meeting
             var question = from q in db.Questions 
-                           select new QuestionView()
+                           select new QuestionView
                            {
                                QuestionId = q.Id,
                                Question = q.Description,
+                               QuestionType = q.QuestionType
                            };
 
             if(meeting!=null)
@@ -168,7 +172,7 @@ namespace JsPlc.Ssc.Link.Repository
         {
             int empId = db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
 
-            var meeting = new LinkMeeting()
+            var meeting = new LinkMeeting
             {
                 EmployeeId = empId,
                 MeetingDate = view.MeetingDate,
@@ -180,7 +184,7 @@ namespace JsPlc.Ssc.Link.Repository
             var result= db.Meeting.Add(meeting);
             db.SaveChanges();
 
-            foreach (var answer in view.Questions.Select(answer => new Answer()
+            foreach (var answer in view.Questions.Select(answer => new Answer
             {
                 ColleagueComments = answer.ColleagueComment,
                 ManagerComments = answer.ManagerComment,
@@ -213,7 +217,7 @@ namespace JsPlc.Ssc.Link.Repository
                 db.SaveChanges();
             }
 
-            foreach (var answer in view.Questions.Select(answer => new Answer()
+            foreach (var answer in view.Questions.Select(answer => new Answer
             {
                 ColleagueComments = answer.ColleagueComment,
                 ManagerComments = answer.ManagerComment,
