@@ -174,6 +174,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         self.crudMode = "";
         self.getDataForMeeting = function () {
             //Check CRUD mode
+            debugger;
             if (window.location.href.search("LinkForm/ViewMeeting") > 0) {
                 crudMode = "View";
             }
