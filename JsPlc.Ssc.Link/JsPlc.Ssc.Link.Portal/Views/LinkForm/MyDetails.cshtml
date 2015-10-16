@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "My Details";
+}
+
+<h1>@ViewBag.Title</h1>
+<div id="linkpage">
+
+    <div class="row" style="margin-bottom:40px;">
+
+
+        <div class="col-md-4">
+            <div class="col-md-6">
+                <img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130">
+                <div class="col-md-12">
+                    <br />
+                    <button type="button" class="btn btn-primary btn-sm">Create Review</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <strong>Davy Jones</strong><br/>
+                Senior VP<br />
+                London<br />
+
+                <a href="#">Davy.Jones@sainsburys.co.uk</a><br /><br />
+
+                Manager: Dawn Blanc
+
+
+            </div>
+        </div>
+
+        <div class="col-md-4"><h2 style="padding:0px;margin:0px;">Link Meetings</h2>
+@Html.Partial("_ListMeetingsPartial")
+            
+        </div>
+
+        <div class="col-md-4" style="background-color:rgba(0, 99, 255, 0.90);padding:15px;color:#ffffff;">
+            <h2>Think Link</h2>
+
+    <p>We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
+</div>
+
+
+    </div>
+
+</div>
