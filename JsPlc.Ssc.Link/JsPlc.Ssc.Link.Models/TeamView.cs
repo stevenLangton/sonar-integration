@@ -4,6 +4,7 @@ namespace JsPlc.Ssc.Link.Models
 {
     public class TeamView
     {
+        // suggestion: why not have full EmployeeView object in here instead of fields (as we have in UserView object)
         public int EmployeeId { get; set; }
 
         public string ColleagueId { get; set; }

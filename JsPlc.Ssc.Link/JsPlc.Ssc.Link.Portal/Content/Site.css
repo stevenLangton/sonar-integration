@@ -208,3 +208,11 @@ font-size:80%;
   border-radius: 0px;
   box-shadow:none;
 }
+
+.meeting-incomplete {
+    color: red;
+}
+
+.meeting-completed {
+    color: green;
+}

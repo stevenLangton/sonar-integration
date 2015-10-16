@@ -1,28 +1,57 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using JsPlc.Ssc.Link.Models;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
+    
     public class EmployeesController : BaseController
     {
 
-       // GET: api/Employees/?managerId=1
+        [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
+        public IHttpActionResult GetMyDetails([FromUri]string emailAddress)
+        {
+            var employee = _db.GetEmployee(emailAddress);
+
+             if(employee==null)
+                return NotFound();
+
+            return Ok(employee);
+        }
+        
         [HttpGet]
-        public IHttpActionResult GetTeam([FromUri]string managerId)
+        [Route("mymeetings/{colleagueId}")] // mymeetings/E001
+        public IHttpActionResult GetMyMeetings(string colleagueId)
+        {
+            var meetings = _db.GetMeetings(colleagueId);
+
+            if (meetings == null)
+                return NotFound();
+
+            return Ok(meetings);
+        }
+
+        [HttpGet] // api/employees/?username=vasundhara.b@sainsburys.co.uk
+        public bool IsManager([FromUri]string userName)
+        {
+            return _db.IsManager(userName);
+        }
+
+        [HttpGet]
+        [Route("myteam/{managerId}")] // myteam/E0010
+        public IHttpActionResult GetMyTeam(string managerId)
         {
             var employees = _db.GetTeam(managerId);
 
-            if(!employees.Any())
+            var teamViews = employees as IList<TeamView> ?? employees.ToList();
+
+            if(!teamViews.Any())
                 return NotFound();
 
-            return Ok(employees);
+            return Ok(teamViews);
         }
 
-        // GET: api/Employees/?UserName="vasu.b@sainsburys.co.uk"
-        [HttpGet]
-        public bool IsManager([FromUri]string userName)
-        {
-            return  _db.IsManager(userName);
-        }
+        
     }
 }

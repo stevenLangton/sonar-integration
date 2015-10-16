@@ -13,12 +13,21 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Extensions
             return new UserView
             {
                 Id = user.Id,
-                ColleagueId = "",
-                FirstName = user.FirstName,
-                LastName = user.LastName, 
+                //ColleagueId = "",
+                //FirstName = user.FirstName,
+                //LastName = user.LastName, 
                 IsLineManager = user.IsLineManager(),
-                EmailAddress = user.UserName,
+                //EmailAddress = user.UserName,
             
+            };
+        }
+
+        public static EmployeeView ToEmployeeView(this Employee employee)
+        {
+            return new EmployeeView
+            {
+                Id = employee.Id, FirstName = employee.FirstName, LastName = employee.LastName, 
+                ColleagueId = employee.ColleagueId, ManagerId = employee.ManagerId, ManagerName = "", EmailAddress = employee.EmailAddress
             };
         }
     }

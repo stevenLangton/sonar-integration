@@ -1,41 +1,102 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.Mvc;
+using System.Web.Script.Services;
+using iTextSharp.text;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Security;
+using Org.BouncyCastle.Asn1.Crmf;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     public class TeamController : LinkBaseController
     {
-        // GET: Team/Create
+        // ## Knockout VIEWS - Sprint 2: 
+        // Team/LinkMeetings.cshtml and Team/_ColleagueMeetingHistory.cshtml
+
+        // ## Mockups:
+        // /LinkForm/MyTeam.cshtml and Linkform/_ListMeetingsPartial.cshtml
+
+        [ScriptMethod(UseHttpGet = true)]
         [HttpGet]
         [Authorize]
+        //[LinkAuthorizeManager] // IMPORTANT Check removed as this method is common for LinkMeetings view
+        public JsonResult GetMeetings(string myOrTeams) // Another method in LinkForm for MyMeetings
+        {
+            object jsonData;
+
+            using (var facade = new LinkServiceFacade())
+            {
+                List<TeamView> teamMeetings = null;
+                var colleagueId = CurrentUser.Colleague.ColleagueId; // If Currently a manager is logged in - use their ColleagueId
+
+                // diff method called based on myOrTeams = "MyMeetings" or "TeamMeetings"
+                if (myOrTeams == "TeamMeetings" && CurrentUser.IsLineManager)
+                {
+                    var meetings = facade.GetTeamView(colleagueId); // Get Meetings for the Manager
+                    if (meetings!= null) teamMeetings = meetings.ToList();
+                }
+                else
+                {
+                    // TODO mimic own meeting for colleague (pick one element)
+                    teamMeetings = new List<TeamView>();
+                    TeamView mymeeting = facade.GetTeamView(colleagueId).FirstOrDefault();
+                    teamMeetings.Add(mymeeting);
+                }
+                jsonData = teamMeetings ?? (object) "Error";
+            }
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = jsonData // will be "Error" if requesting "TeamMeeting" and not LineManager
+            };
+            return jsonResult;
+        }
+
+        // GET: /Team/LinkMeetings
+        // ## TEAM meetings view
+        [HttpGet]
+        [Authorize]
+        [LinkAuthorizeManager] // IMPORTANT Check
+        public ActionResult Meetings()
+        {
+            TempData["tabName"] = "team";
+            TempData["ViewType"] = "TeamMeetings";
+            return View("LinkMeetings");
+        }
+
+        // GET: /Team/LinkMeetings/My
+        // ## COLLEAGUE meetings view
+        [HttpGet]
+        [Authorize]
+        public ActionResult MyMeetings()
+        {
+            //if (string.IsNullOrEmpty(id))
+            //{
+            //    RedirectToAction("Index", "Home");
+            //}
+            TempData["tabName"] = "report";
+            TempData["ViewType"] = "MyMeetings";
+            return View("LinkMeetings");
+        }
+
+
+        // GET: /Team  // TODO retire this to use LinkMeetings method
+        [HttpGet]
+        [Authorize]
+        [LinkAuthorizeManager] // IMPORTANT Check
         public ActionResult Index()
         {
+            TempData["tabName"] = "team";
             ViewBag.Title = "Team";
-
-            using (var client = new HttpClient())
+            var managerId = CurrentUser.Colleague.ColleagueId; // Current manager is logged in - so use their ColleagueId 
+            using (var facade = new LinkServiceFacade())
             {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                
-                HttpResponseMessage response =
-                    client.GetAsync(String.Format("{0}/api/Employees/?managerId={1}",
-                    ConfigurationManager.AppSettings["ServicesBaseUrl"], "E0010")).Result;
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var team  = response.Content.ReadAsAsync<IEnumerable<TeamView>>().Result;
-                    return View(team.ToList());
-                }
-
+                var team = facade.GetTeamView(managerId);
+                return team == null ? View() : View(team.ToList());
             }
-            return View();
         }
     }
 }

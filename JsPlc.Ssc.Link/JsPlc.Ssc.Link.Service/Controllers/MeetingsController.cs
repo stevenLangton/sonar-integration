@@ -6,11 +6,10 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     public class MeetingsController : BaseController
     {
 
-       //GET: /api/Meetings/10
-        [HttpGet]
-        public IHttpActionResult GetMeeting(int Id)
+        [HttpGet] //api/Meetings/10
+        public IHttpActionResult GetMeeting(int id)
         {
-            var meeting = _db.GetMeeting(Id);
+            var meeting = _db.GetMeeting(id);
 
             if (meeting == null)
                 return NotFound();
@@ -18,17 +17,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(meeting);
         }
 
-        ////GET: /api/Meetings/10
-        //[HttpGet]
-        //public IHttpActionResult GetMeetings(string Id)
-        //{
-        //    return Ok(_db.GetMeetings(Id));
-        //}
-
-        //GET: /api/Meetings/?employeeId=1
-        [HttpGet]
-        
-        public IHttpActionResult CreateMeeting([FromUri]string colleagueId)
+        [HttpGet] //newMeeting/E001
+        [Route("newmeeting/{colleagueId}")]
+        public IHttpActionResult CreateMeeting(string colleagueId)
         {
             var meeting = _db.CreateMeeting(colleagueId);
 
@@ -38,25 +29,24 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(meeting);
         }
 
-        // POST: api/Meetings
-        [HttpPost]
+        [HttpPost] // POST: api/Meetings
         public IHttpActionResult SaveMeeting(MeetingView meetingView )
         {
             if (!ModelState.IsValid)
                 return BadRequest();
             
-            return Ok(_db.SaveMeeting(meetingView));
-            //return CreatedAtRoute("api/answers", meeting, meeting);
+            _db.SaveMeeting(meetingView);
+
+            return CreatedAtRoute("api/answers", new {id=meetingView.MeetingId}, meetingView);
         }
 
-        // PUT: api/Meetings/5
-        [HttpPut]
-        public IHttpActionResult UpdateMeeting(int id, [FromBody]MeetingView meetingView)
+        [HttpPut] // PUT: api/Meetings/5
+        public IHttpActionResult UpdateMeeting( MeetingView meetingView)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _db.UpdateMeeting(id,meetingView);
+            _db.UpdateMeeting(meetingView);
 
             return Ok();
         }

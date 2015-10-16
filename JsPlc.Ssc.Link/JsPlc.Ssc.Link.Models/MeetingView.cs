@@ -16,20 +16,14 @@ namespace JsPlc.Ssc.Link.Models
         public string ManagerId { get; set; } // M001 etc..
 
         public string ManagerName { get; set; }
-
-        //public int PeriodId { get; set; }
-
-        //public string PeriodDescription { get; set; }
-        
-        //public DateTime Start { get; set; }
-
-        //public DateTime End { get; set; }
-
+      
         public MeetingStatus ColleagueSignOff { get; set; }
 
         public MeetingStatus ManagerSignOff { get; set; }
 
         public DateTime MeetingDate { get; set; }
+
+        public bool ColleagueInitiated { get; set; } // defaults to false so safer to use instead of ManagerInitiated
 
         public IEnumerable<QuestionView> Questions { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿/// <reference path="App/Services/LinkService.js" />
+/// <reference path="App/ViewScripts/LinkFormCreate.js" />
 //Must omit extension on right side (in values)
 require.config({
     waitSeconds: 200,
@@ -13,6 +14,7 @@ require.config({
         "bootstrap-datepicker": "bootstrap-datepicker",
         "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
         "URI": "UriJs/Uri",
+        "underscore": "underscore",
         //"fragmentQuery": "UriJs/URI.fragmentQuery",
         //"fragmentUri": "UriJs/URI.fragmentUri",
 
@@ -31,7 +33,10 @@ require.config({
         "RegisterKoComponents": "App/kocomponents/RegisterKoComponents",
 
         //Services
-        "LinkService": "App/Services/LinkService"
+        "LinkService": "App/Services/LinkService",
+
+        //View scripts
+        "LinkFormCreate": "App/ViewScripts/LinkFormCreate"
 
     },
     shim: {

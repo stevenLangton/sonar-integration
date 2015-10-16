@@ -34,7 +34,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string colleagueId)
         {
-
+         
             var facade = new LinkServiceFacade();
 
             object jsonData;
@@ -42,6 +42,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             if (newMeeting != null)
             {
+                newMeeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == colleagueId;
                 jsonData = newMeeting;
             }
             else
@@ -99,13 +100,23 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
             // validate the linkForm MeetingView and then post it back to Service Api
-            var meetingViewJson = JsonConvert.SerializeObject(meetingView);
-
             // Return ModelState errors in json 
             // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
-                HttpResponseMessage response = await LinkServiceCaller.RunAsync(meetingViewJson);
+                var meetingViewJson = JsonConvert.SerializeObject(meetingView);
+                // DO PUT or POST based on MeetingId =0 which means Create, if not zero then update
+                HttpResponseMessage response;
+                if (meetingView.MeetingId == 0)
+                {
+                    response = await LinkServiceCaller.RunAsync(meetingViewJson, HttpMethod.Post);
+                }
+                else
+                {
+                    response = await LinkServiceCaller.RunAsync(meetingViewJson, HttpMethod.Put);
+                }
+
+                //HttpResponseMessage response = await LinkServiceCaller.RunAsync(meetingViewJson, HttpMethod.Post);
                 if (response.IsSuccessStatusCode)
                 {
                     Uri meetingUrl = response.Headers.Location;
@@ -177,6 +188,16 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             ViewBag.Title = "My Team";
 
             return View();
+        }
+
+        [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.Authorize]
+        public ActionResult Edit(int? id)
+        {
+            ViewBag.Title = "Edit Meeting";
+
+            return View("Create", new { colleagueId = id.ToString() });
+            //return RedirectToAction("Create", new { colleagueId = id.ToString() });
         }
 
     }

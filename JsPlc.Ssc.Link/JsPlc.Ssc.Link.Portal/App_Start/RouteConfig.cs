@@ -27,7 +27,7 @@ namespace JsPlc.Ssc.Link.Portal
         }
         public static void RegisterApiRoutes(HttpConfiguration config)
         {
-            // TODO: Add any additional WebApi configuration code.
+            // Add any additional WebApi configuration code.
 
             // Web API routes
             //config.MapHttpAttributeRoutes();

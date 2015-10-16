@@ -38,6 +38,7 @@
         randomString: randomString,
         uiDateFormat: uiDateFormat,
         serverDateFormat: serverDateFormat,
-        callService: callService
+        callService: callService,
+        callServerAction: callService
     };
 });

@@ -8,12 +8,14 @@ namespace JsPlc.Ssc.Link.Models
 
         public string Question { get; set; }
 
+        public string QuestionType { get; set; }
+
         public int? AnswerId { get; set; }
 
-       [StringLength(maximumLength: 50, ErrorMessage = "Colleague comment cannot be more than 5000 chars.")]
+       [StringLength(maximumLength: 5000, ErrorMessage = "Colleague comment cannot be more than 5000 chars.")]
         public string ColleagueComment { get; set; }
 
-       [StringLength(maximumLength: 50, ErrorMessage = "Manager comment cannot be more than 5000 chars.")]
+       [StringLength(maximumLength: 5000, ErrorMessage = "Manager comment cannot be more than 5000 chars.")]
        public string ManagerComment { get; set; }
     }
 }

@@ -2,10 +2,18 @@
 @using JsPlc.Ssc.Link.Portal.Models
 @using Microsoft.AspNet.Identity
 @{
-    string tabName = ViewData["tabName"].ToString().ToLower();
+    var tab = TempData["tabName"];
+
+    string tabName = (tab == null) ? "Welcome" : tab.ToString().ToLower();
+    
     //var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
     //var currentUser = manager.FindById(User.Identity.GetUserId());
     var currentUser = TempData["CurrentUser"] as UserView;
+    EmployeeView colleague;
+    if (currentUser != null)
+    {
+        colleague = currentUser.Colleague;
+    }
 }
 
 <div class="navbar navbar-inverse" id="mainTabs">
@@ -23,7 +31,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li role="presentation" class="@(tabName == "Welcome to Links" ? "active" : "") tab-heading">
+                <li role="presentation" class="@(tabName == "Welcome" ? "active" : "") tab-heading">
                     @Html.ActionLink("Welcome", "Welcome", "Home")
                 </li>
                 @if (Request.IsAuthenticated)

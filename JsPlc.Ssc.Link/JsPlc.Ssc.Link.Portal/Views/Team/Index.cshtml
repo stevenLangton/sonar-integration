@@ -1,6 +1,14 @@
-﻿@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
-
-<h2>My Team</h2>
+﻿@using JsPlc.Ssc.Link.Models
+@model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
+@{
+    var currentUser = TempData["CurrentUser"] as UserView;
+    string managerId = ""; // manager LoggedId, so get their colleagueId
+    if (currentUser != null && currentUser.Colleague != null && currentUser.Colleague.ColleagueId != null)
+    {
+        managerId = currentUser.Colleague.ColleagueId;
+    }
+}
+<h2>My Team - Old view from Sprint 1 (not to be used)</h2>
 
 <div>
     <hr />
@@ -29,11 +37,19 @@
                     {
                         foreach (var meeting in employee.Meetings)
                         {
-                            @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.MeetingId }, null)
+                            if (meeting.Status == MeetingStatus.Completed)
+                            {
+                                @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.MeetingId }, new { @class = "meeting-completed" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "Edit", "LinkForm", new { id = meeting.MeetingId }, new { @class = "meeting-incomplete" })
+                            }
                             <br />
                         }
                     }
                 </td>
+
                 
             </tr>
 
@@ -42,16 +58,23 @@
         }
     </table>
 </div>
-<meeting-history></meeting-history>
-<p>
-    
-    @*@Html.ActionLink("Back to List", "Index")*@
-</p>
-<script type="text/javascript">
-    require(["jquery", "knockout", "LinkService", "RegisterKoComponents"],
-    function ($, ko, LinkService) {
-        var meetingsData = LinkService.getAllReporteeMeetings("E0010");
+<meeting-history params='data: $root[0]'></meeting-history>
+    <p>
 
-        ko.applyBindings();
-    });
-</script>
+        @*@Html.ActionLink("Back to List", "Index")*@
+    </p>
+    <script type="text/javascript">
+        require(["jquery", "knockout", "LinkService", "RegisterKoComponents"],
+            function ($, ko, LinkService) {
+
+                var mgrId = '@managerId';
+                console.log("Pull meetings for managerId:" + mgrId);
+                if (mgrId != '') {
+                    var $promise = LinkService.getAllReporteeMeetings(mgrId);
+                    $promise.done(function(koViewModel) {
+                        ko.applyBindings(koViewModel); // not currently used, TODO bind it to the Prettier view created by team.
+                    });
+                }
+            });
+
+    </script>
