@@ -16,36 +16,18 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
 {
     public class LinkServiceCaller
     {
-        public static async Task<HttpResponseMessage> RunAsync(string meetingViewJson)
+        public static async Task<HttpResponseMessage> RunAsync(string meetingViewJson, HttpMethod method)
         {
             using (var client = new HttpClient())
             {
-                //client.BaseAddress = new Uri();
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //// HTTP GET
-
-                //HttpResponseMessage response = await client.GetAsync("api/Meetings");
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    MeetingView meetingView = await response.Content.ReadAsAsync<MeetingView>();
-                //}
-
-                // HTTP POST
                 var serviceUrl = String.Format("{0}api/Meetings", ConfigurationManager.AppSettings["ServicesBaseUrl"]);
 
-                // serviceUrl = serviceUrl.Replace("//localhost", "//" + Environment.MachineName);
+                HttpRequestMessage request = new HttpRequestMessage(method, serviceUrl);
 
-                Trace.WriteLine("serviceUrl:" + serviceUrl);
-                Trace.WriteLine("Sending meeting for create:" + meetingViewJson);
-
-                ////var response = client.PostAsJsonAsync(serviceUrl, meetingViewJson).Result;
-                //var response = client.PostAsync(new Uri(serviceUrl), content).Result;
-
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, serviceUrl);
-               
-                request.Content = new StringContent(meetingViewJson,
+                request.Content = new StringContent( meetingViewJson,
                                                     Encoding.UTF8,
                                                     "application/json");
 
@@ -59,14 +41,6 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 if (!response.IsSuccessStatusCode)
                     return new HttpResponseMessage {StatusCode = HttpStatusCode.NotImplemented};
                 
-                //Uri meetingUrl = response.Headers.Location;
-
-                //// HTTP PUT
-                //meetingView.MeetingDate = DateTime.Now; // Update meetingDate
-                //response = await client.PutAsJsonAsync(meetingUrl, meetingView);
-
-                //// HTTP DELETE
-                //response = await client.DeleteAsync(meetingUrl);
                 return response;
             }
         }

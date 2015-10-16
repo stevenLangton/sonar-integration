@@ -25,6 +25,9 @@
         };
 
         meetingTree.years = $.map(meetingTree.years, addQuarters);
+
+        //Add meeting links
+        //Sample link to view meeting "http://localhost/JsPlc.Ssc.Link.Portal/LinkForm/ViewMeeting/2"
     };
 
     //View model

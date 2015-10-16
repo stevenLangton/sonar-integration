@@ -38,11 +38,19 @@
                     {
                         foreach (var meeting in employee.Meetings)
                         {
-                            @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.MeetingId }, null)
+                            if (meeting.Status == MeetingStatus.Completed)
+                            {
+                                @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.MeetingId }, new { @class = "meeting-completed" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "Edit", "LinkForm", new { id = meeting.MeetingId }, new { @class = "meeting-incomplete" })
+                            }
                             <br />
                         }
                     }
                 </td>
+
                 
             </tr>
 
@@ -60,14 +68,14 @@
         require(["jquery", "knockout", "LinkService", "RegisterKoComponents"],
             function ($, ko, LinkService) {
 
-                @*var mgrId = '@managerId';
+                var mgrId = '@managerId';
                 console.log("Pull meetings for managerId:" + mgrId);
                 if (mgrId != '') {
                     var $promise = LinkService.getAllReporteeMeetings(mgrId);
                     $promise.done(function(koViewModel) {
                         ko.applyBindings(koViewModel); // not currently used, TODO bind it to the Prettier view created by team.
                     });
-                }*@
+                }
             });
 
     </script>

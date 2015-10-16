@@ -100,7 +100,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             if (ModelState.IsValid)
             {
                 var meetingViewJson = JsonConvert.SerializeObject(meetingView);
-                HttpResponseMessage response = await LinkServiceCaller.RunAsync(meetingViewJson);
+                // DO PUT or POST based on MeetingId =0 which means Create, if not zero then update
+                HttpResponseMessage response;
+                if (meetingView.MeetingId == 0)
+                {
+                    response = await LinkServiceCaller.RunAsync(meetingViewJson, HttpMethod.Post);
+                }
+                else
+                {
+                    response = await LinkServiceCaller.RunAsync(meetingViewJson, HttpMethod.Put);
+                }
+
+                //HttpResponseMessage response = await LinkServiceCaller.RunAsync(meetingViewJson, HttpMethod.Post);
                 if (response.IsSuccessStatusCode)
                 {
                     Uri meetingUrl = response.Headers.Location;
@@ -172,6 +183,16 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             ViewBag.Title = "My Team";
 
             return View();
+        }
+
+        [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.Authorize]
+        public ActionResult Edit(int? id)
+        {
+            ViewBag.Title = "Edit Meeting";
+
+            return View("Create", new { colleagueId = id.ToString() });
+            //return RedirectToAction("Create", new { colleagueId = id.ToString() });
         }
 
     }
