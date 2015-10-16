@@ -1,0 +1,159 @@
+﻿@using JsPlc.Ssc.Link.Models
+@{
+    //var currentUser = TempData["CurrentUser"] as UserView;
+    //string managerId = ""; // manager LoggedId, so get their colleagueId
+    //if (currentUser != null && currentUser.Colleague != null && currentUser.Colleague.ColleagueId != null)
+    //{
+    //    managerId = currentUser.Colleague.ColleagueId;
+    //}
+    var viewType = TempData["ViewType"];
+}
+
+@if (ViewBag.ViewType == "team")
+{
+    <h2>My Team</h2>
+}
+else
+{
+    <h2>My Link Meetings</h2>
+}
+
+<div id="linkpage">
+
+    <div class="row" style="margin-bottom:40px;" data-bind="foreach: $root.dataModel()" style="border: solid 1px black">
+
+        <div class="col-md-10">
+            <!-- This binding says for each element of DataModel array do something -->
+            <!-- one colleague -->
+            <div class="col-md-6">
+                <img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130">
+                <div class="col-md-12">
+                    <br />
+                    <button type="button" class="btn btn-primary btn-sm">Create Review</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 style="padding:0px;margin:0px;">Name: <span data-bind="text: TeamView.FirstName"></span></h2>
+                <ul data-bind="foreach: TeamView.Meetings"> <!-- Meetings object -->
+                    <li><span data-bind="text: MeetingDate"></span></li>
+                </ul>
+                @*@Html.Partial("_ColleagueMeetingHistory")*@
+            </div>
+        </div>
+
+    </div>
+
+    <!-- how will we manage pagination.. option: use Skip and Take in Linq in ajax call -->
+    @*<nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>*@
+</div>
+
+<script type="text/javascript">
+    require(["jquery", "knockout", "moment", "URI", "underscore", "common", "helpers"], function ($, ko, moment, URI, _, common, helpers) {
+
+        function PageViewModel() {
+
+            var self = this;
+
+            self.dataModel = ko.observable(""); // Array of TeamView objects
+            self.dataAvailable = ko.observable(false);
+
+            self.bind = function () { };
+
+            var ListOfTeamViews = [];
+
+            var buildViewModels = function (data) {
+                moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+                var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+
+                _.each(data, function (item) {
+
+                    // pre process each item 
+                    item.MeetingDate = moment(item.MeetingDate).format("L");
+                    
+                    // Build the item
+                    var TeamView = {
+                        TeamView: item
+                    }
+
+                    // add item to array
+                    ListOfTeamViews.push(TeamView);
+                });
+
+                self.dataModel(ListOfTeamViews);
+            };
+
+            // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
+            self.loadPageData = function (myOrTeams) {
+                debugger;
+                $.ajax({
+                    url: common.getSiteRoot() + "Team/GetMeetings/?myOrTeams=" + myOrTeams, // "MyMeetings" or "TeamMeetings"
+                    method: "GET"
+                })
+                    .done(function (data) {
+                        debugger;
+                        if (data == "Error") {
+                            $('#msgs').html("No data");
+                            self.dataAvailable(false);
+                        }
+                        else {
+                            $('#msgs').html("Fetch success");
+                            // Maybe we directly bind the data to the Linkpage.
+                            // data = IEnum<TeamView> or Array of TeamViews
+                            //self.dataModel(data);
+                            // And lets assume we always get an array of TeamView  (for colleagues, it will be 1 element array of TeamView)
+
+                            //And not use this .. 
+                            buildViewModels(data);
+
+                            self.dataAvailable(true);
+                            self.bind();
+                        }
+                    })
+                    .fail(function () {
+                        self.dataAvailable(false);
+                        $('#msgs').html("Error occured");
+                    });
+            }
+        }
+
+        $(document).ready(function () {
+            moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+
+            var vm = new PageViewModel();
+
+            var binder = function () {
+                ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
+            };
+            vm.bind = binder;
+
+
+            debugger;
+            // Used by 2 actions methods
+            //  /Team/Meetings and /Team/MyMeetings
+            var myOrTeams = "@viewType";
+            
+            console.log("Trying to call ajax for meetings: " + myOrTeams);
+            // Show meeting data once loaded from GET
+            vm.loadPageData(myOrTeams);
+        });
+    });
+
+</script>
