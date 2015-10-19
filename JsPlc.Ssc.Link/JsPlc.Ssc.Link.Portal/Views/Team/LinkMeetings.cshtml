@@ -34,10 +34,23 @@ else
             </div>
             <div class="col-md-6">
                 <h2 style="padding:0px;margin:0px;">Name: <span data-bind="text: Member.FirstName"></span></h2>
-                <ul data-bind="foreach: Meetings">
+                <ul data-bind="foreach: MeetingYears">
                     <!-- Meetings object -->
-                    <li><span data-bind="text: $data"></span></li>
+                    <li>
+                        <span data-bind="text: Year"></span>
+                        <ul data-bind="foreach: Periods">
+                            <li>
+                                <span data-bind="text: Period"></span>
+                                <ul data-bind="foreach: Meetings">
+                                    <li>
+                                        <span data-bind="text: MeetingDate"></span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
+                <!-- TODO Bind it to the format below -->
                 @*@Html.Partial("_ColleagueMeetingHistory")*@
             </div>
         </div>
@@ -63,7 +76,25 @@ else
                     </a>
                 </li>
             </ul>
-        </nav>*@
+        </nav>*@<nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true"></span>
+                </a>
+            </li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <script type="text/javascript">
@@ -86,31 +117,50 @@ else
 
                 // Extract tree from List<LinkMeetingView>
                 var buildMeetingsForMember = function (meetingsData) {
+
                     var allYears = _.pluck(meetingsData, "Year");
                     var years = _.uniq(allYears, function (item) { return item; });
-                    //debugger;
-                    //var allperiods = _.each(years, function (yr) {
+                    //return {
+                    //    Years: years,
+                    //}
 
-                    //    var quarters = _.filter(meetingsData, function(item) {
-                    //        (item.Year == yr);
-                    //    });
+                    var yearsMore = [];
+                    // for each year find periods
+                    var yearsWithPeriods = _.each(years, function (yr) {
+                        var yearsMeetings = _.filter(meetingsData, function (item) {
+                            return (item.Year === yr);
+                        });
+                        var allPeriodsForYear = _.pluck(yearsMeetings, "Period");
 
-                    //    yr.periods = _.pluck(quarters, "Period");
-                    //});
-                    
-                    return years;
+                        var periods = _.uniq(allPeriodsForYear, function (item) { return item; });
+
+                        var periodWithMeetings = [];
+                        // iterate periods
+                        _.each(periods, function (period) {
+                            var meetingsForPeriod = _.filter(meetingsData, function (item) {
+                                return (item.Year === yr && item.Period === period);
+                            });
+
+                            periodWithMeetings.push({ Period: period, Meetings: meetingsForPeriod });
+                        });
+
+                        yearsMore.push({ Year: yr, Periods: periodWithMeetings });
+                    });
+
+                    return yearsMore;
                 }
+
                 // each TeamView item
                 _.each(data, function (item) {
 
-                    // pre process each item 
+                    // pre process each item
                     item.MeetingDate = moment(item.MeetingDate).format("L");
-                    
+
                     // Build the item
                     var MemberView = {
                         Member: item,
                         // extract years out of each data.Meetings (i.e from List<LinkMeetingView>)
-                        Meetings: buildMeetingsForMember(item.Meetings)
+                        MeetingYears: buildMeetingsForMember(item.Meetings)
                     }
 
                     // add item to array
@@ -140,7 +190,7 @@ else
                             //self.dataModel(data);
                             // And lets assume we always get an array of TeamView  (for colleagues, it will be 1 element array of TeamView)
 
-                            //And not use this .. 
+                            //And not use this ..
                             buildViewModels(data);
 
                             self.dataAvailable(true);
@@ -169,7 +219,7 @@ else
             // Used by 2 actions methods
             //  /Team/Meetings and /Team/MyMeetings
             var myOrTeams = "@viewType";
-            
+
             console.log("Trying to call ajax for meetings: " + myOrTeams);
             // Show meeting data once loaded from GET
             vm.loadPageData(myOrTeams);
