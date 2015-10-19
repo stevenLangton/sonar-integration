@@ -33,9 +33,10 @@ else
                 </div>
             </div>
             <div class="col-md-6">
-                <h2 style="padding:0px;margin:0px;">Name: <span data-bind="text: TeamView.FirstName"></span></h2>
-                <ul data-bind="foreach: TeamView.Meetings"> <!-- Meetings object -->
-                    <li><span data-bind="text: MeetingDate"></span></li>
+                <h2 style="padding:0px;margin:0px;">Name: <span data-bind="text: Member.FirstName"></span></h2>
+                <ul data-bind="foreach: Meetings">
+                    <!-- Meetings object -->
+                    <li><span data-bind="text: $data"></span></li>
                 </ul>
                 @*@Html.Partial("_ColleagueMeetingHistory")*@
             </div>
@@ -83,18 +84,37 @@ else
                 moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
                 var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
+                // Extract tree from List<LinkMeetingView>
+                var buildMeetingsForMember = function (meetingsData) {
+                    var allYears = _.pluck(meetingsData, "Year");
+                    var years = _.uniq(allYears, function (item) { return item; });
+                    //debugger;
+                    //var allperiods = _.each(years, function (yr) {
+
+                    //    var quarters = _.filter(meetingsData, function(item) {
+                    //        (item.Year == yr);
+                    //    });
+
+                    //    yr.periods = _.pluck(quarters, "Period");
+                    //});
+                    
+                    return years;
+                }
+                // each TeamView item
                 _.each(data, function (item) {
 
                     // pre process each item 
                     item.MeetingDate = moment(item.MeetingDate).format("L");
                     
                     // Build the item
-                    var TeamView = {
-                        TeamView: item
+                    var MemberView = {
+                        Member: item,
+                        // extract years out of each data.Meetings (i.e from List<LinkMeetingView>)
+                        Meetings: buildMeetingsForMember(item.Meetings)
                     }
 
                     // add item to array
-                    ListOfTeamViews.push(TeamView);
+                    ListOfTeamViews.push(MemberView);
                 });
 
                 self.dataModel(ListOfTeamViews);
@@ -102,13 +122,13 @@ else
 
             // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
             self.loadPageData = function (myOrTeams) {
-                debugger;
+                //debugger;
                 $.ajax({
                     url: common.getSiteRoot() + "Team/GetMeetings/?myOrTeams=" + myOrTeams, // "MyMeetings" or "TeamMeetings"
                     method: "GET"
                 })
                     .done(function (data) {
-                        debugger;
+                        //debugger;
                         if (data == "Error") {
                             $('#msgs').html("No data");
                             self.dataAvailable(false);
@@ -145,7 +165,7 @@ else
             vm.bind = binder;
 
 
-            debugger;
+            //debugger;
             // Used by 2 actions methods
             //  /Team/Meetings and /Team/MyMeetings
             var myOrTeams = "@viewType";
