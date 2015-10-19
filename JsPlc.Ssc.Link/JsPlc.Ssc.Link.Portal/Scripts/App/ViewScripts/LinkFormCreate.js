@@ -132,18 +132,12 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
                         window.alert(messages.success);
 
-                        //if (self.crudMode === "Create") {
-                        //    window.alert("Meeting created");
-                        //}
-                        //else if (self.crudMode === "Edit") {
-                        //    window.alert("Meeting updated");
-                        //}
                         // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
                         if (data.ColleagueInitiated) {
                             window.location.href = common.getSiteRoot() + "Home/LinkReport";
                         } else {
-                        window.location.href = common.getSiteRoot() + "Team";
-                        $('#msgs').html("<strong>Meeting created</strong>");
+                            window.location.href = common.getSiteRoot() + "Team";
+                        }
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
                         window.alert(messages.failure);
