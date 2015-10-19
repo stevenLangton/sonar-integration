@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\QuestionsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -104,6 +105,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj">
+      <Project>{589e97d6-1d3d-4214-9871-005e7b01e4b5}</Project>
+      <Name>JsPlc.Ssc.Link.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Service\JsPlc.Ssc.Link.Service.csproj">
       <Project>{B3FC18AA-C34C-4F58-B8AB-36907A6C1C73}</Project>
       <Name>JsPlc.Ssc.Link.Service</Name>

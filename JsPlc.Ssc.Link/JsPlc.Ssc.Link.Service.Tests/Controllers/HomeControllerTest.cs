@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using JsPlc.Ssc.Link.Service;
 using JsPlc.Ssc.Link.Service.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 {
