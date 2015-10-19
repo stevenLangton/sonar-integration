@@ -69,12 +69,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             if (meeting != null)
             {
+                meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 jsonData = meeting;
             }
             else
             {
                 jsonData = "Error";
             }
+
             var jsonResult = new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
