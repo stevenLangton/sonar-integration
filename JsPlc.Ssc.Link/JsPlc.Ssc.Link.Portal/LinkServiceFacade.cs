@@ -40,8 +40,8 @@ namespace JsPlc.Ssc.Link.Portal
         public MeetingView GetMeeting(int Id)
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/meetings/" + Id.ToString(CultureInfo.InvariantCulture)).Result;
-
-            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
+            var meeting = response.Content.ReadAsAsync<MeetingView>().Result;
+            return response.IsSuccessStatusCode ? meeting : null;
         }
 
         public MeetingView GetNewMeetingView(string colleagueId)

@@ -228,14 +228,14 @@ namespace JsPlc.Ssc.Link.Repository
                 _db.SaveChanges();
             }
 
-            foreach (var answer in view.Questions.Select(question => new Answer
+            foreach (var answer in view.Questions.Select(question => question.AnswerId != null ? new Answer
             {
                 Id = (int)question.AnswerId,
                 QuestionId = question.QuestionId,
                 ColleagueComments = question.ColleagueComment,
                 ManagerComments = question.ManagerComment,
                 LinkMeetingId = view.MeetingId
-            }))
+            } : null))
             {
                 _db.Answers.AddOrUpdate(answer);
                 _db.SaveChanges();
