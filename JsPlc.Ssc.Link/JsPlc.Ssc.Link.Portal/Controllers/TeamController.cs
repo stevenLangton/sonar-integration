@@ -92,6 +92,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             TempData["tabName"] = "team";
             ViewBag.Title = "Team";
             var managerId = CurrentUser.Colleague.ColleagueId; // Current manager is logged in - so use their ColleagueId 
+
+            return Meetings(); // use the new action method
+
             using (var facade = new LinkServiceFacade())
             {
                 var team = facade.GetTeamView(managerId);
