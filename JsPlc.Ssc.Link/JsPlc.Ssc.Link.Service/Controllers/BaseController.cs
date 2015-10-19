@@ -5,7 +5,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 {
     public class BaseController : ApiController
     {
-        protected LinkRepository _db;
+        protected readonly ILinkRepository _db;
 
         public BaseController()
         {
@@ -13,10 +13,10 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _db=new LinkRepository(new RepositoryContext());
         }
 
-        //public BaseController(RepositoryContext dbContext)
-        //{
-        //    _db = dbContext;
-        //}
+        public BaseController(ILinkRepository repository)
+        {
+            _db = repository;
+        }
 
         protected override void Dispose(bool disposing)
         {

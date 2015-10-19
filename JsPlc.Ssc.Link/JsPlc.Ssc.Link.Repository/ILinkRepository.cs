@@ -13,6 +13,7 @@ namespace JsPlc.Ssc.Link.Repository
         int SaveMeeting(MeetingView meeting);
         void UpdateMeeting(MeetingView meeting);
 
+        Employee GetEmployee(string emailAddres);
 
         TeamView GetMeetings(string colleagueId);
         bool IsManager(string userName);

@@ -35,8 +35,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             PdfMeetingTemplate template = new PdfMeetingTemplate(MeetingData, GetPdfTemplateFileName());
             PdfMaker maker = new PdfMaker(template);
 
+            var cd = new System.Net.Mime.ContentDisposition
+            {
+                // for example foo.bak
+                FileName = "Meeting.pdf",
+
+                // always prompt the user for downloading, set to true if you want 
+                // the browser to try to show the file inline
+                Inline = true
+            };
+            Response.AppendHeader("Content-Disposition", cd.ToString());
             String MimeTypeStr = MimeMapping.GetMimeMapping("*.pdf");
-            return File(maker.MakePdf().GetBuffer(), MimeTypeStr, "Meeting.pdf");
+            return File(maker.MakePdf().GetBuffer(), MimeTypeStr);
         }
 
         // GET: Pdf
