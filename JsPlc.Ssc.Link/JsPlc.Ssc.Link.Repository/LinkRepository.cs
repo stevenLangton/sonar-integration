@@ -221,7 +221,7 @@ namespace JsPlc.Ssc.Link.Repository
                     MeetingDate = view.MeetingDate,
                     ColleagueSignOff = view.ColleagueSignOff,
                     ManagerSignOff = view.ManagerSignOff,
-                    EmployeeId = view.EmployeeId,
+                    EmployeeId = meeting.EmployeeId,
                     Id = view.MeetingId
                 };
                 _db.Meeting.AddOrUpdate(linkMeeting);
