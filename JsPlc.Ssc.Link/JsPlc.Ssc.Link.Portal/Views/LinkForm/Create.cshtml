@@ -1,6 +1,8 @@
-﻿
+﻿@using JsPlc.Ssc.Link.Models
+
 @{
     ViewBag.Title = "Team";
+    var currentUser = TempData["CurrentUser"] as UserView;
 }
 <style>
     .linkErrorMsg {
@@ -47,27 +49,26 @@
                                 </h4>
                             </div>
 
-                            <!-- ko if: $index() == 0 -->
-                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                            <div data-bind="attr:{id:'collapse1'+ $index()}, css:{in: $index() == 0}" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body">
                                     <span class="row">
-                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                        @if (currentUser.IsLineManager)
+                                        {
+                                            <span>Colleague Comment:</span><br />
+                                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4" disabled></textarea><br />
+                                            <span>Manager Comment:</span><br />
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                        }
+                                        else
+                                        {
+                                            <span>Colleague Comment:</span><br />
+                                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                            <span>Manager Comment:</span><br />
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4" disabled></textarea>
+                                        }
                                     </span>
                                 </div>
                             </div>
-                            <!-- /ko -->
-                            <!-- ko if: $index() != 0 -->
-                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                                <div class="panel-body">
-                                    <span class="row">
-                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- /ko -->
-
                         </div>
 
                     </div>
@@ -96,33 +97,29 @@
                                 </h4>
                             </div>
 
-                            <!-- ko if: $index() == 0 -->
-                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
+                            <div data-bind="attr:{id:'collapse2'+ $index()}, css:{in: $index() == 0}" class="panel-collapse collapse in" role="tabpanel">
                                 <div class="panel-body">
                                     <span class="row">
-                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                        @if (currentUser.IsLineManager)
+                                        {
+                                            <span>Colleague Comment:</span><br />
+                                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4" disabled></textarea><br />
+                                            <span>Manager Comment:</span><br />
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
+                                        }
+                                        else
+                                        {
+                                            <span>Colleague Comment:</span><br />
+                                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                            <span>Manager Comment:</span><br />
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4" disabled></textarea>
+                                        }
                                     </span>
                                 </div>
                             </div>
-                            <!-- /ko -->
-                            <!-- ko if: $index() != 0 -->
-                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                                <div class="panel-body">
-                                    <span class="row">
-                                        Colleague Comment:<br /><textarea data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                        Manager Comment:<br /><textarea data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- /ko -->
-
-
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
 
@@ -136,7 +133,7 @@
                             <div class="col-md-10">
                                 <p class="right">
                                     <!-- If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId then this meeting is initiated by Colleague,
-                                            else it is by manager -> This check is done in controller itself -->
+                                else it is by manager -> This check is done in controller itself -->
                                     <!-- Only manager can tick this.. -->
                                     <strong>Manager Signoff:</strong>
                                     <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ManagerSignOff, value: dataModel().ManagerSignOff, enable: !(dataModel().ColleagueInitiated), readonly: (dataModel().ColleagueInitiated)" name="Completed1" />
@@ -154,232 +151,10 @@
                 </div>
             </div>
         </form>
+
     </div><!-- / ko linkpage -->
 </div>
-    <script type="text/javascript">
-        require(["LinkFormCreate"]);
-        //require(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "underscore", "common", "helpers"], function ($, ko, moment, datepicker, datePickerGb, _, common, helpers) {
-
-        //    function PageViewModel() {
-
-        //        var self = this;
-
-        //        self.dataModel = ko.observable(""); // LinkForm object
-        //        self.dataAvailable = ko.observable(false);
-
-        //        self.bind = function () { };
-
-        //        var meetingView;
-        //        var buildViewModels = function (data) {
-        //            moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-        //            // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?colleagueId=E001
-        //            var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
-        //            meetingView = {
-        //                EmployeeId: data.colleagueId,
-        //                ColleagueId: data.ColleagueId,
-        //                ManagerId: data.ManagerId,
-        //                PeriodId: data.PeriodId,
-        //                ManagerName: data.ManagerName,
-        //                ColleagueName: data.ColleagueName,
-        //                MeetingDate: meetingDate,
-        //                MeetingId: data.MeetingId,
-        //                ColleagueSignOff: data.ColleagueSignOff,
-        //                ManagerSignOff: data.ManagerSignOff,
-        //                ColleagueInitiated: data.ColleagueInitiated,
-        //                //Completed: data.Status,
-        //                LookingBackQuestions: [],
-        //                LookingFwdQuestions: [],
-        //                Questions: []
-        //            };
-
-        //            ko.utils.arrayForEach(data.Questions, function (ques) {
-        //                if (!ques.ColleagueComment)
-        //                { ques.ColleagueComment = ""; } // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
-        //                if (!ques.ManagerComment)
-        //                { ques.ManagerComment = ""; }
-        //            });
-
-        //            //meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
-        //            //meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
-        //            // split questions by type (not by index)
-        //            meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'b'; });
-        //            meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'f'; });
-        //            meetingView.Questions = data.Questions;
-
-        //            self.dataModel(meetingView);
-        //        };
-
-        //        // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
-        //        self.loadPageData = function (colleagueId) {
-        //            $.ajax({
-        //                url: common.getSiteRoot() + "LinkForm/GetLinkForm/?" + "colleagueId" + "=" + colleagueId, // Hardcoded Meeting GET for now...
-        //                method: "GET"
-        //            })
-        //                .done(function (data, textStatus, jqXhr) {
-        //                    if (data == "Error") {
-        //                        $('#msgs').html("Error - no data");
-        //                        self.dataAvailable(false);
-        //                    }
-        //                    else {
-        //                        // $('#msgs').html("Fetch success");
-
-        //                        buildViewModels(data);
-        //                        self.dataAvailable(true);
-        //                        self.bind();
-        //                    }
-        //                })
-        //                .fail(function () {
-        //                    self.dataAvailable(false);
-        //                    $('#msgs').html("Error occured");
-
-        //                    // if cannot load LinkMeeting for the given period
-        //                });
-        //        }
-
-        //        // ### POST LinkForm data back to server.
-        //        self.saveLinkForm = function () {
-        //            console.log("Form data:" + $('#myform').serialize());
-        //            console.log("Form data(json):" + ko.toJSON(self.dataModel));
-        //            console.log("Self.DataModel:" + self.dataModel());
-        //            // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
-        //            var data = self.dataModel();
-
-        //            // Manage bool binding to MeetingStatus.
-        //            // Values depend on MeetingStatus object in C#
-        //            data.ColleagueSignOff = (data.ColleagueSignOff == 0 || data.ColleagueSignOff == false) ? "InComplete" : "Completed";
-        //            data.ManagerSignOff = (data.ManagerSignOff == 0 || data.ManagerSignOff == false) ? "InComplete" : "Completed";
-
-        //            console.log("Postback meetingDate :" + data.MeetingDate);
-
-        //            data.Questions = [];
-        //            ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {
-        //                data.Questions.push(ques);
-        //            });
-        //            ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
-        //                data.Questions.push(ques);
-        //            });
-
-        //            // end copy questions to model.
-
-        //            $.ajax({
-        //                url: common.getSiteRoot() + "LinkForm/PostLinkForm",
-        //                method: "POST",
-        //                data: self.dataModel(),
-        //                contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
-
-        //                // ## PostBack as FormCollection
-        //                // data: "linkForm"=self.dataModel()
-        //                // contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-
-        //                // ## Postback as Json
-        //                // data: JSON.stringify(self.dataModel())
-        //                // contentType: 'application/json'
-        //                // dataType:"json",
-        //            })
-        //                .done(function (response, textStatus, jqXhr) {
-        //                    if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
-        //                        window.alert("Meeting created");
-        //                        // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
-        //                        window.location.href = common.getSiteRoot() + "Team"; 
-        //                        $('#msgs').html("<strong>Meeting created</strong>");
-        //                    }
-        //                    else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
-        //                        window.alert("Meeting creation failed");
-        //                        $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
-        //                    }
-        //                    else { // UI validation errors
-        //                        displayErrors(response.ModelErrors);
-        //                    }
-        //                    // msg success and redirect to another page if needed
-        //                    // Define a standard message format for Post(aka Create) Response returned,
-        //                    //  which should contain location header for created resource.
-        //                    // We should redirect to that returned resource location URL.
-        //                    // Incase of new Creation, we will get a MeetingId back (which was 0 initially).
-        //                })
-        //                .fail(function (jqXhr, textStatus, errorThrown) {
-        //                    // msg failure
-        //                    window.alert("Meeting creation failed");
-        //                    $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
-        //                });
-        //        }
-
-        //        ///
-        //        self.downloadLinkFormAsPdf = function () {
-        //            var MeetingView = self.dataModel();//Not quite the same
-        //            var param = { MeetingData: MeetingView };
-        //            //var $promise = common.callService("post", "Pdf/MakeFromJson", param);
-        //            $.ajax({
-        //                url: common.getSiteRoot() + "Pdf/MakeFromJson",
-        //                method: "POST",
-        //                data: param
-        //            })
-        //                .done(function (data) {
-        //                    if (data.success) {
-        //                        //window.location.href = "http://localhost/Pdf/DownloadPdf/" + "?fName=" + data.fName;
-        //                        window.location.href = common.getSiteRoot() + "Pdf/DownloadPdf/" + "?fName=" + data.fName;
-        //                    }
-        //                });
-        //        };
-
-        //        // Parses response.ModelErrors dictionary
-        //        var displayErrors = function (errors) {
-        //            var errorsList = "";
-        //            for (var i = 0; i < errors.length; i++) {
-        //                errorsList = errorsList + "<li>" + errors[i].Value[0] + "</li>";
-        //                //errors[i].Key = errors[i].Key.replace("[", "__");
-        //                //errors[i].Key = errors[i].Key.replace("]", "__");
-        //                //                    var elementName = "[name='" + errors[i].Key + "']";
-        //                //                    console.log("Looking for elements with error: " + elementName);
-        //                //;                    $("<label for='" + errors[i].Key + "' class='error' style='color:red'></label>")
-        //                //                        .html(errors[i].Value[0]).appendTo($(elementName).parent());
-        //            }
-        //            $("#msgs").html("<ul class='linkErrorMsg'>" + errorsList + "</ul>");
-        //            window.alert("VALIDATION ERRORS, please see top of screen for remedial action.");
-        //        }
-
-        //        self.getMeetingView = function () {
-        //            return self.dataModel();
-        //        }
-        //    }
-
-        //    $(document).ready(function () {
-        //        moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-
-        //        // http://stackoverflow.com/questions/26487765/bootstrap-datepicker-set-language-globally
-        //        // set locales
-        //        try {
-        //            $.fn.datepicker.defaults.language = 'en-GB';
-        //            $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy', orientation: 'auto top' });
-        //        } catch (e) {
-
-        //        }
-
-        //        // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy"));
-        //        // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
-
-        //        var vm = new PageViewModel();
-
-        //        var binder = function () {
-        //            ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
-        //            // set locales
-        //            try {
-        //                $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
-        //            } catch (e) {
-
-        //            }
-        //        };
-        //        vm.bind = binder;
-
-        //        var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
-        //        var empId = pageQueryParams["colleagueId"];
-        //        //var periodId = pageQueryParams["periodId"];
-        //        console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
-
-        //        // Show meeting data once loaded from GET
-        //        vm.loadPageData(empId);
-
-        //        var MeetingViewJsonForPdf = vm.getMeetingView();
-        //    });
-        //});
-    </script>
+<script type="text/javascript">
+    require(["LinkFormCreate"]);
+</script>
 
