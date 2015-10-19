@@ -75,6 +75,15 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<IEnumerable<TeamView>>().Result : null;
         }
 
+        public TeamView GetMyMeetingsView(string colleagueId)
+        {
+            //var apiPath = String.Format("Employees/?managerId={0}", managerId);
+            var apiPath = String.Format("mymeetings/{0}", colleagueId);
+            HttpResponseMessage response = _client.Value.GetAsync(apiPath).Result;
+
+            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<TeamView>().Result : null;
+        }
+
         public void Dispose()
         {
             _client = null;
