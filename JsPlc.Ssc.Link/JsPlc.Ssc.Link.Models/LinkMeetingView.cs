@@ -19,7 +19,7 @@ namespace JsPlc.Ssc.Link.Models
             get { return ColleagueSignOff==MeetingStatus.Completed && ManagerSignOff ==MeetingStatus.Completed ? MeetingStatus.Completed : MeetingStatus.InComplete; }
         }
         
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime MeetingDate { get; set; }
     }
 }

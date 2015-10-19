@@ -110,7 +110,12 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             })
                 .done(function (response, textStatus, jqXhr) {
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
-                        window.alert("Meeting created");
+                        if (self.crudMode === "Create") {
+                            window.alert("Meeting created");
+                        }
+                        else if (self.crudMode === "Edit") {
+                            window.alert("Meeting updated");
+                        }
                         // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
                         window.location.href = common.getSiteRoot() + "Team";
                         $('#msgs').html("<strong>Meeting created</strong>");
@@ -176,10 +181,10 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             //Check CRUD mode
             debugger;
             if (window.location.href.search("LinkForm/ViewMeeting") > 0) {
-                crudMode = "View";
+                self.crudMode = "View";
             }
             else if (window.location.href.search("LinkForm/Create") > 0) {
-                crudMode = "Create";
+                self.crudMode = "Create";
 
                 var url = "LinkForm/GetLinkForm";
 
@@ -192,7 +197,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
 
             }
             else if (window.location.href.search("LinkForm/Edit") > 0) {
-                crudMode = "Edit";
+                self.crudMode = "Edit";
 
                 var url = "LinkForm/GetMeetingView";
 
