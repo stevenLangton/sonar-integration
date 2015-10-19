@@ -24,9 +24,25 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [Authorize]
         public ActionResult LinkReport()
         {
-            ViewBag.Message = "Link Report for - " + User.Identity.GetUserName();
+            ViewBag.Message = "Link Report for - " + CurrentUser.Colleague.FirstName + " " + CurrentUser.Colleague.LastName;
+            return MyMeetings();
 
-            return View();
+            //return View();
+        }
+
+        // GET: /Team/LinkMeetings/My
+        // ## COLLEAGUE meetings view
+        [HttpGet]
+        [Authorize]
+        public ActionResult MyMeetings()
+        {
+            //if (string.IsNullOrEmpty(id))
+            //{
+            //    RedirectToAction("Index", "Home");
+            //}
+            TempData["tabName"] = "report";
+            TempData["ViewType"] = "MyMeetings";
+            return View("../Team/LinkMeetings");
         }
 
         [Authorize]
