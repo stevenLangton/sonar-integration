@@ -25,7 +25,8 @@
     var getAllReporteeMeetings = function (managerId) {
         debugger;
         var jsonArgs = {managerId: managerId};
-        return callService("get", "/api/Employees", jsonArgs);
+        //return callService("get", "/api/Employees", jsonArgs);
+        return callService("get", "/myteam/"+managerId, {}); //Not ideal REST resource naming
     };
 
     return {
