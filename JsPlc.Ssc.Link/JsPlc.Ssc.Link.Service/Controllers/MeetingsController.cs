@@ -1,10 +1,14 @@
 ﻿using System.Web.Http;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Repository;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
     public class MeetingsController : BaseController
     {
+        public MeetingsController() { }
+
+        public MeetingsController(ILinkRepository repository) : base(repository) { }
 
         [HttpGet] //api/Meetings/10
         public IHttpActionResult GetMeeting(int id)
