@@ -213,7 +213,7 @@ namespace JsPlc.Ssc.Link.Repository
         public void UpdateMeeting(MeetingView view)
         {
             var meeting = _db.Meeting.FirstOrDefault(m => m.Id == view.MeetingId);
-           
+
             if (meeting != null)
             {
                 var linkMeeting = new LinkMeeting
@@ -221,23 +221,26 @@ namespace JsPlc.Ssc.Link.Repository
                     MeetingDate = view.MeetingDate,
                     ColleagueSignOff = view.ColleagueSignOff,
                     ManagerSignOff = view.ManagerSignOff,
+                    EmployeeId = view.EmployeeId,
                     Id = view.MeetingId
                 };
                 _db.Meeting.AddOrUpdate(linkMeeting);
                 _db.SaveChanges();
             }
 
-            foreach (var answer in view.Questions.Select(answer => new Answer
+            foreach (var question in view.Questions)
             {
-                ColleagueComments = answer.ColleagueComment,
-                ManagerComments = answer.ManagerComment,
-                QuestionId = answer.QuestionId,
-                LinkMeetingId = view.MeetingId
-            }))
-            {
+                var answer = new Answer
+                {
+                    Id = question.AnswerId,
+                    QuestionId = question.QuestionId,
+                    ColleagueComments = question.ColleagueComment,
+                    ManagerComments = question.ManagerComment,
+                    LinkMeetingId = view.MeetingId
+                };
                 _db.Answers.AddOrUpdate(answer);
                 _db.SaveChanges();
-            } 
+            }
         }
 
         public void Dispose()
