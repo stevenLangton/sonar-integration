@@ -130,7 +130,7 @@ namespace JsPlc.Ssc.Link.Repository
                     QuestionId = q.Id,
                     Question = q.Description,
                     QuestionType = q.QuestionType,
-                    AnswerId = a.Id,
+                    AnswerId = a.Id ,
                     ColleagueComment = a.ColleagueComments,
                     ManagerComment = a.ManagerComments
                 };
@@ -230,7 +230,7 @@ namespace JsPlc.Ssc.Link.Repository
 
             foreach (var answer in view.Questions.Select(question => new Answer
             {
-                Id = question.AnswerId,
+                Id = (int)question.AnswerId,
                 QuestionId = question.QuestionId,
                 ColleagueComments = question.ColleagueComment,
                 ManagerComments = question.ManagerComment,
