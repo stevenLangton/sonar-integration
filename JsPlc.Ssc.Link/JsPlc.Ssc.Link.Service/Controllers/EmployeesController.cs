@@ -2,12 +2,17 @@
 using System.Linq;
 using System.Web.Http;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Repository;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
     
     public class EmployeesController : BaseController
     {
+
+        public EmployeesController() { }
+
+        public EmployeesController(ILinkRepository repository) : base(repository) { }
 
         [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
         public IHttpActionResult GetMyDetails([FromUri]string emailAddress)

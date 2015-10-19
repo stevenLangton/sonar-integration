@@ -21,7 +21,7 @@ namespace JsPlc.Ssc.Link.Repository
 
         public Employee GetEmployee(string emailAddres)
         {
-            return _db.Employees.FirstOrDefault(e => e.EmailAddress == emailAddres);
+            return _db.Employees.FirstOrDefault(e =>e.EmailAddress.ToLower().Equals(emailAddres.ToLower()));
         }
         
         // meetings history of an employee
