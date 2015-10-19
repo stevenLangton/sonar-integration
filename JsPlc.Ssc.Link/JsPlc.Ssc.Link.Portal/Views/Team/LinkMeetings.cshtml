@@ -42,9 +42,7 @@ else
                             <li>
                                 <span data-bind="text: Period"></span>
                                 <ul data-bind="foreach: Meetings">
-                                    <li>
-                                        <span data-bind="text: MeetingDate"></span>
-                                    </li>
+                                    <li><a data-bind="attr: {'href': ActionLink}, text: MeetingDate"></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -111,6 +109,12 @@ else
 
             var ListOfTeamViews = [];
 
+            var getEditOrViewLink = function(item) {
+                var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
+                var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
+
+                return (item.Status == 0) ? editLink : viewLink;
+            }
             var buildViewModels = function (data) {
                 moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
                 var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
@@ -144,12 +148,12 @@ else
                             var sortedMeetings = _.map(meetingsForPeriod, function(item) {
                                 return {
                                     MeetingDate: moment(item.MeetingDate).format("L"),
-                                    Status: item.Status
+                                    Status: item.Status, // 1 = Completed, 0 = InComplete
+                                    ActionLink: getEditOrViewLink(item)
                                 }
                             });
                             periodWithMeetings.push({ Period: period, Meetings: sortedMeetings });
                         });
-
                         yearsMore.push({ Year: yr, Periods: periodWithMeetings });
                     });
 
@@ -169,6 +173,7 @@ else
                         MeetingYears: buildMeetingsForMember(item.Meetings)
                     }
 
+                    debugger;
                     // add item to array
                     ListOfTeamViews.push(MemberView);
                 });
