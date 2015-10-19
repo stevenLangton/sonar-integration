@@ -20,7 +20,7 @@ namespace JsPlc.Ssc.Link.Portal
         {
             _client = new Lazy<HttpClient>();
             //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.Service/api/");
-            _client.Value.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"] + "/api/");
+            _client.Value.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"] + ""); // "not needing api/"
             
             _client.Value.DefaultRequestHeaders.Accept.Clear();
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -39,28 +39,28 @@ namespace JsPlc.Ssc.Link.Portal
 
         public MeetingView GetMeeting(int Id)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("meetings/" + Id.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/meetings/" + Id.ToString(CultureInfo.InvariantCulture)).Result;
 
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
         }
 
         public MeetingView GetNewMeetingView(string colleagueId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("meetings/?colleagueId=" + colleagueId).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("newmeeting/" + colleagueId).Result;
 
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
         }
 
         public bool IsManager(string username)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("Employees/?UserName=" + username).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?UserName=" + username).Result;
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
         }
 
         public EmployeeView GetColleagueByUsername(string username)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("Employees/?EmailAddress=" + username).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?EmailAddress=" + username).Result;
             var employee = response.Content.ReadAsAsync<Employee>().Result;
 
             return response.IsSuccessStatusCode ? employee.ToEmployeeView() : null;
@@ -68,7 +68,9 @@ namespace JsPlc.Ssc.Link.Portal
 
         public IEnumerable<TeamView> GetTeamView(string managerId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync(String.Format("Employees/?managerId={0}", managerId)).Result;
+            //var apiPath = String.Format("Employees/?managerId={0}", managerId);
+            var apiPath = String.Format("myteam/{0}", managerId);
+            HttpResponseMessage response = _client.Value.GetAsync(apiPath).Result;
 
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<IEnumerable<TeamView>>().Result : null;
         }

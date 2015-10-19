@@ -35,9 +35,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
             
-            _db.SaveMeeting(meetingView);
+            return Ok(_db.SaveMeeting(meetingView));
 
-            return CreatedAtRoute("api/answers", new {id=meetingView.MeetingId}, meetingView);
+            //return CreatedAtRoute("api/meetings", new {id=meetingView.MeetingId}, meetingView);
         }
 
         [HttpPut] // PUT: api/Meetings/5
