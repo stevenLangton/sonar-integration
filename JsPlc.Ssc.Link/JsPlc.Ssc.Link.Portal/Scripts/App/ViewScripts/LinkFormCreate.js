@@ -139,8 +139,11 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                         //    window.alert("Meeting updated");
                         //}
                         // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
+                        if (data.ColleagueInitiated) {
+                            window.location.href = common.getSiteRoot() + "Home/LinkReport";
+                        } else {
                         window.location.href = common.getSiteRoot() + "Team";
-                        $('#msgs').html("<strong>" + messages.success + "</strong>");
+                        $('#msgs').html("<strong>Meeting created</strong>");
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
                         window.alert(messages.failure);

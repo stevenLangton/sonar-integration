@@ -20,16 +20,17 @@ else
 
 <div id="linkpage">
     <h3 style="color: red">Note: This is a work in progress, for collapsible views/accordion etc.</h3>
-    <div class="row" style="margin-bottom:40px;" data-bind="foreach: $root.dataModel()" style="border: solid 1px black">
+    <div class="row" data-bind="foreach: $root.dataModel()">
 
-        <div class="col-md-10">
+        <div class="col-md-10" style="margin-bottom:60px;border: solid 1px silver">
             <!-- This binding says for each element of DataModel array do something -->
             <!-- one colleague -->
             <div class="col-md-6">
                 <img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130">
                 <div class="col-md-12">
                     <br />
-                    <button type="button" class="btn btn-primary btn-sm">Create Review</button>
+                    <a data-bind="attr: {'href': CreateLink}" class="btn btn-primary btn-sm">Create Review</a>
+                    @*<button type=" button" class="btn btn-primary btn-sm">Create Review</button></a>*@
                 </div>
             </div>
             <div class="col-md-6">
@@ -115,6 +116,11 @@ else
 
                 return (item.Status == 0) ? editLink : viewLink;
             }
+
+            var getCreateLink = function(colleagueId) {
+                var createLink = common.getSiteRoot() + "LinkForm/Create/?colleagueId=" + colleagueId;
+                return createLink;
+            }
             var buildViewModels = function (data) {
                 moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
                 var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
@@ -166,14 +172,16 @@ else
                     // pre process each item
                     item.MeetingDate = moment(item.MeetingDate).format("L");
 
+                    debugger;
+
                     // Build the item
                     var MemberView = {
                         Member: item,
+                        CreateLink: getCreateLink(item.ColleagueId),
                         // extract years out of each data.Meetings (i.e from List<LinkMeetingView>)
                         MeetingYears: buildMeetingsForMember(item.Meetings)
                     }
 
-                    debugger;
                     // add item to array
                     ListOfTeamViews.push(MemberView);
                 });
