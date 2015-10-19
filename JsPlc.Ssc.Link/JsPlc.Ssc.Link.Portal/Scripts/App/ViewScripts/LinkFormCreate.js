@@ -110,6 +110,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             })
                 .done(function (response, textStatus, jqXhr) {
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
+                        $('#msgs').html("<strong>Meeting created</strong>");
                         if (self.crudMode === "Create") {
                             window.alert("Meeting created");
                         }
@@ -117,8 +118,11 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                             window.alert("Meeting updated");
                         }
                         // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
-                        window.location.href = common.getSiteRoot() + "Team";
-                        $('#msgs').html("<strong>Meeting created</strong>");
+                        if (data.ColleagueInitiated) {
+                            window.location.href = common.getSiteRoot() + "Home/LinkReport";
+                        } else {
+                            window.location.href = common.getSiteRoot() + "Team";
+                        }
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
                         window.alert("Meeting creation failed");
