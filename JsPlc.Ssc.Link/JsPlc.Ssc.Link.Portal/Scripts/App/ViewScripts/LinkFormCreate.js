@@ -1,5 +1,23 @@
 ﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "underscore", "common", "helpers", "URI"],
 function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
+    var getMessages = function (crudMode) {
+        switch (crudMode) {
+            case "Create":
+                return {
+                    success: "Meeting created",
+                    failure: "Meeting creation failed"
+                };
+                break;
+            case "Edit":
+                return {
+                    success: "Meeting updated",
+                    failure: "Meeting update failed"
+                };
+                break;
+            default:
+                return undefined;
+        };
+    };
 
     function PageViewModel() {
 
@@ -101,6 +119,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             });
 
             // end copy questions to model.
+            var messages = getMessages(self.crudMode);
 
             $.ajax({
                 url: common.getSiteRoot() + "LinkForm/PostLinkForm",
@@ -109,20 +128,23 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
             })
                 .done(function (response, textStatus, jqXhr) {
+
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
-                        if (self.crudMode === "Create") {
-                            window.alert("Meeting created");
-                        }
-                        else if (self.crudMode === "Edit") {
-                            window.alert("Meeting updated");
-                        }
+                        window.alert(messages.success);
+
+                        //if (self.crudMode === "Create") {
+                        //    window.alert("Meeting created");
+                        //}
+                        //else if (self.crudMode === "Edit") {
+                        //    window.alert("Meeting updated");
+                        //}
                         // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
                         window.location.href = common.getSiteRoot() + "Team";
-                        $('#msgs').html("<strong>Meeting created</strong>");
+                        $('#msgs').html("<strong>" + messages.success + "</strong>");
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
-                        window.alert("Meeting creation failed");
-                        $('#msgs').html("<strong>Failed to create meeting : " + response + "</strong>");
+                        window.alert(messages.failure);
+                        $('#msgs').html("<strong>" + messages.failure + " : " + response + "</strong>");
                     }
                     else { // UI validation errors
                         displayErrors(response.ModelErrors);
@@ -135,8 +157,8 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                 })
                 .fail(function (jqXhr, textStatus, errorThrown) {
                     // msg failure
-                    window.alert("Meeting creation failed");
-                    $('#msgs').html("<strong>Failed to create meeting:" + errorThrown + "</strong>");
+                    window.alert(messages.failure);
+                    $('#msgs').html("<strong>" + messages.failure + ":" + errorThrown + "</strong>");
                 });
         }
 
