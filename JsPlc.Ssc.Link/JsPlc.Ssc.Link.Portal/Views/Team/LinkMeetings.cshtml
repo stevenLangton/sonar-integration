@@ -43,7 +43,7 @@ else
                             <li>
                                 <span data-bind="text: Period"></span>
                                 <ul data-bind="foreach: Meetings">
-                                    <li><a data-bind="attr: {'href': ActionLink}, text: MeetingDate"></a></li>
+                                    <li><a data-bind="attr: {'href': ActionLink, 'class': (Status==0)? 'meeting-incomplete': 'meeting-complete'}, text: MeetingDate"></a></li>
                                 </ul>
                             </li>
                         </ul>

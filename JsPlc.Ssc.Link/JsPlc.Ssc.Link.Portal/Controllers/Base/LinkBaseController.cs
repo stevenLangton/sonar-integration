@@ -9,7 +9,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 {
     public class LinkBaseController : Controller
     {
-        public UserView CurrentUser; // careful as this maybe null when not logged in
+        public static UserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
