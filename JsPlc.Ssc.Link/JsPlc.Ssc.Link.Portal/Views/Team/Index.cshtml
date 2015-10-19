@@ -40,6 +40,8 @@
                             if (meeting.Status == MeetingStatus.Completed)
                             {
                                 @Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.MeetingId }, new { @class = "meeting-completed" })
+
+                                //Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "MakeFromDb", "Pdf", new { MeetingId = meeting.MeetingId }, new { @class = "meeting-completed" })
                             }
                             else
                             {
@@ -58,7 +60,7 @@
         }
     </table>
 </div>
-<meeting-history params='data: $root[0]'></meeting-history>
+@*<meeting-history params='data: $root[0]'></meeting-history>*@
     <p>
 
         @*@Html.ActionLink("Back to List", "Index")*@
