@@ -19,41 +19,29 @@ else
 }
 
 <div id="linkpage">
-    <h3 style="color: red">Note: This is a work in progress, for collapsible views/accordion etc.</h3>
-    <div class="row" data-bind="foreach: $root.dataModel()">
+    @*<h3 style="color: red">Note: This is a work in progress, for collapsible views/accordion etc.</h3>*@
 
-        <div class="col-md-10" style="margin-bottom:60px;border: solid 1px silver">
-            <!-- This binding says for each element of DataModel array do something -->
-            <!-- one colleague -->
+    <div class="row">
+        <!-- ko foreach: $root.dataModel() -->
+        <div class="col-md-4" style="padding-bottom: 30px; border-bottom: solid 2px silver">
+            <!-- each colleague -->
+            <!-- 3 person view 12/4 = 3 -->
+            <div class="col-md-12"><h3><span data-bind="text: FullName"></span></h3></div>
             <div class="col-md-6">
-                <img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130">
-                <div class="col-md-12">
-                    <br />
-                    <a data-bind="attr: {'href': CreateLink}" class="btn btn-primary btn-sm">Create Review</a>
-                    @*<button type=" button" class="btn btn-primary btn-sm">Create Review</button></a>*@
-                </div>
+                <div class="col-md-12" style="height: 130px;"><img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" data-bind="attr: {alt: FullName, title: FullName}" class="img-circle" width="130"></div>
+                <div class="col-md-12" style="padding-left: 30px"><a data-bind="attr: {'href': CreateLink}" class="btn btn-primary btn-sm">Create Review</a></div>
             </div>
             <div class="col-md-6">
-                <h2 style="padding:0px;margin:0px;">Name: <span data-bind="text: Member.FirstName"></span></h2>
-                <ul data-bind="foreach: MeetingYears">
-                    <!-- Meetings object -->
-                    <li>
-                        <span data-bind="text: Year"></span>
-                        <ul data-bind="foreach: Periods">
-                            <li>
-                                <span data-bind="text: Period"></span>
-                                <ul data-bind="foreach: Meetings">
-                                    <li><a data-bind="attr: {'href': ActionLink, 'class': (Status==0)? 'meeting-incomplete': 'meeting-complete'}, text: MeetingDate"></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <!-- TODO Bind it to the format below -->
-                @*@Html.Partial("_ColleagueMeetingHistory")*@
+                <h4 style="margin: 0; padding: 0"><span style="color: #1fb2c7">Meetings:</span></h4>
+                <!-- ko if: HasMeetings -->
+                @Html.Partial("../Team/_MeetingHistoryComponent")
+                <!-- /ko -->
+                <!-- ko ifnot: HasMeetings -->
+                <h4 style="color: brown">None</h4>
+                <!-- /ko -->
             </div>
         </div>
-
+        <!-- /ko -->
     </div>
 
     <!-- how will we manage pagination.. option: use Skip and Take in Linq in ajax call -->
@@ -75,25 +63,7 @@ else
                     </a>
                 </li>
             </ul>
-        </nav>*@<nav>
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true"></span>
-                </a>
-            </li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        </nav>*@
 </div>
 
 <script type="text/javascript">
@@ -110,14 +80,14 @@ else
 
             var ListOfTeamViews = [];
 
-            var getEditOrViewLink = function(item) {
+            var getEditOrViewLink = function (item) {
                 var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
                 var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
 
                 return (item.Status == 0) ? editLink : viewLink;
             }
 
-            var getCreateLink = function(colleagueId) {
+            var getCreateLink = function (colleagueId) {
                 var createLink = common.getSiteRoot() + "LinkForm/Create/?colleagueId=" + colleagueId;
                 return createLink;
             }
@@ -126,7 +96,7 @@ else
                 var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
                 // Extract tree from List<LinkMeetingView>
-                var buildMeetingsForMember = function (meetingsData) {
+                var buildMeetingsForMember = function (meetingsData, colleagueId) {
 
                     var allYears = _.pluck(meetingsData, "Year");
                     var years = _.uniq(allYears, function (item) { return item; });
@@ -135,8 +105,10 @@ else
                     //}
 
                     var yearsMore = [];
+                    var yrId = 0;
                     // for each year find periods
                     var yearsWithPeriods = _.each(years, function (yr) {
+
                         var yearsMeetings = _.filter(meetingsData, function (item) {
                             return (item.Year === yr);
                         });
@@ -146,21 +118,24 @@ else
 
                         var periodWithMeetings = [];
                         // iterate periods
+                        var pId = 0;
                         _.each(periods, function (period) {
                             var meetingsForPeriod = _.filter(meetingsData, function (item) {
                                 return (item.Year === yr && item.Period === period);
                             });
                             meetingsForPeriod = _.sortBy(meetingsForPeriod, "MeetingDate");
-                            var sortedMeetings = _.map(meetingsForPeriod, function(item) {
+                            var sortedMeetings = _.map(meetingsForPeriod, function (item) {
                                 return {
                                     MeetingDate: moment(item.MeetingDate).format("L"),
                                     Status: item.Status, // 1 = Completed, 0 = InComplete
                                     ActionLink: getEditOrViewLink(item)
                                 }
                             });
-                            periodWithMeetings.push({ Period: period, Meetings: sortedMeetings });
+                            pId = pId + 1;
+                            periodWithMeetings.push({ Period: period, PeriodId: '_period' + pId + '_' + colleagueId, Meetings: sortedMeetings });
                         });
-                        yearsMore.push({ Year: yr, Periods: periodWithMeetings });
+                        yrId = yrId + 1;
+                        yearsMore.push({ Year: yr, YearId: '_year' + yrId + '_' + colleagueId, Periods: periodWithMeetings });
                     });
 
                     return yearsMore;
@@ -172,16 +147,19 @@ else
                     // pre process each item
                     item.MeetingDate = moment(item.MeetingDate).format("L");
 
-                    debugger;
+                    //debugger;
 
                     // Build the item
                     var MemberView = {
                         Member: item,
                         CreateLink: getCreateLink(item.ColleagueId),
                         // extract years out of each data.Meetings (i.e from List<LinkMeetingView>)
-                        MeetingYears: buildMeetingsForMember(item.Meetings)
+                        MeetingYears: buildMeetingsForMember(item.Meetings, item.ColleagueId),
+                        ColleagueId: item.ColleagueId,
+                        FullName: item.FirstName + " " + item.LastName,
+                        HasMeetings: false,
                     }
-
+                    if (MemberView.MeetingYears.length > 0) { MemberView.HasMeetings = true; }
                     // add item to array
                     ListOfTeamViews.push(MemberView);
                 });

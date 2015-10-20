@@ -391,8 +391,9 @@
     <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
     <Content Include="Views\LinkForm\MyTeam.cshtml" />
     <Content Include="Views\LinkForm\MyDetails.cshtml" />
-    <Content Include="Views\Team\_ColleagueMeetingHistory.cshtml" />
+    <Content Include="Views\Team\_MeetingHistoryComponent.cshtml" />
     <Content Include="Views\Team\LinkMeetings.cshtml" />
+    <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
