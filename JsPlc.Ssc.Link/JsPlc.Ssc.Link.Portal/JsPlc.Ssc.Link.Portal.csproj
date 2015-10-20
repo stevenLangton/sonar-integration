@@ -228,6 +228,7 @@
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
+    <Content Include="Content\Images\LinkSheetLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
     <Content Include="favicon.ico" />
