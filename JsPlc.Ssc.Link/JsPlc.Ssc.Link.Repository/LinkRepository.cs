@@ -21,6 +21,7 @@ namespace JsPlc.Ssc.Link.Repository
 
         public Employee GetEmployee(string emailAddres)
         {
+            //return _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(emailAddres,StringComparison.OrdinalIgnoreCase));
             return _db.Employees.FirstOrDefault(e =>e.EmailAddress.ToLower().Equals(emailAddres.ToLower()));
         }
         
@@ -73,7 +74,9 @@ namespace JsPlc.Ssc.Link.Repository
         //check where login user is manager or not
         public bool IsManager(string userName)
         {
-            var firstOrDefault = _db.Employees.FirstOrDefault(e => e.EmailAddress == userName);
+            var firstOrDefault = _db.Employees.FirstOrDefault(e => e.EmailAddress.ToLower().Equals(userName.ToLower()));
+
+            //var firstOrDefault = _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(userName,StringComparison.InvariantCultureIgnoreCase));
 
             if (firstOrDefault == null) return false;
 
@@ -222,6 +225,7 @@ namespace JsPlc.Ssc.Link.Repository
                     ColleagueSignOff = view.ColleagueSignOff,
                     ManagerSignOff = view.ManagerSignOff,
                     EmployeeId = meeting.EmployeeId,
+                    ManagerId = meeting.ManagerId,
                     Id = view.MeetingId
                 };
                 _db.Meeting.AddOrUpdate(linkMeeting);
