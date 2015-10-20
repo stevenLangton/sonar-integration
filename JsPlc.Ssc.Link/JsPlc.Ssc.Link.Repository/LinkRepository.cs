@@ -241,8 +241,11 @@ namespace JsPlc.Ssc.Link.Repository
                 LinkMeetingId = view.MeetingId
             } : null))
             {
-                _db.Answers.AddOrUpdate(answer);
-                _db.SaveChanges();
+                if (answer != null)
+                {
+                    _db.Answers.AddOrUpdate(answer);
+                    _db.SaveChanges();
+                }
             }
         }
 
