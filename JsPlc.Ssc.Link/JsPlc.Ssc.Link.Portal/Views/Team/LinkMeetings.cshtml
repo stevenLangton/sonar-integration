@@ -131,11 +131,28 @@ else
                                     ActionLink: getEditOrViewLink(item)
                                 }
                             });
+                            // are there any Incomplete meetings in this period 
+                            var hasIncompleteMeetings = _.any(sortedMeetings, function(item) { return (item.Status == 0); }); 
+
                             pId = pId + 1;
-                            periodWithMeetings.push({ Period: period, PeriodId: '_year' + yrId + '_period' + pId + '_' + colleagueId, Meetings: sortedMeetings });
+                            periodWithMeetings.push({
+                                Period: period,
+                                PeriodId: '_year' + yrId + '_period' + pId + '_' + colleagueId,
+                                Meetings: sortedMeetings,
+                                HasIncompleteMeetings: hasIncompleteMeetings
+                            });
                         });
+
+                        // are there any Incomplete periods in this year
+                        var hasIncompleteMeetingsInYear = _.any(periodWithMeetings, function (item) { return (item.HasIncompleteMeetings == true); });
+
                         yrId = yrId + 1;
-                        yearsMore.push({ Year: yr, YearId: '_year' + yrId + '_' + colleagueId, Periods: periodWithMeetings });
+                        yearsMore.push({
+                            Year: yr,
+                            YearId: '_year' + yrId + '_' + colleagueId,
+                            Periods: periodWithMeetings,
+                            HasIncompleteMeetingsInYear: hasIncompleteMeetingsInYear
+                        });
                     });
 
                     return yearsMore;
