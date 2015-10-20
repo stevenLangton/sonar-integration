@@ -17,7 +17,15 @@ else
     <h2>My Link Meetings</h2>
 }
 <div id="linkpage">
-    @*<h3 style="color: red">Note: This is a work in progress, for collapsible views/accordion etc.</h3>*@
+    <div id="msgs"></div>
+    <div class="container" title="Meeting Links Key/Legend">
+        <div class="col-md-2 right" style="border: solid 1px silver; background-color: #f7f7f7; font-size: x-small; margin-top: -40px">
+            <span style="font-weight: bold; text-decoration: underline">Meeting/Period/Year Key:</span>
+            <div class="meeting-completed" style="color: #4f4fb5;">Completed Meetings</div>
+            <div class="meeting-incomplete">Incomplete Meetings</div>
+        </div>
+    </div>
+
     <div class="row">
         <!-- ko foreach: $root.dataModel() -->
         <div class="col-md-4" style="padding-bottom: 30px; border-bottom: solid 2px silver">
@@ -36,7 +44,7 @@ else
                 @Html.Partial("../Team/_MeetingHistoryComponent")
                 <!-- /ko -->
                 <!-- ko ifnot: HasMeetings -->
-                <h4 style="color: brown">None</h4>
+                <h4 style="color: brown; font-style: italic">None</h4>
                 <!-- /ko -->
             </div>
         </div>
@@ -129,7 +137,7 @@ else
                                 }
                             });
                             // are there any Incomplete meetings in this period 
-                            var hasIncompleteMeetings = _.any(sortedMeetings, function(item) { return (item.Status == 0); }); 
+                            var hasIncompleteMeetings = _.any(sortedMeetings, function (item) { return (item.Status == 0); });
 
                             pId = pId + 1;
                             periodWithMeetings.push({
@@ -137,7 +145,7 @@ else
                                 PeriodId: '_year' + yrId + '_period' + pId + '_' + colleagueId,
                                 Meetings: sortedMeetings,
                                 HasIncompleteMeetings: hasIncompleteMeetings
-                        });
+                            });
                         });
 
                         // are there any Incomplete periods in this year
@@ -195,13 +203,7 @@ else
                             self.dataAvailable(false);
                         }
                         else {
-                            $('#msgs').html("Fetch success");
-                            // Maybe we directly bind the data to the Linkpage.
-                            // data = IEnum<TeamView> or Array of TeamViews
-                            //self.dataModel(data);
-                            // And lets assume we always get an array of TeamView  (for colleagues, it will be 1 element array of TeamView)
-
-                            //And not use this ..
+                            //$('#msgs').html("Fetch success");
                             buildViewModels(data);
 
                             self.dataAvailable(true);
