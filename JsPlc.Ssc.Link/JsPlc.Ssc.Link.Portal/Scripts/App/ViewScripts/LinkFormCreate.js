@@ -228,6 +228,17 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             }
         };
 
+        self.confirmCheckbox = function (data, event) {
+            if (event.currentTarget.checked === true) {
+                var box = confirm("Are you sure you want to complete this form?");
+                if (box == true)
+                    return true;
+                else
+                    return false;
+            };
+
+            return true;
+        }
         //End Luan
     };
 

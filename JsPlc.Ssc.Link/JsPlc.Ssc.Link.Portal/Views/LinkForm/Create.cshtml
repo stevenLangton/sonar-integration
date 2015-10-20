@@ -102,11 +102,17 @@
                                     <!-- If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId then this meeting is initiated by Colleague,
                                 else it is by manager -> This check is done in controller itself -->
                                     <!-- Only manager can tick this.. -->
-                                    <strong>Manager Signoff:</strong>
-                                    <input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ManagerSignOff, value: dataModel().ManagerSignOff, enable: !(dataModel().ColleagueInitiated), readonly: (dataModel().ColleagueInitiated)" name="Completed1" />
+                                    <strong>Manager Completed:</strong>
+                                    <input id="Checkbox1" type="checkbox" 
+                                           data-bind="checked: dataModel().ManagerSignOff, 
+                                                      value: dataModel().ManagerSignOff, 
+                                                      enable: !(dataModel().ColleagueInitiated), 
+                                                      readonly: (dataModel().ColleagueInitiated),
+                                                      click: $root.confirmCheckbox" name="Completed1" />
                                     <!-- Only colleague can tick this.. -->
-                                    <strong>Colleague Signoff:</strong>
-                                    <input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated)" name="Completed2" />
+                                    <strong>Colleague Completed:</strong>
+                                    <input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
+                                           click: $root.confirmCheckbox" name="Completed2" />
 
                                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
                                     &nbsp; &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
