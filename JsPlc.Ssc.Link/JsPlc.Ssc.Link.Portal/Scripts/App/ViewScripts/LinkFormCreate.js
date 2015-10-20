@@ -109,6 +109,11 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             data.ManagerSignOff = (data.ManagerSignOff == 0 || data.ManagerSignOff == false) ? "InComplete" : "Completed";
 
             console.log("Postback meetingDate :" + data.MeetingDate);
+            debugger;
+            var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
+            var yyyymmdd = ukDate.toISOString();
+            console.log("Proposed postback meetingDate (yyyy-mm-ddThh:mm:ss.xxxZ):" + yyyymmdd);
+            data.MeetingDate = yyyymmdd;
 
             data.Questions = [];
             ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {
@@ -124,7 +129,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             $.ajax({
                 url: common.getSiteRoot() + "LinkForm/PostLinkForm",
                 method: "POST",
-                data: self.dataModel(),
+                data: data,
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
             })
                 .done(function (response, textStatus, jqXhr) {
@@ -198,7 +203,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         self.crudMode = "";
         self.getDataForMeeting = function () {
             //Check CRUD mode
-            debugger;
+            //debugger;
             if (window.location.href.search("LinkForm/ViewMeeting") > 0) {
                 self.crudMode = "View";
             }
@@ -283,3 +288,4 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         var MeetingViewJsonForPdf = vm.getMeetingView();
     });
 });
+
