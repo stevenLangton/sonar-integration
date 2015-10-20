@@ -3,7 +3,7 @@
     <!-- repeat node for each year -->
     <li class="panel panelX">
         <!-- vary index by colleagueid+year -->
-        <a data-toggle="collapse" data-bind="attr: {'data-parent': '#accordion1' + $parent.ColleagueId, 'href': '#zeroLink1' + YearId}, text: Year"></a>
+        <a data-toggle="collapse" data-bind="attr: {'data-parent': '#accordion1' + $parent.ColleagueId, 'href': '#zeroLink1' + YearId, class: (HasIncompleteMeetingsInYear) ? 'meeting-incomplete': 'meeting-complete'}, text: Year"></a>
 
         <ul data-bind="attr: {'id': 'zeroLink1' + YearId}" class="collapse" style="list-style:none;padding:0;margin:0;margin-left:5px;">
 
@@ -11,7 +11,7 @@
             <!-- repeat node for each period -->
             <li class="panel panelX">
                 <!-- vary index by colleagueid+year -->
-                <a data-toggle="collapse" data-bind="attr: {'data-parent': '#zeroLink1' + $parent.YearId, 'href':'#Link11' + PeriodId}, text: Period"></a>
+                <a data-toggle="collapse" data-bind="attr: {'data-parent': '#zeroLink1' + $parent.YearId, 'href':'#Link11' + PeriodId, class: (HasIncompleteMeetings) ? 'meeting-incomplete': 'meeting-complete'}, text: Period"></a>
 
                 <ul data-bind="attr: {'id':'Link11' + PeriodId}" class="collapse" style="list-style:none;padding:0;margin:0;margin-left:10px;">
                     <!-- ko foreach: Meetings -->

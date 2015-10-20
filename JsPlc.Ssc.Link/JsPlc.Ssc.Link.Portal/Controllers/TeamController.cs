@@ -62,6 +62,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public ActionResult Meetings()
         {
             TempData["tabName"] = "team";
+            ViewBag.ViewType = "team";
             TempData["ViewType"] = "TeamMeetings";
             return View("LinkMeetings");
         }
