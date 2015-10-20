@@ -103,7 +103,7 @@
                                 else it is by manager -> This check is done in controller itself -->
                                     <!-- Only manager can tick this.. -->
                                     <strong>Manager Completed:</strong>
-                                    <input id="Checkbox1" type="checkbox" 
+                                    <input id="Checkbox1" type="checkbox" class="pointable"
                                            data-bind="checked: dataModel().ManagerSignOff, 
                                                       value: dataModel().ManagerSignOff, 
                                                       enable: !(dataModel().ColleagueInitiated), 
@@ -111,7 +111,8 @@
                                                       click: $root.confirmCheckbox" name="Completed1" />
                                     <!-- Only colleague can tick this.. -->
                                     <strong>Colleague Completed:</strong>
-                                    <input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
+                                    <input id="Checkbox2" type="checkbox" class="pointable"
+                                           data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
                                            click: $root.confirmCheckbox" name="Completed2" />
 
                                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
