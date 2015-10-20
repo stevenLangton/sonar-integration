@@ -1,0 +1,14 @@
+﻿<!-- Meetings tree based on simple UL, LI hierarchy -->
+@*<ul data-bind="foreach: MeetingYears">
+        <li>
+            <span data-bind="text: Year"></span>
+            <ul data-bind="foreach: Periods">
+                <li>
+                    <span data-bind="text: Period"></span>
+                    <ul data-bind="foreach: Meetings">
+                        <li><a data-bind="attr: {'href': ActionLink, 'class': (Status==0)? 'meeting-incomplete': 'meeting-complete'}, text: 'Meeting:' + MeetingDate"></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>*@
