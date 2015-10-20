@@ -66,7 +66,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("LinkMeetings");
         }
 
-        // GET: /Team  // TODO retire this to use LinkMeetings method
+        // GET: /Team  // Calls LinkMeetings method
         [HttpGet]
         [Authorize]
         [LinkAuthorizeManager] // IMPORTANT Check
@@ -78,11 +78,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             return Meetings(); // use the new action method
 
-            using (var facade = new LinkServiceFacade())
-            {
-                var team = facade.GetTeamView(managerId);
-                return team == null ? View() : View(team.ToList());
-            }
+            //using (var facade = new LinkServiceFacade())
+            //{
+            //    var team = facade.GetTeamView(managerId);
+            //    return team == null ? View() : View(team.ToList());
+            //}
         }
     }
 }
