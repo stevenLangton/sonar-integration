@@ -1,4 +1,5 @@
-﻿@using JsPlc.Ssc.Link.Portal.Models
+﻿@using System.Web.UI.WebControls
+@using JsPlc.Ssc.Link.Portal.Models
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
@@ -17,14 +18,14 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", PlaceHolder="Enter emaill address" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", PlaceHolder="Enter password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
