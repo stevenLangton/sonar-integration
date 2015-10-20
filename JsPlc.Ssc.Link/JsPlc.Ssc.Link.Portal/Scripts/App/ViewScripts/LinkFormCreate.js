@@ -31,8 +31,19 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         var meetingView;
         var buildViewModels = function (data) {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
+
             // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?colleagueId=E001
             var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+
+            var initDate = moment(data.MeetingDate).isValid() ? new Date(moment(data.MeetingDate).toISOString()) : new Date();
+
+            // Init the calendar to the data.MeetingDate
+            if (moment(data.MeetingDate).isValid) {
+                $('.datepicker').datepicker("setDate", initDate);
+            } else {
+                $('.datepicker').datepicker("setDate", initDate);
+            }
+
             meetingView = {
                 EmployeeId: data.colleagueId,
                 ColleagueId: data.ColleagueId,
@@ -255,7 +266,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         // set locales
         try {
             $.fn.datepicker.defaults.language = 'en-GB';
-            $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy', orientation: 'auto top' });
+            $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy', orientation: 'auto top', autoclose: true });
         } catch (e) {
 
         }
