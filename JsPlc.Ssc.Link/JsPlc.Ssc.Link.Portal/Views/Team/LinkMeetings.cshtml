@@ -132,7 +132,7 @@ else
                                 }
                             });
                             pId = pId + 1;
-                            periodWithMeetings.push({ Period: period, PeriodId: '_period' + pId + '_' + colleagueId, Meetings: sortedMeetings });
+                            periodWithMeetings.push({ Period: period, PeriodId: '_year' + yrId + '_period' + pId + '_' + colleagueId, Meetings: sortedMeetings });
                         });
                         yrId = yrId + 1;
                         yearsMore.push({ Year: yr, YearId: '_year' + yrId + '_' + colleagueId, Periods: periodWithMeetings });
