@@ -8,7 +8,6 @@
     //}
     var viewType = TempData["ViewType"];
 }
-
 @if (ViewBag.ViewType == "team")
 {
     <h2>My Team</h2>
@@ -17,10 +16,8 @@ else
 {
     <h2>My Link Meetings</h2>
 }
-
 <div id="linkpage">
     @*<h3 style="color: red">Note: This is a work in progress, for collapsible views/accordion etc.</h3>*@
-
     <div class="row">
         <!-- ko foreach: $root.dataModel() -->
         <div class="col-md-4" style="padding-bottom: 30px; border-bottom: solid 2px silver">
@@ -28,7 +25,9 @@ else
             <!-- 3 person view 12/4 = 3 -->
             <div class="col-md-12"><h3><span data-bind="text: FullName"></span></h3></div>
             <div class="col-md-6">
-                <div class="col-md-12" style="height: 130px;"><img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" data-bind="attr: {alt: FullName, title: FullName}" class="img-circle" width="130"></div>
+                <div class="col-md-12" style="height: 130px;">
+                    <img data-bind="attr: {src: ColleagueId?'Content/ProfilePics/'+ ColleagueId+'.jpg':'Content/ProfilePics/Default.jpg', alt: FullName, title: FullName}" class="img-circle" width="130">
+                </div>
                 <div class="col-md-12" style="padding-left: 30px"><a data-bind="attr: {'href': CreateLink}" class="btn btn-primary btn-sm">Create Review</a></div>
             </div>
             <div class="col-md-6">
@@ -43,7 +42,6 @@ else
         </div>
         <!-- /ko -->
     </div>
-
     <!-- how will we manage pagination.. option: use Skip and Take in Linq in ajax call -->
     @*<nav>
             <ul class="pagination">
@@ -65,7 +63,6 @@ else
             </ul>
         </nav>*@
 </div>
-
 <script type="text/javascript">
     require(["jquery", "knockout", "moment", "URI", "underscore", "common", "helpers"], function ($, ko, moment, URI, _, common, helpers) {
 

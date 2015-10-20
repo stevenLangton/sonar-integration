@@ -231,6 +231,24 @@
     <Content Include="Content\Images\LinkSheetLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
+    <Content Include="Content\ProfilePics\Default.jpg" />
+    <Content Include="Content\ProfilePics\E001.jpg" />
+    <Content Include="Content\ProfilePics\E0010.jpg" />
+    <Content Include="Content\ProfilePics\E0011.jpg" />
+    <Content Include="Content\ProfilePics\E0012.jpg" />
+    <Content Include="Content\ProfilePics\E0013.jpg" />
+    <Content Include="Content\ProfilePics\E0014.jpg" />
+    <Content Include="Content\ProfilePics\E0015.jpg" />
+    <Content Include="Content\ProfilePics\E0016.jpg" />
+    <Content Include="Content\ProfilePics\E0017.jpg" />
+    <Content Include="Content\ProfilePics\E002.jpg" />
+    <Content Include="Content\ProfilePics\E003.jpg" />
+    <Content Include="Content\ProfilePics\E004.jpg" />
+    <Content Include="Content\ProfilePics\E005.jpg" />
+    <Content Include="Content\ProfilePics\E006.jpg" />
+    <Content Include="Content\ProfilePics\E007.jpg" />
+    <Content Include="Content\ProfilePics\E008.jpg" />
+    <Content Include="Content\ProfilePics\E009.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -398,7 +416,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\ProfilePics\" />
     <Folder Include="Playpit\" />
     <Folder Include="Views\LinkBase\" />
   </ItemGroup>
