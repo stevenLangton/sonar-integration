@@ -74,7 +74,7 @@
                 if (mgrId != '') {
                     var $promise = LinkService.getAllReporteeMeetings(mgrId);
                     $promise.done(function(koViewModel) {
-                        ko.applyBindings(koViewModel); // not currently used, TODO bind it to the Prettier view created by team.
+                        ko.applyBindings(koViewModel); // not currently used, bind it to the Prettier view created by team.
                     });
                 }
             });

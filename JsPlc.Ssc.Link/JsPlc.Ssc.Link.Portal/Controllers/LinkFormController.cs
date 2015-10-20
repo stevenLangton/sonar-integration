@@ -172,8 +172,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
                 return RedirectToAction("LinkForm");
             }
             catch

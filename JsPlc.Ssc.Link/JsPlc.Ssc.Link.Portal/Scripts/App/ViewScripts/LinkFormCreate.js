@@ -132,7 +132,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
                         window.alert(messages.success);
 
-                        // TODO where to redirect for colleagues initiated create meeting success.. (possibly my Link Report page)
+                        // Redirect for colleagues initiated create meeting success.. (my Link Report page)
                         if (data.ColleagueInitiated) {
                             window.location.href = common.getSiteRoot() + "Home/LinkReport";
                         } else {
@@ -228,6 +228,17 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             }
         };
 
+        self.confirmCheckbox = function (data, event) {
+            if (event.currentTarget.checked === true) {
+                var box = confirm("Are you sure you want to complete this form?");
+                if (box == true)
+                    return true;
+                else
+                    return false;
+            };
+
+            return true;
+        }
         //End Luan
     };
 
