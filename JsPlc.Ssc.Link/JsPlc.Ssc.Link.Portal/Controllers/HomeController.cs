@@ -55,6 +55,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public ActionResult Contact()
         {
+            TempData["tabName"] = "Contact";
             ViewBag.Message = "Your contact page.";
 
             return View();

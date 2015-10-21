@@ -42,6 +42,7 @@ require.config({
     shim: {
         "bootstrap-datepicker": { deps: ["jquery"] },
         "bootstrap-datepickerGB": { deps: ["jquery", "bootstrap-datepicker"] },
+        "jqueryval": { deps: ["jquery"] },
         "knockout": { deps: ["jquery"] },
         "bootstrap": { deps: ["jquery"] }
         //"ko-binding-handlers": { deps: ["jquery"] }
