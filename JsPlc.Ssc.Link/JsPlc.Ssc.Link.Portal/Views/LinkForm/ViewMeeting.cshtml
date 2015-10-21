@@ -20,7 +20,7 @@
         <div class="row" data-bind="with: dataModel, visible: dataAvailable">
             <!--Looking Back -->
             <div class="col-xs-6">
-                <h3>Looking Back</h3>
+            <h3 class="linksection-heading">Looking Back</h3>
                 <!-- LinkForm data items here -->
           
                 <br />
@@ -39,23 +39,37 @@
 
                         <!-- ko if: $index() == 0 -->
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                            <div class="panel-body">
+                        <div class="panel-body" style="padding:0">
+                            <div class="col-xs-2 threeiconContainer">
+                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                            </div>
+                            <div class="col-xs-10">
                                 <span class="row">
                                     Colleague Comment:<br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
+                    </div>
                         <!-- /ko -->
                         <!-- ko if: $index() != 0 -->
                         <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                            <div class="panel-body">
+                        <div class="panel-body" style="padding:0">
+                            <div class="col-xs-2 threeiconContainer">
+                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                            </div>
+                            <div class="col-xs-10">
                                 <span class="row">
                                     Colleague Comment:<br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
+                    </div>
                         <!-- /ko -->
 
                     </div>
@@ -70,7 +84,7 @@
 
             <!-- Looking Forward -->
             <div class="col-xs-6">
-                <h3>Looking Forward</h3>
+            <h3 class="linksection-heading">Looking Forward</h3>
                 <!-- LinkForm data items here -->
 
                
@@ -91,23 +105,37 @@
 
                         <!-- ko if: $index() == 0 -->
                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse in" role="tabpanel">
-                            <div class="panel-body">
+                        <div class="panel-body" style="padding:0">
+                            <div class="col-xs-2 threeiconContainer">
+                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                            </div>
+                            <div class="col-xs-10">
                                 <span class="row">
                                     Colleague Comment:<br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
+                    </div>
                         <!-- /ko -->
                         <!-- ko if: $index() != 0 -->
                         <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                            <div class="panel-body">
+                        <div class="panel-body" style="padding:0">
+                            <div class="col-xs-2 threeiconContainer">
+                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                            </div>
+                            <div class="col-xs-10">
                                 <span class="row">
                                     Colleague Comment:<br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
                                     Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>
                                 </span>
                             </div>
                         </div>
+                    </div>
                         <!-- /ko -->
 
 
@@ -121,7 +149,7 @@
         <br />
         <hr />
         <div class="container-fluid well row col-xs-12" style="text-align: left;">
-            <a data-bind="attr:{href:'pdf/DownloadFromDb/?MeetingId='+ dataModel().MeetingId }" class="btn btn-default">Download</a>
+            <a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>
             <div class="col-xs-2 right">
                 <strong>Meeting Date:</strong> <span id="MeetingDate" data-bind="text: dataModel().MeetingDate" class="" disabled name="MeetingDate"></span><br />
                 <strong>Manager Completed: </strong>&nbsp;&nbsp;<input id="Checkbox2" type="checkbox" data-bind="checked: dataModel().ManagerSignOff" name="ManagerSignOff" disabled="disabled" />
@@ -162,12 +190,13 @@
                     ManagerSignOff: data.ManagerSignOff,
                     LookingBackQuestions: [],
                     LookingFwdQuestions: [],
-                    Questions: []
+                    Questions: [],
+                    DownloadUrl: common.getSiteRoot() + 'pdf/DownloadFromDb/?MeetingId=' + data.MeetingId
                 };
 
                 ko.utils.arrayForEach(data.Questions, function (ques) {
                     if (!ques.ColleagueComment)
-                        {ques.ColleagueComment = "";} // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
+                    { ques.ColleagueComment = ""; } // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                     if (!ques.ManagerComment)
                     { ques.ManagerComment = ""; }
                 });
