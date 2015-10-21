@@ -18,6 +18,7 @@ using WebGrease.Css.Extensions;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
+    [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class LinkFormController : LinkBaseController
     {
 
