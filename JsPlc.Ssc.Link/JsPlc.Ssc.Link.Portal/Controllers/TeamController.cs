@@ -10,6 +10,7 @@ using Org.BouncyCastle.Asn1.Crmf;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
+    [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class TeamController : LinkBaseController
     {
         // ## Knockout VIEWS - Sprint 2: 

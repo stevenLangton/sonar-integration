@@ -61,6 +61,13 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                 LookingFwdQuestions: [],
                 Questions: []
             };
+            // Oh the IE pain
+            $("input[name='Completed1']").prop('checked', (data.ManagerSignOff ==1) ? true: false);
+            $("input[name='Completed2']").prop('checked', (data.ColleagueSignOff == 1) ? true : false);
+
+            //if (data.ManagerSignOff == 1 || data.ManagerSignOff == true) meetingView.ManagerSignOff = true;
+            //else meetingView.ManagerSignOff = false;
+
 
             ko.utils.arrayForEach(data.Questions, function (ques) {
                 if (!ques.ColleagueComment)
@@ -116,9 +123,12 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
 
             // Manage bool binding to MeetingStatus.
             // Values depend on MeetingStatus object in C#
+            data.ManagerSignOff = $("input[name='Completed1']").prop('checked');
+            data.ColleagueSignOff = $("input[name='Completed2']").prop('checked');
             data.ColleagueSignOff = (data.ColleagueSignOff == 0 || data.ColleagueSignOff == false) ? "InComplete" : "Completed";
             data.ManagerSignOff = (data.ManagerSignOff == 0 || data.ManagerSignOff == false) ? "InComplete" : "Completed";
 
+            debugger;
             console.log("Postback meetingDate :" + data.MeetingDate);
             debugger;
             var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
@@ -245,14 +255,17 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         };
 
         self.confirmCheckbox = function (data, event) {
+            debugger;
             if (event.currentTarget.checked === true) {
                 var box = confirm("Are you sure you want to complete this form?");
                 if (box == true)
                     return true;
                 else
-                    return false;
-            };
-
+                    event.currentTarget.checked = false;
+                    return true;
+            } else {
+                event.currentTarget.checked = false;
+            }
             return true;
         }
         //End Luan
@@ -299,4 +312,6 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         var MeetingViewJsonForPdf = vm.getMeetingView();
     });
 });
+
+
 
