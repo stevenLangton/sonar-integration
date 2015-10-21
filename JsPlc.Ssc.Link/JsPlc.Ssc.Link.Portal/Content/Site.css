@@ -139,6 +139,10 @@ div, span, h1, h2, h3, h4, h5, h6 {
     margin:0; margin-top: -1px; 
     background-color: #17A5C9
 }
+.welcomepage .threeiconContainer {
+    margin-top: 1px;
+    max-width: 100px;
+}
 textarea {
     width:100%;
     resize: none;
