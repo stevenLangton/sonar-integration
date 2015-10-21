@@ -226,11 +226,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.png" />
+    <Content Include="Content\Images\Bulb_icon.PNG" />
+    <Content Include="Content\Images\collaboration_icon.PNG" />
     <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\LinkSheetLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
+    <Content Include="Content\Images\Tick_icon.PNG" />
     <Content Include="Content\ProfilePics\Default.jpg" />
     <Content Include="Content\ProfilePics\E001.jpg" />
     <Content Include="Content\ProfilePics\E0010.jpg" />

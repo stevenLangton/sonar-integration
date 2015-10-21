@@ -132,6 +132,13 @@ div, span, h1, h2, h3, h4, h5, h6 {
 .linksection-heading {
     color: #0C5B94;
 }
+.threeicons {
+    margin: 10px 0 10px;
+}
+.threeiconContainer {
+    margin:0; margin-top: -1px; 
+    background-color: #17A5C9
+}
 textarea {
     width:100%;
     resize: none;
