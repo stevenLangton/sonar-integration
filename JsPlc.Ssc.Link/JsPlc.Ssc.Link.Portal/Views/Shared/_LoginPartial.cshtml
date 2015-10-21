@@ -1,10 +1,15 @@
 ﻿@using JsPlc.Ssc.Link.Portal.Models
 @using Microsoft.AspNet.Identity
 @using JsPlc.Ssc.Link.Models
-
+@{
+    var tab = TempData["tabName"];
+    var tabName = (tab == null) ? "Welcome" : tab.ToString().ToLower();
+}
 @if (Request.IsAuthenticated)
 {
     var currentUser = TempData["CurrentUser"] as UserView;
+    
+    
     string welcomeText = "";
     if (currentUser != null && currentUser.Colleague != null && currentUser.Colleague.FirstName != null)
     {
@@ -20,23 +25,23 @@
             @if (currentUser != null)
             {
                 // works, but now how do we put authorize attribute on Action methods (custom code), (or we check in code for manager, and return unauth result if not manager)
-                if (currentUser.IsLineManager)
-                {
-                    welcomeText += ".";
-                }
+                //if (currentUser.IsLineManager)
+                //{
+                //    welcomeText += ".";
+                //}
                 if (!string.IsNullOrEmpty(welcomeText))
                 {
                     @Html.ActionLink(welcomeText, "Index", "Manage") //, htmlAttributes: new { title = "Manage" })
                 }
             }
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li class="tab-heading"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li class="tab-heading">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li class="@(tabName == "Log in" ? "active" : "") tab-heading">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
