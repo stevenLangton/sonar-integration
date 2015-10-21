@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.UI.WebControls;
 
 namespace JsPlc.Ssc.Link.Portal.Models
 {
@@ -75,9 +76,10 @@ namespace JsPlc.Ssc.Link.Portal.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password must be atleast 6 characters long with atleast one non letter and one uppercase letter ('A'-'Z')")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

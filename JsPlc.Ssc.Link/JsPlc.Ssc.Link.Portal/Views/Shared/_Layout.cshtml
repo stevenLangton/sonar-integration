@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")">
     <link rel="shortcut icon icon" type="image/ico" href="favicon.ico" />
-    <title>@ViewBag.Title - Links Application</title>
+    <title>@ViewBag.Title - Link Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script type="text/javascript" src="~/Scripts/require.js"></script>
@@ -18,7 +18,7 @@
             LinkService.setServiceBaseUrl("@(ConfigurationManager.AppSettings["ServicesBaseUrl"])");
         });
     </script>
-    <meta name="description" content="Links application for Colleague-Manager Link Meetings and Performance appraisals" />
+    <meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
 <body>
     @*<div>

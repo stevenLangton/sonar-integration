@@ -225,3 +225,11 @@ font-size:80%;
     width: 120px;
     height: 120px;
 }
+
+.legend {
+    border: solid 1px silver;
+    font-size: x-small;
+    margin-top: -40px;
+    width: 100px;
+}
+    

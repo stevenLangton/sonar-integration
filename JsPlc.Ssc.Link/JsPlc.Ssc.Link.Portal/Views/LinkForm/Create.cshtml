@@ -1,7 +1,7 @@
 ﻿@using JsPlc.Ssc.Link.Models
 
 @{
-    ViewBag.Title = "Team";
+    ViewBag.Title = "Link Meeting";
     var currentUser = TempData["CurrentUser"] as UserView;
 }
 <style>
@@ -104,19 +104,16 @@
                                     <!-- Only manager can tick this.. -->
                                     <strong>Manager Completed:</strong>
                                     <input id="Checkbox1" type="checkbox" class="pointable"
-                                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
-                                                      value: dataModel().ManagerSignOff,
-                                                      enable: !(dataModel().ColleagueInitiated),
+                                           data-bind="checked: dataModel().ManagerSignOff, 
+                                                      value: dataModel().ManagerSignOff, 
+                                                      enable: !(dataModel().ColleagueInitiated), 
                                                       readonly: (dataModel().ColleagueInitiated),
                                                       click: $root.confirmCheckbox" name="Completed1" />
                                     <!-- Only colleague can tick this.. -->
                                     <strong>Colleague Completed:</strong>
                                     <input id="Checkbox2" type="checkbox" class="pointable"
-                                           data-bind="attr: {NOTBOUNDchecked: dataModel().ColleagueSignOff}, 
-                                                      value: dataModel().ColleagueSignOff, 
-                                                      enable: (dataModel().ColleagueInitiated), 
-                                                      readonly: !(dataModel().ColleagueInitiated),
-                                                      click: $root.confirmCheckbox" name="Completed2" />
+                                           data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
+                                           click: $root.confirmCheckbox" name="Completed2" />
 
                                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
                                     &nbsp; &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
