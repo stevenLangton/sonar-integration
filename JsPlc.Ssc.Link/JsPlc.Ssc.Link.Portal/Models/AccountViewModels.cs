@@ -79,7 +79,7 @@ namespace JsPlc.Ssc.Link.Portal.Models
         
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password must be atleast 6 characters long with atleast one non letter and one uppercase letter ('A'-'Z')")]
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
