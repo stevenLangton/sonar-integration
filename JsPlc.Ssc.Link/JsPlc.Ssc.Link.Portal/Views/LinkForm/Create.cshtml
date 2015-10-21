@@ -35,7 +35,7 @@
             <div class="row" data-bind="with: dataModel, visible: dataAvailable">
                 <!--Looking Back -->
                 <div class="col-md-6">
-                    <h3>Looking Back</h3>
+                    <h3 class="linksection-heading">Looking Back</h3>
                     <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
                     <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
@@ -63,7 +63,7 @@
 
                 <!-- Looking Forward -->
                 <div class="col-md-6">
-                    <h3>Looking Forward</h3>
+                    <h3 class="linksection-heading">Looking Forward</h3>
                     <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
                     <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
@@ -103,18 +103,18 @@
                                 else it is by manager -> This check is done in controller itself -->
                                     <!-- Only manager can tick this.. -->
                                     <strong>Manager Completed:</strong>
-                                    <input id="Checkbox1" type="checkbox" class="pointable"
-                                           data-bind="checked: dataModel().ManagerSignOff, 
-                                                      value: dataModel().ManagerSignOff, 
-                                                      enable: !(dataModel().ColleagueInitiated), 
+                                    &nbsp;&nbsp;<input id="Checkbox1" type="checkbox" class="pointable"
+                                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
+                                                      value: dataModel().ManagerSignOff,
+                                                      enable: !(dataModel().ColleagueInitiated),
                                                       readonly: (dataModel().ColleagueInitiated),
-                                                      click: $root.confirmCheckbox" name="Completed1" />
+                                                      click: $root.confirmCheckbox" name="Completed1" /><br/>
                                     <!-- Only colleague can tick this.. -->
                                     <strong>Colleague Completed:</strong>
                                     <input id="Checkbox2" type="checkbox" class="pointable"
                                            data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
-                                           click: $root.confirmCheckbox" name="Completed2" />
-
+                                                      click: $root.confirmCheckbox" name="Completed2" />
+                                    <br/>
                                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
                                     &nbsp; &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
                                 </p>

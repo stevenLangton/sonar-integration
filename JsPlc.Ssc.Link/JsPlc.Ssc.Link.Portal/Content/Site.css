@@ -125,6 +125,13 @@ div, span, h1, h2, h3, h4, h5, h6 {
   content: '+';
 }
 
+.panel-default > .panel-heading {
+    color: #fff;
+    background-color: #17A5C9;
+}
+.linksection-heading {
+    color: #0C5B94;
+}
 textarea {
     width:100%;
     resize: none;
