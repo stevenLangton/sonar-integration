@@ -32,7 +32,16 @@
         return $promise;
     };
 
+    function splitArray(a, size) {
+        var len = a.length, out = [], i = 0;
+        while (i < len) {
+            out.push(a.slice(i, i += size));
+        }
+        return out;
+    }
+
     return {
+        splitArray: splitArray,
         setSiteRoot: setSiteRoot,
         getSiteRoot: getSiteRoot,
         randomString: randomString,
