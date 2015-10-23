@@ -49,23 +49,25 @@
                             </div>
                             <div data-bind="attr:{id:'collapse1'+ $index()}, css:{in: $index() == 0}" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body" style="padding:0">
-                                    <div class="col-xs-2 threeiconContainer">
-                                        <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-2 threeiconContainer">
+                                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                            </div>
+                                            <div class="col-xs-10 comments-container">
+                                                <span>Colleague Comment:</span><br />
+                                                <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter colleague comments here (max 800 chars)"></textarea><br />
+                                                <span>Manager Comment:</span><br />
+                                                <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here (max 800 chars)"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-10">
-                                    <span class="row">
-                                        <span>Colleague Comment:</span><br />
-                                        <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter colleague comments here"></textarea><br />
-                                        <span>Manager Comment:</span><br />
-                                        <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here"></textarea>
-                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
 
                 <!-- Looking Forward -->
@@ -84,21 +86,24 @@
                             </div>
                             <div data-bind="attr:{id:'collapse2'+ $index()}, css:{in: $index() == 0}" class="panel-collapse collapse in" role="tabpanel">
                                 <div class="panel-body" style="padding:0">
-                                    <div class="col-xs-2 threeiconContainer">
-                                        <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-2 threeiconContainer">
+                                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                            </div>
+                                            <div class="col-xs-10 comments-container">
+                                                <span>Colleague Comment:</span><br />
+                                                <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'800', placeholder: $index()==2?'Enter colleague comments here (max 400 chars)':'Enter colleague comments here (max 800 chars)' }" rows="4"></textarea>
+                                                <br />
+                                                <span>Manager Comment:</span><br />
+                                                <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'800', placeholder: $index()==2?'Enter manager comments here (max 400 chars)':'Enter manager comments here (max 800 chars)' }" rows="4"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-10">
-                                    <span class="row">
-                                        <span>Colleague Comment:</span><br />
-                                        <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter colleague comments here"></textarea><br />
-                                        <span>Manager Comment:</span><br />
-                                        <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here"></textarea>
-                                    </span>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

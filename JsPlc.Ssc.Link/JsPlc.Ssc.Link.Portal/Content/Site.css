@@ -232,7 +232,8 @@ font-size:80%;
   color:#EF6600;
 }
 
-.nav {margin-left:-25px;}
+/* The following rule clipped the menu opton in sm view*/
+/*.nav {margin-left:-25px;}*/
 
 .breadcrumb {margin-bottom:0px;}
 
@@ -280,3 +281,6 @@ font-size:80%;
     width: 100px;
 }
     
+.comments-container {
+    padding-top: 15px;
+}
