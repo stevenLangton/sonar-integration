@@ -112,6 +112,7 @@
     <Compile Include="Controllers\EmployeesControllerTest.cs" />
     <Compile Include="Controllers\MeetingsControllerTests.cs" />
     <Compile Include="Controllers\QuestionsControllerTests.cs" />
+    <Compile Include="LinkRepositoryTests.cs" />
     <Compile Include="RepositoryMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
