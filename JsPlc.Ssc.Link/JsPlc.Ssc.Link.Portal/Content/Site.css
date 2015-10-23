@@ -127,17 +127,46 @@ div, span, h1, h2, h3, h4, h5, h6 {
 
 .panel-default > .panel-heading {
     color: #fff;
-    background-color: #17A5C9;
+    background-color: #20a9cb;
 }
 .linksection-heading {
     color: #0C5B94;
+}
+.section-heading {
+    color: #fff;
+    background-color: #20a9cb;
+    padding: 5px;margin: 0;  
 }
 .threeicons {
     margin: 10px 0 10px;
 }
 .threeiconContainer {
-    margin:0; margin-top: -1px; 
-    background-color: #17A5C9
+    margin:0; margin-top: 0;
+    xbackground-color: #20a9cb;
+    padding: 0;
+}
+.liWelcome {
+    display: block;
+    padding-right: 2px;
+    min-height: 80px;
+}
+.liIcon {
+    width: 80px; height: 80px; display:block;float: left;
+}
+.liIcon1{  
+    background-position: 0 -.2em;
+    background-repeat: no-repeat;
+    background-image: url(Images/Tick_icon.PNG);
+}
+.liIcon2{  
+    background-position: 0 -.2em;
+    background-repeat: no-repeat;
+    background-image: url(Images/Bulb_icon.PNG);
+}
+.liIcon3{  
+    background-position: 0 -.2em;
+    background-repeat: no-repeat;
+    background-image: url(Images/collaboration_icon.PNG);
 }
 .welcomepage .threeiconContainer {
     margin-top: 1px;
