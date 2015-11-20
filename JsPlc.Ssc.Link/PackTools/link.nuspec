@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Link.Service</id>
+    <version>$version$</version>
+    <authors>Sainsburys Supermarket</authors>
+    <description>Link web service</description>
+    <language>en-GB</language>
+    <projectUrl>https://github.com/JSainsburysPLC/Link.git/</projectUrl>
+    <licenseUrl>https://github.com/JSainsburysPLC/Link.git</licenseUrl>
+  </metadata>
+  <files>
+   <file src="**\*.*" />  
+  </files>
+</package>
