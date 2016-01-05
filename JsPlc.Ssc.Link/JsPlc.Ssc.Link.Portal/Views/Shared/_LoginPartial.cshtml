@@ -16,9 +16,9 @@
         welcomeText = "Hello " + currentUser.Colleague.FirstName + "!";
     }
        
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+   
 
     <ul class="nav navbar-nav navbar-right">
         <li class="tab-heading">
@@ -42,6 +42,6 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li class="@(tabName == "Log in" ? "active" : "") tab-heading">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li class="@(tabName == "Log in" ? "active" : "") tab-heading">@Html.ActionLink("Log in", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
