@@ -18,7 +18,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             if (User == null) return;
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var appUser = manager.FindById(User.Identity.GetUserId());
+            var appUser = manager.FindByEmail(User.Identity.Name);
+            //var appUser = manager.FindById(User.Identity.GetUserId());
             if (appUser != null)
             {
                 CurrentUser = appUser.ToUserView();

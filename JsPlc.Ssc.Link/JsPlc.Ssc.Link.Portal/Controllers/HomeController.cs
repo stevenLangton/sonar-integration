@@ -24,7 +24,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [Authorize]
         public ActionResult LinkReport()
         {
-            ViewBag.Message = "Link Report for - " + CurrentUser.Colleague.FirstName + " " + CurrentUser.Colleague.LastName;
+            //ViewBag.Message = "Link Report for - " + CurrentUser.Colleague.FirstName + " " + CurrentUser.Colleague.LastName;
+            ViewBag.Message = "Link Report for - " + User.Identity.Name;
             return MyMeetings();
 
             //return View();
