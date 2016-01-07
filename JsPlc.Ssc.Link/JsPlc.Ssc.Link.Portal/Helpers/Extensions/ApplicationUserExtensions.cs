@@ -8,19 +8,19 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Extensions
 {
     public static class ApplicationUserExtensions
     {
-        public static UserView ToUserView(this ApplicationUser user)
-        {
-            return new UserView
-            {
-                Id = user.Id,
-                //ColleagueId = "",
-                //FirstName = user.FirstName,
-                //LastName = user.LastName, 
-                IsLineManager = user.IsLineManager(),
-                //EmailAddress = user.UserName,
+        //public static UserView ToUserView(this ApplicationUser user)
+        //{
+        //    return new UserView
+        //    {
+        //        Id = user.Id,
+        //        //ColleagueId = "",
+        //        //FirstName = user.FirstName,
+        //        //LastName = user.LastName, 
+        //        IsLineManager = user.IsLineManager(),
+        //        //EmailAddress = user.UserName,
             
-            };
-        }
+        //    };
+        //}
 
         public static EmployeeView ToEmployeeView(this Employee employee)
         {

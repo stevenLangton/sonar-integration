@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
-using Microsoft.AspNet.Identity;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -16,7 +15,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             // for now, may this should show any Ongoing(InProgress) LinkForm or NewLinkForm if no ongoing exists.
 
-            ViewBag.Message = "Link Meeting Form for - " + User.Identity.GetUserName();
+            ViewBag.Message = "Link Meeting Form for - " + User.Identity.Name;
 
             return View();
         }
@@ -49,7 +48,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [Authorize]
         public ActionResult Team()
         {
-            ViewBag.Message = "Team for - " + User.Identity.GetUserName();
+            ViewBag.Message = "Team for - " + User.Identity.Name;
 
             return View();
         }
