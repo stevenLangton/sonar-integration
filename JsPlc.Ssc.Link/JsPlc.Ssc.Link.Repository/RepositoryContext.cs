@@ -7,17 +7,17 @@ namespace JsPlc.Ssc.Link.Repository
 {
     public class RepositoryContext:DbContext,IRepositoryContext
     {
-        public IDbSet<Question> Questions { get; set; }
+        public IDbSet<Models.Question> Questions { get; set; }
 
-        public IDbSet<Answer> Answers { get; set; }
+        public IDbSet<Models.Answer> Answers { get; set; }
 
-        public IDbSet<Employee> Employees { get; set; }
+        public IDbSet<Models.Employee> Employees { get; set; }
 
-        public IDbSet<Period> Periods { get; set; }
-        
-        public IDbSet<LinkMeeting> Meeting { get; set; }
+        public IDbSet<Models.Period> Periods { get; set; }
 
-        public IDbSet<Objectives> Objectives { get; set; }
+        public IDbSet<Models.LinkMeeting> Meeting { get; set; }
+
+        public IDbSet<Models.Objectives> Objectives { get; set; }
 
         
         public RepositoryContext() : base("name=LinkRepository") { }

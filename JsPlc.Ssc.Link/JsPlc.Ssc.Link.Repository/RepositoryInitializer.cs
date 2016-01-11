@@ -138,12 +138,12 @@ namespace JsPlc.Ssc.Link.Repository
             context.SaveChanges();
 
 
-            var objectives = new List<Objectives> { 
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555"},
+            var objectives = new List<Models.Objectives> { 
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555"},
             };
 
             objectives.ForEach(c => context.Objectives.Add(c));

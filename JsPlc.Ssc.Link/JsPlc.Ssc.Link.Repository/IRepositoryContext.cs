@@ -6,14 +6,17 @@ namespace JsPlc.Ssc.Link.Repository
 {
     public interface IRepositoryContext
     {
-        IDbSet<Question> Questions { get; }
+        IDbSet<Models.Question> Questions { get; }
 
-        IDbSet<Answer> Answers { get; }
+        IDbSet<Models.Answer> Answers { get; }
 
-        IDbSet<Employee> Employees { get; }
+        IDbSet<Models.Employee> Employees { get; }
 
-        IDbSet<Period> Periods { get; }
+        IDbSet<Models.Period> Periods { get; }
 
-        IDbSet<LinkMeeting> Meeting { get; set; }
+        IDbSet<Models.LinkMeeting> Meeting { get; set; }
+
+        IDbSet<Models.Objectives> Objectives { get; set; }
+
     }
 }

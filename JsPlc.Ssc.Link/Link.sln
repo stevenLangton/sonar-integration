@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{551CB1B4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Models", "JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj", "{589E97D6-1D3D-4214-9871-005E7B01E4B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{E192C1F1-50DC-4172-92C9-17A353E219FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Interfaces", "JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj", "{5E71294B-3F45-48F1-A37F-737FB5F22F38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,10 @@ Global
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +61,6 @@ Global
 		{B995B495-D846-4EB5-80FB-B55B71028B94} = {9FEB778D-8E8F-4B83-9D00-6E9D2CF25AEF}
 		{B3FC18AA-C34C-4F58-B8AB-36907A6C1C73} = {AF9C31F9-6DCE-4FE3-B3EF-9DA495FAF663}
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5} = {551CB1B4-E458-451B-914E-94CABB5F91DB}
+		{5E71294B-3F45-48F1-A37F-737FB5F22F38} = {E192C1F1-50DC-4172-92C9-17A353E219FF}
 	EndGlobalSection
 EndGlobal

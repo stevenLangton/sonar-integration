@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JsPlc.Ssc.Link.Models;
 
-namespace JsPlc.Ssc.Link.Repository
+namespace JsPlc.Ssc.Link.Interfaces
 {
     public interface ILinkRepository
     {
@@ -10,7 +10,7 @@ namespace JsPlc.Ssc.Link.Repository
         bool IsManager(string userName);
 
         IEnumerable<TeamView> GetTeam(string managerId);
-        
+
         void Dispose();
     }
 }
