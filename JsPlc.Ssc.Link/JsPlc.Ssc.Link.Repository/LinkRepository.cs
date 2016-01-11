@@ -37,20 +37,7 @@ namespace JsPlc.Ssc.Link.Repository
             return subEmployees.Any();
         }
 
-        // employees and their meeting history of a manager
-        public IEnumerable<TeamView> GetTeam(string managerId)
-        {
-            var team = _db.Employees.Where(e => e.ManagerId == managerId);
-
-            var teamView = new List<TeamView>();
-            var teamMeeting = new Meeting();
-
-            foreach (var employee in team)
-            {
-                teamView.Add(teamMeeting.GetMeetings(employee.ColleagueId));
-            }
-            return teamView;
-        }
+       
        
         public void Dispose()
         {

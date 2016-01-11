@@ -48,7 +48,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("myteam/{managerId}")] // myteam/E0010
         public IHttpActionResult GetMyTeam(string managerId)
         {
-            var employees = _db.GetTeam(managerId);
+            var employees = _dbMeeting.GetTeam(managerId);
 
             var teamViews = employees as IList<TeamView> ?? employees.ToList();
 

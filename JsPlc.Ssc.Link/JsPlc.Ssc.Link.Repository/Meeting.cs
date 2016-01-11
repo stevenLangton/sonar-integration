@@ -214,6 +214,20 @@ namespace JsPlc.Ssc.Link.Repository
             }
         }
 
+        // employees and their meeting history of a manager
+        public IEnumerable<TeamView> GetTeam(string managerId)
+        {
+            var team = _db.Employees.Where(e => e.ManagerId == managerId);
+
+            var teamView = new List<TeamView>();
+
+            foreach (var employee in team)
+            {
+                teamView.Add(GetMeetings(employee.ColleagueId));
+            }
+            return teamView;
+        }
+
         public void Dispose()
         {
             _db.Dispose();
