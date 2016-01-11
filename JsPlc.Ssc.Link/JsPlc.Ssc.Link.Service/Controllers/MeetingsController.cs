@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Repository;
+using JsPlc.Ssc.Link.Interfaces;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
@@ -13,7 +14,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [HttpGet] //api/Meetings/10
         public IHttpActionResult GetMeeting(int id)
         {
-            var meeting = _db.GetMeeting(id);
+            var meeting = _dbMeeting.GetMeeting(id);
 
             if (meeting == null)
                 return NotFound();
@@ -25,7 +26,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("newmeeting/{colleagueId}")]
         public IHttpActionResult CreateMeeting(string colleagueId)
         {
-            var meeting = _db.CreateMeeting(colleagueId);
+            var meeting = _dbMeeting.CreateMeeting(colleagueId);
 
             if (meeting == null)
                 return NotFound();
@@ -38,8 +39,8 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-            
-            return Ok(_db.SaveMeeting(meetingView));
+
+            return Ok(_dbMeeting.SaveMeeting(meetingView));
 
             //return CreatedAtRoute("api/meetings", new {id=meetingView.MeetingId}, meetingView);
         }
@@ -50,7 +51,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _db.UpdateMeeting(meetingView);
+            _dbMeeting.UpdateMeeting(meetingView);
 
             return Ok();
         }

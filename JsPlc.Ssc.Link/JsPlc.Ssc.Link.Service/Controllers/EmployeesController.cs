@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Repository;
+using JsPlc.Ssc.Link.Interfaces;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
@@ -29,7 +30,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("mymeetings/{colleagueId}")] // mymeetings/E001
         public IHttpActionResult GetMyMeetings(string colleagueId)
         {
-            var meetings = _db.GetMeetings(colleagueId);
+            var meetings = _dbMeeting.GetMeetings(colleagueId);
 
             if (meetings == null)
                 return NotFound();

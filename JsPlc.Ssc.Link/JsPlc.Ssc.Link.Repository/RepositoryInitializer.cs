@@ -48,7 +48,7 @@ namespace JsPlc.Ssc.Link.Repository
                 new Employee{Id=6, FirstName="Praveen", LastName="Kumar", ColleagueId="E006", ManagerId="E0010", EmailAddress="Praveen.K@sainsburys.co.uk"},
                 new Employee{Id=7, FirstName="Steven", LastName="A", ColleagueId="E007", ManagerId="E0010", EmailAddress="Steven.A@sainsburys.co.uk"},
                 new Employee{Id=8, FirstName="Anis", LastName="Batilwala", ColleagueId="E008", ManagerId="E009", EmailAddress="Anis.B@sainsburys.co.uk"},
-                new Employee{Id=9, FirstName="Mohammed", LastName="Tahir", ColleagueId="E009", ManagerId="E0011", EmailAddress="Mohammed.T@sainsburys.co.uk"},
+                new Employee{Id=9, FirstName="Steven", LastName="Farkas", ColleagueId="E009", ManagerId="E0010", EmailAddress="steven.farkas@sainsburys.co.uk"},
                 new Employee{Id=10, FirstName="Sandip", LastName="Vaidya", ColleagueId="E0010", ManagerId="E0011", EmailAddress="Sandip.V@sainsburys.co.uk"},
                 new Employee{Id=11, FirstName="Mike", LastName="Gwyer",  ColleagueId="E0011", ManagerId=string.Empty, EmailAddress="Mike.G@sainsburys.co.uk"},
                 new Employee{Id=12, FirstName="Ridley", LastName="Scott",  ColleagueId="E0012", ManagerId=string.Empty, EmailAddress="ridley.scott@sainsburys.co.uk"},
@@ -135,6 +135,18 @@ namespace JsPlc.Ssc.Link.Repository
              };
 
             answers.ForEach(c => context.Answers.Add(c));
+            context.SaveChanges();
+
+
+            var objectives = new List<Models.Objectives> { 
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444"},
+            new Models.Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555"},
+            };
+
+            objectives.ForEach(c => context.Objectives.Add(c));
             context.SaveChanges();
             
             base.Seed(context);

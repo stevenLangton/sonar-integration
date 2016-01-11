@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using JsPlc.Ssc.Link.Repository;
+using JsPlc.Ssc.Link.Interfaces;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
@@ -12,7 +13,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [HttpGet] // api/questions/
         public IHttpActionResult GetQuestions()
         {
-            return Ok(_db.GetQuestions());
+            return Ok(_dbMeeting.GetQuestions());
         }
     }
 }

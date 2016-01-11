@@ -72,6 +72,7 @@
     <Compile Include="LinkMeeting.cs" />
     <Compile Include="LinkMeetingView.cs" />
     <Compile Include="MeetingView.cs" />
+    <Compile Include="Objectives.cs" />
     <Compile Include="Period.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
