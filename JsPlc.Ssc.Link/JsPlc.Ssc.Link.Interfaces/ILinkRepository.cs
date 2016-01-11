@@ -9,8 +9,6 @@ namespace JsPlc.Ssc.Link.Interfaces
 
         bool IsManager(string userName);
 
-        IEnumerable<TeamView> GetTeam(string managerId);
-
         void Dispose();
     }
 }

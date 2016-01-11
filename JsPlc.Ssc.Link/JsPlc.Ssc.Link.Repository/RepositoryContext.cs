@@ -19,7 +19,6 @@ namespace JsPlc.Ssc.Link.Repository
 
         public IDbSet<Models.Objectives> Objectives { get; set; }
 
-        
         public RepositoryContext() : base("name=LinkRepository") { }
 
         public RepositoryContext(DbConnection connection) : base(connection, true) { }

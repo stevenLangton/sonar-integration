@@ -17,6 +17,8 @@ namespace JsPlc.Ssc.Link.Interfaces
 
         TeamView GetMeetings(string colleagueId);
 
+        IEnumerable<TeamView> GetTeam(string managerId);
+
         void Dispose();
     }
 }
