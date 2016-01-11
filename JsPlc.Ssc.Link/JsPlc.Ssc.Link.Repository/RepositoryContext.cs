@@ -17,6 +17,8 @@ namespace JsPlc.Ssc.Link.Repository
         
         public IDbSet<LinkMeeting> Meeting { get; set; }
 
+        public IDbSet<Objectives> Objectives { get; set; }
+
         
         public RepositoryContext() : base("name=LinkRepository") { }
 
