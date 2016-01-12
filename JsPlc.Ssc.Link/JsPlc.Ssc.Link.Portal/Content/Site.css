@@ -1,6 +1,13 @@
 ﻿body {
-  
+
 }
+
+
+
+
+
+
+
 
 
 h1 {font-size:170%;}
@@ -106,10 +113,6 @@ div, span, h1, h2, h3, h4, h5, h6 {
     padding-right:70px;
     border-top:#EF6600 solid 2px;
 
-      position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
  
 }
 
@@ -240,8 +243,6 @@ font-size:80%;
 
 
 
-
-
 .link-footer {color:#ffffff;}
 .link-footer > h4 {font-size:80%;}
 
@@ -283,4 +284,23 @@ font-size:80%;
     
 .comments-container {
     padding-top: 15px;
+}
+
+
+
+
+
+
+
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -378px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 378px; /* .push must be the same height as .footer */
 }

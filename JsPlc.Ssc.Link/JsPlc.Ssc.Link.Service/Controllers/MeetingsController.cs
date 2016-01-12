@@ -17,7 +17,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             var meeting = _dbMeeting.GetMeeting(id);
 
             if (meeting == null)
+            {
                 return NotFound();
+            }
 
             return Ok(meeting);
         }

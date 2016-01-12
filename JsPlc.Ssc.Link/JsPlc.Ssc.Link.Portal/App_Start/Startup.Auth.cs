@@ -38,7 +38,7 @@ namespace JsPlc.Ssc.Link.Portal
         public static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
         // This is the resource ID of the AAD Graph API.  We'll need this to request a token to call the Graph API.
-        string graphResourceId = ConfigurationManager.AppSettings["ida:GraphResourceId"];
+        //string graphResourceId = ConfigurationManager.AppSettings["ida:GraphResourceId"];
 
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -65,7 +65,7 @@ namespace JsPlc.Ssc.Link.Portal
                             ClientCredential credential = new ClientCredential(clientId, appKey);
                             string userObjectID = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
                             AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
-                            AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+                            //AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
 
                             return Task.FromResult(0);
                         },
