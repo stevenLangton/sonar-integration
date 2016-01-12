@@ -86,61 +86,66 @@
     </div>
 
 
-
-    <div class="container">
-        @RenderBody()
-
-    </div>
-
-
-    <div id="footer" style="z-index: -1000" class="row">
-        
-
-        <div class="navbar navbar-inner navbar-bottom link-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4>Useful Pages</h4>
-                        <ul class="footerlinks">
-                            <li><a href="~/Home/Welcome">Home</a></li>
-                            <li><a href="~/Home/LinkReport">My Link Report</a></li>
-                            <li><a href="~/Account/Login">Log in</a></li>
-                            <li><a href="~/Account/Register">Register</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Link Help</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Think Link</h4>
-                        <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
-                    </div>
-                </div>
-                <br /><br />
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4">&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</div>
-                </div>
-            </div>
+  
+    <div class="wrapper">
+        <div class="container">
+            @RenderBody()
 
         </div>
-
-
+        <div class="push"></div>
     </div>
 
 
 
-
-            @*@Scripts.Render("~/bundles/jquery")*@
-            @*@Scripts.Render("~/bundles/bootstrap")*@
-            @*@Scripts.Render("~/bundles/knockout")*@
-            @RenderSection("scripts", required: false)
+        <div id="footer" style="z-index: -1000" class="row">
 
 
-            <script type="text/javascript">
-                require(['bootstrap'], function () {
-                });
-            </script>
+            <div class="navbar navbar-default navbar-fixed-bottom link-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Useful Pages</h4>
+                            <ul class="footerlinks">
+                                <li><a href="~/Home/Welcome">Home</a></li>
+                                <li><a href="~/Home/LinkReport">My Link Report</a></li>
+                                <li><a href="~/Account/Login">Log in</a></li>
+                                <li><a href="~/Account/Register">Register</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Link Help</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Think Link</h4>
+                            <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">&copy; @DateTime.Now.Year - © J Sainsbury plc 2015</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        
+
+
+
+
+        @*@Scripts.Render("~/bundles/jquery")*@
+        @*@Scripts.Render("~/bundles/bootstrap")*@
+        @*@Scripts.Render("~/bundles/knockout")*@
+        @RenderSection("scripts", required: false)
+
+
+        <script type="text/javascript">
+            require(['bootstrap'], function () {
+            });
+        </script>
 
 </body>
 </html>
