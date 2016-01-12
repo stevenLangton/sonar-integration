@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Common;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Interfaces;
 
 namespace JsPlc.Ssc.Link.Repository
 {

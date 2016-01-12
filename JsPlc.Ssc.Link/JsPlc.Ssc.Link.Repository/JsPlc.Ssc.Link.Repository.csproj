@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepositoryContext.cs" />
     <Compile Include="LinkRepository.cs" />
     <Compile Include="Meeting.cs" />
     <Compile Include="LinkObjectives.cs" />
