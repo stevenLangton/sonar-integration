@@ -1,8 +1,12 @@
 ﻿{
   "version": "2.0.3",
-  "ignore": [],
+  "ignore": [
+    "\\Scripts\\App\\ViewScripts\\LinkMeetings.js"
+  ],
   "options": {},
   "globalVariables": [
-    "define"
+    "define",
+    "document",
+    "console"
   ]
 }

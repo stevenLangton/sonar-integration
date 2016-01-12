@@ -283,6 +283,7 @@
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
     <Content Include="Scripts\App\ViewScripts\LinkFormCreate.js" />
+    <Content Include="Scripts\App\ViewScripts\LinkMeetings.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\common.js" />
     <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
