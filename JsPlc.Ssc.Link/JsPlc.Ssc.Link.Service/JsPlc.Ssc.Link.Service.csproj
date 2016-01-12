@@ -215,6 +215,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ObjectivesController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="ElmahHandleWebApiErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
