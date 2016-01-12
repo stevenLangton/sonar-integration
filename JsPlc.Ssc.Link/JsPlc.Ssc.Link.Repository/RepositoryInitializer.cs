@@ -44,7 +44,7 @@ namespace JsPlc.Ssc.Link.Repository
                 new Employee{Id=2, FirstName="Laxmi", LastName="Nagaraja", ColleagueId="E002", ManagerId="E009", EmailAddress="Laxmi.N@sainsburys.co.uk"},
                 new Employee{Id=3, FirstName="Tim", LastName="Morrison", ColleagueId="E003", ManagerId="E009", EmailAddress="Tim.M@sainsburys.co.uk"},
                 new Employee{Id=4, FirstName="Chris", LastName="Atkin", ColleagueId="E004", ManagerId="E009", EmailAddress="Chris.A@sainsburys.co.uk"},
-                new Employee{Id=5, FirstName="Luan", LastName="Au", ColleagueId="E005", ManagerId="E0010", EmailAddress="Luan.A@sainsburys.co.uk"},
+                new Employee{Id=5, FirstName="Luan", LastName="Au", ColleagueId="E005", ManagerId="E0010", EmailAddress="Luan.Au@sainsburys.co.uk"},
                 new Employee{Id=6, FirstName="Praveen", LastName="Kumar", ColleagueId="E006", ManagerId="E0010", EmailAddress="Praveen.K@sainsburys.co.uk"},
                 new Employee{Id=7, FirstName="Steven", LastName="A", ColleagueId="E007", ManagerId="E0010", EmailAddress="Steven.A@sainsburys.co.uk"},
                 new Employee{Id=8, FirstName="Anis", LastName="Batilwala", ColleagueId="E008", ManagerId="E009", EmailAddress="Anis.B@sainsburys.co.uk"},
@@ -57,6 +57,7 @@ namespace JsPlc.Ssc.Link.Repository
                 new Employee{Id=15, FirstName="Ellen", LastName="Ripley",  ColleagueId="E0015", ManagerId="E0012", EmailAddress="ellen.ripley@sainsburys.co.uk"},
                 new Employee{Id=16, FirstName="Malcolm", LastName="Reynolds",  ColleagueId="E0016", ManagerId="E0013", EmailAddress="malcolm.reynolds@sainsburys.co.uk"},
                 new Employee{Id=17, FirstName="Zoe", LastName="Washburne",  ColleagueId="E0017", ManagerId="E0013", EmailAddress="zoe.washburne@sainsburys.co.uk"},
+                new Employee{Id=18, FirstName="Chris", LastName="Mullaney",  ColleagueId="E0018", ManagerId="E0013", EmailAddress="Chris.Mullaney@sainsburys.co.uk"},
 
             };
 
