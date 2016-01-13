@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Base\LinkBaseController.cs" />
     <Compile Include="Controllers\LinkFormController.cs" />
+    <Compile Include="Controllers\ObjectiveController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Global.asax.cs">
@@ -284,6 +285,7 @@
     <Content Include="Scripts\App\Services\LinkService.js" />
     <Content Include="Scripts\App\ViewScripts\LinkFormCreate.js" />
     <Content Include="Scripts\App\ViewScripts\LinkMeetings.js" />
+    <Content Include="Scripts\App\ViewScripts\Objectives.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\common.js" />
     <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
@@ -411,6 +413,7 @@
     <Content Include="Views\Team\_MeetingHistoryComponent.cshtml" />
     <Content Include="Views\Team\LinkMeetings.cshtml" />
     <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
+    <Content Include="Views\Objective\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
