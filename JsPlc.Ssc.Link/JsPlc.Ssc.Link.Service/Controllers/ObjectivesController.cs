@@ -56,7 +56,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         // POST/Insert: api/Objectives
         [ResponseType(typeof(ObjectiveAdd))]
         [Route("/colleague/{colleagueId}/{objective}")]
-        public IHttpActionResult PostObjective(ObjectiveAdd objective)
+        public IHttpActionResult PostObjective(ObjectiveAdd objective, string colleagueId)
         {
             int UserId = _db.appUserID(colleagueId);
 

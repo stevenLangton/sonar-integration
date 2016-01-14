@@ -9,7 +9,6 @@ namespace JsPlc.Ssc.Link.Service.Models
     public class ObjectiveAdd
     {
 
-        public string ColleagueId { get; set; }
         public string LastAmendedByColleagueId { get; set; }
         public string Objective { get; set; }
     }
