@@ -128,10 +128,13 @@ div, span, h1, h2, h3, h4, h5, h6 {
 
 .panel-default > .panel-heading {
     color: #fff;
-    background-color: #20a9cb;
+    background-color: #ffffff;
+    color:#333333;
+    border:0px solid #ffffff;
 }
 .linksection-heading {
     color: #0C5B94;
+    font-size:120%;
 }
 .section-heading {
     color: #fff;

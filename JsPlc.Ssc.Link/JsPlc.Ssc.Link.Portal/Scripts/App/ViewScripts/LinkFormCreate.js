@@ -79,8 +79,14 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             //meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
             //meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
             // split questions by type (not by index)
-            meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'b'; });
-            meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'f'; });
+
+            //old values
+           // meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'b'; });
+            //meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'f'; });
+            meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'LOOKING BACK'; });
+            meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'LOOKING FORWARD'; });
+            meetingView.DrivingDevelopment = _.select(data.Questions, function (ques) { return ques.QuestionType == 'DRIVING MY DEVELOPMENT'; });
+            meetingView.NUTSHELL = _.select(data.Questions, function (ques) { return ques.QuestionType == 'IN A NUTSHELL'; });
             meetingView.Questions = data.Questions;
 
             self.dataModel(meetingView);

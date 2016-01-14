@@ -28,11 +28,11 @@ namespace JsPlc.Ssc.Link.Repository
             context.SaveChanges();
 
             var questions = new List<Question> { 
-            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?", QuestionType = "b"},
-            new Question{Id=2,Description="Where could I have made a greater difference?", QuestionType = "b"},
-            new Question{Id=3,Description="What am I going to do make more of a difference?", QuestionType = "f"},
-            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?", QuestionType = "f"},
-            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?", QuestionType = "f"}
+            new Question{Id=1,Description="What contributions have I made and what was the resulting difference?", QuestionType = "LOOKING BACK"},
+            new Question{Id=2,Description="Where could I have made a greater difference?", QuestionType = "LOOKING BACK"},
+            new Question{Id=3,Description="What am I going to do make more of a difference?", QuestionType = "LOOKING FORWARD"},
+            new Question{Id=4,Description="How will I learn and grow to make even more of a difference?", QuestionType = "DRIVING MY DEVELOPMENT"},
+            new Question{Id=5,Description="My career goals: How can I learn and grow to be the best I can be?", QuestionType = "IN A NUTSHELL"}
             };
             
             questions.ForEach(c => context.Questions.Add(c));            
@@ -41,14 +41,14 @@ namespace JsPlc.Ssc.Link.Repository
            
             var employees=new List<Employee>{
                 new Employee{Id=1, FirstName="Vasundhara", LastName="Chimakurthi", ColleagueId= "E001", ManagerId="E0010", EmailAddress="Vasundhara.B@sainsburys.co.uk"},
-                new Employee{Id=2, FirstName="Laxmi", LastName="Nagaraja", ColleagueId="E002", ManagerId="E009", EmailAddress="Laxmi.N@sainsburys.co.uk"},
-                new Employee{Id=3, FirstName="Tim", LastName="Morrison", ColleagueId="E003", ManagerId="E009", EmailAddress="Tim.M@sainsburys.co.uk"},
-                new Employee{Id=4, FirstName="Chris", LastName="Atkin", ColleagueId="E004", ManagerId="E009", EmailAddress="Chris.A@sainsburys.co.uk"},
-                new Employee{Id=5, FirstName="Luan", LastName="Au", ColleagueId="E005", ManagerId="E0010", EmailAddress="Luan.Au@sainsburys.co.uk"},
-                new Employee{Id=6, FirstName="Praveen", LastName="Kumar", ColleagueId="E006", ManagerId="E0010", EmailAddress="Praveen.K@sainsburys.co.uk"},
+                new Employee{Id=2, FirstName="Laxmi", LastName="Nagaraja", ColleagueId="E002", ManagerId="E0009", EmailAddress="Laxmi.N@sainsburys.co.uk"},
+                new Employee{Id=3, FirstName="Tim", LastName="Morrison", ColleagueId="E003", ManagerId="E0009", EmailAddress="Tim.M@sainsburys.co.uk"},
+                new Employee{Id=4, FirstName="Chris", LastName="Atkin", ColleagueId="E004", ManagerId="E0009", EmailAddress="Chris.A@sainsburys.co.uk"},
+                new Employee{Id=5, FirstName="Luan", LastName="Au", ColleagueId="E005", ManagerId="E0009", EmailAddress="Luan.Au@sainsburys.co.uk"},
+                new Employee{Id=6, FirstName="Praveen", LastName="Kumar", ColleagueId="E006", ManagerId="E0009", EmailAddress="Praveen.K@sainsburys.co.uk"},
                 new Employee{Id=7, FirstName="Steven", LastName="A", ColleagueId="E007", ManagerId="E0010", EmailAddress="Steven.A@sainsburys.co.uk"},
                 new Employee{Id=8, FirstName="Anis", LastName="Batilwala", ColleagueId="E008", ManagerId="E009", EmailAddress="Anis.B@sainsburys.co.uk"},
-                new Employee{Id=9, FirstName="Steven", LastName="Farkas", ColleagueId="E009", ManagerId="E0010", EmailAddress="steven.farkas@sainsburys.co.uk"},
+                new Employee{Id=9, FirstName="Steven", LastName="Farkas", ColleagueId="E0009", ManagerId="E010", EmailAddress="steven.farkas@sainsburys.co.uk"},
                 new Employee{Id=10, FirstName="Sandip", LastName="Vaidya", ColleagueId="E0010", ManagerId="E0011", EmailAddress="Sandip.V@sainsburys.co.uk"},
                 new Employee{Id=11, FirstName="Mike", LastName="Gwyer",  ColleagueId="E0011", ManagerId=string.Empty, EmailAddress="Mike.G@sainsburys.co.uk"},
                 new Employee{Id=12, FirstName="Ridley", LastName="Scott",  ColleagueId="E0012", ManagerId=string.Empty, EmailAddress="ridley.scott@sainsburys.co.uk"},

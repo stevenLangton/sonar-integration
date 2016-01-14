@@ -17,37 +17,42 @@
 </style>
 
 <div class="myPageContainer">
-    <h2>@ViewBag.Title</h2>
-    <div id="linkpage">
-        <!-- knockout binding to this -->
-        <div id="msgs"></div>
+    
+    <div id="linkpage"> 
+    <!-- knockout binding to this -->
+    <div id="msgs"></div>
+    <h2>@ViewBag.Title  <span data-bind="text: $root.dataModel().MeetingDate"></span></h2>
+       
         <form id="myform" method="post" data-bind="submit: saveLinkForm" xclass="form-group input-group-sm">
-            <ol class="breadcrumb">
-                <li class="active">
-                    <strong>Colleague: </strong><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span>
-                </li>
-                <li class="active">
-                    <strong>Manager: </strong><span data-bind="text: $root.dataModel().ManagerName + ' (' + $root.dataModel().ManagerId + ')'"></span>
-                </li>
-            </ol>
+            <div class="alert alert-info  progress-bar-striped">
+                <div class="col-xs-6 col-md-2"><img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130"> </div>
+                <div class="col-xs-12 col-md-10"><h2><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span></h2><hr /></div>
+                <br style="clear:both;">
+
+            </div>
 
             <!-- Columns are always 50% wide, on mobile and desktop -->
-            <div class="row" data-bind="with: dataModel, visible: dataAvailable">
+            <div data-bind="with: dataModel, visible: dataAvailable">
                 <!--Looking Back -->
-                <div class="col-md-6">
-                    <h3 class="linksection-heading">Looking Back</h3>
+            
+                    <h3 class="linksection-heading">LOOKING BACK</h3>
                     <!-- LinkForm data items here -->
                     <!-- QUESTIONS Loop around this -->
                     <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab">
+                        <div class="panel">
+
+                            <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+
+                            
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
-                                        <strong>Q.</strong><span data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                        Comments
                                     </a>
                                 </h4>
-                            </div>
-                            <div data-bind="attr:{id:'collapse1'+ $index()}, css:{in: $index() == 0}" class="panel-collapse collapse" role="tabpanel">
+                       
+
+                            <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body" style="padding:0">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -68,23 +73,25 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                
 
-                <!-- Looking Forward -->
-                <div class="col-md-6">
-                    <h3 class="linksection-heading">Looking Forward</h3>
-                    <!-- LinkForm data items here -->
+                    <!-- Looking Forward -->
+                    <h3 class="linksection-heading">LOOKING FORWARD</h3>
+
                     <!-- QUESTIONS Loop around this -->
                     <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab">
+                        <div class="panel">
+                         
+                                <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
-                                        <strong>Q.</strong><span data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></span>
+                                       Comments
                                     </a>
                                 </h4>
-                            </div>
-                            <div data-bind="attr:{id:'collapse2'+ $index()}, css:{in: $index() == 0}" class="panel-collapse collapse in" role="tabpanel">
+                            
+                            <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body" style="padding:0">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -106,7 +113,88 @@
                             </div>
                     </div>
                 </div>
-            </div>
+
+
+
+
+                <!--  DRIVING MY DEVELOPMENT -->
+                <h3 class="linksection-heading">DRIVING MY DEVELOPMENT</h3>
+
+                <!-- QUESTIONS Loop around this -->
+                <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true" data-bind="foreach: DrivingDevelopment">
+                    <div class="panel">
+
+                        <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion3" data-bind="attr:{href:'#collapse3'+ $index() }">
+                                Comments
+                            </a>
+                        </h4>
+
+                        <div data-bind="attr:{id:'collapse3'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body" style="padding:0">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-2 threeiconContainer">
+                                            <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                        </div>
+                                        <div class="col-xs-10 comments-container">
+                                            <span>Colleague Comment:</span><br />
+                                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'800', placeholder: $index()==2?'Enter colleague comments here (max 400 chars)':'Enter colleague comments here (max 800 chars)' }" rows="4"></textarea>
+                                            <br />
+                                            <span>Manager Comment:</span><br />
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'800', placeholder: $index()==2?'Enter manager comments here (max 400 chars)':'Enter manager comments here (max 800 chars)' }" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--  IN A IN A NUTSHELL -->
+                <h3 class="linksection-heading">N A IN A NUTSHELL</h3>
+                <!-- QUESTIONS Loop around this -->
+                <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true" data-bind="foreach: NUTSHELL">
+                    <div class="panel">
+
+                        <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion4" data-bind="attr:{href:'#collapse4'+ $index() }">
+                                Comments
+                            </a>
+                        </h4>
+
+                        <div data-bind="attr:{id:'collapse4'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                            <div class="panel-body" style="padding:0">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-2 threeiconContainer">
+                                            <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                        </div>
+                                        <div class="col-xs-10 comments-container">
+                                            <span>Colleague Comment:</span><br />
+                                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'800', placeholder: $index()==2?'Enter colleague comments here (max 400 chars)':'Enter colleague comments here (max 800 chars)' }" rows="4"></textarea>
+                                            <br />
+                                            <span>Manager Comment:</span><br />
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'800', placeholder: $index()==2?'Enter manager comments here (max 400 chars)':'Enter manager comments here (max 800 chars)' }" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
             </div>
 
             <div class="row">
