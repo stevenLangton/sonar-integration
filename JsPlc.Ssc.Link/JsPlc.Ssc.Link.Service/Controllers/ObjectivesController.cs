@@ -78,6 +78,22 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return CreatedAtRoute("NewObjective", new { id = newObjective.Id }, newObjective);
         }
 
+        [Route("colleagues/{colleagueId}/objectives/{objectiveId}")]
+        public HttpResponseMessage GetObjective(string colleagueId, int objectiveId)
+        {
+            Objectives item = _dbObjectives.GetObjective(objectiveId);
+
+            if (item == null)
+            {
+                var message = string.Format("No objective with id = {0} found", objectiveId);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, item);
+            }
+        }
+
         // DELETE: api/Objectives/5
         [ResponseType(typeof(Objectives))]
         public bool DeleteObjective(int id)
