@@ -266,6 +266,7 @@
     <Content Include="Content\ProfilePics\E007.jpg" />
     <Content Include="Content\ProfilePics\E008.jpg" />
     <Content Include="Content\ProfilePics\E009.jpg" />
+    <Content Include="Content\Sidebar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -414,6 +415,7 @@
     <Content Include="Views\Team\LinkMeetings.cshtml" />
     <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
     <Content Include="Views\Objective\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
