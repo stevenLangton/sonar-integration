@@ -16,7 +16,7 @@
     }
 }
 
-<div class="navbar navbar-inverse" id="mainTabs">
+<div class="navbar navbar-inverse navbar-fixed-top" id="mainTabs" role="navigation">
     <div class="container">
 
 
@@ -27,6 +27,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+         <!--<a class="navbar-brand" href="~/Home/Welcome"><img src="#" class="logo pull-left" alt="Link logo" title="Link logo" /></a>-->
             @*@Html.ActionLink("Link", "Welcome", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
         </div>
         <div class="navbar-collapse collapse">
@@ -36,7 +37,7 @@
                 </li>
                 @if (Request.IsAuthenticated)
                 {
-                    
+
                     <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
                         @Html.ActionLink("My Link Report", "LinkReport", "Home")
                     </li>
@@ -48,7 +49,7 @@
                         <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
                             @Html.ActionLink("My Team", "Index", "Team")
                         </li>
-                     }
+                    }
                 }
                 <li role="presentation" class="@(tabName == "contact" ? "active" : "") tab-heading">
                     @Html.ActionLink("Contact", "Contact", "Home")
@@ -58,3 +59,4 @@
         </div>
     </div>
 </div>
+
