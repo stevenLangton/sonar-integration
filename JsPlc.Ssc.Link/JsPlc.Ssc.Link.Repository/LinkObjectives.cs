@@ -52,7 +52,7 @@ namespace JsPlc.Ssc.Link.Repository
                 _db.SaveChanges();
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }

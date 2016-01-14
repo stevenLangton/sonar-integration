@@ -55,7 +55,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
         // POST/Insert: api/Objectives
         [ResponseType(typeof(ObjectiveAdd))]
-        [Route("colleague/{colleagueId}/{objective}")]
+        [Route("colleagues/{colleagueId}/objectives", Name="NewObjective")]
         public IHttpActionResult PostObjective(ObjectiveAdd objective, string colleagueId)
         {
             int UserId = _db.appUserID(colleagueId);
@@ -64,6 +64,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
             newObjective.EmployeeId = UserId;
             newObjective.Objective = objective.Objective;
+            newObjective.CreatedDate = DateTime.Now.Date;
             newObjective.LastAmendedDate = DateTime.Now.Date;
             newObjective.LastAmendedBy = _db.appUserID(objective.LastAmendedByColleagueId);
 
@@ -74,7 +75,23 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
             _dbObjectives.InsertObjective(newObjective);
 
-            return CreatedAtRoute("DefaultApi", new { id = newObjective.Id }, objective);
+            return CreatedAtRoute("NewObjective", new { id = newObjective.Id }, newObjective);
+        }
+
+        [Route("colleagues/{colleagueId}/objectives/{objectiveId}")]
+        public HttpResponseMessage GetObjective(string colleagueId, int objectiveId)
+        {
+            Objectives item = _dbObjectives.GetObjective(objectiveId);
+
+            if (item == null)
+            {
+                var message = string.Format("No objective with id = {0} found", objectiveId);
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, item);
+            }
         }
 
         // DELETE: api/Objectives/5
