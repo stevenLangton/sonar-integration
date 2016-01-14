@@ -40,8 +40,11 @@
                     <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
                         @Html.ActionLink("My Link Report", "LinkReport", "Home")
                     </li>
-                    if (currentUser!= null && currentUser.IsLineManager)//.Identity.Name.ToLower().Contains("sandip"))
-                     {
+                    <li role="presentation" class="@(tabName == "objective" ? "active" : "") tab-heading">
+                        @Html.ActionLink("My Objectives", "Index", "Objective")
+                    </li>
+                    if (currentUser != null && currentUser.IsLineManager)
+                    {
                         <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
                             @Html.ActionLink("My Team", "Index", "Team")
                         </li>

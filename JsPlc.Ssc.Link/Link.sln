@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj", "{A5A6F815-7A8D-463F-9F01-E2610E533A4B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,6 +13,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{9FEB778D-8E8F-4B83-9D00-6E9D2CF25AEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Repository", "JsPlc.Ssc.Link.Repository\JsPlc.Ssc.Link.Repository.csproj", "{B995B495-D846-4EB5-80FB-B55B71028B94}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E71294B-3F45-48F1-A37F-737FB5F22F38} = {5E71294B-3F45-48F1-A37F-737FB5F22F38}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{AF9C31F9-6DCE-4FE3-B3EF-9DA495FAF663}"
 EndProject

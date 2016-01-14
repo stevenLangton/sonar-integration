@@ -36,7 +36,9 @@ require.config({
         "LinkService": "App/Services/LinkService",
 
         //View scripts
-        "LinkFormCreate": "App/ViewScripts/LinkFormCreate"
+        "LinkFormCreate": "App/ViewScripts/LinkFormCreate",
+        "LinkMeetings": "App/ViewScripts/LinkMeetings",
+        "Objectives": "App/ViewScripts/Objectives"
 
     },
     shim: {
