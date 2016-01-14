@@ -18,18 +18,17 @@ namespace JsPlc.Ssc.Link.Models
         [Required]
         public int  ManagerId { get; set; } 
       
-        [Required]
         public ObjectiveStatus ColleagueSignOff { get; set; }
 
-        [Required]
         public ObjectiveStatus ManagerSignOff { get; set; }
 
-        [Required]
         public DateTime CreatedDate { get; set; }
 
         public DateTime? SignOffDate { get; set; }
+
         [Required]        
         public DateTime LastAmendedDate { get; set; }
+
         [Required]
         public int LastAmendedBy { get; set; }
 

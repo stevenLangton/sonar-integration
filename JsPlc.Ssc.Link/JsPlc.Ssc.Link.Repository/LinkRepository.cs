@@ -20,6 +20,12 @@ namespace JsPlc.Ssc.Link.Repository
             //return _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(emailAddres,StringComparison.OrdinalIgnoreCase));
             return _db.Employees.FirstOrDefault(e =>e.EmailAddress.ToLower().Equals(emailAddres.ToLower()));
         }
+
+        public int appUserID(string StaffHrId)
+        {
+            //return _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(emailAddres,StringComparison.OrdinalIgnoreCase));
+            return _db.Employees.FirstOrDefault(e => e.ColleagueId.ToLower().Equals(StaffHrId.ToLower())).Id;
+        }
         
         //check where login user is manager or not
         public bool IsManager(string userName)

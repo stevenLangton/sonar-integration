@@ -9,6 +9,8 @@ namespace JsPlc.Ssc.Link.Interfaces
 
         bool IsManager(string userName);
 
+        int appUserID(string StaffHrId);
+
         void Dispose();
     }
 }
