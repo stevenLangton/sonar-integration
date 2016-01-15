@@ -83,7 +83,7 @@
                         <div class="panel">
                          
                                 <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+                                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed"/></div>
 
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">

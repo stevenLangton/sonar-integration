@@ -94,37 +94,27 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (promise) {
-            //$.ajax({
-            //    url: common.getSiteRoot() + "LinkForm/GetLinkForm/?" + "colleagueId" + "=" + colleagueId, // Hardcoded Meeting GET for now...
-            //    method: "GET"
-            //})
-                promise.done(function (data, textStatus, jqXhr) {
-                    if (data == "Error") {
-                        $('#msgs').html("Error - no data");
-                        self.dataAvailable(false);
-                    }
-                    else {
-                        // $('#msgs').html("Fetch success");
-
-                        buildViewModels(data);
-                        self.dataAvailable(true);
-                        self.bind();
-                    }
-                })
-                .fail(function () {
+            promise.done(function (data, textStatus, jqXhr) {
+                if (data == "Error") {
+                    $('#msgs').html("Error - no data");
                     self.dataAvailable(false);
-                    $('#msgs').html("Error occured");
-
-                    // if cannot load LinkMeeting for the given period
-                });
+                }
+                else {
+                    buildViewModels(data);
+                    self.dataAvailable(true);
+                    self.bind();
+                }
+            })
+            .fail(function () {
+                self.dataAvailable(false);
+                $('#msgs').html("Error occured");
+            });
         }
 
         // ### POST LinkForm data back to server.
         self.saveLinkForm = function () {
-            console.log("Form data:" + $('#myform').serialize());
-            console.log("Form data(json):" + ko.toJSON(self.dataModel));
-            console.log("Self.DataModel:" + self.dataModel());
-            // copy all LookingFwdQuestions and LookingBackQuestions to Questions Array
+            moment.locale("en-gb");
+
             var data = self.dataModel();
 
             // Manage bool binding to MeetingStatus.
@@ -134,13 +124,16 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             data.ColleagueSignOff = (data.ColleagueSignOff == 0 || data.ColleagueSignOff == false) ? "InComplete" : "Completed";
             data.ManagerSignOff = (data.ManagerSignOff == 0 || data.ManagerSignOff == false) ? "InComplete" : "Completed";
 
-            debugger;
-            console.log("Postback meetingDate :" + data.MeetingDate);
-            debugger;
-            var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
-            var yyyymmdd = ukDate.toISOString();
-            console.log("Proposed postback meetingDate (yyyy-mm-ddThh:mm:ss.xxxZ):" + yyyymmdd);
-            data.MeetingDate = yyyymmdd;
+            //var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
+            //var yyyymmdd = ukDate.toISOString();
+            //console.log("Proposed postback meetingDate (yyyy-mm-ddThh:mm:ss.xxxZ):" + yyyymmdd);
+            //data.MeetingDate = yyyymmdd;
+
+            if (moment(data.MeetingDate, common.uiDateFormat).isValid()) {
+                data.MeetingDate = moment(data.MeetingDate, common.uiDateFormat).format("YYYY-MM-DD");
+            } else if (moment(data.MeetingDate, "YYYY-MM-DD").isValid()===false) {
+                data.MeetingDate = "";
+            }
 
             data.Questions = [];
             ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {
