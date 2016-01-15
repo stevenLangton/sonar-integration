@@ -199,22 +199,50 @@ namespace JsPlc.Ssc.Link.Repository
                 _db.SaveChanges();
             }
 
-            foreach (var answer in view.Questions.Select(question => question.AnswerId != null ? new Answer
+            //foreach (var answer in view.Questions.Select(question => question.AnswerId != null ? new Answer
+            //{
+            //    Id = (int)question.AnswerId,
+            //    QuestionId = question.QuestionId,
+            //    ColleagueComments = question.ColleagueComment,
+            //    ManagerComments = question.ManagerComment,
+            //    LinkMeetingId = view.MeetingId,
+            //    Discussed = question.Discussed
+            //} : null))
+            //{
+            //    if (answer != null)
+            //    {
+            //        _db.Answers.AddOrUpdate(answer);
+            //        _db.SaveChanges();
+            //    }
+            //}
+
+            //Update questions if modified
+            foreach (var question in view.Questions)
             {
-                Id = (int)question.AnswerId,
-                QuestionId = question.QuestionId,
-                ColleagueComments = question.ColleagueComment,
-                ManagerComments = question.ManagerComment,
-                LinkMeetingId = view.MeetingId,
-                Discussed = question.Discussed
-            } : null))
-            {
-                if (answer != null)
+                if (question.Discussed != null || !String.IsNullOrEmpty(question.ManagerComment) || !String.IsNullOrEmpty(question.ColleagueComment))
                 {
-                    _db.Answers.AddOrUpdate(answer);
-                    _db.SaveChanges();
+                    var answer = new Answer();
+                        answer.QuestionId = question.QuestionId;
+                        answer.ColleagueComments = question.ColleagueComment??"";
+                        answer.ManagerComments = question.ManagerComment??"";
+                        answer.LinkMeetingId = view.MeetingId;
+                        answer.Discussed = question.Discussed.HasValue ? question.Discussed.Value : false;
+
+                        if (question.AnswerId == null)
+                        {
+                            _db.Answers.Add(answer);
+                        }
+                        else
+                        {
+                            answer.Id = (int)question.AnswerId;
+                            _db.Answers.AddOrUpdate(answer);
+
+                        }
                 }
             }
+
+            _db.SaveChanges();
+
         }
 
         // employees and their meeting history of a manager

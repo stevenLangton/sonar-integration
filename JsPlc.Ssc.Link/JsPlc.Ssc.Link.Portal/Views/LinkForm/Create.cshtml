@@ -42,7 +42,7 @@
                         <div class="panel">
 
                             <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+                            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
 
                             
                                 <h4 class="panel-title">
@@ -125,7 +125,7 @@
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
 
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion3" data-bind="attr:{href:'#collapse3'+ $index() }">
@@ -164,7 +164,7 @@
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" /></div>
+                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
 
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion4" data-bind="attr:{href:'#collapse4'+ $index() }">
