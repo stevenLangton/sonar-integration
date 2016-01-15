@@ -100,7 +100,8 @@ namespace JsPlc.Ssc.Link.Repository
                                QuestionType = q.QuestionType,
                                AnswerId = a.Id,
                                ColleagueComment = a.ColleagueComments,
-                               ManagerComment = a.ManagerComments
+                               ManagerComment = a.ManagerComments,
+                               Discussed = a.Discussed
                            };
 
             if (meeting != null)
@@ -167,7 +168,8 @@ namespace JsPlc.Ssc.Link.Repository
                 ColleagueComments = answer.ColleagueComment,
                 ManagerComments = answer.ManagerComment,
                 QuestionId = answer.QuestionId,
-                LinkMeetingId = result.Id
+                LinkMeetingId = result.Id,
+                Discussed = answer.Discussed
             }))
             {
                 _db.Answers.Add(answer);
@@ -203,7 +205,8 @@ namespace JsPlc.Ssc.Link.Repository
                 QuestionId = question.QuestionId,
                 ColleagueComments = question.ColleagueComment,
                 ManagerComments = question.ManagerComment,
-                LinkMeetingId = view.MeetingId
+                LinkMeetingId = view.MeetingId,
+                Discussed = question.Discussed
             } : null))
             {
                 if (answer != null)

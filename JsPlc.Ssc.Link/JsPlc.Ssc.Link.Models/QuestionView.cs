@@ -17,5 +17,7 @@ namespace JsPlc.Ssc.Link.Models
 
        [StringLength(maximumLength: 5000, ErrorMessage = "Manager comment cannot be more than 5000 chars.")]
        public string ManagerComment { get; set; }
+
+       public bool? Discussed { get; set; }
     }
 }
