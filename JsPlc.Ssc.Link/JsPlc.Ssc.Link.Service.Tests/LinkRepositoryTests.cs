@@ -13,7 +13,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void GetQuestions()
         {
-            var result = _repository.GetQuestions();
+            var result = _meeting.GetQuestions();
             Assert.IsNotNull(result);
             Assert.AreEqual(5, result.Count(), "Wrong number of questions");
         }
@@ -21,7 +21,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void GetMeeting()
         {
-            var result = _repository.GetMeeting(1);
+            var result = _meeting.GetMeeting(1);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result,typeof(MeetingView),"Not expected type");
         }
@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void CreateMeeting()
         {
-            var result = _repository.CreateMeeting("E001");
+            var result = _meeting.CreateMeeting("E001");
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(MeetingView), "Not expected type");
         }
@@ -58,7 +58,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
                    }
             };
 
-            int meetingId = _repository.SaveMeeting(meeting);
+            int meetingId = _meeting.SaveMeeting(meeting);
             Assert.AreEqual(meetingId,5,"Invalid number of meetings");
         }
 
@@ -86,7 +86,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
                    }
             };
 
-            _repository.UpdateMeeting(meeting);
+            _meeting.UpdateMeeting(meeting);
             //var meeting = _repository.GetMeeting(1);
 
             //Assert.AreEqual(meeting.co);
@@ -96,7 +96,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         public void GetEmployee()
         {
 
-            var result = _repository.CreateMeeting("E001");
+            var result = _meeting.CreateMeeting("E001");
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(MeetingView), "Not expected type");
         }
@@ -105,7 +105,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         public void GetMeetings()
         {
 
-            var result = _repository.GetMeetings("E001");
+            var result = _meeting.GetMeetings("E001");
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(TeamView), "Not meetings found");
         }
@@ -123,7 +123,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void GetTeam()
         {
-            var result = _repository.GetTeam("E0010");
+            var result = _meeting.GetTeam("E0010");
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<TeamView>), "Not meetings found");
         }

@@ -15,6 +15,8 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
         public EmployeesController(ILinkRepository repository) : base(repository) { }
 
+        public EmployeesController(IMeeting repository) : base(repository) { }
+
         [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
         public IHttpActionResult GetMyDetails([FromUri]string emailAddress)
         {

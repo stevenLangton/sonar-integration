@@ -20,7 +20,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         [TestMethod]
         public void GetMyMeetings()
         {
-            var controller=new EmployeesController(Repository);
+            var controller = new EmployeesController();
             var result = controller.GetMyMeetings("E001") as OkNegotiatedContentResult<TeamView>;
             Assert.IsNotNull(result,"failed as  no meetigns found");
         }
@@ -39,7 +39,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         [TestMethod]
         public void GetMyTeam()
         {
-            var controller = new EmployeesController(Repository);
+            var controller = new EmployeesController(Meeting);
             var result = controller.GetMyTeam("E0010") as OkNegotiatedContentResult<IList<TeamView>>;
             Assert.IsNotNull(result,"No team members found");
         }

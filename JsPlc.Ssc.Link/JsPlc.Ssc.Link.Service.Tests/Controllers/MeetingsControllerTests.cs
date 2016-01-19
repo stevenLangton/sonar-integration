@@ -42,11 +42,11 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
                    MeetingDate =DateTime.Now,
                    Questions = new List<QuestionView>()
                    {
-                       new QuestionView(){ QuestionId  = 1, QuestionType = "b", Question = "Test1", AnswerId = 1, ColleagueComment = "testing1", ManagerComment = "testing1"},
-                       new QuestionView(){ QuestionId  = 2, QuestionType = "b", Question = "Test2", AnswerId = 2, ColleagueComment = "testing2", ManagerComment = "testing2"},
-                       new QuestionView(){ QuestionId  = 3, QuestionType = "f", Question = "Test3", AnswerId = 3, ColleagueComment = "testing3", ManagerComment = "testing3"},
-                       new QuestionView(){ QuestionId  = 4, QuestionType = "f", Question = "Test4", AnswerId = 4, ColleagueComment = "testing4", ManagerComment = ""},
-                       new QuestionView(){ QuestionId  = 5, QuestionType = "f", Question = "Test5", AnswerId = 5, ColleagueComment = "", ManagerComment = ""}
+                       new QuestionView(){ QuestionId  = 1, QuestionType = "LOOKING BACK", Question = "Test1", AnswerId = 1, ColleagueComment = "testing1", ManagerComment = "testing1"},
+                       new QuestionView(){ QuestionId  = 2, QuestionType = "LOOKING BACK", Question = "Test2", AnswerId = 2, ColleagueComment = "testing2", ManagerComment = "testing2"},
+                       new QuestionView(){ QuestionId  = 3, QuestionType = "LOOKING FORWARD", Question = "Test3", AnswerId = 3, ColleagueComment = "testing3", ManagerComment = "testing3"},
+                       new QuestionView(){ QuestionId  = 4, QuestionType = "DRIVING MY DEVELOPMENT", Question = "Test4", AnswerId = 4, ColleagueComment = "testing4", ManagerComment = ""},
+                       new QuestionView(){ QuestionId  = 5, QuestionType = "IN A NUTSHELL", Question = "Test5", AnswerId = 5, ColleagueComment = "", ManagerComment = ""}
                    }
             };
 

@@ -12,7 +12,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         [TestMethod]
         public void GetQuestions()
         {
-            var controller= new QuestionsController(Repository);
+            var controller = new QuestionsController();
             var response = controller.GetQuestions() as OkNegotiatedContentResult<IEnumerable<Question>>;
             Assert.IsNotNull(response);
         }
