@@ -32,7 +32,11 @@ namespace JsPlc.Ssc.Link.Models
         [Required]
         public int LastAmendedBy { get; set; }
 
-        public string Objective { get; set; } 
+        public string Objective { get; set; }
+
+        public string MeasuredBy { get; set; }
+        
+        public string RelevantTo { get; set; } 
     }
 
     public enum ObjectiveStatus

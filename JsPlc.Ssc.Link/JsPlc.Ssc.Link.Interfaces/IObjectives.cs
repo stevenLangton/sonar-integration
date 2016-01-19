@@ -16,6 +16,8 @@ namespace JsPlc.Ssc.Link.Interfaces
         bool DeleteObjective(int id);
 
         IEnumerable<Objectives> GetListOfObjectives(int userId, DateTime year);
+
+        IEnumerable<Objectives> GetAllObjectives(int userId);
         
         void Dispose();
         

@@ -1,6 +1,6 @@
 ﻿using Effort;
+using JsPlc.Ssc.Link.Interfaces;
 using JsPlc.Ssc.Link.Repository;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JsPlc.Ssc.Link.Service.Tests

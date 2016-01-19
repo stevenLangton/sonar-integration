@@ -48,6 +48,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="JsPlc.Ssc.Link.Interfaces">
+      <HintPath>..\JsPlc.Ssc.Link.Interfaces\bin\Debug\JsPlc.Ssc.Link.Interfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="NMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a46696d54971e6d, processorArchitecture=MSIL">
@@ -111,6 +114,7 @@
     <Compile Include="ContextSetup.cs" />
     <Compile Include="Controllers\EmployeesControllerTest.cs" />
     <Compile Include="Controllers\MeetingsControllerTests.cs" />
+    <Compile Include="Controllers\ObjectivesControllerTests.cs" />
     <Compile Include="Controllers\QuestionsControllerTests.cs" />
     <Compile Include="LinkRepositoryTests.cs" />
     <Compile Include="RepositoryMock.cs" />
