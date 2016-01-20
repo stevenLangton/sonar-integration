@@ -16,7 +16,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>7907</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -312,7 +313,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Project_Readme.html" />
+    <None Include="Index.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj">

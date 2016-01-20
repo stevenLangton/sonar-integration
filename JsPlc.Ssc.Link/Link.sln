@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{AF9C31F9-6DCE-4FE3-B3EF-9DA495FAF663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Service", "JsPlc.Ssc.Link.Service\JsPlc.Ssc.Link.Service.csproj", "{B3FC18AA-C34C-4F58-B8AB-36907A6C1C73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD} = {3CBDB199-BF2E-4DAF-B182-DE38B19ADADD}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{551CB1B4-E458-451B-914E-94CABB5F91DB}"
 EndProject
