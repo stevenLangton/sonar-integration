@@ -17,6 +17,8 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
 
         IEnumerable<Objectives> GetListOfObjectives(int userId, DateTime year);
         
+        IEnumerable<Objectives> GetAllObjectives(int userId);
+        
         void Dispose();
         
     }

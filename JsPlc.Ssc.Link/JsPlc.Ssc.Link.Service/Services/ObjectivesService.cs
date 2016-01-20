@@ -80,6 +80,16 @@ namespace JsPlc.Ssc.Link.Service.Services
             return _db.Objectives.Where(e => e.EmployeeId == userId && e.CreatedDate.Year == year.Year);
         }
 
+        /// <summary>
+        /// Get all objectives for a colleague
+        /// </summary>
+        /// <param name="userId">The internal db id of a colleague (not the real life HR Colleague Id) </param>
+        /// <returns>A list of objectives</returns>
+        public IEnumerable<Objectives> GetAllObjectives(int userId)
+        {
+            return _db.Objectives.Where(e => e.EmployeeId == userId);
+        }
+
         public void Dispose()
         {
             _db.Dispose();

@@ -79,6 +79,29 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return CreatedAtRoute("NewObjective", new { id = newObjective.Id }, newObjective);
         }
 
+        /// <summary>
+        /// Return all objectives for a colleague
+        /// </summary>
+        /// <param name="colleagueId">The real life colleague id of a sainsburys employee</param>
+        /// <returns>List of Objectives objects</returns>
+        [Route("colleagues/{colleagueId}/objectives")]
+        public IHttpActionResult GetAllObjectives(string colleagueId)
+        {
+            int UserId = _db.AppUserId(colleagueId);
+
+            List<Objectives> ObjectivesList = _dbObjectives.GetAllObjectives(UserId).ToList<Objectives>();
+
+            return Ok(ObjectivesList);
+        }
+
+        // GET: api/GetListOfObjectives
+        [HttpGet]
+        public IHttpActionResult GetListOfObjectives(int userId, DateTime year)
+        {
+            var objectivesList = _dbObjectives.GetListOfObjectives(userId, year);
+            return Ok(objectivesList);
+        }
+
         [Route("colleagues/{colleagueId}/objectives/{objectiveId}")]
         public HttpResponseMessage GetObjective(string colleagueId, int objectiveId)
         {
@@ -109,13 +132,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             } 
         }
 
-        // GET: api/GetListOfObjectives
-        [HttpGet] 
-        public IHttpActionResult GetListOfObjectives(int userId, DateTime year)
-        {
-            var objectivesList = _dbObjectives.GetListOfObjectives(userId, year);
-            return Ok(objectivesList);
-        }
+
 
 
     }

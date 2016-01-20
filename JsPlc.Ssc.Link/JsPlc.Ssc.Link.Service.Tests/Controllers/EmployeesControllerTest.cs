@@ -41,7 +41,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         {
             var controller = new EmployeesController(Meeting);
             var result = controller.GetMyTeam("E0010") as OkNegotiatedContentResult<IList<TeamView>>;
-            Assert.IsNotNull(result,"No team members found");
+            Assert.IsNotNull(result, "No team members found");
         }
     }
 }

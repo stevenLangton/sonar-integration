@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Repository
             users.ForEach(c=>context.LinkUsers.Add(c));
             context.SaveChanges();
 
-            var periods = new List<Period>{
+         var periods = new List<Period>{
                 new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
                 new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
                 new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},
@@ -77,9 +77,9 @@ namespace JsPlc.Ssc.Link.Repository
             //    new Employee{Id=16, FirstName="Malcolm", LastName="Reynolds",  ColleagueId="E0016", ManagerId="E0013", EmailAddress="malcolm.reynolds@sainsburys.co.uk"},
             //    new Employee{Id=17, FirstName="Zoe", LastName="Washburne",  ColleagueId="E0017", ManagerId="E0013", EmailAddress="zoe.washburne@sainsburys.co.uk"},
             //    new Employee{Id=18, FirstName="Chris", LastName="Mullaney",  ColleagueId="E0018", ManagerId="E0013", EmailAddress="Chris.Mullaney@sainsburys.co.uk"},
-
+           
             //};
-
+         
             //employees.ForEach(c=>context.Employees.Add(c));
             //context.SaveChanges();
 
@@ -158,11 +158,11 @@ namespace JsPlc.Ssc.Link.Repository
 
 
             var objectives = new List<Objectives> { 
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444"},
-            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555"},
+            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111", Title="Be superman"},
+            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222", Title="All comes from one, one comes from where?"},
+            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333", Title="Good and bad is a disease of the mine - Trang Tu"},
+            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444", Title="Show me your mind"},
+            new Objectives{Id=1,EmployeeId=9,ManagerId=10,ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy=9,LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555",Title="Live happily"},
             };
 
             objectives.ForEach(c => context.Objectives.Add(c));
