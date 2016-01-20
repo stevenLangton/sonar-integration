@@ -24,7 +24,13 @@ namespace JsPlc.Ssc.Link.Repository
         public int appUserID(string StaffHrId)
         {
             //return _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(emailAddres,StringComparison.OrdinalIgnoreCase));
-            return _db.Employees.FirstOrDefault(e => e.ColleagueId.ToLower().Equals(StaffHrId.ToLower())).Id;
+            
+            var emp =  _db.Employees.FirstOrDefault(e => e.ColleagueId.ToLower().Equals(StaffHrId.ToLower()));
+
+            if (emp != null)
+                return emp.Id;
+            else
+                return 0; //Not found
         }
         
         //check where login user is manager or not

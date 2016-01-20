@@ -28,13 +28,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             Uri redirectUri = new Uri(postLogoutRedirectUri);
             Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext authContext = new AuthenticationContext(Authority);
 
-            AuthenticationResult authResult = authContext.AcquireToken(LinkApiResourceId, clientId, redirectUri);
-
-            object jsonData;
+            //AuthenticationResult authResult = authContext.AcquireToken(LinkApiResourceId, clientId, redirectUri);
 
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
-            HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "api/colleagues/" + ColleagueId + "/colleagues");
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
+            HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "/colleagues/" + ColleagueId + "/objectives");
 
             var ObjectivesList = await response.Content.ReadAsAsync<List<Objectives>>();
 
@@ -43,6 +41,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = ObjectivesList
             };
+
             return jsonResult;
         }
     }
