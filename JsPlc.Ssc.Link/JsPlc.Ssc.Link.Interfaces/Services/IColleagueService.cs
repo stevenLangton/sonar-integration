@@ -13,6 +13,10 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
 
         List<ColleagueView> GetDirectReportsByManagerEmail(string emailAddress);
 
+        bool IsManager(string colleagueId);
+
+        bool IsManagerByEmail(string email);
+
         void Dispose();
     }
 }

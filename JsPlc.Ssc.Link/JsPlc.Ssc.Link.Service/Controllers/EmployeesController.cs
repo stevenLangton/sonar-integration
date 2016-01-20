@@ -21,7 +21,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
         public IHttpActionResult GetMyDetails([FromUri]string emailAddress)
         {
-            var employee = _db.GetColleague(emailAddress);
+            var employee = _dbColleagues.GetColleague(emailAddress);
 
              if(employee==null)
                 return NotFound();
@@ -42,16 +42,16 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         }
 
         [HttpGet] // api/employees/?username=vasundhara.b@sainsburys.co.uk
-        public bool IsManager([FromUri]string userName)
+        public bool IsManager([FromUri]string email)
         {
-            return _db.IsManager(userName);
+            return _dbColleagues.IsManagerByEmail(email);
         }
 
         [HttpGet]
         [Route("myteam/{managerId}")] // myteam/E0010
         public IHttpActionResult GetMyTeam(string managerId)
         {
-            var employees = _dbMeeting.GetTeam(managerId);
+            IEnumerable<TeamView> employees = _dbMeeting.GetTeam(managerId);
 
             var teamViews = employees as IList<TeamView> ?? employees.ToList();
 

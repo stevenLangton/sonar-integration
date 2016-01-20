@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Globalization;
 using System.Linq;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
@@ -12,17 +13,18 @@ namespace JsPlc.Ssc.Link.Service.Services
     public class MeetingService : IMeetingService
     {
         private readonly RepositoryContext _db;
-        private readonly ServiceFacade _svc;
+        private readonly IColleagueService _svc;
 
         public MeetingService() { }
 
         public MeetingService(RepositoryContext context) { _db = context; }
 
-        public MeetingService(RepositoryContext context, ServiceFacade svc) { 
+        public MeetingService(RepositoryContext context, IColleagueService svc)
+        { 
             _db = context;
             _svc = svc;
         }
-        public MeetingService(ServiceFacade svc) { _svc = svc; }
+        public MeetingService(IColleagueService svc) { _svc = svc; }
 
         public IEnumerable<Question> GetQuestions()
         {
@@ -50,7 +52,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                                 LastName = cv.LastName,
                                 Meetings = (from m in _db.Meeting
                                             orderby m.MeetingDate descending
-                                            where m.EmployeeId == e.Id
+                                            where m.EmployeeId.Equals(e.Id.ToString(CultureInfo.InvariantCulture))
                                             select new LinkMeetingView
                                             {
                                                 MeetingId = m.Id,
@@ -61,20 +63,24 @@ namespace JsPlc.Ssc.Link.Service.Services
                                 EmailAddress = e.EmailAddress
                             }).FirstOrDefault();
 
-            foreach (var meeting in myReport.Meetings)
+            if (myReport != null)
             {
-                var mDate = meeting.MeetingDate;
+                foreach (var meeting in myReport.Meetings)
+                {
+                    var mDate = meeting.MeetingDate;
 
-                var period = (from p in _db.Periods
-                              where mDate >= p.Start && mDate <= p.End
-                              select p).FirstOrDefault();
+                    var period = (from p in _db.Periods
+                        where mDate >= p.Start && mDate <= p.End
+                        select p).FirstOrDefault();
 
-                if (period == null) continue; // should not occur since each meeting should fall within a period
+                    if (period == null) continue; // should not occur since each meeting should fall within a period
 
-                meeting.Period = period.Description;
-                meeting.Year = period.Year;
+                    meeting.Period = period.Description;
+                    meeting.Year = period.Year;
+                }
+                return myReport;
             }
-            return myReport;
+            return null;
         }
 
         // view particular meeting
@@ -224,7 +230,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                         answer.ColleagueComments = question.ColleagueComment??"";
                         answer.ManagerComments = question.ManagerComment??"";
                         answer.LinkMeetingId = view.MeetingId;
-                        answer.Discussed = question.Discussed.HasValue ? question.Discussed.Value : false;
+                        answer.Discussed = question.Discussed.HasValue && question.Discussed.Value;
 
                         if (question.AnswerId == null)
                         {

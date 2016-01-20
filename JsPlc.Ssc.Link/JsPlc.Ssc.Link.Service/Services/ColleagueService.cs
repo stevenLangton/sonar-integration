@@ -48,6 +48,20 @@ namespace JsPlc.Ssc.Link.Service.Services
             return coll.ToList();
         }
 
+        bool IColleagueService.IsManager(string colleagueId)
+        {
+            IEnumerable<ColleagueView> coll = _svc.GetDirectReports(colleagueId);
+
+            return coll.Any();
+        }
+
+        bool IColleagueService.IsManagerByEmail(string email)
+        {
+            IEnumerable<ColleagueView> coll = _svc.GetDirectReportsByManagerEmail(email);
+
+            return coll.Any();
+        }
+
         void IColleagueService.Dispose()
         {
             _svc.Dispose();

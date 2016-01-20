@@ -11,7 +11,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         public string  ManagerId { get; set; } 
       

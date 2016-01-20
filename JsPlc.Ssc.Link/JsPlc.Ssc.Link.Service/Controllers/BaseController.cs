@@ -36,6 +36,11 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbObjectives = repoObjectives;
         }
 
+        public BaseController(IColleagueService repoColleagues)
+        {
+            _dbColleagues = repoColleagues;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
