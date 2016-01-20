@@ -21,7 +21,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
         protected static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
-        public static UserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
+        public static LinkUserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
             if (Request.IsAuthenticated)
             {
-                CurrentUser = new UserView();
+                CurrentUser = new LinkUserView();
 
                 using (var facade = new LinkServiceFacade())
                 {

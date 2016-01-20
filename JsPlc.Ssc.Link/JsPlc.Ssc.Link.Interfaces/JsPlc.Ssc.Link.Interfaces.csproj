@@ -49,9 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ILinkRepository.cs" />
-    <Compile Include="IMeeting.cs" />
-    <Compile Include="IObjectives.cs" />
-    <Compile Include="IPersonalDevelopmentPlan.cs" />
+    <Compile Include="Services\IColleagueService.cs" />
+    <Compile Include="Services\IMeetingService.cs" />
+    <Compile Include="Services\IObjectivesService.cs" />
+    <Compile Include="Services\IPdpService.cs" />
     <Compile Include="IRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

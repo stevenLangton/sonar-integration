@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Interfaces;
@@ -15,12 +16,12 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
         public EmployeesController(ILinkRepository repository) : base(repository) { }
 
-        public EmployeesController(IMeeting repository) : base(repository) { }
+        public EmployeesController(IMeetingService repository) : base(repository) { }
 
         [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
         public IHttpActionResult GetMyDetails([FromUri]string emailAddress)
         {
-            var employee = _db.GetEmployee(emailAddress);
+            var employee = _db.GetColleague(emailAddress);
 
              if(employee==null)
                 return NotFound();

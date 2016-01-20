@@ -1,4 +1,5 @@
 ﻿using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;

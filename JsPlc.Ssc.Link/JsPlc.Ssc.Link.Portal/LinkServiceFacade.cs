@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
+using JsPlc.Ssc.Link.Portal.Models;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -58,12 +59,12 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
         }
 
-        public EmployeeView GetColleagueByUsername(string username)
+        public ColleagueView GetColleagueByUsername(string username)
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?EmailAddress=" + username).Result;
-            var employee = response.Content.ReadAsAsync<Employee>().Result;
+            var employee = response.Content.ReadAsAsync<ColleagueView>().Result;
 
-            return response.IsSuccessStatusCode ? employee.ToEmployeeView() : null;
+            return response.IsSuccessStatusCode ? employee.ToColleagueView() : null;
         }
 
         public IEnumerable<TeamView> GetTeamView(string managerId)

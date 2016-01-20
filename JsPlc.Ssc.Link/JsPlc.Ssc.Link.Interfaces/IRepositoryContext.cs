@@ -1,20 +1,21 @@
 ﻿using System.Data.Entity;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Interfaces
 {
     public interface IRepositoryContext
     {
-        IDbSet<Models.Question> Questions { get; }
+        IDbSet<Question> Questions { get; }
 
-        IDbSet<Models.Answer> Answers { get; }
+        IDbSet<Answer> Answers { get; }
 
-        IDbSet<Models.Employee> Employees { get; }
+        //IDbSet<Models.Employee> Employees { get; }
 
-        IDbSet<Models.Period> Periods { get; }
+        IDbSet<Period> Periods { get; }
 
-        IDbSet<Models.LinkMeeting> Meeting { get; set; }
+        IDbSet<LinkMeeting> Meeting { get; set; }
 
-        IDbSet<Models.Objectives> Objectives { get; set; }
+        IDbSet<Objectives> Objectives { get; set; }
     }
 }

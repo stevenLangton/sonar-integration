@@ -3,22 +3,27 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Common;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Interfaces;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Repository
 {
     public class RepositoryContext:DbContext,IRepositoryContext
     {
-        public IDbSet<Models.Question> Questions { get; set; }
+        public IDbSet<LinkUser> LinkUsers { get; set; }
 
-        public IDbSet<Models.Answer> Answers { get; set; }
+        public IDbSet<Question> Questions { get; set; }
 
-        public IDbSet<Models.Employee> Employees { get; set; }
+        public IDbSet<Answer> Answers { get; set; }
 
-        public IDbSet<Models.Period> Periods { get; set; }
+        //public IDbSet<Models.Employee> Employees { get; set; } // NOW LinkUser
+ 
+        public IDbSet<Period> Periods { get; set; }
 
-        public IDbSet<Models.LinkMeeting> Meeting { get; set; }
+        public IDbSet<LinkMeeting> Meeting { get; set; }
 
-        public IDbSet<Models.Objectives> Objectives { get; set; }
+        public IDbSet<Objectives> Objectives { get; set; }
+
+        public IDbSet<Pdp> Pdps { get; set; }
 
         public RepositoryContext() : base("name=LinkRepository") { }
 
