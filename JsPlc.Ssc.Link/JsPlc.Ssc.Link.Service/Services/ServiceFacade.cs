@@ -26,7 +26,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public ColleagueView GetColleague(string colleagueId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/colleagues/?id=" + colleagueId.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/colleagues/" + colleagueId.ToString(CultureInfo.InvariantCulture)).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -38,7 +38,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public ColleagueView GetColleagueByEmail(string email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/colleagues/?email=" + email.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/colleaguesByEmail/" + email.ToString(CultureInfo.InvariantCulture)).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -57,7 +57,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public IEnumerable<ColleagueView> GetDirectReportsByManagerEmail(string managerEmail)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/directReports/?email=" + managerEmail.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/directReportsByEmail/" + managerEmail.ToString(CultureInfo.InvariantCulture)).Result;
             var meeting = response.Content.ReadAsAsync<IEnumerable<ColleagueView>>().Result;
             return response.IsSuccessStatusCode ? meeting : null;
         }
