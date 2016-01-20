@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JsPlc.Ssc.Link.Models.Entities
 {
-    public class Objectives
+    public class LinkObjective
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
-        public int EmployeeId { get; set; } // FK LinkUser.Id
+        public string EmployeeId { get; set; } // Use E001 etc (so that we can store EmployeeId without they having registered as LinkUser)
 
         [Required]
-        public int ManagerId { get; set; } // FK LinkUser.Id
+        public string ManagerId { get; set; } // Use E0010 etc (so that we can store EmployeeId)
       
         public ObjectiveStatus ColleagueSignOff { get; set; }
 
@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
         public DateTime LastAmendedDate { get; set; }
 
         [Required]
-        public int LastAmendedBy { get; set; }
+        public string LastAmendedBy { get; set; }
 
         public string Objective { get; set; } 
 

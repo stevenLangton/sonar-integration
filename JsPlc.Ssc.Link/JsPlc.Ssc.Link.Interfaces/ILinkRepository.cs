@@ -5,7 +5,7 @@ namespace JsPlc.Ssc.Link.Interfaces
 {
     public interface ILinkRepository
     {
-        int? AppUserId(string colleagueId);
+        //int? AppUserId(string colleagueId);
 
         void Dispose();
     }

@@ -16,6 +16,6 @@ namespace JsPlc.Ssc.Link.Interfaces
 
         IDbSet<LinkMeeting> Meeting { get; set; }
 
-        IDbSet<Objectives> Objectives { get; set; }
+        IDbSet<LinkObjective> Objectives { get; set; }
     }
 }

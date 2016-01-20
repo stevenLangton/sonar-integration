@@ -23,14 +23,14 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public ObjectivesService(RepositoryContext context) { _db = context; }
 
-        public Objectives GetObjective(int id)
+        public LinkObjective GetObjective(int id)
         {
-            Objectives objectives = _db.Objectives.Find(id);
+            LinkObjective objectives = _db.Objectives.Find(id);
 
             return objectives;
         }
 
-        public bool UpdateObjective(int id, Objectives objectives)
+        public bool UpdateObjective(int id, LinkObjective objectives)
         {
 
             try
@@ -47,7 +47,7 @@ namespace JsPlc.Ssc.Link.Service.Services
            
         }
 
-        public bool InsertObjective(Objectives objectives)
+        public bool InsertObjective(LinkObjective objectives)
         {
             try
             {   _db.Objectives.Add(objectives);
@@ -64,7 +64,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             try
             {
-                Objectives objectives = _db.Objectives.Find(id);
+                LinkObjective objectives = _db.Objectives.Find(id);
                 _db.Objectives.Remove(objectives);
                 _db.SaveChanges();
                 return true;
@@ -75,19 +75,19 @@ namespace JsPlc.Ssc.Link.Service.Services
             }
         }
 
-        public IEnumerable<Objectives> GetListOfObjectives(int userId, DateTime year)
+        public IEnumerable<LinkObjective> GetListOfObjectives(string colleagueId, DateTime year)
         {
-            return _db.Objectives.Where(e => e.EmployeeId == userId && e.CreatedDate.Year == year.Year);
+            return _db.Objectives.Where(e => e.EmployeeId == colleagueId && e.CreatedDate.Year == year.Year);
         }
 
         /// <summary>
         /// Get all objectives for a colleague
         /// </summary>
-        /// <param name="userId">The internal db id of a colleague (not the real life HR Colleague Id) </param>
+        /// <param name="colleagueId"></param>
         /// <returns>A list of objectives</returns>
-        public IEnumerable<Objectives> GetAllObjectives(int userId)
+        public IEnumerable<LinkObjective> GetAllObjectives(string colleagueId)
         {
-            return _db.Objectives.Where(e => e.EmployeeId == userId);
+            return _db.Objectives.Where(e => e.EmployeeId == colleagueId);
         }
 
         public void Dispose()

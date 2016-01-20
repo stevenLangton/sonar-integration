@@ -9,7 +9,7 @@ namespace JsPlc.Ssc.Link.Repository
 {
     public class RepositoryContext:DbContext,IRepositoryContext
     {
-        public IDbSet<LinkUser> LinkUsers { get; set; }
+        //public IDbSet<LinkUser> LinkUsers { get; set; }
 
         public IDbSet<Question> Questions { get; set; }
 
@@ -21,7 +21,7 @@ namespace JsPlc.Ssc.Link.Repository
 
         public IDbSet<LinkMeeting> Meeting { get; set; }
 
-        public IDbSet<Objectives> Objectives { get; set; }
+        public IDbSet<LinkObjective> Objectives { get; set; }
 
         //public IDbSet<Pdp> Pdps { get; set; }
 

@@ -35,7 +35,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
             HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "/colleagues/" + ColleagueId + "/objectives");
 
-            var ObjectivesList = await response.Content.ReadAsAsync<List<Objectives>>();
+            var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
 
             var jsonResult = new JsonResult
             {

@@ -7,17 +7,17 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
 {
     public interface IObjectivesService
     {
-        Objectives GetObjective(int id);
-       
-        bool UpdateObjective(int id, Objectives objectives);
-       
-        bool InsertObjective(Objectives objectives);
+        LinkObjective GetObjective(int id);
+
+        bool UpdateObjective(int id, LinkObjective objectives);
+
+        bool InsertObjective(LinkObjective objectives);
        
         bool DeleteObjective(int id);
 
-        IEnumerable<Objectives> GetListOfObjectives(int userId, DateTime year);
-        
-        IEnumerable<Objectives> GetAllObjectives(int userId);
+        IEnumerable<LinkObjective> GetListOfObjectives(string userId, DateTime year);
+
+        IEnumerable<LinkObjective> GetAllObjectives(string userId);
         
         void Dispose();
         

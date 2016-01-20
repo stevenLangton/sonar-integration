@@ -34,25 +34,19 @@ namespace JsPlc.Ssc.Link.Service.Services
         // meetings history of an employee
         public TeamView GetMeetings(string colleagueId)
         {
-            var firstOrDefault = _db.LinkUsers.FirstOrDefault(e => e.ColleagueId == colleagueId);
-
-            if (firstOrDefault == null) return null;
-
-            var empId = firstOrDefault.Id;
-
             var cv = _svc.GetColleague(colleagueId); // TODO Call StubService to GetColleagueProfile.
             
-            var myReport = (from e in _db.LinkUsers
-                .Where(e => e.Id == empId)
+            var myReport = (from e in _db.Meeting
+                .Where(e => e.EmployeeId.Equals(colleagueId))
                             select new TeamView
                             {
-                                EmployeeId = e.Id,
-                                ColleagueId = e.ColleagueId,
+                                //EmployeeId = e.ColleagueId,
+                                ColleagueId = e.EmployeeId,
                                 FirstName = cv.FirstName,
                                 LastName = cv.LastName,
                                 Meetings = (from m in _db.Meeting
                                             orderby m.MeetingDate descending
-                                            where m.EmployeeId.Equals(e.Id.ToString(CultureInfo.InvariantCulture))
+                                            where m.EmployeeId.Equals(e.EmployeeId.ToString(CultureInfo.InvariantCulture))
                                             select new LinkMeetingView
                                             {
                                                 MeetingId = m.Id,
@@ -60,7 +54,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                                                 ColleagueSignOff = m.ColleagueSignOff,
                                                 ManagerSignOff = m.ManagerSignOff
                                             }).ToList(),
-                                EmailAddress = e.EmailAddress
+                                EmailAddress = cv.EmailAddress
                             }).FirstOrDefault();
 
             if (myReport != null)

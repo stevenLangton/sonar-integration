@@ -11,9 +11,11 @@ namespace JsPlc.Ssc.Link.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string EmployeeId { get; set; }
+        [Required]
+        public string EmployeeId { get; set; } // E001 etc (so that we can store EmployeeId without they having registered as LinkUser)
 
-        public string  ManagerId { get; set; } 
+        [Required]
+        public string ManagerId { get; set; } // E0010 etc (same reason as above)
       
         [Required]
         public MeetingStatus ColleagueSignOff { get; set; }

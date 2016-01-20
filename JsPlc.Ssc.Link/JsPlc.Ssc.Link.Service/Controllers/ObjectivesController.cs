@@ -26,24 +26,21 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         // PUT/Update: api/Objectives/5
         [Route("Objectives")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutObjective(string EmployeeId, Objectives objective)
+        public IHttpActionResult PutObjective(int id, LinkObjective objective)
         {
-            int UserId = _db.AppUserId(EmployeeId).GetValueOrDefault();
-
-            Objectives newObjective = new Objectives();
-
+            LinkObjective newObjective = new LinkObjective();
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (UserId != objective.Id)
+            if (id != objective.Id)
             {
                 return BadRequest();
             }
 
-            if (_dbObjectives.UpdateObjective(UserId, objective))
+            if (_dbObjectives.UpdateObjective(id, objective))
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
@@ -59,15 +56,13 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/objectives", Name="NewObjective")]
         public IHttpActionResult PostObjective(ObjectiveAdd objective, string colleagueId)
         {
-            int UserId = _db.AppUserId(colleagueId).GetValueOrDefault();
+            LinkObjective newObjective = new LinkObjective();
 
-            Objectives newObjective = new Objectives();
-
-            newObjective.EmployeeId = UserId;
+            newObjective.EmployeeId = colleagueId;
             newObjective.Objective = objective.Objective;
             newObjective.CreatedDate = DateTime.Now.Date;
             newObjective.LastAmendedDate = DateTime.Now.Date;
-            newObjective.LastAmendedBy = _db.AppUserId(objective.LastAmendedByColleagueId).GetValueOrDefault();
+            newObjective.LastAmendedBy = objective.LastAmendedByColleagueId;
 
             if (!ModelState.IsValid)
             {
@@ -87,25 +82,23 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/objectives")]
         public IHttpActionResult GetAllObjectives(string colleagueId)
         {
-            int UserId = _db.AppUserId(colleagueId).GetValueOrDefault();
-
-            List<Objectives> ObjectivesList = _dbObjectives.GetAllObjectives(UserId).ToList<Objectives>();
+            List<LinkObjective> ObjectivesList = _dbObjectives.GetAllObjectives(colleagueId).ToList<LinkObjective>();
 
             return Ok(ObjectivesList);
         }
 
         // GET: api/GetListOfObjectives
         [HttpGet]
-        public IHttpActionResult GetListOfObjectives(int userId, DateTime year)
+        public IHttpActionResult GetListOfObjectives(string colleagueId, DateTime year)
         {
-            var objectivesList = _dbObjectives.GetListOfObjectives(userId, year);
+            var objectivesList = _dbObjectives.GetListOfObjectives(colleagueId, year);
             return Ok(objectivesList);
         }
 
         [Route("colleagues/{colleagueId}/objectives/{objectiveId}")]
         public HttpResponseMessage GetObjective(string colleagueId, int objectiveId)
         {
-            Objectives item = _dbObjectives.GetObjective(objectiveId);
+            LinkObjective item = _dbObjectives.GetObjective(objectiveId);
 
             if (item == null)
             {
@@ -119,7 +112,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         }
 
         // DELETE: api/Objectives/5
-        [ResponseType(typeof(Objectives))]
+        [ResponseType(typeof(LinkObjective))]
         public bool DeleteObjective(int id)
         {
             if(_dbObjectives.DeleteObjective(id))
