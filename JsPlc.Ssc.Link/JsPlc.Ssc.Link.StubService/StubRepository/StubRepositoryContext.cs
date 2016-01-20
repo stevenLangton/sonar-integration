@@ -10,7 +10,7 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
     {
         public IDbSet<StubColleague> Colleagues { get; set; }
 
-        public StubRepositoryContext() : base("name=StubLinkRepository") { }
+        public StubRepositoryContext() : base("name=StubLinkColleagueRepository") { }
 
         public StubRepositoryContext(DbConnection connection) : base(connection, true) { }
 

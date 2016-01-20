@@ -37,7 +37,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         /// <param name="email"></param>
         /// <returns></returns>
         [HttpGet] 
-        [Route("api/Colleague/?email={email}")]
+        [Route("api/ColleagueByEmail/{email}")]
         public IHttpActionResult GetColleagueByEmail([FromUri] string email)
         {
             StubColleague stubColleague = _db.GetColleagueByEmail(email);
@@ -75,7 +75,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         /// <param name="email"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/DirectReports/?email={email}")] 
+        [Route("api/DirectReportsByEmail/{email}")] 
         public IHttpActionResult GetDirectReportsByEmail(string email)
         {
             List<StubColleague> colleagues = _db.GetDirectReportsByManagerEmail(email);
