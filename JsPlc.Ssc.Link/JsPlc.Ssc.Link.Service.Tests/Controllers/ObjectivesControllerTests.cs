@@ -5,6 +5,7 @@ using JsPlc.Ssc.Link.Service.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
 using System.Web.Http;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 {

@@ -3,6 +3,7 @@ using System.Web.Http.Results;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Service.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 {

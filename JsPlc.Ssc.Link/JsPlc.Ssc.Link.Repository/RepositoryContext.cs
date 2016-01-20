@@ -23,7 +23,7 @@ namespace JsPlc.Ssc.Link.Repository
 
         public IDbSet<Objectives> Objectives { get; set; }
 
-        public IDbSet<Pdp> Pdps { get; set; }
+        //public IDbSet<Pdp> Pdps { get; set; }
 
         public RepositoryContext() : base("name=LinkRepository") { }
 

@@ -28,7 +28,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutObjective(string EmployeeId, Objectives objective)
         {
-            int UserId = _db.AppUserId(EmployeeId);
+            int UserId = _db.AppUserId(EmployeeId).GetValueOrDefault();
 
             Objectives newObjective = new Objectives();
 
@@ -59,7 +59,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/objectives", Name="NewObjective")]
         public IHttpActionResult PostObjective(ObjectiveAdd objective, string colleagueId)
         {
-            int UserId = _db.AppUserId(colleagueId);
+            int UserId = _db.AppUserId(colleagueId).GetValueOrDefault();
 
             Objectives newObjective = new Objectives();
 
@@ -67,7 +67,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             newObjective.Objective = objective.Objective;
             newObjective.CreatedDate = DateTime.Now.Date;
             newObjective.LastAmendedDate = DateTime.Now.Date;
-            newObjective.LastAmendedBy = _db.AppUserId(objective.LastAmendedByColleagueId);
+            newObjective.LastAmendedBy = _db.AppUserId(objective.LastAmendedByColleagueId).GetValueOrDefault();
 
             if (!ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/objectives")]
         public IHttpActionResult GetAllObjectives(string colleagueId)
         {
-            int UserId = _db.AppUserId(colleagueId);
+            int UserId = _db.AppUserId(colleagueId).GetValueOrDefault();
 
             List<Objectives> ObjectivesList = _dbObjectives.GetAllObjectives(UserId).ToList<Objectives>();
 

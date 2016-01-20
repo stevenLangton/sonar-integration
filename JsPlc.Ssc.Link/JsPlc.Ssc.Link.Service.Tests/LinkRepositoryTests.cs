@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JsPlc.Ssc.Link.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Service.Tests
 {

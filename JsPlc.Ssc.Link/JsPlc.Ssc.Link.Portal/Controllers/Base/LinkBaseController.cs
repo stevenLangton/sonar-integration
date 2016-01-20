@@ -37,7 +37,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                     CurrentUser.Colleague = facade.GetColleagueByUsername(User.Identity.Name);
                 }
 
-                TempData["CurrentUser"] = CurrentUser; // for UserView object for Views
+                TempData["CurrentUser"] = CurrentUser;
             }
         }
 
