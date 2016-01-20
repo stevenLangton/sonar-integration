@@ -3,6 +3,7 @@ using System.Web.Http.Results;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Service.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 {
@@ -13,7 +14,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         public void GetEmployeeDetails()
         {
             var controller=new EmployeesController(Repository);
-            var result = controller.GetMyDetails("vasundhara.b@sainsburys.co.uk") as OkNegotiatedContentResult<Employee>;
+            var result = controller.GetMyDetails("vasundhara.b@sainsburys.co.uk") as OkNegotiatedContentResult<LinkUser>;
             Assert.IsNotNull(result,"Invalid user no record found or email address is wrong");
         }
 
@@ -39,7 +40,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         [TestMethod]
         public void GetMyTeam()
         {
-            var controller = new EmployeesController(Meeting);
+            var controller = new EmployeesController(Repository);
             var result = controller.GetMyTeam("E0010") as OkNegotiatedContentResult<IList<TeamView>>;
             Assert.IsNotNull(result, "No team members found");
         }

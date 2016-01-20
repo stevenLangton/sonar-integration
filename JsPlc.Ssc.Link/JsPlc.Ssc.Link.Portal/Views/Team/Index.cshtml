@@ -1,7 +1,7 @@
 ﻿@using JsPlc.Ssc.Link.Models
 @model  IEnumerable<JsPlc.Ssc.Link.Models.TeamView>
 @{
-    var currentUser = TempData["CurrentUser"] as UserView;
+    var currentUser = TempData["CurrentUser"] as LinkUserView;
     string managerId = ""; // manager LoggedId, so get their colleagueId
     if (currentUser != null && currentUser.Colleague != null && currentUser.Colleague.ColleagueId != null)
     {

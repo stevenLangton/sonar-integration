@@ -7,7 +7,7 @@
 }
 @if (Request.IsAuthenticated)
 {
-    var currentUser = TempData["CurrentUser"] as UserView;
+    var currentUser = TempData["CurrentUser"] as LinkUserView;
     
     
     string welcomeText = "";
