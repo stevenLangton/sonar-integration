@@ -35,8 +35,11 @@ namespace JsPlc.Ssc.Link.Models
         public string Objective { get; set; }
 
         public string MeasuredBy { get; set; }
-        
-        public string RelevantTo { get; set; } 
+
+        public string RelevantTo { get; set; }
+
+        [Required]
+        public string Title { get; set; } 
     }
 
     public enum ObjectiveStatus
