@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Service.Models;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Interfaces;
@@ -27,7 +28,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutObjective(string EmployeeId, Objectives objective)
         {
-            int UserId = _db.appUserID(EmployeeId);
+            int UserId = _db.AppUserId(EmployeeId);
 
             Objectives newObjective = new Objectives();
 
@@ -58,7 +59,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/objectives", Name="NewObjective")]
         public IHttpActionResult PostObjective(ObjectiveAdd objective, string colleagueId)
         {
-            int UserId = _db.appUserID(colleagueId);
+            int UserId = _db.AppUserId(colleagueId);
 
             Objectives newObjective = new Objectives();
 
@@ -66,7 +67,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             newObjective.Objective = objective.Objective;
             newObjective.CreatedDate = DateTime.Now.Date;
             newObjective.LastAmendedDate = DateTime.Now.Date;
-            newObjective.LastAmendedBy = _db.appUserID(objective.LastAmendedByColleagueId);
+            newObjective.LastAmendedBy = _db.AppUserId(objective.LastAmendedByColleagueId);
 
             if (!ModelState.IsValid)
             {

@@ -224,6 +224,10 @@
     <Compile Include="Models\Objective.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Services\ColleagueService.cs" />
+    <Compile Include="Services\ServiceFacade.cs" />
+    <Compile Include="Services\MeetingService.cs" />
+    <Compile Include="Services\ObjectivesService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

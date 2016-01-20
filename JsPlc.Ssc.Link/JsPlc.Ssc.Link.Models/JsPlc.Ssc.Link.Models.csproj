@@ -66,19 +66,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Answer.cs" />
-    <Compile Include="Employee.cs" />
-    <Compile Include="EmployeeView.cs" />
-    <Compile Include="LinkMeeting.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\LinkUser.cs" />
+    <Compile Include="ColleagueView.cs" />
+    <Compile Include="Entities\Pdp.cs" />
+    <Compile Include="Entities\LinkMeeting.cs" />
     <Compile Include="LinkMeetingView.cs" />
     <Compile Include="MeetingView.cs" />
-    <Compile Include="Objectives.cs" />
-    <Compile Include="Period.cs" />
+    <Compile Include="Entities\Objectives.cs" />
+    <Compile Include="Entities\Period.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question.cs" />
+    <Compile Include="Entities\Question.cs" />
     <Compile Include="AnswerParams.cs" />
     <Compile Include="QuestionView.cs" />
-    <Compile Include="UserView.cs" />
+    <Compile Include="LinkUserView.cs" />
     <Compile Include="TeamView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +90,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTOs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

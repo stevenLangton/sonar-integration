@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Models;
@@ -22,13 +23,14 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Extensions
         //    };
         //}
 
-        public static EmployeeView ToEmployeeView(this Employee employee)
+        public static ColleagueView ToColleagueView(this ColleagueView colleague)
         {
-            return new EmployeeView
-            {
-                Id = employee.Id, FirstName = employee.FirstName, LastName = employee.LastName, 
-                ColleagueId = employee.ColleagueId, ManagerId = employee.ManagerId, ManagerName = "", EmailAddress = employee.EmailAddress
-            };
+            throw new NotImplementedException();
+            //return new ColleagueView
+            //{
+            //    LinkUserId = colleague.Id, FirstName = colleague.FirstName, LastName = colleague.LastName, 
+            //    ColleagueId = colleague.ColleagueId, ManagerId = colleague.ManagerId, ManagerName = "", EmailAddress = colleague.EmailAddress
+            //};
         }
     }
 }

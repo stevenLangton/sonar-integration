@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Models
 {
