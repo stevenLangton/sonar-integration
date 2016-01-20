@@ -128,6 +128,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj">
+      <Project>{5e71294b-3f45-48f1-a37f-737fb5f22f38}</Project>
+      <Name>JsPlc.Ssc.Link.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj">
       <Project>{589e97d6-1d3d-4214-9871-005e7b01e4b5}</Project>
       <Name>JsPlc.Ssc.Link.Models</Name>
