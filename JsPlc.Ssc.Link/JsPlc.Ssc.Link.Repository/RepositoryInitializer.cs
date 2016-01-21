@@ -85,21 +85,21 @@ namespace JsPlc.Ssc.Link.Repository
 
             var meetings=new List<LinkMeeting>{
 
-                new LinkMeeting{Id=1, EmployeeId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,MeetingDate = new DateTime(2014,04,01)},
-                new LinkMeeting{Id=2, EmployeeId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2014,08,10)},
-                new LinkMeeting{Id=3, EmployeeId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E003" , MeetingDate = new DateTime(2014,12,12)},
-                new LinkMeeting{Id=4, EmployeeId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2015,01,13)},
-                new LinkMeeting{Id=5, EmployeeId="E002", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,MeetingDate = new DateTime(2015,10,01)},
-                new LinkMeeting{Id=6, EmployeeId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,10)},
-                new LinkMeeting{Id=7, EmployeeId="E006", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E009" , MeetingDate = new DateTime(2015,10,12)},
-                new LinkMeeting{Id=8, EmployeeId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2015,10,13)},
-                new LinkMeeting{Id=9, EmployeeId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,14)},
-                new LinkMeeting{Id=10, EmployeeId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,15)},
-                new LinkMeeting{Id=11, EmployeeId="E001", ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E003" , MeetingDate = new DateTime(2015,10,18)},
-                new LinkMeeting{Id=12, EmployeeId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,20)},
-                new LinkMeeting{Id=13, EmployeeId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,21)},
-                new LinkMeeting{Id=14, EmployeeId="E0010", ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,23)},
-                new LinkMeeting{Id=15, EmployeeId="E0010", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,30)},
+                new LinkMeeting{Id=1, ColleagueId= "E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,MeetingDate = new DateTime(2014,04,01)},
+                new LinkMeeting{Id=2, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2014,08,10)},
+                new LinkMeeting{Id=3, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E003" , MeetingDate = new DateTime(2014,12,12)},
+                new LinkMeeting{Id=4, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2015,01,13)},
+                new LinkMeeting{Id=5, ColleagueId="E002", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,MeetingDate = new DateTime(2015,10,01)},
+                new LinkMeeting{Id=6, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,10)},
+                new LinkMeeting{Id=7, ColleagueId="E006", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E009" , MeetingDate = new DateTime(2015,10,12)},
+                new LinkMeeting{Id=8, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2015,10,13)},
+                new LinkMeeting{Id=9, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,14)},
+                new LinkMeeting{Id=10, ColleagueId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,15)},
+                new LinkMeeting{Id=11, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E003" , MeetingDate = new DateTime(2015,10,18)},
+                new LinkMeeting{Id=12, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,20)},
+                new LinkMeeting{Id=13, ColleagueId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,21)},
+                new LinkMeeting{Id=14, ColleagueId="E0010", ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,23)},
+                new LinkMeeting{Id=15, ColleagueId="E0010", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,30)},
             };
 
             meetings.ForEach(c => context.Meeting.Add(c));
@@ -157,11 +157,11 @@ namespace JsPlc.Ssc.Link.Repository
             context.SaveChanges();
 
             var objectives = new List<LinkObjective> { 
-            new LinkObjective{Id=1,EmployeeId="E002", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E002",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111", Title="Be superman"},
-            new LinkObjective{Id=1,EmployeeId="E002", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E002",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222", Title="All comes from one, one comes from where?"},
-            new LinkObjective{Id=1,EmployeeId="E001", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E001",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333", Title="Good and bad is a disease of the mine - Trang Tu"},
-            new LinkObjective{Id=1,EmployeeId="E001", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E001",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444", Title="Show me your mind"},
-            new LinkObjective{Id=1,EmployeeId="E003", ManagerId="E0010", ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E003",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555",Title="Live happily"},
+            new LinkObjective{Id=1,ColleagueId="E002", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E002",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 111", Title="Be superman"},
+            new LinkObjective{Id=1,ColleagueId="E002", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E002",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 222", Title="All comes from one, one comes from where?"},
+            new LinkObjective{Id=1,ColleagueId="E001", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Approved,ManagerSignOff=ObjectiveStatus.Approved,SignOffDate=new DateTime(2015,03,31),CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E001",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 333", Title="Good and bad is a disease of the mine - Trang Tu"},
+            new LinkObjective{Id=1,ColleagueId="E001", ManagerId="E003", ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E001",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 444", Title="Show me your mind"},
+            new LinkObjective{Id=1,ColleagueId="E003", ManagerId="E0010", ColleagueSignOff=ObjectiveStatus.Draft,ManagerSignOff=ObjectiveStatus.Draft,SignOffDate=null,CreatedDate=new DateTime(2015,03,31),LastAmendedBy="E003",LastAmendedDate=new DateTime(2015,03,31),Objective="this is my objective 555",Title="Live happily"},
             };
 
             objectives.ForEach(c => context.Objectives.Add(c));

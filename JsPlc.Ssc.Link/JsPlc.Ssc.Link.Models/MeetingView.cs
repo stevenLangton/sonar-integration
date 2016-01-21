@@ -8,7 +8,7 @@ namespace JsPlc.Ssc.Link.Models
     {
         public int MeetingId { get; set; } // DB id
 
-        public int EmployeeId { get; set; } // DB id
+        //public int EmployeeId { get; set; } // DB id, no such thing now..
 
         public string ColleagueId { get; set; } // E001 etc..
 

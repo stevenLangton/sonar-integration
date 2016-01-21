@@ -6,6 +6,7 @@ using System.Linq;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
+using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Repository;
 
 namespace JsPlc.Ssc.Link.Service.Services
@@ -41,13 +42,13 @@ namespace JsPlc.Ssc.Link.Service.Services
             ColleagueView cv = _colleagueService.GetColleague(colleagueId);
             
             var myReport = (from m in _db.Meeting
-                            .Where(m => m.EmployeeId.Equals(colleagueId))
+                            .Where(m => m.ColleagueId.Equals(colleagueId))
                             select new TeamView
                             {
                                 //Colleague = new ColleagueView{ColleagueId = cv},
                                 Meetings = (from m1 in _db.Meeting
                                             orderby m1.MeetingDate descending
-                                            where m1.EmployeeId == cv.ColleagueId
+                                            where m1.ColleagueId == cv.ColleagueId
                                             select new LinkMeetingView
                                             {
                                                 MeetingId = m1.Id,
@@ -80,13 +81,13 @@ namespace JsPlc.Ssc.Link.Service.Services
         // view particular meeting
         public MeetingView GetMeeting(int meetingId)
         {
-            throw new NotImplementedException();
-            // TODO Implement
-            //// Get meeting details along with manager details
+            // Get meeting details along with manager details
             //var meeting = (from m in _db.Meeting
-            //               join e in _db.LinkUsers on m.EmployeeId equals e.Id into e_join
+            //               join e in _db.Employees on m.EmployeeId equals e.Id into e_join
+
             //               from e in e_join.DefaultIfEmpty()
             //               join mm in _db.Employees on m.ManagerId equals mm.ColleagueId into m_join
+
             //               from mm in m_join.DefaultIfEmpty()
             //               where m.Id == meetingId
             //               select new MeetingView
@@ -102,25 +103,34 @@ namespace JsPlc.Ssc.Link.Service.Services
             //                   ManagerSignOff = m.ManagerSignOff,
             //               }).FirstOrDefault();
 
-            ////Get questions with answers for particular meeting
-            //var question = from q in _db.Questions
-            //               join a in _db.Answers on new { q.Id, LinkMeetingId = meetingId } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
-            //               from a in a_join.DefaultIfEmpty()
-            //               select new QuestionView
-            //               {
-            //                   QuestionId = q.Id,
-            //                   Question = q.Description,
-            //                   QuestionType = q.QuestionType,
-            //                   AnswerId = a.Id,
-            //                   ColleagueComment = a.ColleagueComments,
-            //                   ManagerComment = a.ManagerComments,
-            //                   Discussed = a.Discussed
-            //               };
+            var meeting = _db.Meeting.FirstOrDefault(x => x.Id == meetingId);
+            if (meeting == null) return null;
 
-            //if (meeting != null)
-            //    meeting.Questions = question;
+            var coll = _colleagueService.GetColleague(meeting.ColleagueId);
+            var mgr = _colleagueService.GetColleague(meeting.ManagerId);
 
-            //return meeting;
+            MeetingView meetingView = meeting.ToMeetingView();
+            meetingView.ColleagueName = (coll == null) ? "-" : coll.FirstName + " " + coll.LastName;
+            meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
+
+            //Get questions with answers for particular meeting
+            var question = from q in _db.Questions
+                           join a in _db.Answers on new { q.Id, LinkMeetingId = meetingId } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
+                           from a in a_join.DefaultIfEmpty()
+                           select new QuestionView
+                           {
+                               QuestionId = q.Id,
+                               Question = q.Description,
+                               QuestionType = q.QuestionType,
+                               AnswerId = a.Id,
+                               ColleagueComment = a.ColleagueComments,
+                               ManagerComment = a.ManagerComments,
+                               Discussed = a.Discussed
+                           };
+
+            meetingView.Questions = question;
+
+            return meetingView;
         }
 
         // create new meeting
@@ -209,7 +219,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                     MeetingDate = view.MeetingDate,
                     ColleagueSignOff = view.ColleagueSignOff,
                     ManagerSignOff = view.ManagerSignOff,
-                    EmployeeId = meeting.EmployeeId,
+                    ColleagueId = meeting.ColleagueId,
                     ManagerId = meeting.ManagerId,
                     Id = view.MeetingId
                 };
