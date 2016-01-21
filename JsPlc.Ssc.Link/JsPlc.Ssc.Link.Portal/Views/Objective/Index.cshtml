@@ -1,24 +1,23 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Objective";
 }
 
-<div class="container">
-    <h2>Objectives</h2>
-    <div class="list-group" id="objectiveList">
+<div class="container" id="ObjectivesListView">
+    <h1>Objectives</h1>
+    <div class="list-group" id="objectiveList" data-bind="foreach: objectives">
         <div class="media list-group-item">
             <button class="btn btn-default pull-right">View Objective</button>
             <div class="media-body">
-                <h4 class="media-heading">Ana Maria Braga</h4>
-                <p>Página Ativa</p>
+                <h3 class="media-heading" data-bind="text: Title"></h3>
+                <p data-bind="text: Objective"></p>
             </div>
-        </div>	
+        </div>
     </div>
 </div>
 <script type="text/javascript">
     require(["Objectives"], function (mod) {
         $(document).ready(function () {
-            mod.init();
+            mod.init("ObjectivesListView");
         });
     });
 </script>

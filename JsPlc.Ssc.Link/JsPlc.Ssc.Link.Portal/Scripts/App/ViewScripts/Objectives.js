@@ -2,10 +2,22 @@
     "use strict";
 
     //View model
+    var ObjectivesListVm = function () {
+        var vm = {};
+
+        vm.objectives = ko.observableArray([]);
+
+        return vm;
+    };
+
+    var bindViewModel = function () {
+
+    };
+
     //var init = $.noop;
-    var init = function () {
+    var init = function (divId) {
         //var $promise = LinkService.getAllColleagueObjectives("E0009");
-        var jsonArgs = { ColleagueId: "E0009" };
+        var jsonArgs = { ColleagueId: "E001" };//TODO: Need to get proper colleague id from backend
 
         var $promise = $.ajax({
             data: jsonArgs,
@@ -16,6 +28,9 @@
 
         $promise.done(function (result) {
             var result = result;
+            var vm = ObjectivesListVm();
+            vm.objectives(result);
+            ko.applyBindings(vm, document.getElementById(divId));
         });
 
         $promise.error(function (request, status, error) {
