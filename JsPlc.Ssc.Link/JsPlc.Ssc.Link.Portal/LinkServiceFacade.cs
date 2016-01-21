@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -27,16 +28,26 @@ namespace JsPlc.Ssc.Link.Portal
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        // NOT USED..
-        public void GetQuestion(int Id)
-        {
-            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + Id.ToString(CultureInfo.InvariantCulture)).Result;
+        #region User api - api to provide info related to the logged in user
 
-            if (response.IsSuccessStatusCode)
-            {
-                var result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
-            }
+        public ColleagueView GetUserDetails(string Email)
+        {
+            // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
+            HttpResponseMessage response = _client.Value.GetAsync("api/employees/?emailaddress=" + Email).Result;
+            var item = response.Content.ReadAsAsync<ColleagueView>().Result;
+            return response.IsSuccessStatusCode ? item : null;
         }
+
+        public bool IsManager(string username)
+            {
+            HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?UserName=" + username).Result;
+
+            return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+            }
+
+        #endregion
+
+        #region Link Meeting api - api to manage Link meetings
 
         public MeetingView GetMeeting(int Id)
         {
@@ -92,6 +103,18 @@ namespace JsPlc.Ssc.Link.Portal
 
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<TeamView>().Result : null;
         }
+        #endregion
+
+        #region Objectives api
+
+        public LinkObjective GetObjective(string ColleagueId, int ObjectiveId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives/" + ObjectiveId.ToString(CultureInfo.InvariantCulture)).Result;
+            var objective = response.Content.ReadAsAsync<LinkObjective>().Result;
+            return response.IsSuccessStatusCode ? objective : null;
+        }
+
+        #endregion
 
         public void Dispose()
         {

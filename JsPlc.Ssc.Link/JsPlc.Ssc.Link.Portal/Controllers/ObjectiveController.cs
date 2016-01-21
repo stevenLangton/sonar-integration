@@ -49,7 +49,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [HttpGet]
         public ActionResult Objective(int Id)
         {
-            return View();
+            using (var facade = new LinkServiceFacade())
+            {
+                LinkObjective item = facade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
+
+                return View(item);
+            }
         }
 
     }

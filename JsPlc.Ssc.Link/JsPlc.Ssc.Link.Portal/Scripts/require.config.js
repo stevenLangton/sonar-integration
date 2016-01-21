@@ -1,5 +1,7 @@
 ﻿/// <reference path="App/Services/LinkService.js" />
 /// <reference path="App/ViewScripts/LinkFormCreate.js" />
+/// <reference path="knockout.mapping-latest.js" />
+/// <reference path="App/ViewScripts/SingleObjective.js" />
 //Must omit extension on right side (in values)
 require.config({
     waitSeconds: 200,
@@ -9,6 +11,7 @@ require.config({
         "jquery": "jquery-1.10.2",
         "jqueryval": "jquery.validate.min",
         "knockout": "knockout-3.3.0.debug",
+        "komap": "knockout.mapping-latest",
         "moment": 'moment-with-locales',
         "bootstrap": "bootstrap.min",
         "bootstrap-datepicker": "bootstrap-datepicker",
@@ -38,7 +41,8 @@ require.config({
         //View scripts
         "LinkFormCreate": "App/ViewScripts/LinkFormCreate",
         "LinkMeetings": "App/ViewScripts/LinkMeetings",
-        "Objectives": "App/ViewScripts/Objectives"
+        "Objectives": "App/ViewScripts/Objectives",
+        "SingleObjective": "App/ViewScripts/SingleObjective"
 
     },
     shim: {
