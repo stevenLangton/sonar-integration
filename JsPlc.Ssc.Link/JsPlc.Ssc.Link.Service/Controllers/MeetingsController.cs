@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Interfaces;
@@ -10,6 +13,8 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         public MeetingsController() { }
 
         public MeetingsController(ILinkRepository repository) : base(repository) { }
+
+        public MeetingsController(IMeetingService repository) : base(repository) { }
 
         [HttpGet] //api/Meetings/10
         public IHttpActionResult GetMeeting(int id)
@@ -56,6 +61,31 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbMeeting.UpdateMeeting(meetingView);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("mymeetings/{colleagueId}")] // mymeetings/E001
+        public IHttpActionResult GetMyMeetings(string colleagueId)
+        {
+            var meetings = _dbMeeting.GetMeetings(colleagueId);
+
+            if (meetings == null)
+                return NotFound();
+
+            return Ok(meetings);
+        }
+        [HttpGet]
+        [Route("myteam/{managerId}")] // myteam/E0010
+        public IHttpActionResult GetMyTeam(string managerId)
+        {
+            IEnumerable<TeamView> colleaguesAndMeetings = _dbMeeting.GetTeam(managerId);
+
+            var teamViews = colleaguesAndMeetings as IList<TeamView> ?? colleaguesAndMeetings.ToList();
+
+            if (!teamViews.Any())
+                return NotFound();
+
+            return Ok(teamViews);
         }
     }
 }

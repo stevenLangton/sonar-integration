@@ -15,7 +15,11 @@ namespace JsPlc.Ssc.Link.Service.Services
         private readonly RepositoryContext _db;
         private readonly IColleagueService _svc;
 
-        public MeetingService() { }
+        public MeetingService()
+        {
+            _db = new RepositoryContext();
+            _svc = new ColleagueService(new ServiceFacade());
+        }
 
         public MeetingService(RepositoryContext context) { _db = context; }
 
@@ -34,47 +38,45 @@ namespace JsPlc.Ssc.Link.Service.Services
         // meetings history of an employee
         public TeamView GetMeetings(string colleagueId)
         {
-            var cv = _svc.GetColleague(colleagueId); // TODO Call StubService to GetColleagueProfile.
+            var cv = _svc.GetColleague(colleagueId);
             
-            var myReport = (from e in _db.Meeting
-                .Where(e => e.EmployeeId.Equals(colleagueId))
+            var myReport = (from m in _db.Meeting
+                            .Where(m => m.EmployeeId.Equals(colleagueId))
                             select new TeamView
                             {
                                 //EmployeeId = e.ColleagueId,
-                                ColleagueId = e.EmployeeId,
+                                ColleagueId = cv.ColleagueId,
                                 FirstName = cv.FirstName,
                                 LastName = cv.LastName,
-                                Meetings = (from m in _db.Meeting
-                                            orderby m.MeetingDate descending
-                                            where m.EmployeeId.Equals(e.EmployeeId.ToString(CultureInfo.InvariantCulture))
+                                Meetings = (from m1 in _db.Meeting
+                                            orderby m1.MeetingDate descending
+                                            where m1.EmployeeId == cv.ColleagueId
                                             select new LinkMeetingView
                                             {
-                                                MeetingId = m.Id,
-                                                MeetingDate = m.MeetingDate,
-                                                ColleagueSignOff = m.ColleagueSignOff,
-                                                ManagerSignOff = m.ManagerSignOff
+                                                MeetingId = m1.Id,
+                                                MeetingDate = m1.MeetingDate,
+                                                ColleagueSignOff = m1.ColleagueSignOff,
+                                                ManagerSignOff = m1.ManagerSignOff
                                             }).ToList(),
                                 EmailAddress = cv.EmailAddress
                             }).FirstOrDefault();
 
-            if (myReport != null)
+            if (myReport == null) return null;
+           
+            foreach (var meeting in myReport.Meetings)
             {
-                foreach (var meeting in myReport.Meetings)
-                {
-                    var mDate = meeting.MeetingDate;
+                var mDate = meeting.MeetingDate;
 
-                    var period = (from p in _db.Periods
-                        where mDate >= p.Start && mDate <= p.End
-                        select p).FirstOrDefault();
+                var period = (from p in _db.Periods
+                    where mDate >= p.Start && mDate <= p.End
+                    select p).FirstOrDefault();
 
-                    if (period == null) continue; // should not occur since each meeting should fall within a period
+                if (period == null) continue; // should not occur since each meeting should fall within a period
 
-                    meeting.Period = period.Description;
-                    meeting.Year = period.Year;
-                }
-                return myReport;
+                meeting.Period = period.Description;
+                meeting.Year = period.Year;
             }
-            return null;
+            return myReport;
         }
 
         // view particular meeting

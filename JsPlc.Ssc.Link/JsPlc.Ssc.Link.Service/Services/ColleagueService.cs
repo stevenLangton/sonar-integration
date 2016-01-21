@@ -52,14 +52,14 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             IEnumerable<ColleagueView> coll = _svc.GetDirectReports(colleagueId);
 
-            return coll.Any();
+            return (coll != null) && coll.Any();
         }
 
         bool IColleagueService.IsManagerByEmail(string email)
         {
             IEnumerable<ColleagueView> coll = _svc.GetDirectReportsByManagerEmail(email);
-
-            return coll.Any();
+            
+            return (coll != null) && coll.Any();
         }
 
         void IColleagueService.Dispose()

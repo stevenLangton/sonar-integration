@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using JsPlc.Ssc.Link.StubService.StubModels;
 using JsPlc.Ssc.Link.StubService.StubInterfaces;
+using Microsoft.Owin.Security.Provider;
 
 namespace JsPlc.Ssc.Link.StubService.Controllers
 {
@@ -59,8 +60,11 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         public IHttpActionResult GetDirectReports(string managerId)
         {
             List<StubColleague> colleagues = _db.GetDirectReports(managerId);
-
-            var directReports = colleagues as IList<StubColleague> ?? colleagues.ToList();
+            if (colleagues == null)
+            {
+                return NotFound();
+            }
+            var directReports = colleagues as IList<StubColleague>;
 
             if (!directReports.Any())
                 return NotFound();
@@ -79,13 +83,33 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         public IHttpActionResult GetDirectReportsByEmail(string email)
         {
             List<StubColleague> colleagues = _db.GetDirectReportsByManagerEmail(email);
+            if (colleagues == null)
+            {
+                return NotFound();
+            }
 
-            var directReports = colleagues as IList<StubColleague> ?? colleagues.ToList();
+            var directReports = colleagues as IList<StubColleague>;
 
             if (!directReports.Any())
                 return NotFound();
 
             return Ok(directReports);
+        }
+
+        [HttpGet]
+        [Route("api/IsManager/{colleagueId}")] // api/IsManager/E0010
+        public IHttpActionResult IsManager(string colleagueId)
+        {
+            var isMgr = _db.IsManager(colleagueId);
+            return Ok(isMgr);
+        }
+
+        [HttpGet]
+        [Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@linktool.onmicrosoft.com
+        public IHttpActionResult IsManagerByEmail(string email)
+        {
+            var isMgr = _db.IsManagerByEmail(email);
+            return Ok(isMgr);
         }
     }
 }

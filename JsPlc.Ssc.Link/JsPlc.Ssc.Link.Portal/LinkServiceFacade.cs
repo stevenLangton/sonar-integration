@@ -39,19 +39,11 @@ namespace JsPlc.Ssc.Link.Portal
         }
 
         public bool IsManager(string username)
-        {
+            {
             HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?UserName=" + username).Result;
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
-        }
-
-        public ColleagueView GetColleagueByUsername(string username)
-        {
-            HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?EmailAddress=" + username).Result;
-            var employee = response.Content.ReadAsAsync<ColleagueView>().Result;
-
-            return response.IsSuccessStatusCode ? employee : null;
-        }
+            }
 
         #endregion
 
@@ -71,9 +63,33 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
         }
 
+        /// <summary>
+        /// Uses COLLEAGUE Profile Services
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool IsManagerByEmail(string email)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("api/IsManagerByEmail/" + email).Result;
+
+            return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+        }
+
+        /// <summary>
+        /// Uses COLLEAGUE Profile Services
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public ColleagueView GetColleagueByUsername(string email)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("api/ColleagueByEmail/" + email).Result;
+            var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
+
+            return response.IsSuccessStatusCode ? colleague : null;
+        }
+
         public IEnumerable<TeamView> GetTeamView(string managerId)
         {
-            //var apiPath = String.Format("Employees/?managerId={0}", managerId);
             var apiPath = String.Format("myteam/{0}", managerId);
             HttpResponseMessage response = _client.Value.GetAsync(apiPath).Result;
 
@@ -82,7 +98,6 @@ namespace JsPlc.Ssc.Link.Portal
 
         public TeamView GetMyMeetingsView(string colleagueId)
         {
-            //var apiPath = String.Format("Employees/?managerId={0}", managerId);
             var apiPath = String.Format("mymeetings/{0}", colleagueId);
             HttpResponseMessage response = _client.Value.GetAsync(apiPath).Result;
 

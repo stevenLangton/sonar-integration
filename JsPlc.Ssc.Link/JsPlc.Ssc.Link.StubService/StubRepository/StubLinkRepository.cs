@@ -16,24 +16,49 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
 
         StubColleague IStubLinkRepository.GetColleague(string colleagueId)
         {
-            //return _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(emailAddres,StringComparison.OrdinalIgnoreCase));
             return _db.Colleagues.FirstOrDefault(e =>e.ColleagueId.ToLower().Equals(colleagueId.ToLower()));
         }
 
         StubColleague IStubLinkRepository.GetColleagueByEmail(string emailAddress)
         {
-            //return _db.Employees.FirstOrDefault(e => e.EmailAddress.Equals(emailAddres,StringComparison.OrdinalIgnoreCase));
             return _db.Colleagues.FirstOrDefault(e => e.EmailAddress.ToLower().Equals(emailAddress.ToLower()));
         }
        
         List<StubColleague> IStubLinkRepository.GetDirectReports(string managerId)
         {
-            throw new NotImplementedException();
+            return GetDirectReports(managerId);
         }
 
         List<StubColleague> IStubLinkRepository.GetDirectReportsByManagerEmail(string managerEmail)
         {
-            throw new NotImplementedException();
+            return GetDirectReportsByManagerEmail(managerEmail);
+        }
+
+        bool IStubLinkRepository.IsManager(string colleagueId)
+        {
+            var dr = GetDirectReports(colleagueId);
+            return dr.Any();
+        }
+
+        bool IStubLinkRepository.IsManagerByEmail(string email)
+        {
+            var dr = GetDirectReportsByManagerEmail(email);
+            return dr != null && dr.Any();
+        }
+
+        private List<StubColleague> GetDirectReports(string colleagueId)
+        {
+            var dr = _db.Colleagues.Where(x => x.ManagerId.Equals(colleagueId));
+            return dr.ToList();
+        }
+
+        private List<StubColleague> GetDirectReportsByManagerEmail(string managerEmail)
+        {
+            var mgr = _db.Colleagues.FirstOrDefault(x => x.EmailAddress.Equals(managerEmail));
+            if (mgr == null) return null;
+
+            var dr = _db.Colleagues.Where(x => x.ManagerId.Equals(mgr.ColleagueId));
+            return dr.ToList();
         }
 
         void IStubLinkRepository.Dispose()
