@@ -3,7 +3,8 @@
 
     var init = function (serverModel) {
         var vm = komap.fromJS(serverModel);
-        vm.formattedCreateDate = moment(vm.CreateDate);
+        vm.displayCreateDate = moment(vm.CreatedDate()).format('LLLL');
+        vm.displayUpdateDate = moment(vm.LastAmendedDate()).format('LLLL');
         ko.applyBindings(vm, document.getElementById('ObjectiveView'));
     };
 
