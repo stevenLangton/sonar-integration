@@ -287,6 +287,7 @@
     <Content Include="Scripts\App\ViewScripts\LinkFormCreate.js" />
     <Content Include="Scripts\App\ViewScripts\LinkMeetings.js" />
     <Content Include="Scripts\App\ViewScripts\Objectives.js" />
+    <Content Include="Scripts\App\ViewScripts\SingleObjective.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\common.js" />
     <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
@@ -303,6 +304,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />

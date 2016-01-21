@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -27,29 +28,14 @@ namespace JsPlc.Ssc.Link.Portal
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        // NOT USED..
-        public void GetQuestion(int Id)
+        #region User api - api to provide info related to the logged in user
+
+        public ColleagueView GetUserDetails(string Email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("questions/?periodid=" + Id.ToString(CultureInfo.InvariantCulture)).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var result = response.Content.ReadAsAsync<IEnumerable<Question>>().Result;
-            }
-        }
-
-        public MeetingView GetMeeting(int Id)
-        {
-            HttpResponseMessage response = _client.Value.GetAsync("api/meetings/" + Id.ToString(CultureInfo.InvariantCulture)).Result;
-            var meeting = response.Content.ReadAsAsync<MeetingView>().Result;
-            return response.IsSuccessStatusCode ? meeting : null;
-        }
-
-        public MeetingView GetNewMeetingView(string colleagueId)
-        {
-            HttpResponseMessage response = _client.Value.GetAsync("newmeeting/" + colleagueId).Result;
-
-            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
+            // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
+            HttpResponseMessage response = _client.Value.GetAsync("api/employees/?emailaddress=" + Email).Result;
+            var item = response.Content.ReadAsAsync<ColleagueView>().Result;
+            return response.IsSuccessStatusCode ? item : null;
         }
 
         public bool IsManager(string username)
@@ -64,7 +50,25 @@ namespace JsPlc.Ssc.Link.Portal
             HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?EmailAddress=" + username).Result;
             var employee = response.Content.ReadAsAsync<ColleagueView>().Result;
 
-            return response.IsSuccessStatusCode ? employee.ToColleagueView() : null;
+            return response.IsSuccessStatusCode ? employee : null;
+        }
+
+        #endregion
+
+        #region Link Meeting api - api to manage Link meetings
+
+        public MeetingView GetMeeting(int Id)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("api/meetings/" + Id.ToString(CultureInfo.InvariantCulture)).Result;
+            var meeting = response.Content.ReadAsAsync<MeetingView>().Result;
+            return response.IsSuccessStatusCode ? meeting : null;
+        }
+
+        public MeetingView GetNewMeetingView(string colleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("newmeeting/" + colleagueId).Result;
+
+            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
         }
 
         public IEnumerable<TeamView> GetTeamView(string managerId)
@@ -84,6 +88,18 @@ namespace JsPlc.Ssc.Link.Portal
 
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<TeamView>().Result : null;
         }
+        #endregion
+
+        #region Objectives api
+
+        public LinkObjective GetObjective(string ColleagueId, int ObjectiveId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives/" + ObjectiveId.ToString(CultureInfo.InvariantCulture)).Result;
+            var objective = response.Content.ReadAsAsync<LinkObjective>().Result;
+            return response.IsSuccessStatusCode ? objective : null;
+        }
+
+        #endregion
 
         public void Dispose()
         {

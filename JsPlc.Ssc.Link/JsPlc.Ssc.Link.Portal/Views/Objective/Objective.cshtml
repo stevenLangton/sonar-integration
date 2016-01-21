@@ -1,36 +1,36 @@
-﻿
+﻿@model JsPlc.Ssc.Link.Models.Entities.LinkObjective
 @{
     ViewBag.Title = "Objective";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script type="text/javascript">
+    require(["SingleObjective"], function (mod) {
+        $(document).ready(function () {
+            mod.init(@Html.Raw(Json.Encode(Model)));
+        });
+    });
+</script>
 <div class="container" id="ObjectiveView">
+    @*TODO: Add real breadcrumbs*@
     <div>YOUR DEVELOPMENT > OBJECTIVES</div>
     <span class="h2">Add a new Objective</span>
     <br/>
     <span>Created on February 26th, 2016 at 2.45pm</span>
     <h3>Objective title</h3>
     <div>
-        <textarea>
-                Personal objectives ensure we are clear on our how we can each make a difference to our team, the business and our customers.
-        </textarea>
+        <textarea data-bind="textInput: Title"></textarea>
     </div>
     <h3>What will I do to make a difference this year?</h3>
     <div>
-        <textarea>
-            Personal objectives ensure we are clear on our how we can each make a difference to our team, the business and our customers.
-        </textarea>
+        <textarea data-bind="textInput: Objective"></textarea>
     </div>
     <h3>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h3>
     <div>
-        <textarea>
-            Personal objectives ensure we are clear on our how we can each make a difference to our team, the business and our customers.
-        </textarea>
+        <textarea data-bind="textInput: MeasuredBy"></textarea>
     </div>
     <h3>Which company or divisional priority does this support?</h3>
     <div>
-        <textarea>
-            Personal objectives ensure we are clear on our how we can each make a difference to our team, the business and our customers.
-        </textarea>
+        <textarea data-bind="textInput: RelevantTo"></textarea>
     </div>
     <br />
     <br />
@@ -39,7 +39,7 @@
         <div class="pull-right">
             <span>Last updated on February 26th, 2016 at 2.45pm</span>
             <button class="btn btn-default">Save changes</button>
-            <button class="btn btn-default">Cancel</button>
+            <a class="btn btn-default" href="objective">Cancel</a>
         </div>
     </div>
     <hr />

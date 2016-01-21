@@ -38,7 +38,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public ColleagueView GetColleagueByEmail(string email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/colleaguesByEmail/" + email.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/colleagueByEmail/" + email.ToString(CultureInfo.InvariantCulture)).Result;
 
             if (response.IsSuccessStatusCode)
             {

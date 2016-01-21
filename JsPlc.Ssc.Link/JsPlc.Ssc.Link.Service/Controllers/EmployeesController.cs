@@ -21,7 +21,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [HttpGet] // api/employees/?emailaddress=vasundhara.b@sainsburys.co.uk
         public IHttpActionResult GetMyDetails([FromUri]string emailAddress)
         {
-            var employee = _dbColleagues.GetColleague(emailAddress);
+            var employee = _dbColleagues.GetColleagueByEmail(emailAddress);
 
              if(employee==null)
                 return NotFound();

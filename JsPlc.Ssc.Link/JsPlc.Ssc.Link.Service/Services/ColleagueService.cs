@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         ColleagueView IColleagueService.GetColleagueByEmail(string emailAddress)
         {
-            var coll = _svc.GetColleague(emailAddress);
+            var coll = _svc.GetColleagueByEmail(emailAddress);
 
             return coll;
         }
