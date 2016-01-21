@@ -87,5 +87,21 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
 
             return Ok(directReports);
         }
+
+        [HttpGet]
+        [Route("api/IsManager/{colleagueId}")] // api/IsManager/E0010
+        public IHttpActionResult IsManager(string colleagueId)
+        {
+            var isMgr = _db.IsManager(colleagueId);
+            return Ok(isMgr);
+        }
+
+        [HttpGet]
+        [Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@linktool.onmicrosoft.com
+        public IHttpActionResult IsManagerByEmail(string email)
+        {
+            var isMgr = _db.IsManagerByEmail(email);
+            return Ok(isMgr);
+        }
     }
 }
