@@ -16,7 +16,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         public BaseController()
         {
             _db = new LinkRepository(new RepositoryContext());
-            _dbMeeting = new MeetingService(new RepositoryContext());
+            _dbMeeting = new MeetingService(new RepositoryContext(), new ColleagueService(new ServiceFacade()));
             _dbObjectives = new ObjectivesService(new RepositoryContext());
             _dbColleagues = new ColleagueService(new ServiceFacade());
         }
