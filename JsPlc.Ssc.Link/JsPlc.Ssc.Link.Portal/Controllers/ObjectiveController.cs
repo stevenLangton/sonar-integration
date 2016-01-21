@@ -45,5 +45,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             return jsonResult;
         }
+
+        [HttpGet]
+        public ActionResult Objective(int Id)
+        {
+            return View();
+        }
+
     }
 }
