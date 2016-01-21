@@ -57,9 +57,9 @@ namespace JsPlc.Ssc.Link.Portal
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public bool IsManager(string email)
+        public bool IsManagerByEmail(string email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/IsManager/?email=" + email).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/IsManagerByEmail/" + email).Result;
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
         }
@@ -71,7 +71,7 @@ namespace JsPlc.Ssc.Link.Portal
         /// <returns></returns>
         public ColleagueView GetColleagueByUsername(string email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/Colleague/?email=" + email).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/ColleagueByEmail/" + email).Result;
             var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
 
             return response.IsSuccessStatusCode ? colleague : null;

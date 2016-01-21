@@ -26,7 +26,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public ColleagueView GetColleague(string colleagueId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/colleagues/" + colleagueId.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/colleague/" + colleagueId.ToString(CultureInfo.InvariantCulture)).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -38,7 +38,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public ColleagueView GetColleagueByEmail(string email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/colleaguesByEmail/" + email.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("api/colleagueByEmail/" + email.ToString(CultureInfo.InvariantCulture)).Result;
 
             if (response.IsSuccessStatusCode)
             {

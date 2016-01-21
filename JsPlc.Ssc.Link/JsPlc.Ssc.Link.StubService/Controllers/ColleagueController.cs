@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using JsPlc.Ssc.Link.StubService.StubModels;
 using JsPlc.Ssc.Link.StubService.StubInterfaces;
+using Microsoft.Owin.Security.Provider;
 
 namespace JsPlc.Ssc.Link.StubService.Controllers
 {
@@ -59,8 +60,11 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         public IHttpActionResult GetDirectReports(string managerId)
         {
             List<StubColleague> colleagues = _db.GetDirectReports(managerId);
-
-            var directReports = colleagues as IList<StubColleague> ?? colleagues.ToList();
+            if (colleagues == null)
+            {
+                return NotFound();
+            }
+            var directReports = colleagues as IList<StubColleague>;
 
             if (!directReports.Any())
                 return NotFound();
@@ -79,8 +83,12 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         public IHttpActionResult GetDirectReportsByEmail(string email)
         {
             List<StubColleague> colleagues = _db.GetDirectReportsByManagerEmail(email);
+            if (colleagues == null)
+            {
+                return NotFound();
+            }
 
-            var directReports = colleagues as IList<StubColleague> ?? colleagues.ToList();
+            var directReports = colleagues as IList<StubColleague>;
 
             if (!directReports.Any())
                 return NotFound();

@@ -33,7 +33,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
                 using (var facade = new LinkServiceFacade())
                 {
-                    CurrentUser.IsLineManager = facade.IsManager(User.Identity.Name);
+                    CurrentUser.IsLineManager = facade.IsManagerByEmail(User.Identity.Name);
                     CurrentUser.Colleague = facade.GetColleagueByUsername(User.Identity.Name);
                 }
 

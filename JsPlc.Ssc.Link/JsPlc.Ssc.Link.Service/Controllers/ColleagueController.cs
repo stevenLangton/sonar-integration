@@ -15,10 +15,11 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
         public ColleagueController(ILinkRepository repository) : base(repository) { }
 
-        [HttpGet] // api/Colleague/?email=vasundhara.b@sainsburys.co.uk
-        public IHttpActionResult GetMyDetails([FromUri]string email)
+        [HttpGet] // api/Colleague/vasundhara.b@sainsburys.co.uk
+        [Route("api/ColleagueByEmail/{email}")]
+        public IHttpActionResult GetMyDetailsByEmail([FromUri]string email)
         {
-            var colleague = _dbColleagues.GetColleague(email);
+            var colleague = _dbColleagues.GetColleagueByEmail(email);
 
              if(colleague==null)
                 return NotFound();
@@ -26,8 +27,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(colleague);
         }
 
-        [HttpGet] // api/IsManager/?email=vasundhara.b@sainsburys.co.uk
-        public bool IsManager([FromUri]string email)
+        [HttpGet] // api/IsManagerByEmail/vasundhara.b@sainsburys.co.uk
+        [Route("api/IsManagerByEmail/{email}")]
+        public bool IsManagerByEmail([FromUri]string email)
         {
             return _dbColleagues.IsManagerByEmail(email);
         }

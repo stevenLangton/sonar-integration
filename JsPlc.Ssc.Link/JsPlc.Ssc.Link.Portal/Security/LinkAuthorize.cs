@@ -17,7 +17,7 @@ namespace JsPlc.Ssc.Link.Portal.Security
             var userName = httpContext.User.Identity.Name;
             using (var facade = new LinkServiceFacade())
             {
-                return facade.IsManager(userName);
+                return facade.IsManagerByEmail(userName);
             }
             //if (userName.ToLower().Contains("sandip"))
             //{
