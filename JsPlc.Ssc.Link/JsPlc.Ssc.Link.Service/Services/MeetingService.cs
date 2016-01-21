@@ -13,12 +13,12 @@ namespace JsPlc.Ssc.Link.Service.Services
     public class MeetingService : IMeetingService
     {
         private readonly RepositoryContext _db;
-        private readonly IColleagueService _svc;
+        private readonly IColleagueService _colleagueService;
 
         public MeetingService()
         {
             _db = new RepositoryContext();
-            _svc = new ColleagueService(new ServiceFacade());
+            _colleagueService = new ColleagueService(new ServiceFacade());
         }
 
         public MeetingService(RepositoryContext context) { _db = context; }
@@ -26,9 +26,9 @@ namespace JsPlc.Ssc.Link.Service.Services
         public MeetingService(RepositoryContext context, IColleagueService svc)
         { 
             _db = context;
-            _svc = svc;
+            _colleagueService = svc;
         }
-        public MeetingService(IColleagueService svc) { _svc = svc; }
+        public MeetingService(IColleagueService svc) { _colleagueService = svc; }
 
         public IEnumerable<Question> GetQuestions()
         {
@@ -38,16 +38,13 @@ namespace JsPlc.Ssc.Link.Service.Services
         // meetings history of an employee
         public TeamView GetMeetings(string colleagueId)
         {
-            var cv = _svc.GetColleague(colleagueId);
+            ColleagueView cv = _colleagueService.GetColleague(colleagueId);
             
             var myReport = (from m in _db.Meeting
                             .Where(m => m.EmployeeId.Equals(colleagueId))
                             select new TeamView
                             {
-                                //EmployeeId = e.ColleagueId,
-                                ColleagueId = cv.ColleagueId,
-                                FirstName = cv.FirstName,
-                                LastName = cv.LastName,
+                                //Colleague = new ColleagueView{ColleagueId = cv},
                                 Meetings = (from m1 in _db.Meeting
                                             orderby m1.MeetingDate descending
                                             where m1.EmployeeId == cv.ColleagueId
@@ -58,11 +55,12 @@ namespace JsPlc.Ssc.Link.Service.Services
                                                 ColleagueSignOff = m1.ColleagueSignOff,
                                                 ManagerSignOff = m1.ManagerSignOff
                                             }).ToList(),
-                                EmailAddress = cv.EmailAddress
                             }).FirstOrDefault();
 
             if (myReport == null) return null;
-           
+            
+            myReport.Colleague = cv;
+
             foreach (var meeting in myReport.Meetings)
             {
                 var mDate = meeting.MeetingDate;
@@ -72,7 +70,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                     select p).FirstOrDefault();
 
                 if (period == null) continue; // should not occur since each meeting should fall within a period
-
+                
                 meeting.Period = period.Description;
                 meeting.Year = period.Year;
             }
@@ -83,6 +81,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         public MeetingView GetMeeting(int meetingId)
         {
             throw new NotImplementedException();
+            // TODO Implement
             //// Get meeting details along with manager details
             //var meeting = (from m in _db.Meeting
             //               join e in _db.LinkUsers on m.EmployeeId equals e.Id into e_join
@@ -128,6 +127,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         public MeetingView CreateMeeting(string colleagueId)
         {
             throw new NotImplementedException();
+            // TODO Implement
             //// Get meeting details along with manager details
             //var meeting = (from e in _db.Employees
             //               where e.ColleagueId == colleagueId
@@ -165,6 +165,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         public int SaveMeeting(MeetingView view)
         {
             throw new NotImplementedException();
+            // TODO Implement
 
             //int empId = _db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
 
@@ -248,17 +249,15 @@ namespace JsPlc.Ssc.Link.Service.Services
         // employees and their meeting history of a manager
         public IEnumerable<TeamView> GetTeam(string managerId)
         {
-            throw new NotImplementedException();
+            var team = _colleagueService.GetDirectReports(managerId);
 
-            //var team = _db.Employees.Where(e => e.ManagerId == managerId);
+            var teamView = new List<TeamView>();
 
-            //var teamView = new List<TeamView>();
-
-            //foreach (var employee in team)
-            //{
-            //    teamView.Add(GetMeetings(employee.ColleagueId));
-            //}
-            //return teamView;
+            foreach (ColleagueView colleague in team)
+            {
+                teamView.Add(GetMeetings(colleague.ColleagueId));
+            }
+            return teamView;
         }
 
         public void Dispose()
