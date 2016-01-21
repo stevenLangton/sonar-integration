@@ -305,3 +305,8 @@ html, body {
 .footer, .push {
     height: 378px; /* .push must be the same height as .footer */
 }
+
+a:link, a:visited {
+    color: inherit;
+    text-decoration: underline;
+}
