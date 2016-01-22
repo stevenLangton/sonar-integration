@@ -1,67 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JsPlc.Ssc.Link.StubService.Extensions;
 using JsPlc.Ssc.Link.StubService.StubModels;
 using JsPlc.Ssc.Link.StubService.StubInterfaces;
+using Microsoft.Owin.Security.Provider;
+using WebGrease.Css.Extensions;
 
 namespace JsPlc.Ssc.Link.StubService.StubRepository
 {
-    public class StubLinkRepository:IStubLinkRepository
+    public class ColleagueServices:IColleagueServices
     {
         private readonly StubRepositoryContext _db;
 
-        public StubLinkRepository() { }
+        public ColleagueServices() { }
 
-        public StubLinkRepository(StubRepositoryContext context) { _db = context; }
+        public ColleagueServices(StubRepositoryContext context) { _db = context; }
 
-        StubColleague IStubLinkRepository.GetColleague(string colleagueId)
+        ColleagueDto IColleagueServices.GetColleague(string colleagueId)
         {
-            return _db.Colleagues.FirstOrDefault(e =>e.ColleagueId.ToLower().Equals(colleagueId.ToLower()));
+            var colleague = _db.Colleagues.FirstOrDefault(e =>e.ColleagueId.ToLower().Equals(colleagueId.ToLower()));
+            var mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(colleague.ManagerId));
+            var retval = colleague.ToColleagueDto();
+            retval.Manager = mgr.ToColleagueDto(mgr);
+            return retval;
         }
 
-        StubColleague IStubLinkRepository.GetColleagueByEmail(string emailAddress)
+        ColleagueDto IColleagueServices.GetColleagueByEmail(string emailAddress)
         {
-            return _db.Colleagues.FirstOrDefault(e => e.EmailAddress.ToLower().Equals(emailAddress.ToLower()));
+            var colleague = _db.Colleagues.FirstOrDefault(e => e.EmailAddress.ToLower().Equals(emailAddress.ToLower()));
+            StubColleague mgr = null;
+            if (colleague != null)
+            {
+                mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(colleague.ManagerId));
+            }
+            var retval = colleague.ToColleagueDto(mgr);
+            //retval.Manager = mgr.ToColleagueDto();
+            return retval;
         }
-       
-        List<StubColleague> IStubLinkRepository.GetDirectReports(string managerId)
+
+        List<ColleagueDto> IColleagueServices.GetDirectReports(string managerId)
         {
             return GetDirectReports(managerId);
         }
 
-        List<StubColleague> IStubLinkRepository.GetDirectReportsByManagerEmail(string managerEmail)
+        List<ColleagueDto> IColleagueServices.GetDirectReportsByManagerEmail(string managerEmail)
         {
             return GetDirectReportsByManagerEmail(managerEmail);
         }
 
-        bool IStubLinkRepository.IsManager(string colleagueId)
+        bool IColleagueServices.IsManager(string colleagueId)
         {
             var dr = GetDirectReports(colleagueId);
             return dr.Any();
         }
 
-        bool IStubLinkRepository.IsManagerByEmail(string email)
+        bool IColleagueServices.IsManagerByEmail(string email)
         {
             var dr = GetDirectReportsByManagerEmail(email);
             return dr != null && dr.Any();
         }
 
-        private List<StubColleague> GetDirectReports(string colleagueId)
+        private List<ColleagueDto> GetDirectReports(string managerId)
         {
-            var dr = _db.Colleagues.Where(x => x.ManagerId.Equals(colleagueId));
-            return dr.ToList();
+            var mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(managerId));
+            if (mgr == null) return null;
+            var colleagueList = _db.Colleagues.Where(x => x.ManagerId.Equals(mgr.ColleagueId));
+            return colleagueList.Any() ? colleagueList.ToList().ToColleagueDtoList(mgr) : null;
         }
 
-        private List<StubColleague> GetDirectReportsByManagerEmail(string managerEmail)
+        private List<ColleagueDto> GetDirectReportsByManagerEmail(string managerEmail)
         {
             var mgr = _db.Colleagues.FirstOrDefault(x => x.EmailAddress.Equals(managerEmail));
             if (mgr == null) return null;
 
-            var dr = _db.Colleagues.Where(x => x.ManagerId.Equals(mgr.ColleagueId));
-            return dr.ToList();
+            var colleagueList = _db.Colleagues.Where(x => x.ManagerId.Equals(mgr.ColleagueId));
+            return colleagueList.Any() ? colleagueList.ToList().ToColleagueDtoList(mgr) : null;
         }
 
-        void IStubLinkRepository.Dispose()
+        void IColleagueServices.Dispose()
         {
             _db.Dispose();
         }

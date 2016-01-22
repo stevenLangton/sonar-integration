@@ -77,7 +77,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         public IEnumerable<LinkObjective> GetListOfObjectives(string colleagueId, DateTime year)
         {
-            return _db.Objectives.Where(e => e.EmployeeId == colleagueId && e.CreatedDate.Year == year.Year);
+            return _db.Objectives.Where(e => e.ColleagueId == colleagueId && e.CreatedDate.Year == year.Year);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         /// <returns>A list of objectives</returns>
         public IEnumerable<LinkObjective> GetAllObjectives(string colleagueId)
         {
-            return _db.Objectives.Where(e => e.EmployeeId == colleagueId);
+            return _db.Objectives.Where(e => e.ColleagueId == colleagueId);
         }
 
         public void Dispose()

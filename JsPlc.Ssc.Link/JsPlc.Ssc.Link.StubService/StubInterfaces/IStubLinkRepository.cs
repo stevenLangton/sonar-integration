@@ -3,13 +3,13 @@ using JsPlc.Ssc.Link.StubService.StubModels;
 
 namespace JsPlc.Ssc.Link.StubService.StubInterfaces
 {
-    public interface IStubLinkRepository
+    public interface IColleagueServices
     {
-        StubColleague GetColleague(string colleagueId);
-        StubColleague GetColleagueByEmail(string emailAddress);
+        ColleagueDto GetColleague(string colleagueId);
+        ColleagueDto GetColleagueByEmail(string emailAddress);
 
-        List<StubColleague> GetDirectReports(string managerId);
-        List<StubColleague> GetDirectReportsByManagerEmail(string managerId);
+        List<ColleagueDto> GetDirectReports(string managerId);
+        List<ColleagueDto> GetDirectReportsByManagerEmail(string managerId);
 
         bool IsManager(string colleagueId);
         bool IsManagerByEmail(string email);

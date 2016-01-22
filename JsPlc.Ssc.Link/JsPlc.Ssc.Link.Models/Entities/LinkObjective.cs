@@ -12,7 +12,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
         public int Id { get; set; }
 
         [Required]
-        public string EmployeeId { get; set; } // Use E001 etc (so that we can store EmployeeId without they having registered as LinkUser)
+        public string ColleagueId { get; set; } // Use E001 etc (so that we can store EmployeeId without they having registered as LinkUser)
 
         [Required]
         public string ManagerId { get; set; } // Use E0010 etc (so that we can store EmployeeId)

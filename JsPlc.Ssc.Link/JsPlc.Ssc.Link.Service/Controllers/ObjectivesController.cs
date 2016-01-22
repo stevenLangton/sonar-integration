@@ -58,7 +58,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         {
             LinkObjective newObjective = new LinkObjective();
 
-            newObjective.EmployeeId = colleagueId;
+            newObjective.ColleagueId = colleagueId;
             newObjective.Objective = objective.Objective;
             newObjective.CreatedDate = DateTime.Now.Date;
             newObjective.LastAmendedDate = DateTime.Now.Date;

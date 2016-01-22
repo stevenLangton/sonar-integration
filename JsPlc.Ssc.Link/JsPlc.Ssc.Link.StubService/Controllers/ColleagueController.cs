@@ -11,7 +11,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
     {
         public ColleagueController() { }
 
-        public ColleagueController(IStubLinkRepository repository) : base(repository) { }
+        public ColleagueController(IColleagueServices repository) : base(repository) { }
 
         /// <summary>
         /// Get ColleagueProfile by their empId
@@ -23,12 +23,12 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/Colleague/{id}")]
         public IHttpActionResult GetColleague([FromUri] string id)
         {
-            StubColleague stubColleague = _db.GetColleague(id);
+            ColleagueDto colleague = ColleagueServices.GetColleague(id);
 
-            if (stubColleague == null)
+            if (colleague == null)
                 return NotFound();
 
-            return Ok(stubColleague);
+            return Ok(colleague);
         }
 
         /// <summary>
@@ -41,12 +41,12 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/ColleagueByEmail/{email}")]
         public IHttpActionResult GetColleagueByEmail([FromUri] string email)
         {
-            StubColleague stubColleague = _db.GetColleagueByEmail(email);
+            ColleagueDto colleague = ColleagueServices.GetColleagueByEmail(email);
 
-            if (stubColleague == null)
+            if (colleague == null)
                 return NotFound();
 
-            return Ok(stubColleague);
+            return Ok(colleague);
         }
 
         /// <summary>
@@ -59,12 +59,12 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/DirectReports/{managerId}")] // api/DirectReports/E0010
         public IHttpActionResult GetDirectReports(string managerId)
         {
-            List<StubColleague> colleagues = _db.GetDirectReports(managerId);
+            List<ColleagueDto> colleagues = ColleagueServices.GetDirectReports(managerId);
             if (colleagues == null)
             {
                 return NotFound();
             }
-            var directReports = colleagues as IList<StubColleague>;
+            var directReports = colleagues as IList<ColleagueDto>;
 
             if (!directReports.Any())
                 return NotFound();
@@ -82,13 +82,13 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/DirectReportsByEmail/{email}")] 
         public IHttpActionResult GetDirectReportsByEmail(string email)
         {
-            List<StubColleague> colleagues = _db.GetDirectReportsByManagerEmail(email);
+            List<ColleagueDto> colleagues = ColleagueServices.GetDirectReportsByManagerEmail(email);
             if (colleagues == null)
             {
                 return NotFound();
             }
 
-            var directReports = colleagues as IList<StubColleague>;
+            var directReports = colleagues as IList<ColleagueDto>;
 
             if (!directReports.Any())
                 return NotFound();
@@ -100,7 +100,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/IsManager/{colleagueId}")] // api/IsManager/E0010
         public IHttpActionResult IsManager(string colleagueId)
         {
-            var isMgr = _db.IsManager(colleagueId);
+            var isMgr = ColleagueServices.IsManager(colleagueId);
             return Ok(isMgr);
         }
 
@@ -108,7 +108,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@linktool.onmicrosoft.com
         public IHttpActionResult IsManagerByEmail(string email)
         {
-            var isMgr = _db.IsManagerByEmail(email);
+            var isMgr = ColleagueServices.IsManagerByEmail(email);
             return Ok(isMgr);
         }
     }

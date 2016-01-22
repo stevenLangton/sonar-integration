@@ -68,6 +68,7 @@
     <Compile Include="Entities\LinkUser.cs" />
     <Compile Include="Entities\Pdp.cs" />
     <Compile Include="Entities\LinkMeeting.cs" />
+    <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="LinkMeetingView.cs" />
     <Compile Include="MeetingView.cs" />
     <Compile Include="Entities\LinkObjective.cs" />
