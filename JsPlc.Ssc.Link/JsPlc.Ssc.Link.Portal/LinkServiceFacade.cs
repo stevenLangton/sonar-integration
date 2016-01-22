@@ -122,7 +122,7 @@ namespace JsPlc.Ssc.Link.Portal
             var jsonString = JsonConvert.SerializeObject(modified);
 
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            string pathSuffix  = "colleagues/" + modified.EmployeeId + "/objectives/" + modified.Id.ToString(CultureInfo.InvariantCulture);
+            string pathSuffix  = "colleagues/" + modified.ColleagueId + "/objectives/" + modified.Id.ToString(CultureInfo.InvariantCulture);
 
             HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
             return response.IsSuccessStatusCode ? true : false;

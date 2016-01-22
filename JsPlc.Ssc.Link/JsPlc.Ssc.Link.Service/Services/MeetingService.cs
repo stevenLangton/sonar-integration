@@ -39,16 +39,16 @@ namespace JsPlc.Ssc.Link.Service.Services
         // meetings history of an employee
         public TeamView GetMeetings(string colleagueId)
         {
-            ColleagueView cv = _colleagueService.GetColleague(colleagueId);
-            
-            var myReport = (from m in _db.Meeting
+            ColleagueView colleague = _colleagueService.GetColleague(colleagueId);
+            TeamView myReport;
+            myReport = (from m in _db.Meeting
                             .Where(m => m.ColleagueId.Equals(colleagueId))
                             select new TeamView
                             {
                                 //Colleague = new ColleagueView{ColleagueId = cv},
                                 Meetings = (from m1 in _db.Meeting
                                             orderby m1.MeetingDate descending
-                                            where m1.ColleagueId == cv.ColleagueId
+                                            where m1.ColleagueId == colleague.ColleagueId
                                             select new LinkMeetingView
                                             {
                                                 MeetingId = m1.Id,
@@ -58,10 +58,11 @@ namespace JsPlc.Ssc.Link.Service.Services
                                             }).ToList(),
                             }).FirstOrDefault();
 
-            if (myReport == null) return null;
-            
-            myReport.Colleague = cv;
-
+            if (myReport == null)
+            {
+                return new TeamView() {Colleague = colleague};
+            }
+            myReport.Colleague = colleague;
             foreach (var meeting in myReport.Meetings)
             {
                 var mDate = meeting.MeetingDate;
