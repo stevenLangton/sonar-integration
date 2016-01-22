@@ -1,29 +1,28 @@
 ﻿using System.Web.Http;
 using JsPlc.Ssc.Link.StubService.StubRepository;
 using JsPlc.Ssc.Link.StubService.StubInterfaces;
-using JsPlc.Ssc.Link.StubService.StubInterfaces;
 
 namespace JsPlc.Ssc.Link.StubService.Controllers
 {
     public class BaseController : ApiController
     {
-        protected readonly IStubLinkRepository _db;
+        protected readonly IColleagueServices ColleagueServices;
 
         public BaseController()
         {
-            _db = new StubLinkRepository(new StubRepositoryContext());
+            ColleagueServices = new ColleagueServices(new StubRepositoryContext());
         }
 
-        public BaseController(IStubLinkRepository repository)
+        public BaseController(IColleagueServices repository)
         {
-            _db = repository;
+            ColleagueServices = repository;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _db.Dispose();
+                ColleagueServices.Dispose();
             }
             base.Dispose(disposing);
         }
