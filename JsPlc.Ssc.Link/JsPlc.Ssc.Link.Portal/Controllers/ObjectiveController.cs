@@ -2,6 +2,7 @@
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 //using System.IdentityModel.Tokens;
@@ -55,6 +56,27 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
                 return View(item);
             }
+        }
+
+        [HttpPut]
+        public JsonResult Objective(LinkObjective modifiedObjective)
+        {
+            bool Success = false;
+
+            if (ModelState.IsValid)
+            {
+                using (var facade = new LinkServiceFacade())
+                {
+                    modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
+                    modifiedObjective.LastAmendedDate = DateTime.Now;
+                    Success = facade.UpdateObjective(modifiedObjective).Result;
+                }
+            }
+
+            return new JsonResult {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { success = Success }
+            };
         }
 
     }

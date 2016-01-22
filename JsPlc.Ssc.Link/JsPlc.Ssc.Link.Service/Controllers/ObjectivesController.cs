@@ -74,6 +74,35 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return CreatedAtRoute("NewObjective", new { id = newObjective.Id }, newObjective);
         }
 
+        [Route("colleagues/{colleagueId}/objectives/{id}")]
+        public IHttpActionResult PutObjective(LinkObjective modObjective, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id != modObjective.Id)
+                    return NotFound();
+
+                modObjective.LastAmendedDate = DateTime.Now.Date;
+                //TODO: get proper value. 
+                //modObjective.LastAmendedBy = objective.LastAmendedByColleagueId;
+
+                var status = _dbObjectives.UpdateObjective(id, modObjective);
+
+                if (status)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         /// <summary>
         /// Return all objectives for a colleague
         /// </summary>
