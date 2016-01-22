@@ -22,7 +22,7 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
             var colleague = _db.Colleagues.FirstOrDefault(e =>e.ColleagueId.ToLower().Equals(colleagueId.ToLower()));
             var mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(colleague.ManagerId));
             var retval = colleague.ToColleagueDto();
-            retval.Manager = mgr.ToColleagueDto();
+            retval.Manager = mgr.ToColleagueDto(mgr);
             return retval;
         }
 
@@ -34,8 +34,8 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
             {
                 mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(colleague.ManagerId));
             }
-            var retval = colleague.ToColleagueDto();
-            retval.Manager = mgr.ToColleagueDto();
+            var retval = colleague.ToColleagueDto(mgr);
+            //retval.Manager = mgr.ToColleagueDto();
             return retval;
         }
 
@@ -66,7 +66,7 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
             var mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(managerId));
             if (mgr == null) return null;
             var colleagueList = _db.Colleagues.Where(x => x.ManagerId.Equals(mgr.ColleagueId));
-            return colleagueList.Any() ? colleagueList.ToList().ToColleagueDtoList() : null;
+            return colleagueList.Any() ? colleagueList.ToList().ToColleagueDtoList(mgr) : null;
         }
 
         private List<ColleagueDto> GetDirectReportsByManagerEmail(string managerEmail)
@@ -75,7 +75,7 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
             if (mgr == null) return null;
 
             var colleagueList = _db.Colleagues.Where(x => x.ManagerId.Equals(mgr.ColleagueId));
-            return colleagueList.Any() ? colleagueList.ToList().ToColleagueDtoList() : null;
+            return colleagueList.Any() ? colleagueList.ToList().ToColleagueDtoList(mgr) : null;
         }
 
         void IColleagueServices.Dispose()
