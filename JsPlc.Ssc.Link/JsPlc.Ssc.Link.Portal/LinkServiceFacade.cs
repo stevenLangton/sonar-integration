@@ -11,6 +11,9 @@ using System.Web;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
 using JsPlc.Ssc.Link.Models.Entities;
+using Newtonsoft.Json;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -114,6 +117,16 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? objective : null;
         }
 
+        public async Task<bool> UpdateObjective(LinkObjective modified)
+        {
+            var jsonString = JsonConvert.SerializeObject(modified);
+
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            string pathSuffix  = "colleagues/" + modified.EmployeeId + "/objectives/" + modified.Id.ToString(CultureInfo.InvariantCulture);
+
+            HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
+            return response.IsSuccessStatusCode ? true : false;
+        }
         #endregion
 
         public void Dispose()
