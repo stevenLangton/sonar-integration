@@ -82,35 +82,18 @@ namespace JsPlc.Ssc.Link.Service.Services
         public MeetingView GetMeeting(int meetingId)
         {
             // Get meeting details along with manager details
-            //var meeting = (from m in _db.Meeting
-            //               join e in _db.Employees on m.EmployeeId equals e.Id into e_join
-
-            //               from e in e_join.DefaultIfEmpty()
-            //               join mm in _db.Employees on m.ManagerId equals mm.ColleagueId into m_join
-
-            //               from mm in m_join.DefaultIfEmpty()
-            //               where m.Id == meetingId
-            //               select new MeetingView
-            //               {
-            //                   MeetingId = m.Id,
-            //                   MeetingDate = m.MeetingDate,
-            //                   EmployeeId = e.Id,
-            //                   ColleagueId = e.ColleagueId,
-            //                   ColleagueName = string.Concat(e.FirstName, " " + e.LastName),
-            //                   ManagerId = mm.ColleagueId,
-            //                   ManagerName = string.Concat(mm.FirstName, " " + mm.LastName),
-            //                   ColleagueSignOff = m.ColleagueSignOff,
-            //                   ManagerSignOff = m.ManagerSignOff,
-            //               }).FirstOrDefault();
-
             var meeting = _db.Meeting.FirstOrDefault(x => x.Id == meetingId);
             if (meeting == null) return null;
 
             var coll = _colleagueService.GetColleague(meeting.ColleagueId);
-            var mgr = _colleagueService.GetColleague(meeting.ManagerId);
+            ColleagueView mgr = null;
+            if (coll.HasManager)
+            {
+                mgr = _colleagueService.GetColleague(meeting.ManagerId);
+            }
 
             MeetingView meetingView = meeting.ToMeetingView();
-            meetingView.ColleagueName = (coll == null) ? "-" : coll.FirstName + " " + coll.LastName;
+            meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
             meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
 
             //Get questions with answers for particular meeting
@@ -133,42 +116,45 @@ namespace JsPlc.Ssc.Link.Service.Services
             return meetingView;
         }
 
-        // create new meeting
+        // create new meeting object for view, NOT persisted yet.
         public MeetingView CreateMeeting(string colleagueId)
         {
-            throw new NotImplementedException();
-            // TODO Implement
-            //// Get meeting details along with manager details
-            //var meeting = (from e in _db.Employees
-            //               where e.ColleagueId == colleagueId
-            //               join m in _db.Employees on e.ManagerId equals m.ColleagueId into m_join
-            //               from m in m_join.DefaultIfEmpty()
-            //               select new MeetingView
-            //               {
-            //                   MeetingId = 0,
-            //                   MeetingDate = DateTime.Now,
-            //                   EmployeeId = e.Id,
-            //                   ColleagueId = e.ColleagueId,
-            //                   ColleagueName = string.Concat(e.FirstName, " " + e.LastName),
-            //                   ManagerId = m.ColleagueId,
-            //                   ManagerName = string.Concat(m.FirstName, " " + m.LastName),
-            //                   ColleagueSignOff = 0,
-            //                   ManagerSignOff = 0,
-            //               }).FirstOrDefault();
+            // Get meeting details along with manager details
+            var coll = _colleagueService.GetColleague(colleagueId);
+            ColleagueView mgr=null;
+            if (coll.HasManager)
+            {
+                mgr = _colleagueService.GetColleague(coll.ManagerId);
+            }
+            MeetingView meetingView = null;
+            if (mgr != null)
+            {
+                meetingView = new MeetingView
+                {
+                    MeetingId = 0,
+                    MeetingDate = DateTime.Now,
+                    ColleagueId = coll.ColleagueId,
+                    ColleagueName = string.Concat(coll.FirstName, " " + coll.LastName),
+                    ManagerId = mgr.ColleagueId,
+                    ManagerName = string.Concat(mgr.FirstName, " " + mgr.LastName),
+                    ColleagueSignOff = 0,
+                    ManagerSignOff = 0,
+                };
+            }
 
-            ////Get questions with answers for particular meeting
-            //var question = from q in _db.Questions
-            //               select new QuestionView
-            //               {
-            //                   QuestionId = q.Id,
-            //                   Question = q.Description,
-            //                   QuestionType = q.QuestionType
-            //               };
+            //Get questions with answers for particular meeting
+            var question = from q in _db.Questions
+                           select new QuestionView
+                           {
+                               QuestionId = q.Id,
+                               Question = q.Description,
+                               QuestionType = q.QuestionType
+                           };
 
-            //if (meeting != null)
-            //    meeting.Questions = question;
+            if (meetingView != null)
+                meetingView.Questions = question;
 
-            //return meeting;
+            return meetingView;
         }
 
         // save new meeting
