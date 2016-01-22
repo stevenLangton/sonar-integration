@@ -110,6 +110,22 @@ namespace JsPlc.Ssc.Link.Portal
 
         #region Objectives api
 
+        public async Task<int> CreateObjective(LinkObjective modified)
+        {
+            var jsonString = JsonConvert.SerializeObject(modified);
+
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            string pathSuffix = "colleagues/" + modified.ColleagueId + "/objectives/";
+
+            HttpResponseMessage response = _client.Value.PostAsync(pathSuffix, httpContent).Result;
+
+            //Return new object id if fine else 0
+            if (response.IsSuccessStatusCode)
+                return int.Parse(response.Headers.Location.LocalPath.Split('/').Last());
+            else
+                return 0; //Failed to create object.
+        }
+
         public LinkObjective GetObjective(string ColleagueId, int ObjectiveId)
         {
             HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives/" + ObjectiveId.ToString(CultureInfo.InvariantCulture)).Result;
@@ -122,7 +138,7 @@ namespace JsPlc.Ssc.Link.Portal
             var jsonString = JsonConvert.SerializeObject(modified);
 
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            string pathSuffix  = "colleagues/" + modified.EmployeeId + "/objectives/" + modified.Id.ToString(CultureInfo.InvariantCulture);
+            string pathSuffix  = "colleagues/" + modified.ColleagueId + "/objectives/" + modified.Id.ToString(CultureInfo.InvariantCulture);
 
             HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
             return response.IsSuccessStatusCode ? true : false;

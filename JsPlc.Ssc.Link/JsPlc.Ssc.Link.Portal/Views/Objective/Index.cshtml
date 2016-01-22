@@ -13,12 +13,12 @@
     <a href="#">Read more</a>
     <br />
     <br />
-    <button class="btn btn-default btn-lg">Add a new Objective</button>
+    <a data-bind="attr: { href: 'objective/new' }" class="btn btn-default btn-lg">Add a new Objective</a>
     <br />
     <br/>
     <div class="list-group" id="objectiveList" data-bind="foreach: objectives">
         <div class="media list-group-item">
-            <a data-bind="attr: { href: 'objective/objective/'+Id }" class=" btn btn-default pull-right">View Objective</a>
+            <a data-bind="attr: { href: 'objective/show/'+Id }" class=" btn btn-default pull-right">View Objective</a>
             <div class="media-body">
                 <h3 class="media-heading" data-bind="text: Title"></h3>
                 <p data-bind="text: Objective"></p>
