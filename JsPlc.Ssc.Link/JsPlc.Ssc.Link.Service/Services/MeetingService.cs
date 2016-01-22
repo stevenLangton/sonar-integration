@@ -127,22 +127,17 @@ namespace JsPlc.Ssc.Link.Service.Services
             {
                 mgr = _colleagueService.GetColleague(coll.ManagerId);
             }
-            MeetingView meetingView = null;
-            if (mgr != null)
+            var meetingView = new MeetingView
             {
-                meetingView = new MeetingView
-                {
-                    MeetingId = 0,
-                    MeetingDate = DateTime.Now,
-                    ColleagueId = coll.ColleagueId,
-                    ColleagueName = string.Concat(coll.FirstName, " " + coll.LastName),
-                    ManagerId = mgr.ColleagueId,
-                    ManagerName = string.Concat(mgr.FirstName, " " + mgr.LastName),
-                    ColleagueSignOff = 0,
-                    ManagerSignOff = 0,
-                };
-            }
-
+                MeetingId = 0,
+                MeetingDate = DateTime.Now,
+                ColleagueId = coll.ColleagueId,
+                ColleagueName = string.Concat(coll.FirstName, " " + coll.LastName),
+                ManagerId = (mgr == null) ? "" : mgr.ColleagueId,
+                ManagerName = (mgr == null) ? "" : string.Concat(mgr.FirstName, " " + mgr.LastName),
+                ColleagueSignOff = 0,
+                ManagerSignOff = 0,
+            };
             //Get questions with answers for particular meeting
             var question = from q in _db.Questions
                            select new QuestionView
@@ -152,8 +147,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                                QuestionType = q.QuestionType
                            };
 
-            if (meetingView != null)
-                meetingView.Questions = question;
+            meetingView.Questions = question;
 
             return meetingView;
         }
