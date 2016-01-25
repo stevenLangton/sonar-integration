@@ -169,7 +169,7 @@ namespace JsPlc.Ssc.Link.Repository
 
             var pdp = new List<LinkPdp>
             {
-                new LinkPdp{Id=1,ColleagueId="E009",ManagerId="E010",signOff=false,achieveObjectives="",achieveObjectivesActions="",achieveObjectivesWhen="",careerAspirations="",careerAspirationsActions="",careerAspirationsWhen="",keyStrengths="",keyStrengthsActions="",keyStrengthsWhen=""}
+                new LinkPdp{Id=1,ColleagueId="E009",signOff=false,achieveObjectives="",achieveObjectivesActions="",achieveObjectivesWhen="",careerAspirations="",careerAspirationsActions="",careerAspirationsWhen="",keyStrengths="",keyStrengthsActions="",keyStrengthsWhen=""}
             };
 
             pdp.ForEach(c => context.Pdp.Add(c));
