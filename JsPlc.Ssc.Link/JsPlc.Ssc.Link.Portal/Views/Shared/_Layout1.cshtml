@@ -36,89 +36,26 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-3">
-                    <br/> <br />
-                    <div class="nav-side-menu">
-                        <div class="brand">Brand Logo</div>
-                        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target=".navbar-collapse"></i>
-                        <div class="">
-                            <div class="menu-list navbar-collapse collapse" id="menu-div">
+                @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
 
-                                <ul id="menu-content" class="menu-content collapse in">
-                                   
+             
+                <div class="col-md-9">
 
-                                    <li data-toggle="collapse" data-target="#products" class="collapsed">
-                                        <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
-                                    </li>
-                                    <ul class="sub-menu collapse" id="products">
-                                        <li class="active"><a href="#">CSS3 Animation</a></li>
-                                        <li><a href="#">General</a></li>
-                                        <li><a href="#">Buttons</a></li>
-                                        <li><a href="#">Tabs & Accordions</a></li>
-                                        <li><a href="#">Typography</a></li>
-                                        <li><a href="#">FontAwesome</a></li>
-                                        <li><a href="#">Slider</a></li>
-                                        <li><a href="#">Panels</a></li>
-                                        <li><a href="#">Widgets</a></li>
-                                        <li><a href="#">Bootstrap Model</a></li>
-                                    </ul>
-
-
-                                    <li data-toggle="collapse" data-target="#service" class="collapsed">
-                                        <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
-                                    </li>
-                                    <ul class="sub-menu collapse" id="service">
-                                        <li>New Service 1</li>
-                                        <li>New Service 2</li>
-                                        <li>New Service 3</li>
-                                    </ul>
-
-
-                                    <li data-toggle="collapse" data-target="#new" class="collapsed">
-                                        <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-                                    </li>
-                                    <ul class="sub-menu collapse" id="new">
-                                        <li>New New 1</li>
-                                        <li>New New 2</li>
-                                        <li>New New 3</li>
-                                    </ul>
-
-
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user fa-lg"></i> Profile
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users fa-lg"></i> Users
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    @RenderBody()
                 </div>
 
-
-
-                @RenderBody()
-
-            </div>
+                </div>
         </div>
         <div class="push"></div>
     </div>
 
 
 
-    <div id="footer" style="z-index: -1000" class="row">
+    <footer>
 
 
-        <div class="navbar navbar-default navbar-fixed-bottom link-footer">
-            <div class="container-fluid">
+        <div class="navbar navbar-default link-footer">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-4">
                         <h4>Useful Pages</h4>
@@ -147,22 +84,22 @@
         </div>
 
 
-    </div>
+        </footer>
 
 
 
 
 
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @*@Scripts.Render("~/bundles/bootstrap")*@
-    @*@Scripts.Render("~/bundles/knockout")*@
-    @RenderSection("scripts", required: false)
+        @*@Scripts.Render("~/bundles/jquery")*@
+        @*@Scripts.Render("~/bundles/bootstrap")*@
+        @*@Scripts.Render("~/bundles/knockout")*@
+        @RenderSection("scripts", required: false)
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
             require(['bootstrap'], function () {
             });
-    </script>
+        </script>
 
 </body>
 </html>

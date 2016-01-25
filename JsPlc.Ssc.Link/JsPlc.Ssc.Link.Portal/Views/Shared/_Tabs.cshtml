@@ -33,9 +33,9 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li role="presentation" class="@(tabName == "Welcome" ? "active" : "") tab-heading">
-                    @Html.ActionLink("Welcome", "Welcome", "Home")
+                    @Html.ActionLink("Home", "Welcome", "Home")
                 </li>
-                @if (Request.IsAuthenticated)
+                <!--@if (Request.IsAuthenticated)
                 {
 
                     <li role="presentation" class="@(tabName == "report" ? "active" : "") tab-heading">
@@ -50,7 +50,10 @@
                             @Html.ActionLink("My Team", "Index", "Team")
                         </li>
                     }
-                }
+                }-->
+                <li role="presentation" class="@(tabName == "help" ? "active" : "help") tab-heading">
+                    @Html.ActionLink("help", "help", "help")
+                </li>
                 <li role="presentation" class="@(tabName == "contact" ? "active" : "") tab-heading">
                     @Html.ActionLink("Contact", "Contact", "Home")
                 </li>
