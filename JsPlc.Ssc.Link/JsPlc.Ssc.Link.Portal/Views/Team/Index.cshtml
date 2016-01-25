@@ -25,23 +25,23 @@
             </tr>
         </thead>
 
-        @foreach (var employee in Model)
+        @foreach (var colleague in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(e => employee.ColleagueId)</td>
-                <td>@Html.DisplayFor(e => employee.FirstName)</td>
-                <td>@Html.DisplayFor(e => employee.LastName)</td>
-                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { colleagueId = employee.ColleagueId }, null)</td>
+                <td>@Html.DisplayFor(e => colleague.ColleagueId)</td>
+                <td>@Html.DisplayFor(e => colleague.FirstName)</td>
+                <td>@Html.DisplayFor(e => colleague.LastName)</td>
+                <td>@Html.ActionLink("Create New", "Create", "LinkForm", new { colleagueId = colleague.ColleagueId }, null)</td>
                 <td>
-                    @if (employee.Meetings != null)
+                    @if (colleague.Meetings != null)
                     {
-                        foreach (var meeting in employee.Meetings)
+                        foreach (var meeting in colleague.Meetings)
                         {
                             if (meeting.Status == MeetingStatus.Completed)
                             {
                                 //Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "ViewMeeting", "LinkForm", new { id = meeting.MeetingId }, new { @class = "meeting-completed" })
 
-                                Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "OpenFromDb", "Pdf", new { MeetingId = meeting.MeetingId }, new { @class = "meeting-completed", target = "_blank" })
+                                Html.ActionLink(meeting.MeetingDate.ToShortDateString(), "OpenFromDb", "Pdf", new {MeetingId = meeting.MeetingId}, new {@class = "meeting-completed", target = "_blank"});
                             }
                             else
                             {

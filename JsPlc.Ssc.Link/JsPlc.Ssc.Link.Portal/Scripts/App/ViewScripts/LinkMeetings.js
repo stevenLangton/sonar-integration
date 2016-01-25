@@ -98,16 +98,16 @@
                 // pre process each item
                 item.MeetingDate = moment(item.MeetingDate).format("L");
 
-                //debugger;
-
+                debugger;
+                var colleague = item.Colleague;
                 // Build the item
                 var MemberView = {
-                    Member: item,
-                    CreateLink: getCreateLink(item.ColleagueId),
+                    Member: colleague,
+                    CreateLink: getCreateLink(colleague.ColleagueId),
                     // extract years out of each data.Meetings (i.e from List<LinkMeetingView>)
-                    MeetingYears: buildMeetingsForMember(item.Meetings, item.ColleagueId),
-                    ColleagueId: item.ColleagueId,
-                    FullName: item.FirstName + " " + item.LastName,
+                    MeetingYears: buildMeetingsForMember(item.Meetings, colleague.ColleagueId),
+                    ColleagueId: colleague.ColleagueId,
+                    FullName: colleague.FirstName + " " + colleague.LastName,
                     HasMeetings: false
                 };
 

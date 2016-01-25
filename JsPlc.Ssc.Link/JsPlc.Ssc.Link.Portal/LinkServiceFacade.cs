@@ -11,6 +11,9 @@ using System.Web;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
 using JsPlc.Ssc.Link.Models.Entities;
+using Newtonsoft.Json;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -107,6 +110,22 @@ namespace JsPlc.Ssc.Link.Portal
 
         #region Objectives api
 
+        public async Task<int> CreateObjective(LinkObjective modified)
+        {
+            var jsonString = JsonConvert.SerializeObject(modified);
+
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            string pathSuffix = "colleagues/" + modified.ColleagueId + "/objectives/";
+
+            HttpResponseMessage response = _client.Value.PostAsync(pathSuffix, httpContent).Result;
+
+            //Return new object id if fine else 0
+            if (response.IsSuccessStatusCode)
+                return int.Parse(response.Headers.Location.LocalPath.Split('/').Last());
+            else
+                return 0; //Failed to create object.
+        }
+
         public LinkObjective GetObjective(string ColleagueId, int ObjectiveId)
         {
             HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives/" + ObjectiveId.ToString(CultureInfo.InvariantCulture)).Result;
@@ -114,6 +133,16 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? objective : null;
         }
 
+        public async Task<bool> UpdateObjective(LinkObjective modified)
+        {
+            var jsonString = JsonConvert.SerializeObject(modified);
+
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            string pathSuffix  = "colleagues/" + modified.ColleagueId + "/objectives/" + modified.Id.ToString(CultureInfo.InvariantCulture);
+
+            HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
+            return response.IsSuccessStatusCode ? true : false;
+        }
         #endregion
 
         public void Dispose()

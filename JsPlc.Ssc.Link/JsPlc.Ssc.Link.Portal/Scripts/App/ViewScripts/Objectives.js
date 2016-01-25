@@ -16,11 +16,7 @@
 
     //var init = $.noop;
     var init = function (divId) {
-        //var $promise = LinkService.getAllColleagueObjectives("E0009");
-        var jsonArgs = { ColleagueId: "E001" };//TODO: Need to get proper colleague id from backend
-
         var $promise = $.ajax({
-            data: jsonArgs,
             url: "objective/GetAllColleagueObjectives",
             type: "get",
             dataType: "json"
