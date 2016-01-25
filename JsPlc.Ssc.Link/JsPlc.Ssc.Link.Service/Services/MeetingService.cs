@@ -170,7 +170,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             var result = _db.Meeting.Add(meeting);
             int saveCount = _db.SaveChanges();
 
-            if (saveCount <= 1) return 0; // cannot proceed to save answers
+            if (saveCount <= 0) return 0; // cannot proceed to save answers
  
             foreach (var answer in view.Questions.Select(answer => new Answer
             {
