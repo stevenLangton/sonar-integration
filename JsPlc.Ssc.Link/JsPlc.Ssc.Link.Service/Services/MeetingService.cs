@@ -152,40 +152,40 @@ namespace JsPlc.Ssc.Link.Service.Services
             return meetingView;
         }
 
-        // save new meeting
+        // save new meeting, returns 0 if not saved.
         public int SaveMeeting(MeetingView view)
         {
-            throw new NotImplementedException();
-            // TODO Implement
+            var colleague = _colleagueService.GetColleague(view.ColleagueId);
+            if (colleague == null) return 0;
 
-            //int empId = _db.Employees.Where(e => e.ColleagueId == view.ColleagueId).Select(e => e.Id).FirstOrDefault();
+            var meeting = new LinkMeeting
+            {
+                ColleagueId = colleague.ColleagueId,
+                ManagerId = colleague.ManagerId,
+                MeetingDate = view.MeetingDate,
+                ColleagueSignOff = view.ColleagueSignOff,
+                ManagerSignOff = view.ManagerSignOff
+            };
 
-            //var meeting = new LinkMeeting
-            //{
-            //    EmployeeId = empId,
-            //    MeetingDate = view.MeetingDate,
-            //    ManagerId = view.ManagerId,
-            //    ColleagueSignOff = view.ColleagueSignOff,
-            //    ManagerSignOff = view.ManagerSignOff
-            //};
+            var result = _db.Meeting.Add(meeting);
+            int saveCount = _db.SaveChanges();
 
-            //var result = _db.Meeting.Add(meeting);
-            //_db.SaveChanges();
+            if (saveCount <= 1) return 0; // cannot proceed to save answers
+ 
+            foreach (var answer in view.Questions.Select(answer => new Answer
+            {
+                ColleagueComments = answer.ColleagueComment,
+                //ManagerComments = answer.ManagerComment, // descoped.. Now only one comments box.
+                QuestionId = answer.QuestionId,
+                LinkMeetingId = result.Id,
+                Discussed = answer.Discussed
+            }))
+            {
+                _db.Answers.Add(answer);
+                _db.SaveChanges();
+            }
 
-            //foreach (var answer in view.Questions.Select(answer => new Answer
-            //{
-            //    ColleagueComments = answer.ColleagueComment,
-            //    ManagerComments = answer.ManagerComment,
-            //    QuestionId = answer.QuestionId,
-            //    LinkMeetingId = result.Id,
-            //    Discussed = answer.Discussed
-            //}))
-            //{
-            //    _db.Answers.Add(answer);
-            //    _db.SaveChanges();
-            //}
-
-            //return result.Id;
+            return result.Id;
         }
 
         // update the meeting
