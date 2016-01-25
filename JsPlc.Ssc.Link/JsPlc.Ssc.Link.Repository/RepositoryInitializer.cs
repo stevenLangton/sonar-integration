@@ -166,6 +166,16 @@ namespace JsPlc.Ssc.Link.Repository
 
             objectives.ForEach(c => context.Objectives.Add(c));
             context.SaveChanges();
+
+
+            var pdp = new List<LinkPdp>
+            {
+                new LinkPdp{Id=1,ColleagueId="E009",ManagerId="E010",signOff=false,achieveObjectives="",achieveObjectivesActions="",achieveObjectivesWhen="",careerAspirations="",careerAspirationsActions="",careerAspirationsWhen="",keyStrengths="",keyStrengthsActions="",keyStrengthsWhen=""}
+            };
+
+            pdp.ForEach(c => context.Pdp.Add(c));
+            context.SaveChanges();
+
             
             base.Seed(context);
         }
