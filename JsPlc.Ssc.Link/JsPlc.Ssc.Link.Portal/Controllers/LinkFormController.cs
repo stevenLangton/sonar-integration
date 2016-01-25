@@ -36,7 +36,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public JsonResult GetLinkForm(string colleagueId)
         {
          
-            var facade = new LinkServiceFacade();
+           var facade = new LinkServiceFacade();
 
             object jsonData;
             var newMeeting = facade.GetNewMeetingView(colleagueId);
