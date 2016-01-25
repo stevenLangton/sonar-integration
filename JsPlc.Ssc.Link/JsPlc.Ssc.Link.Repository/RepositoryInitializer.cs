@@ -49,9 +49,9 @@ namespace JsPlc.Ssc.Link.Repository
 
             var questions = new List<Question> { 
             new Question{Id=1,Description="Reflecting on your objectives and the personal development you have undertaken, what is the difference you’ve made?", QuestionType = "LOOKING BACK"},
-            new Question{Id=3,Description="What will you do going forward to make a bigger difference?", QuestionType = "LOOKING FORWARD"},
-            new Question{Id=4,Description="What personal development will you undertake to enable the delivery of your objectives and support any career aspirations?", QuestionType = "DRIVING MY DEVELOPMENT"},
-            new Question{Id=5,Description="What are the key takeaways from your conversation?", QuestionType = "IN A NUTSHELL"}
+            new Question{Id=2,Description="What will you do going forward to make a bigger difference?", QuestionType = "LOOKING FORWARD"},
+            new Question{Id=3,Description="What personal development will you undertake to enable the delivery of your objectives and support any career aspirations?", QuestionType = "DRIVING MY DEVELOPMENT"},
+            new Question{Id=4,Description="What are the key takeaways from your conversation?", QuestionType = "IN A NUTSHELL"}
             };
             
             questions.ForEach(c => context.Questions.Add(c));            
@@ -107,49 +107,49 @@ namespace JsPlc.Ssc.Link.Repository
             var answers = new List<Answer>{
                 new Answer{Id=1, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 1, Discussed=false},
                 new Answer{Id=2, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 1,  Discussed=false},
-                new Answer{Id=3, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 1,  Discussed=false},
-                new Answer{Id=4, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 1,  Discussed=false},
-                new Answer{Id=5, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 1,  Discussed=false},
+                new Answer{Id=3, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 1,  Discussed=false},
+                new Answer{Id=4, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 1,  Discussed=false},
+                new Answer{Id=5, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 1,  Discussed=false},
                 new Answer{Id=6, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1, LinkMeetingId = 10,  Discussed=false},
                 new Answer{Id=7, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1, LinkMeetingId = 10,  Discussed=false},
-                new Answer{Id=8, ManagerComments="More Organizational skills", ColleagueComments="I can contribute my organizational skills and my ability to work well in a group.", QuestionId=3, LinkMeetingId = 10,  Discussed=false},
-                new Answer{Id=9, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4, LinkMeetingId = 10,  Discussed=false},
-                new Answer{Id=10, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5, LinkMeetingId = 10,  Discussed=false},
+                new Answer{Id=8, ManagerComments="More Organizational skills", ColleagueComments="I can contribute my organizational skills and my ability to work well in a group.", QuestionId=2, LinkMeetingId = 10,  Discussed=false},
+                new Answer{Id=9, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3, LinkMeetingId = 10,  Discussed=false},
+                new Answer{Id=10, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4, LinkMeetingId = 10,  Discussed=false},
                 new Answer{Id=11, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 2,  Discussed=false},
                 new Answer{Id=12, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 2,  Discussed=false},
-                new Answer{Id=13, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 2,  Discussed=false},
-                new Answer{Id=14, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 2,  Discussed=false},
-                new Answer{Id=15, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 2,  Discussed=false},
+                new Answer{Id=13, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 2,  Discussed=false},
+                new Answer{Id=14, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 2,  Discussed=false},
+                new Answer{Id=15, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 2,  Discussed=false},
 
                 new Answer{Id=16, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 3,  Discussed=false},
                 new Answer{Id=17, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 3,  Discussed=false},
-                new Answer{Id=18, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 3,  Discussed=false},
-                new Answer{Id=19, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 3,  Discussed=false},
-                new Answer{Id=20, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 3,  Discussed=false},
+                new Answer{Id=18, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 3,  Discussed=false},
+                new Answer{Id=19, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 3,  Discussed=false},
+                new Answer{Id=20, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 3,  Discussed=false},
 
                 new Answer{Id=21, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 4,  Discussed=false},
                 new Answer{Id=22, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 4,  Discussed=false},
-                new Answer{Id=23, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 4,  Discussed=false},
-                new Answer{Id=24, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 4,  Discussed=false},
-                new Answer{Id=25, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 4,  Discussed=false},
+                new Answer{Id=23, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 4,  Discussed=false},
+                new Answer{Id=24, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 4,  Discussed=false},
+                new Answer{Id=25, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 4,  Discussed=false},
 
                 new Answer{Id=26, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 5,  Discussed=false},
                 new Answer{Id=27, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 5,  Discussed=false},
-                new Answer{Id=28, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 5,  Discussed=false},
-                new Answer{Id=29, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 5,  Discussed=false},
-                new Answer{Id=30, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 5,  Discussed=false},
+                new Answer{Id=28, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 5,  Discussed=false},
+                new Answer{Id=29, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 5,  Discussed=false},
+                new Answer{Id=30, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 5,  Discussed=false},
 
                 new Answer{Id=31, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 8,  Discussed=false},
                 new Answer{Id=32, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 8,  Discussed=false},
-                new Answer{Id=33, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 8,  Discussed=false},
-                new Answer{Id=34, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 8,  Discussed=false},
-                new Answer{Id=35, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 8,  Discussed=false},
+                new Answer{Id=33, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 8,  Discussed=false},
+                new Answer{Id=34, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 8,  Discussed=false},
+                new Answer{Id=35, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 8,  Discussed=false},
 
                 new Answer{Id=36, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId = 11,  Discussed=false},
                 new Answer{Id=37, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId = 11,  Discussed=false},
-                new Answer{Id=38, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId = 11,  Discussed=false},
-                new Answer{Id=39, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId = 11,  Discussed=false},
-                new Answer{Id=40, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=5,LinkMeetingId = 11,  Discussed=false},
+                new Answer{Id=38, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId = 11,  Discussed=false},
+                new Answer{Id=39, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId = 11,  Discussed=false},
+                new Answer{Id=40, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId = 11,  Discussed=false},
              };
 
             answers.ForEach(c => context.Answers.Add(c));

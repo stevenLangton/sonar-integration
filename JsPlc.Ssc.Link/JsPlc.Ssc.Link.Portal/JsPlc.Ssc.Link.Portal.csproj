@@ -288,6 +288,7 @@
     <Content Include="Scripts\App\ViewScripts\LinkMeetings.js" />
     <Content Include="Scripts\App\ViewScripts\Objectives.js" />
     <Content Include="Scripts\App\ViewScripts\SingleObjective.js" />
+    <Content Include="Scripts\App\ViewScripts\YourTeam.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\common.js" />
     <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
@@ -420,6 +421,7 @@
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Objective\Show.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Team\YourTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

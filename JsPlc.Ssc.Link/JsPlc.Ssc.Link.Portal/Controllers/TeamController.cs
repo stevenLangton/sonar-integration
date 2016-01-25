@@ -65,7 +65,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             TempData["tabName"] = "team";
             ViewBag.ViewType = "team";
             TempData["ViewType"] = "TeamMeetings";
-            return View("LinkMeetings");
+            return View("YourTeam");
         }
 
         // GET: /Team  // Calls LinkMeetings method
