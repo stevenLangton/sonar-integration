@@ -29,6 +29,7 @@ namespace JsPlc.Ssc.Link.Portal
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker3.min.css",
+                      "~/Content/timepicker/bootstrap-timepicker.css",
                       "~/Content/Sidebar.css",
                       "~/Content/site.css"));
         }
