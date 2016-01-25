@@ -23,7 +23,9 @@
 
                     //Sort the meetings list of each team member so the youngest one appears first
                     ko.utils.arrayForEach(vm.teamMembers(), function (member) {
-                        member.Meetings.sort(function (left, right) { return left.MeetingDate == right.MeetingDate ? 0 : (left.MeetingDate > right.MeetingDate ? -1 : 1) });
+                        if (member.Meetings) {
+                            member.Meetings.sort(function (left, right) { return left.MeetingDate == right.MeetingDate ? 0 : (left.MeetingDate > right.MeetingDate ? -1 : 1) });
+                        }
                     });
                 }
             })
