@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Http;
+using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
@@ -10,7 +11,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("Welcome");
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult LinkForm()
         {
             // for now, may this should show any Ongoing(InProgress) LinkForm or NewLinkForm if no ongoing exists.
@@ -20,7 +21,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult LinkReport()
         {
             //ViewBag.Message = "Link Report for - " + CurrentUser.Colleague.FirstName + " " + CurrentUser.Colleague.LastName;
@@ -32,8 +33,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         // GET: /Team/LinkMeetings/My
         // ## COLLEAGUE meetings view
-        [HttpGet]
-        [Authorize]
+        [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.Authorize]
         public ActionResult MyMeetings()
         {
             //if (string.IsNullOrEmpty(id))
@@ -45,7 +46,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("../Team/LinkMeetings");
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Team()
         {
             ViewBag.Message = "Team for - " + User.Identity.Name;
@@ -69,6 +70,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public ActionResult JsVars()
         {
+            return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        public ActionResult Unauthorized([FromUri]string unauthPage="")
+        {
+            ViewBag.unauthPage = unauthPage;
             return View();
         }
     }

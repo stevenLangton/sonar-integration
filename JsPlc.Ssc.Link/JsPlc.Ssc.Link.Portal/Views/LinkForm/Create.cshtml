@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Link Meeting";
     var currentUser = TempData["CurrentUser"] as LinkUserView;
+    if (currentUser == null)
+    {
+        Response.Redirect("~/Home/Unauthorized?unauthPage=Link Meeting");
+        return;
+    }
 }
 <style>
     .linkErrorMsg {
@@ -121,7 +126,7 @@
                 <h3 class="linksection-heading">DRIVING MY DEVELOPMENT</h3>
 
                 <!-- QUESTIONS Loop around this -->
-                <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true" data-bind="foreach: DrivingDevelopment">
+                <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true" data-bind="foreach: DrivingDevelopmentQuestions">
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
@@ -160,7 +165,7 @@
                 <!--  IN A IN A NUTSHELL -->
                 <h3 class="linksection-heading">IN A NUTSHELL</h3>
                 <!-- QUESTIONS Loop around this -->
-                <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true" data-bind="foreach: NUTSHELL">
+                <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true" data-bind="foreach: InANutShellQuestions">
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>

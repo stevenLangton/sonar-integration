@@ -1,7 +1,6 @@
 ﻿@model JsPlc.Ssc.Link.Models.Entities.LinkObjective
 @{
     ViewBag.Title = "Objective";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script type="text/javascript">
     require(["SingleObjective"], function (mod) {
@@ -10,7 +9,7 @@
         });
     });
 </script>
-<div class="container" id="ObjectiveView">
+<div id="ObjectiveView">
     @*TODO: Add real breadcrumbs*@
     <div>YOUR DEVELOPMENT > OBJECTIVES</div>
     <span class="h2">Add a new Objective</span>

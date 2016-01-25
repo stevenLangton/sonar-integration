@@ -52,17 +52,23 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         }
 
         // POST/Insert: api/Objectives
-        [ResponseType(typeof(ObjectiveAdd))]
+        //[ResponseType(typeof(ObjectiveAdd))]
+        /// <summary>
+        /// Add a new objective. Invoke by a POST verb
+        /// </summary>
+        /// <param name="newObjective"></param>
+        /// <param name="colleagueId"></param>
+        /// <returns></returns>
         [Route("colleagues/{colleagueId}/objectives", Name="NewObjective")]
-        public IHttpActionResult PostObjective(ObjectiveAdd objective, string colleagueId)
+        public IHttpActionResult PostObjective(LinkObjective newObjective, string colleagueId)
         {
-            LinkObjective newObjective = new LinkObjective();
+            //LinkObjective newObjective = new LinkObjective();
 
-            newObjective.ColleagueId = colleagueId;
-            newObjective.Objective = objective.Objective;
-            newObjective.CreatedDate = DateTime.Now.Date;
-            newObjective.LastAmendedDate = DateTime.Now.Date;
-            newObjective.LastAmendedBy = objective.LastAmendedByColleagueId;
+            //newObjective.ColleagueId = colleagueId;
+            //newObjective.Objective = objective.Objective;
+            //newObjective.CreatedDate = DateTime.Now.Date;
+            //newObjective.LastAmendedDate = DateTime.Now.Date;
+            //newObjective.LastAmendedBy = objective.LastAmendedByColleagueId;
 
             if (!ModelState.IsValid)
             {
@@ -71,20 +77,22 @@ namespace JsPlc.Ssc.Link.Service.Controllers
 
             _dbObjectives.InsertObjective(newObjective);
 
-            return CreatedAtRoute("NewObjective", new { id = newObjective.Id }, newObjective);
+            return CreatedAtRoute("ObjectiveUrl", new { id = newObjective.Id }, newObjective);
         }
 
-        [Route("colleagues/{colleagueId}/objectives/{id}")]
+        /// <summary>
+        /// Updates an objective as we already have an id and url for it
+        /// </summary>
+        /// <param name="modObjective"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("colleagues/{colleagueId}/objectives/{id}", Name = "ObjectiveUrl")]
         public IHttpActionResult PutObjective(LinkObjective modObjective, int id)
         {
             if (ModelState.IsValid)
             {
                 if (id != modObjective.Id)
                     return NotFound();
-
-                modObjective.LastAmendedDate = DateTime.Now.Date;
-                //TODO: get proper value. 
-                //modObjective.LastAmendedBy = objective.LastAmendedByColleagueId;
 
                 var status = _dbObjectives.UpdateObjective(id, modObjective);
 

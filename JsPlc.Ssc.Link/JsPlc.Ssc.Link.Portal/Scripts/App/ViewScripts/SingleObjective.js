@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment"], function ($, ko, komap, moment) {
+﻿define(["jquery", "knockout", "komap", "moment", "common"], function ($, ko, komap, moment, common) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -16,21 +16,26 @@
 
         vm.update = function () {
             var jsonArgs = komap.toJS(vm);
-            //jsonArgs.CreatedDate = vm.displayCreateDate;
-            //jsonArgs.LastAmendedDate = vm.displayUpdateDate;
             jsonArgs.CreatedDate = getDateStr(jsonArgs.CreatedDate);
             jsonArgs.LastAmendedDate = getDateStr(jsonArgs.LastAmendedDate);
             jsonArgs.SignOffDate = getDateStr(jsonArgs.SignOffDate);
 
+            var mvcAction = (jsonArgs.Id === 0) ? "objective/create" : "objective/update";
+
             var $promise = $.ajax({
                 data: jsonArgs,
-                url: "objective/objective",
-                type: "put",
+                url: mvcAction,
+                type: "post",
                 dataType: "json"
             });
 
             $promise.done(function (result) {
                 var result = result;
+                if (result.success) {
+                     window.location.href = common.getSiteRoot() + "Objective";
+                } else {
+                    alert("We encountered a problem while processing your request.");
+                }
             });
 
             $promise.error(function (request, status, error) {

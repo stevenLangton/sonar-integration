@@ -24,8 +24,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
-
-        public async Task<JsonResult> GetAllColleagueObjectives(string ColleagueId)
+        public async Task<JsonResult> GetAllColleagueObjectives()
         {
             Uri redirectUri = new Uri(postLogoutRedirectUri);
             Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext authContext = new AuthenticationContext(Authority);
@@ -34,7 +33,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             HttpClient client = new HttpClient();
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
-            HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "/colleagues/" + ColleagueId + "/objectives");
+            HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
 
             var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
 
@@ -48,7 +47,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [HttpGet]
-        public ActionResult Objective(int Id)
+        public ActionResult New()
+        {
+            LinkObjective item = new LinkObjective();
+            item.LastAmendedBy = item.ColleagueId = CurrentUser.Colleague.ColleagueId;
+            item.LastAmendedDate = item.CreatedDate = DateTime.Now;
+            item.ManagerId = CurrentUser.Colleague.ManagerId;
+
+            return View("Show", item);
+        }
+
+        [HttpGet]
+        public ActionResult Show(int Id)
         {
             using (var facade = new LinkServiceFacade())
             {
@@ -58,8 +68,38 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             }
         }
 
-        [HttpPut]
-        public JsonResult Objective(LinkObjective modifiedObjective)
+
+        [HttpPost]
+        public ActionResult Create(LinkObjective modifiedObjective)
+        {
+            bool Success = false;
+
+            if (ModelState.IsValid)
+            {
+                using (var facade = new LinkServiceFacade())
+                {
+                    modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
+                    modifiedObjective.LastAmendedDate = DateTime.Now;
+
+                    //Add new item
+                    int NewObjectId = facade.CreateObjective(modifiedObjective).Result;
+                    Success = NewObjectId != 0;
+                    if (Success)
+                    {
+                        modifiedObjective.Id = NewObjectId;
+                    }
+                }
+            }
+
+            return new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { success = Success }
+            };
+        }//Create
+
+        [HttpPost]
+        public ActionResult Update(LinkObjective modifiedObjective)
         {
             bool Success = false;
 
@@ -77,7 +117,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = new { success = Success }
             };
-        }
+        }//Update
 
     }
 }

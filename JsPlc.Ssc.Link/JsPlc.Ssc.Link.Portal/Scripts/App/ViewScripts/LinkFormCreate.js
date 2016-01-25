@@ -59,6 +59,8 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                 //Completed: data.Status,
                 LookingBackQuestions: [],
                 LookingFwdQuestions: [],
+                DrivingDevelopmentQuestions: [],
+                InANutShellQuestions: [],
                 Questions: []
             };
             // Oh the IE pain
@@ -85,8 +87,8 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             //meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'f'; });
             meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'LOOKING BACK'; });
             meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'LOOKING FORWARD'; });
-            meetingView.DrivingDevelopment = _.select(data.Questions, function (ques) { return ques.QuestionType == 'DRIVING MY DEVELOPMENT'; });
-            meetingView.NUTSHELL = _.select(data.Questions, function (ques) { return ques.QuestionType == 'IN A NUTSHELL'; });
+            meetingView.DrivingDevelopmentQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'DRIVING MY DEVELOPMENT'; });
+            meetingView.InANutShellQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'IN A NUTSHELL'; });
             meetingView.Questions = data.Questions;
 
             self.dataModel(meetingView);
@@ -140,6 +142,12 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                 data.Questions.push(ques);
             });
             ko.utils.arrayForEach(data.LookingFwdQuestions, function (ques) {
+                data.Questions.push(ques);
+            });
+            ko.utils.arrayForEach(data.DrivingDevelopmentQuestions, function (ques) {
+                data.Questions.push(ques);
+            });
+            ko.utils.arrayForEach(data.InANutShellQuestions, function (ques) {
                 data.Questions.push(ques);
             });
 
