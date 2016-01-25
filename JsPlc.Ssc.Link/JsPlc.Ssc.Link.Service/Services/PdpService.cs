@@ -72,5 +72,10 @@ namespace JsPlc.Ssc.Link.Service.Services
                 return false;
             }
         }
+
+        public void Dispose()
+        {
+            _db.Dispose();
+        }
     }
 }
