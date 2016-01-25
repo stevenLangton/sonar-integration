@@ -26,6 +26,9 @@
             var result = result;
             var vm = ObjectivesListVm();
             vm.objectives(result);
+
+            //Sort the objectives. Latest amended first
+            vm.objectives.sort(function (left, right) { return left.LastAmendedDate == right.LastAmendedDate ? 0 : (left.LastAmendedDate > right.LastAmendedDate ? -1 : 1) });
             ko.applyBindings(vm, document.getElementById(divId));
         });
 

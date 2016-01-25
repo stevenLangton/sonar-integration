@@ -12,6 +12,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         protected readonly IMeetingService _dbMeeting;
         protected readonly IObjectivesService _dbObjectives;
         protected readonly IColleagueService _dbColleagues;
+        protected readonly IPdpService _dbPdp;
 
         public BaseController()
         {
@@ -19,6 +20,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbMeeting = new MeetingService(new RepositoryContext(), new ColleagueService(new ServiceFacade()));
             _dbObjectives = new ObjectivesService(new RepositoryContext());
             _dbColleagues = new ColleagueService(new ServiceFacade());
+            _dbPdp = new PdpService(new RepositoryContext());
         }
 
         public BaseController(ILinkRepository repository)
@@ -41,6 +43,11 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbColleagues = repoColleagues;
         }
 
+        public BaseController(IPdpService repoPdp)
+        {
+            _dbPdp = repoPdp;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -48,6 +55,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
                 _db.Dispose();
                 _dbMeeting.Dispose();
                 _dbObjectives.Dispose();
+                _dbPdp.Dispose();
             }
             base.Dispose(disposing);
         }

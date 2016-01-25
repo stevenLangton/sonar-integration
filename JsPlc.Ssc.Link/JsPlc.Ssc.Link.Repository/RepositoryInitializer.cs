@@ -31,7 +31,7 @@ namespace JsPlc.Ssc.Link.Repository
             //context.SaveChanges();
             #endregion "deprecated code"
 
-            var periods = new List<Period>{
+         var periods = new List<Period>{
                 new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
                 new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
                 new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},
@@ -173,7 +173,7 @@ namespace JsPlc.Ssc.Link.Repository
 
             var pdp = new List<LinkPdp>
             {
-                new LinkPdp{Id=1,ColleagueId="E009",ManagerId="E010",signOff=false,achieveObjectives="",achieveObjectivesActions="",achieveObjectivesWhen="",careerAspirations="",careerAspirationsActions="",careerAspirationsWhen="",keyStrengths="",keyStrengthsActions="",keyStrengthsWhen=""}
+                new LinkPdp{Id=1,ColleagueId="E009",signOff=false,achieveObjectives="",achieveObjectivesActions="",achieveObjectivesWhen="",careerAspirations="",careerAspirationsActions="",careerAspirationsWhen="",keyStrengths="",keyStrengthsActions="",keyStrengthsWhen=""}
             };
 
             pdp.ForEach(c => context.Pdp.Add(c));

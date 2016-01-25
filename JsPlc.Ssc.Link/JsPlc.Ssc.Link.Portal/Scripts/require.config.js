@@ -43,7 +43,8 @@ require.config({
         "LinkFormCreate": "App/ViewScripts/LinkFormCreate",
         "LinkMeetings": "App/ViewScripts/LinkMeetings",
         "Objectives": "App/ViewScripts/Objectives",
-        "SingleObjective": "App/ViewScripts/SingleObjective"
+        "SingleObjective": "App/ViewScripts/SingleObjective",
+        "YourTeam": "App/ViewScripts/YourTeam"
 
     },
     shim: {

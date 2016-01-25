@@ -12,9 +12,6 @@ namespace JsPlc.Ssc.Link.Models.Entities
         public int Id { get; set; }
 
         [Required]
-        public string ManagerId { get; set; } 
-
-        [Required]
         public string ColleagueId { get; set; } 
 
         [Required]
