@@ -1,5 +1,5 @@
-﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "underscore", "common", "helpers", "URI"],
-function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
+﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "datetimepicker", "underscore", "common", "helpers", "URI"],
+function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, helpers, URI) {
     var getMessages = function (crudMode) {
         switch (crudMode) {
             case "Create":
@@ -32,17 +32,16 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         var buildViewModels = function (data) {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
 
+            debugger;
+
             // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?colleagueId=E001
             var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+            var meetingTime = moment(data.MeetingDate).format("HH:mm a"); // we get HH:mm
 
             var initDate = moment(data.MeetingDate).isValid() ? new Date(moment(data.MeetingDate).toISOString()) : new Date();
 
             // Init the calendar to the data.MeetingDate
-            if (moment(data.MeetingDate).isValid) {
-                $('.datepicker').datepicker("setDate", initDate);
-            } else {
-                $('.datepicker').datepicker("setDate", initDate);
-            }
+            $('.datepicker').datepicker("setDate", initDate);
 
             meetingView = {
                 EmployeeId: data.colleagueId,
@@ -52,6 +51,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
                 ManagerName: data.ManagerName,
                 ColleagueName: data.ColleagueName,
                 MeetingDate: meetingDate,
+                MeetingTime: meetingTime,
                 MeetingId: data.MeetingId,
                 ColleagueSignOff: data.ColleagueSignOff,
                 ManagerSignOff: data.ManagerSignOff,
@@ -130,11 +130,13 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             //var yyyymmdd = ukDate.toISOString();
             //console.log("Proposed postback meetingDate (yyyy-mm-ddThh:mm:ss.xxxZ):" + yyyymmdd);
             //data.MeetingDate = yyyymmdd;
-
+            debugger;
             if (moment(data.MeetingDate, common.uiDateFormat).isValid()) {
-                data.MeetingDate = moment(data.MeetingDate, common.uiDateFormat).format("YYYY-MM-DD");
-            } else if (moment(data.MeetingDate, "YYYY-MM-DD").isValid()===false) {
+                data.MeetingDate = moment(data.MeetingDate, common.uiDateFormat).format("YYYY-MM-DD")
+                    + ' ' + moment(data.MeetingTime, "HH:mm a").format("HH:mm a");
+            } else if (moment(data.MeetingDate, "YYYY-MM-DD").isValid() === false) {
                 data.MeetingDate = "";
+                data.MeetingTime = "";
             }
 
             data.Questions = [];
@@ -287,6 +289,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
         try {
             $.fn.datepicker.defaults.language = 'en-GB';
             $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy', orientation: 'auto top', autoclose: true });
+            $('#timepicker1').timepicker();
         } catch (e) {
 
         }
@@ -301,6 +304,7 @@ function ($, ko, moment, datepicker, datePickerGb, _, common, helpers, URI) {
             // set locales
             try {
                 $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
+                $('#timepicker1').timepicker();
             } catch (e) {
 
             }

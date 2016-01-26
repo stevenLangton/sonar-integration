@@ -67,6 +67,22 @@ namespace JsPlc.Ssc.Link.Portal
         }
 
         /// <summary>
+        /// Get the next meeting in the future for a colleague
+        /// </summary>
+        /// <param name="colleagueId">Sainsburys colleague id</param>
+        /// <returns></returns>
+        public MeetingView GetNextMeeting(string colleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("mymeetings/" + colleagueId + "/NextInFuture").Result;
+
+            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
+        }
+
+        #endregion
+
+        #region Colleague information api
+
+        /// <summary>
         /// Uses COLLEAGUE Profile Services
         /// </summary>
         /// <param name="email"></param>
@@ -76,6 +92,19 @@ namespace JsPlc.Ssc.Link.Portal
             HttpResponseMessage response = _client.Value.GetAsync("api/IsManagerByEmail/" + email).Result;
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+        }
+
+        /// <summary>
+        /// Get colleague details given the colleague id
+        /// </summary>
+        /// <param name="ColleagueId">Sainsburys colleague id</param>
+        /// <returns></returns>
+        public ColleagueView GetColleague(string ColleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("api/Colleague/" + ColleagueId).Result;
+            var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
+
+            return response.IsSuccessStatusCode ? colleague : null;
         }
 
         /// <summary>
@@ -106,6 +135,8 @@ namespace JsPlc.Ssc.Link.Portal
 
             return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<TeamView>().Result : null;
         }
+
+
         #endregion
 
         #region Objectives api
