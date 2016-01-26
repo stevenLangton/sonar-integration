@@ -21,12 +21,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class LinkFormController : LinkBaseController
     {
-
-        public ActionResult MyTeam()
-        {
-            return View();
-        }
-
         public ActionResult MyDetails()
         {
             return View();
@@ -165,21 +159,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // assuming we're creating a new Link Meeting for now
             //LinkForm model = MockData.MockLinkForm();
             return View();//"LinkMeeting", model);
-        }
-
-        // POST: LinkForm/Edit/5
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction("LinkForm");
-            }
-            catch
-            {
-                return RedirectToAction("LinkForm");
-                //return View();
-            }
         }
 
         [System.Web.Mvc.HttpGet]

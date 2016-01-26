@@ -28,15 +28,15 @@ namespace JsPlc.Ssc.Link.Service.Services
         //no manager id as kept in pdp as only one record.
         public LinkPdp GetPdp(string colleagueId)
         {
-            LinkPdp Pdp = _db.Pdp.Find(colleagueId);
+            var Pdp = _db.Pdp.First(e => e.ColleagueId == colleagueId);
 
             if (Pdp == null)
             {
                 LinkPdp newPdP = new LinkPdp();
                 newPdP.ColleagueId = colleagueId;
-
                 InsertObjective(newPdP);
-                Pdp = _db.Pdp.Find(colleagueId);
+
+                Pdp = _db.Pdp.First(e => e.ColleagueId == colleagueId);
                
             }
 

@@ -67,7 +67,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("mymeetings/{colleagueId}")] // mymeetings/E001
         public IHttpActionResult GetMyMeetings(string colleagueId)
         {
-            var meetings = _dbMeeting.GetMeetings(colleagueId);
+            var meetings = _dbMeeting.GetColleagueAndMeetings(colleagueId);
 
             if (meetings == null)
                 return NotFound();
@@ -91,9 +91,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("myteam/{managerId}")] // myteam/E0010
         public IHttpActionResult GetMyTeam(string managerId)
         {
-            IEnumerable<TeamView> colleaguesAndMeetings = _dbMeeting.GetTeam(managerId);
+            IEnumerable<ColleagueTeamView> colleaguesAndMeetings = _dbMeeting.GetTeam(managerId);
 
-            var teamViews = colleaguesAndMeetings as IList<TeamView> ?? colleaguesAndMeetings.ToList();
+            var teamViews = colleaguesAndMeetings as IList<ColleagueTeamView> ?? colleaguesAndMeetings.ToList();
 
             if (!teamViews.Any())
                 return NotFound();

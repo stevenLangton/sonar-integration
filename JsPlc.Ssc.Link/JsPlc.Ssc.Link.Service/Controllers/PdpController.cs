@@ -20,7 +20,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     public class PdpController : BaseController
     {
      
-
+        [HttpPut] 
         [Route("colleagues/{colleagueId}/pdp", Name = "PdpUrl")]
         public IHttpActionResult PutPdp(LinkPdp Pdp)
         {
@@ -43,6 +43,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             }
         }
 
+        [HttpGet] 
         [Route("colleagues/{colleagueId}/pdp")]
         public IHttpActionResult GetPdp(string colleagueId)
         {

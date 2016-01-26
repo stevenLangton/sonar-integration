@@ -120,20 +120,20 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? colleague : null;
         }
 
-        public IEnumerable<TeamView> GetTeamView(string managerId)
+        public IEnumerable<ColleagueTeamView> GetTeamView(string managerId)
         {
             var apiPath = String.Format("myteam/{0}", managerId);
             HttpResponseMessage response = _client.Value.GetAsync(apiPath).Result;
 
-            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<IEnumerable<TeamView>>().Result : null;
+            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<IEnumerable<ColleagueTeamView>>().Result : null;
         }
 
-        public TeamView GetMyMeetingsView(string colleagueId)
+        public ColleagueTeamView GetMyMeetingsView(string colleagueId)
         {
             var apiPath = String.Format("mymeetings/{0}", colleagueId);
             HttpResponseMessage response = _client.Value.GetAsync(apiPath).Result;
 
-            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<TeamView>().Result : null;
+            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<ColleagueTeamView>().Result : null;
         }
 
 
