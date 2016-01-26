@@ -16,10 +16,19 @@
         <div class="panel panel-info">
             <div class="panel-heading"><h3 class="panel-title"><strong>Next Link meeting</strong></h3></div>
             <div class="panel-body">
-                <div><span class="h2">@(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
-                <div><span class="h4">What status should we place here?</span></div>
-                <br/>
-                <button type="submit" class="btn btn-default">View Link meeting</button>
+                @if (null != NextMeeting)
+                {
+                    <div><span class="h2">@(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
+                    <div><span class="h4">What status should we place here?</span></div>
+                    <br />
+                    <a href="LinkForm/Edit/@NextMeeting.Id" class="btn btn-default">View Link meeting</a>
+                }
+                else
+                {
+                    <div><span class="h2">There is currently no future meeting arranged</span></div>
+                    <br />
+                    <a href="LinkForm/Create/?colleagueId=@Colleague.ColleagueId" class="btn btn-default">Create a Link meeting</a>
+                }
             </div>
         </div>
     </div>
@@ -29,9 +38,9 @@
     <hr />
 </div>
 @*<script type="text/javascript">
-    require(["Objectives"], function (mod) {
-        $(document).ready(function () {
-            mod.init("ObjectivesListView");
+        require(["Objectives"], function (mod) {
+            $(document).ready(function () {
+                mod.init("ObjectivesListView");
+            });
         });
-    });
-</script>*@
+    </script>*@

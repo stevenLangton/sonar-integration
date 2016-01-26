@@ -45,7 +45,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             //var meeting = _db.Meeting.Where(x => x.MeetingDate > DateTime.Now).OrderBy(x => x.MeetingDate).First();
             var query = from meeting in _db.Meeting
-                        where (meeting.MeetingDate > DateTime.Now)
+                        where (meeting.ColleagueId == colleagueId && meeting.MeetingDate > DateTime.Now)
                         orderby (meeting.MeetingDate)
                         select meeting;
 
