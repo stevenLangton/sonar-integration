@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Script.Services;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
@@ -38,6 +39,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             if (newMeeting != null)
             {
                 newMeeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == colleagueId;
+                newMeeting.ManagerSignOff = MeetingStatus.InComplete;
+                newMeeting.ColleagueSignOff = MeetingStatus.InComplete;
                 jsonData = newMeeting;
             }
             else
