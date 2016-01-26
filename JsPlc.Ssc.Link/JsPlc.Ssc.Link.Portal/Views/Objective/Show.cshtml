@@ -38,8 +38,9 @@
         <div class="pull-right">
             <span>Updated on </span><span data-bind="text: displayUpdateDate"></span>
             <button class="btn btn-default" data-bind="click: update">Save changes</button>
-            <a class="btn btn-default" href="objective">Cancel</a>
+            <button class="btn btn-default" data-bind="click: cancel">Cancel</button>
         </div>
     </div>
     <hr />
 </div>
+@Html.Partial("_ConfirmModal")
