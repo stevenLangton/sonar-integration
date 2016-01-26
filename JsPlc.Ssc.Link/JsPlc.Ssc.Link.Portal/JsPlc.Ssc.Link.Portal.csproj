@@ -284,6 +284,7 @@
     <Content Include="Content\timePicker\timepicker.less" />
     <None Include="Properties\PublishProfiles\Link-PubPraveen.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Scripts\App\ConfirmModal.js" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
@@ -427,6 +428,7 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
     <Content Include="Views\Profile\Show.cshtml" />
+    <Content Include="Views\Shared\_ConfirmModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

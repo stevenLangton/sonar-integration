@@ -31,6 +31,8 @@ require.config({
 
         //App modules
         "common": "App/common",
+        "confirmModal": "App/ConfirmModal",
+
 
         //"ko-binding-handlers": "App/ko-binding-handlers",
 
