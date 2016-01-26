@@ -29,7 +29,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             using (var facade = new LinkServiceFacade())
             {
-                List<TeamView> teamMeetings = null;
+                List<ColleagueTeamView> teamMeetings = null;
                 var colleagueId = CurrentUser.Colleague.ColleagueId; // If Currently a manager is logged in - use their ColleagueId
 
                 // diff method called based on myOrTeams = "MyMeetings" or "TeamMeetings"
@@ -40,8 +40,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 }
                 else
                 {
-                    teamMeetings = new List<TeamView>();
-                    TeamView mymeeting = facade.GetMyMeetingsView(colleagueId) ?? new TeamView();
+                    teamMeetings = new List<ColleagueTeamView>();
+                    ColleagueTeamView mymeeting = facade.GetMyMeetingsView(colleagueId) ?? new ColleagueTeamView();
                     teamMeetings.Add(mymeeting);
                 }
                 jsonData = teamMeetings ?? (object) "Error";
@@ -65,7 +65,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             TempData["tabName"] = "team";
             ViewBag.ViewType = "team";
             TempData["ViewType"] = "TeamMeetings";
-            return View("LinkMeetings");
+            return View("YourTeam");
         }
 
         // GET: /Team  // Calls LinkMeetings method
@@ -85,6 +85,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             //    var team = facade.GetTeamView(managerId);
             //    return team == null ? View() : View(team.ToList());
             //}
+        }
+
+        public ActionResult MyTeam_mockup()
+        {
+            return View();
         }
     }
 }

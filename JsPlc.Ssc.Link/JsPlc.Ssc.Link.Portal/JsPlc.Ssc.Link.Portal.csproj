@@ -247,6 +247,7 @@
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
     <Content Include="Content\Images\Tick_icon.PNG" />
+    <Content Include="Content\timePicker\bootstrap-timepicker.css" />
     <Content Include="Content\ProfilePics\Default.jpg" />
     <Content Include="Content\ProfilePics\E001.jpg" />
     <Content Include="Content\ProfilePics\E0010.jpg" />
@@ -279,6 +280,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="JSLintNet.json" />
+    <Content Include="Content\timePicker\timepicker.less" />
     <None Include="Properties\PublishProfiles\Link-PubPraveen.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
@@ -288,6 +290,7 @@
     <Content Include="Scripts\App\ViewScripts\LinkMeetings.js" />
     <Content Include="Scripts\App\ViewScripts\Objectives.js" />
     <Content Include="Scripts\App\ViewScripts\SingleObjective.js" />
+    <Content Include="Scripts\App\ViewScripts\YourTeam.js" />
     <Content Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\common.js" />
     <Content Include="Scripts\App\kocomponents\RegisterKoComponents.js" />
@@ -302,6 +305,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\timepicker\bootstrap-timepicker.js" />
+    <Content Include="Scripts\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
@@ -411,16 +416,17 @@
     <Content Include="Views\LinkForm\Create.cshtml" />
     <Content Include="Views\Home\JSVars.cshtml" />
     <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
-    <Content Include="Views\LinkForm\MyTeam.cshtml" />
+    <Content Include="Views\Team\MyTeam_mockup.cshtml" />
     <Content Include="Views\LinkForm\MyDetails.cshtml" />
     <Content Include="Views\Team\_MeetingHistoryComponent.cshtml" />
-    <Content Include="Views\Team\LinkMeetings.cshtml" />
+    <Content Include="Views\Team\LinkMeetings_old.cshtml" />
     <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
     <Content Include="Views\Objective\Index.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Objective\Show.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Team\YourTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

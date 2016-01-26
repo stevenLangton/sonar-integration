@@ -35,8 +35,16 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public void SignOut()
         {
             // Remove all cache entries for this user and send an OpenID Connect sign-out request.
-            string userObjectID = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-            AuthenticationContext authContext = new AuthenticationContext(Startup.Authority, new NaiveSessionCache(userObjectID));
+            var userObj = ClaimsPrincipal.Current.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier");
+            if (userObj == null)
+            {
+                HttpContext.GetOwinContext().Authentication.SignOut(
+                    OpenIdConnectAuthenticationDefaults.AuthenticationType, CookieAuthenticationDefaults.AuthenticationType);
+                return;
+            }
+
+            string userObjectId = userObj.Value;
+            AuthenticationContext authContext = new AuthenticationContext(Startup.Authority, new NaiveSessionCache(userObjectId));
             authContext.TokenCache.Clear();
 
             HttpContext.GetOwinContext().Authentication.SignOut(

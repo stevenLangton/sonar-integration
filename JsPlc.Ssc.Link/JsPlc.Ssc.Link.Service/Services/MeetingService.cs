@@ -37,13 +37,13 @@ namespace JsPlc.Ssc.Link.Service.Services
         }
 
         // meetings history of an employee
-        public TeamView GetMeetings(string colleagueId)
+        public ColleagueTeamView GetColleagueAndMeetings(string colleagueId)
         {
             ColleagueView colleague = _colleagueService.GetColleague(colleagueId);
-            TeamView myReport;
+            ColleagueTeamView myReport;
             myReport = (from m in _db.Meeting
                             .Where(m => m.ColleagueId.Equals(colleagueId))
-                            select new TeamView
+                            select new ColleagueTeamView
                             {
                                 //Colleague = new ColleagueView{ColleagueId = cv},
                                 Meetings = (from m1 in _db.Meeting
@@ -60,7 +60,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
             if (myReport == null)
             {
-                return new TeamView() {Colleague = colleague};
+                return new ColleagueTeamView() {Colleague = colleague};
             }
             myReport.Colleague = colleague;
             foreach (var meeting in myReport.Meetings)
@@ -238,15 +238,15 @@ namespace JsPlc.Ssc.Link.Service.Services
         }
 
         // employees and their meeting history of a manager
-        public IEnumerable<TeamView> GetTeam(string managerId)
+        public IEnumerable<ColleagueTeamView> GetTeam(string managerId)
         {
             var team = _colleagueService.GetDirectReports(managerId);
 
-            var teamView = new List<TeamView>();
+            var teamView = new List<ColleagueTeamView>();
 
             foreach (ColleagueView colleague in team)
             {
-                teamView.Add(GetMeetings(colleague.ColleagueId));
+                teamView.Add(GetColleagueAndMeetings(colleague.ColleagueId));
             }
             return teamView;
         }

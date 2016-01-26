@@ -310,3 +310,19 @@ a:link, a:visited {
     color: inherit;
     text-decoration: underline;
 }
+.linkErrorMsg {
+    font-weight: bold;
+    color: red;
+}
+
+.linkInfoMsg {
+    font-weight: bold;
+    color: #313131;
+}
+.content-inline {
+    display: inline-block;
+}
+.myPageContainer{}
+.meeting-banner {
+    background-color: #ececec;
+}

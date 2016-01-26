@@ -31,7 +31,7 @@ namespace JsPlc.Ssc.Link.Repository
             //context.SaveChanges();
             #endregion "deprecated code"
 
-            var periods = new List<Period>{
+         var periods = new List<Period>{
                 new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
                 new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
                 new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},

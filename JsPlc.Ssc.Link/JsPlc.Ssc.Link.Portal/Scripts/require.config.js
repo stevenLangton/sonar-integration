@@ -16,6 +16,7 @@ require.config({
         "bootstrap": "bootstrap.min",
         "bootstrap-datepicker": "bootstrap-datepicker",
         "bootstrap-datepickerGB": "locales/bootstrap-datepicker.en-GB.min",
+        "datetimepicker": "timepicker/bootstrap-timepicker.min",
         "URI": "UriJs/Uri",
         "underscore": "underscore",
         //"fragmentQuery": "UriJs/URI.fragmentQuery",
@@ -42,7 +43,8 @@ require.config({
         "LinkFormCreate": "App/ViewScripts/LinkFormCreate",
         "LinkMeetings": "App/ViewScripts/LinkMeetings",
         "Objectives": "App/ViewScripts/Objectives",
-        "SingleObjective": "App/ViewScripts/SingleObjective"
+        "SingleObjective": "App/ViewScripts/SingleObjective",
+        "YourTeam": "App/ViewScripts/YourTeam"
 
     },
     shim: {

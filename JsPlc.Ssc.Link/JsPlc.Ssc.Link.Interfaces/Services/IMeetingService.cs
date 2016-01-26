@@ -16,9 +16,9 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
 
         void UpdateMeeting(MeetingView meeting);
 
-        TeamView GetMeetings(string colleagueId);
+        ColleagueTeamView GetColleagueAndMeetings(string colleagueId);
 
-        IEnumerable<TeamView> GetTeam(string managerId);
+        IEnumerable<ColleagueTeamView> GetTeam(string managerId);
 
         void Dispose();
     }

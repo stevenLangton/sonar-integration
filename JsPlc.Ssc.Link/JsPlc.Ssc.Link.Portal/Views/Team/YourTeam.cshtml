@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Your team";
+}
+
+ <div id="linkpage" style="display: none;" data-bind="visible: true">
+        <div>LINE MANAGEMENT</div>
+        <span class="h2">Your Team</span>
+        <br />
+        <br />
+        <div class="list-group" data-bind="foreach: teamMembers">
+            <div class="media list-group-item">
+                <div class="row">
+                    <span class="h3" data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
+                    <a href="#" class=" btn btn-default pull-right">View profile</a>
+                </div>
+                <div data-bind="if: Meetings!== null">
+                    <a data-bind="attr: {'href': 'LinkForm/Edit/'+Meetings[0].MeetingId}" class="btn btn-default">View Link meeting</a>
+                </div>
+                <div data-bind="if:  Meetings === null">
+                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Create a Link meeting</a>
+                </div>
+            </div>
+        </div>
+        <hr />
+</div>
+<script type="text/javascript">
+    require(["YourTeam"], function (lm) {
+        $(document).ready(function () {
+            lm.init();
+        });
+    });
+</script>

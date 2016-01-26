@@ -92,7 +92,7 @@
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
             //var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
-            // each TeamView item
+            // each ColleagueTeamView item
             _.each(data, function (item) {
 
                 // pre process each item

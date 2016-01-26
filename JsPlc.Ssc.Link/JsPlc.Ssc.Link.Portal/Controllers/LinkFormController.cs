@@ -21,12 +21,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class LinkFormController : LinkBaseController
     {
-
-        public ActionResult MyTeam()
-        {
-            return View();
-        }
-
         public ActionResult MyDetails()
         {
             return View();
