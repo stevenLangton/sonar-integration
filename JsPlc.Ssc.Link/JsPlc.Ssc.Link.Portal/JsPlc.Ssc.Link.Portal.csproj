@@ -269,6 +269,7 @@
     <Content Include="Content\ProfilePics\E008.jpg" />
     <Content Include="Content\ProfilePics\E009.jpg" />
     <Content Include="Content\Sidebar.css" />
+    <Content Include="ElmahErrorLogs\Elmaherrors.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -428,6 +429,7 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
     <Content Include="Views\Profile\Show.cshtml" />
+    <Content Include="Views\Team\_MeetingList.cshtml" />
     <Content Include="Views\Shared\_ConfirmModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
