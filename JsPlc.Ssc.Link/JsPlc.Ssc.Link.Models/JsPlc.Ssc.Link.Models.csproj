@@ -78,7 +78,7 @@
     <Compile Include="AnswerParams.cs" />
     <Compile Include="QuestionView.cs" />
     <Compile Include="LinkUserView.cs" />
-    <Compile Include="TeamView.cs" />
+    <Compile Include="ColleagueTeamView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
