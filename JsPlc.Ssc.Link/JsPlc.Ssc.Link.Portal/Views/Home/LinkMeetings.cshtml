@@ -2,13 +2,14 @@
 @{
     var viewType = TempData["ViewType"];
 }
-@if (ViewBag.ViewType == "team")
+@if (ViewBag.ViewType == "team") // This view not used for Team view, refer to Team/YourTeam
 {
     <h2>My Team</h2>
 }
-else
+else // This view still used for Link Meetings (i.e My Meetings.)
 {
-    <h2>My Link Meetings</h2>
+    <div>YOUR LINK</div>
+    <h1 style="margin:0; padding:0">Link meetings</h1>
 }
 <div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>

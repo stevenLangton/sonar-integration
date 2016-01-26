@@ -169,7 +169,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
                         // Redirect for colleagues initiated create meeting success.. (my Link Report page)
                         if (data.ColleagueInitiated) {
-                            window.location.href = common.getSiteRoot() + "Home/LinkReport";
+                            window.location.href = common.getSiteRoot() + "Home/LinkMeetings";
                         } else {
                             window.location.href = common.getSiteRoot() + "Team";
                         }

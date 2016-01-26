@@ -161,21 +161,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();//"LinkMeeting", model);
         }
 
-        // POST: LinkForm/Edit/5
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction("LinkForm");
-            }
-            catch
-            {
-                return RedirectToAction("LinkForm");
-                //return View();
-            }
-        }
-
         [System.Web.Mvc.HttpGet]
         [System.Web.Mvc.Authorize]
         public ActionResult ViewMeeting(int? id)
