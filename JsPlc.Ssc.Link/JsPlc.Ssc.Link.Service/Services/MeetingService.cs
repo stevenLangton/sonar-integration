@@ -37,7 +37,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         }
 
         // meetings history of an employee
-        public ColleagueTeamView GetMeetings(string colleagueId)
+        public ColleagueTeamView GetColleagueAndMeetings(string colleagueId)
         {
             ColleagueView colleague = _colleagueService.GetColleague(colleagueId);
             ColleagueTeamView myReport;
@@ -246,7 +246,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
             foreach (ColleagueView colleague in team)
             {
-                teamView.Add(GetMeetings(colleague.ColleagueId));
+                teamView.Add(GetColleagueAndMeetings(colleague.ColleagueId));
             }
             return teamView;
         }

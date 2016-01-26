@@ -86,5 +86,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             //    return team == null ? View() : View(team.ToList());
             //}
         }
+
+        public ActionResult MyTeam_mockup()
+        {
+            return View();
+        }
     }
 }

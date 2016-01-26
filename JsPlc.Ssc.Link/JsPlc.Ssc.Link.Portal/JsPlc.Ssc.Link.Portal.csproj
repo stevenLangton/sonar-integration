@@ -416,10 +416,10 @@
     <Content Include="Views\LinkForm\Create.cshtml" />
     <Content Include="Views\Home\JSVars.cshtml" />
     <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
-    <Content Include="Views\LinkForm\MyTeam.cshtml" />
+    <Content Include="Views\Team\MyTeam_mockup.cshtml" />
     <Content Include="Views\LinkForm\MyDetails.cshtml" />
     <Content Include="Views\Team\_MeetingHistoryComponent.cshtml" />
-    <Content Include="Views\Team\LinkMeetings.cshtml" />
+    <Content Include="Views\Team\LinkMeetings_old.cshtml" />
     <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
     <Content Include="Views\Objective\Index.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />

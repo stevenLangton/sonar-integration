@@ -67,7 +67,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("mymeetings/{colleagueId}")] // mymeetings/E001
         public IHttpActionResult GetMyMeetings(string colleagueId)
         {
-            var meetings = _dbMeeting.GetMeetings(colleagueId);
+            var meetings = _dbMeeting.GetColleagueAndMeetings(colleagueId);
 
             if (meetings == null)
                 return NotFound();

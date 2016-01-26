@@ -1,0 +1,54 @@
+﻿@using JsPlc.Ssc.Link.Models
+@{
+    var viewType = TempData["ViewType"];
+}
+@if (ViewBag.ViewType == "team")
+{
+    <h2>My Team</h2>
+}
+else
+{
+    <h2>My Link Meetings</h2>
+}
+<div id="linkpage" style="display: none;" data-bind="visible: true">
+    <div id="msgs"></div>
+    <div title="Meeting Links Key/Legend">
+        <div class="col-md-2 right legend">
+            <span style="font-weight: bold; text-decoration: underline">Meeting Status</span><br />
+            <span class="meeting-completed" style="color: #4f4fb5;">Completed </span><br />
+            <span class="meeting-incomplete">Incomplete </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- ko foreach: $root.dataModel() -->
+        <div class="col-md-4" style="padding-bottom: 30px; border-bottom: solid 2px silver">
+            <!-- each colleague -->
+            <!-- 3 person view 12/4 = 3 -->
+            <div class="col-md-12"><h3><span data-bind="text: FullName"></span></h3></div>
+            <div class="col-md-6">
+                <div class="col-md-12" style="height: 130px;">
+                    <img data-bind="attr: {src: ColleagueId?'Content/ProfilePics/'+ ColleagueId+'.jpg':'Content/ProfilePics/Default.jpg', alt: FullName, title: FullName}" class="img-circle" width="130">
+                </div>
+                <div class="col-md-12" style="padding-left: 30px"><a data-bind="attr: {'href': CreateLink}" class="btn btn-primary btn-sm">Create Review</a></div>
+            </div>
+            <div class="col-md-6">
+                <h4 style="margin: 0; padding: 0"><span style="color: #1fb2c7">Meetings:</span></h4>
+                <!-- ko if: HasMeetings -->
+                @Html.Partial("../Team/_MeetingHistoryComponent")
+                <!-- /ko -->
+                <!-- ko ifnot: HasMeetings -->
+                <h4 style="color: brown; font-style: italic">None</h4>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+<script type="text/javascript">
+    require(["LinkMeetings"], function (lm) {
+        $(document).ready(function () {
+            lm.init("@viewType");
+        });
+    });
+</script>
