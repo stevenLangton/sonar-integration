@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
+using System.Data.Entity;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -59,6 +60,8 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             ColleagueView colleague = _colleagueService.GetColleague(colleagueId);
             ColleagueTeamView myReport;
+
+            // TODO Ideally limit past meetings to last 12 months, but no limit on future meetings (not many expected in future)
             myReport = (from m in _db.Meeting
                             .Where(m => m.ColleagueId.Equals(colleagueId))
                             select new ColleagueTeamView
@@ -66,7 +69,12 @@ namespace JsPlc.Ssc.Link.Service.Services
                                 //Colleague = new ColleagueView{ColleagueId = cv},
                                 Meetings = (from m1 in _db.Meeting
                                             orderby m1.MeetingDate descending
-                                            where m1.ColleagueId == colleague.ColleagueId
+                                            where m1.ColleagueId == colleague.ColleagueId 
+                                            && (
+                                                DbFunctions.DiffMonths(m1.MeetingDate, DateTime.Now) <= 12 // Only Past ones within last 12 months
+                                                ||
+                                                DbFunctions.DiffDays(DateTime.Now, m1.MeetingDate) >= 1 // All Future meetings
+                                                )
                                             select new LinkMeetingView
                                             {
                                                 MeetingId = m1.Id,

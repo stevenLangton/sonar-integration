@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Services;
 using iTextSharp.text;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Security;
 using Org.BouncyCastle.Asn1.Crmf;
@@ -42,6 +44,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 {
                     teamMeetings = new List<ColleagueTeamView>();
                     ColleagueTeamView mymeeting = facade.GetMyMeetingsView(colleagueId) ?? new ColleagueTeamView();
+                    mymeeting = AssignMeetingsByDate(mymeeting);
                     teamMeetings.Add(mymeeting);
                 }
                 jsonData = teamMeetings ?? (object) "Error";
@@ -53,6 +56,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 Data = jsonData // will be "Error" if requesting "TeamMeeting" and not LineManager
             };
             return jsonResult;
+        }
+
+        public static ColleagueTeamView AssignMeetingsByDate(ColleagueTeamView mymeeting)
+        {
+            if (mymeeting.Meetings != null && mymeeting.Meetings.Any())
+            {
+                List<LinkMeetingView> meetings = mymeeting.Meetings;
+                mymeeting.PastMeetings = meetings
+                            .Where(x => DateTime.Now.Subtract(x.MeetingDate).Days / (365.25 / 12) <= 12
+                            && DateTime.Now.Subtract(x.MeetingDate).Hours >= -8)
+                            .OrderByDescending(x => x.MeetingDate)
+                            .ToList();
+                mymeeting.MeetingsInLast12Months = mymeeting.PastMeetings.Count();
+                mymeeting.LastMeeting = mymeeting.PastMeetings.FirstOrDefault();
+                mymeeting.LastInCompleteMeeting = mymeeting.PastMeetings
+                        .FirstOrDefault(x => x.Status == MeetingStatus.InComplete);
+
+                mymeeting.UpcomingMeetings = meetings
+                    .Where(x => x.MeetingDate >= DateTime.Now)
+                    .OrderBy(x => x.MeetingDate)
+                    .ToList();
+                mymeeting.LatestMeeting = mymeeting.UpcomingMeetings.FirstOrDefault();
+            }
+            return mymeeting;
         }
 
         // GET: /Team/LinkMeetings

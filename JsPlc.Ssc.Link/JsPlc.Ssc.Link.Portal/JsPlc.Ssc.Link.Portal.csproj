@@ -428,7 +428,7 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
     <Content Include="Views\Profile\Show.cshtml" />
-    <Content Include="Views\Team\_MeetingList.cshtml" />
+    <Content Include="Views\Home\_MyMeetings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
