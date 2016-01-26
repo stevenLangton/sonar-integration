@@ -41,7 +41,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         /// </summary>
         /// <param name="colleagueId"></param>
         /// <returns></returns>
-        public MeetingView GetNextMeeting(string colleagueId)
+        public LinkMeeting GetNextMeeting(string colleagueId)
         {
             //var meeting = _db.Meeting.Where(x => x.MeetingDate > DateTime.Now).OrderBy(x => x.MeetingDate).First();
             var query = from meeting in _db.Meeting
@@ -49,9 +49,9 @@ namespace JsPlc.Ssc.Link.Service.Services
                         orderby (meeting.MeetingDate)
                         select meeting;
 
-            var FoundMeeting = query.FirstOrDefault();
-            if (FoundMeeting == null) return null;
-            return GetMeetingView(FoundMeeting);
+            //var FoundMeeting = query.FirstOrDefault();
+            //if (FoundMeeting == null) return null;
+            return (query.FirstOrDefault());
         }
 
         // meetings history of an employee

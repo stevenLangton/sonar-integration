@@ -71,11 +71,11 @@ namespace JsPlc.Ssc.Link.Portal
         /// </summary>
         /// <param name="colleagueId">Sainsburys colleague id</param>
         /// <returns></returns>
-        public MeetingView GetNextMeeting(string colleagueId)
+        public LinkMeeting GetNextMeeting(string colleagueId)
         {
             HttpResponseMessage response = _client.Value.GetAsync("mymeetings/" + colleagueId + "/NextInFuture").Result;
 
-            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<MeetingView>().Result : null;
+            return response.IsSuccessStatusCode ? response.Content.ReadAsAsync<LinkMeeting>().Result : null;
         }
 
         #endregion

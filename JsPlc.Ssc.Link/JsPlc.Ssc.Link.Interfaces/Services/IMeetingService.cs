@@ -10,7 +10,8 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
 
         MeetingView GetMeeting(int meetingId);
 
-        MeetingView GetNextMeeting(string colleagueId);
+        //MeetingView GetNextMeeting(string colleagueId);
+        LinkMeeting GetNextMeeting(string colleagueId);
 
         MeetingView CreateMeeting(string colleagueId);
 

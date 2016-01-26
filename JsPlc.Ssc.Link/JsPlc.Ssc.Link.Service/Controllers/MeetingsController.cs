@@ -79,12 +79,12 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("mymeetings/{colleagueId}/NextInFuture")] // mymeetings/E001/NextInFuture
         public IHttpActionResult GetNextMeeting(string colleagueId)
         {
-            var meetings = _dbMeeting.GetNextMeeting(colleagueId);
+            var meeting = _dbMeeting.GetNextMeeting(colleagueId);
 
-            if (meetings == null)
+            if (meeting == null)
                 return NotFound();
 
-            return Ok(meetings);
+            return Ok(meeting);
         }
 
         [HttpGet]

@@ -1,9 +1,10 @@
 ﻿@using JsPlc.Ssc.Link.Models
+@using JsPlc.Ssc.Link.Models.Entities
 
 @{
     ViewBag.Title = "Profile";
     ColleagueView Colleague = ViewBag.Colleague;
-    MeetingView NextMeeting = ViewBag.NextMeeting;
+    LinkMeeting NextMeeting = ViewBag.NextMeeting;
     string DateFormat = "dddd, MMMM d, yyyy 'at' h:mm tt";
 }
 
@@ -16,6 +17,7 @@
             <div class="panel-heading"><h3 class="panel-title"><strong>Next Link meeting</strong></h3></div>
             <div class="panel-body">
                 <div><span class="h2">@(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
+                <div><span class="h4">What status should we place here?</span></div>
                 <br/>
                 <button type="submit" class="btn btn-default">View Link meeting</button>
             </div>
