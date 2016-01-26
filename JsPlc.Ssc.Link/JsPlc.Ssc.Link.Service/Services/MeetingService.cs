@@ -36,6 +36,24 @@ namespace JsPlc.Ssc.Link.Service.Services
             return _db.Questions.OrderBy(q => q.Id);
         }
 
+        /// <summary>
+        /// Get the next meeting in the future.
+        /// </summary>
+        /// <param name="colleagueId"></param>
+        /// <returns></returns>
+        public LinkMeeting GetNextMeeting(string colleagueId)
+        {
+            //var meeting = _db.Meeting.Where(x => x.MeetingDate > DateTime.Now).OrderBy(x => x.MeetingDate).First();
+            var query = from meeting in _db.Meeting
+                        where (meeting.ColleagueId == colleagueId && meeting.MeetingDate > DateTime.Now)
+                        orderby (meeting.MeetingDate)
+                        select meeting;
+
+            //var FoundMeeting = query.FirstOrDefault();
+            //if (FoundMeeting == null) return null;
+            return (query.FirstOrDefault());
+        }
+
         // meetings history of an employee
         public ColleagueTeamView GetColleagueAndMeetings(string colleagueId)
         {
@@ -86,35 +104,37 @@ namespace JsPlc.Ssc.Link.Service.Services
             var meeting = _db.Meeting.FirstOrDefault(x => x.Id == meetingId);
             if (meeting == null) return null;
 
-            var coll = _colleagueService.GetColleague(meeting.ColleagueId);
-            ColleagueView mgr = null;
-            if (coll.HasManager)
-            {
-                mgr = _colleagueService.GetColleague(meeting.ManagerId);
-            }
+            return GetMeetingView(meeting);
 
-            MeetingView meetingView = meeting.ToMeetingView();
-            meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
-            meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
+            //var coll = _colleagueService.GetColleague(meeting.ColleagueId);
+            //ColleagueView mgr = null;
+            //if (coll.HasManager)
+            //{
+            //    mgr = _colleagueService.GetColleague(meeting.ManagerId);
+            //}
 
-            //Get questions with answers for particular meeting
-            var question = from q in _db.Questions
-                           join a in _db.Answers on new { q.Id, LinkMeetingId = meetingId } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
-                           from a in a_join.DefaultIfEmpty()
-                           select new QuestionView
-                           {
-                               QuestionId = q.Id,
-                               Question = q.Description,
-                               QuestionType = q.QuestionType,
-                               AnswerId = a.Id,
-                               ColleagueComment = a.ColleagueComments,
-                               ManagerComment = a.ManagerComments,
-                               Discussed = a.Discussed
-                           };
+            //MeetingView meetingView = meeting.ToMeetingView();
+            //meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
+            //meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
 
-            meetingView.Questions = question;
+            ////Get questions with answers for particular meeting
+            //var question = from q in _db.Questions
+            //               join a in _db.Answers on new { q.Id, LinkMeetingId = meetingId } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
+            //               from a in a_join.DefaultIfEmpty()
+            //               select new QuestionView
+            //               {
+            //                   QuestionId = q.Id,
+            //                   Question = q.Description,
+            //                   QuestionType = q.QuestionType,
+            //                   AnswerId = a.Id,
+            //                   ColleagueComment = a.ColleagueComments,
+            //                   ManagerComment = a.ManagerComments,
+            //                   Discussed = a.Discussed
+            //               };
 
-            return meetingView;
+            //meetingView.Questions = question;
+
+            //return meetingView;
         }
 
         // create new meeting object for view, NOT persisted yet.
@@ -255,6 +275,41 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             _db.Dispose();
         }
+
+        #region Private methods
+        private MeetingView GetMeetingView(LinkMeeting meeting)
+        {
+            var coll = _colleagueService.GetColleague(meeting.ColleagueId);
+            ColleagueView mgr = null;
+            if (coll.HasManager)
+            {
+                mgr = _colleagueService.GetColleague(meeting.ManagerId);
+            }
+
+            MeetingView meetingView = meeting.ToMeetingView();
+            meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
+            meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
+
+            //Get questions with answers for particular meeting
+            var question = from q in _db.Questions
+                           join a in _db.Answers on new { q.Id, LinkMeetingId = meeting.Id } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
+                           from a in a_join.DefaultIfEmpty()
+                           select new QuestionView
+                           {
+                               QuestionId = q.Id,
+                               Question = q.Description,
+                               QuestionType = q.QuestionType,
+                               AnswerId = a.Id,
+                               ColleagueComment = a.ColleagueComments,
+                               ManagerComment = a.ManagerComments,
+                               Discussed = a.Discussed
+                           };
+
+            meetingView.Questions = question;
+
+            return meetingView;
+        }
+        #endregion
     }
 
 

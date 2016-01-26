@@ -11,7 +11,7 @@
             <div class="media list-group-item">
                 <div class="row">
                     <span class="h3" data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
-                    <a href="#" class=" btn btn-default pull-right">View profile</a>
+                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-default pull-right">View profile</a>
                 </div>
                 <div data-bind="if: Meetings!== null">
                     <a data-bind="attr: {'href': 'LinkForm/Edit/'+Meetings[0].MeetingId}" class="btn btn-default">View Link meeting</a>
