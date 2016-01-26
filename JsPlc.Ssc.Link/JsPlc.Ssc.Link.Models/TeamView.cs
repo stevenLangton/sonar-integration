@@ -2,7 +2,7 @@
 
 namespace JsPlc.Ssc.Link.Models
 {
-    public class TeamView
+    public class ColleagueTeamView
     {
         public ColleagueView Colleague { get; set; }
         public List<LinkMeetingView> Meetings { get; set; }
