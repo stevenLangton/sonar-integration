@@ -291,6 +291,8 @@
     <Content Include="Scripts\App\ConfirmModal.js" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
+    <Content Include="Scripts\App\kocomponents\profileTabs.html" />
+    <Content Include="Scripts\App\kocomponents\profileTabs.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
     <Content Include="Scripts\App\ViewScripts\ViewMeeting.js" />
     <Content Include="Scripts\App\ViewScripts\LinkFormCreate.js" />
