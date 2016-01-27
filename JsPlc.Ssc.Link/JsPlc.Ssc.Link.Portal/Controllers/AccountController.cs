@@ -9,6 +9,8 @@ using System.Configuration;
 using System.Globalization;
 
 // The following using statements were added for this sample.
+using System.Web.Routing;
+using System.Web.UI.WebControls;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Microsoft.Owin.Security.Cookies;
@@ -21,7 +23,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
  
     public class AccountController : LinkBaseController
     {
-      
+        public ActionResult Login(string reason)
+        {
+            var result = new RedirectToRouteResult(
+                new RouteValueDictionary(new {controller = "Home", action = "Unauthorized", reason = "This login is unauthorized."}));
+            return result;
+        } 
 
 
         public void SignIn()

@@ -12,7 +12,8 @@
 
         var listOfColleagueTeamViews = [];
 
-        var getEditOrViewLink = function (item) {
+        self.getEditOrViewLink = function (item) {
+            debugger;
             var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
             var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
 
@@ -62,7 +63,7 @@
                         return {
                             MeetingDate: moment(item.MeetingDate).format("L"),
                             Status: item.Status, // 1 = Completed, 0 = InComplete
-                            ActionLink: getEditOrViewLink(item)
+                            ActionLink: self.getEditOrViewLink(item)
                         };
                     });
 
@@ -113,6 +114,7 @@
                     ColleagueId: colleague.ColleagueId,
                     FullName: getColleagueName(colleague),
                     ManagerName: (colleague.HasManager) ? getColleagueName(colleague.Manager) : '-',
+                    ManagerFirstName: (colleague.HasManager) ? colleague.Manager.FirstName : '-',
                     //HasMeetings: false,
 
                     // List<LinkMeetingView>
@@ -135,6 +137,11 @@
 
             self.dataModel(listOfColleagueTeamViews);
         };
+
+        self.formatDateMonthDYHM = function (dateObj) {
+            var formattedString = moment(dateObj).format('MMMM Do YYYY [at] HH:mm a');
+            return formattedString;
+        }
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (myOrTeams) {
