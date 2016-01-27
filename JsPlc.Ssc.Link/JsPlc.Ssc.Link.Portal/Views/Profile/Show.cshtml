@@ -34,13 +34,11 @@
     </div>
     <br />
     <br />
-    <div class="row"></div>
+        <div data-bind='component: { name: "profile-tabs"}'></div>
     <hr />
 </div>
-@*<script type="text/javascript">
-        require(["Objectives"], function (mod) {
-            $(document).ready(function () {
-                mod.init("ObjectivesListView");
-            });
-        });
-    </script>*@
+<script type="text/javascript">
+    require(["knockout", "RegisterKoComponents"], function (ko) {
+        ko.applyBindings();
+    });
+</script>

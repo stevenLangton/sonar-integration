@@ -1,4 +1,27 @@
 ﻿define(['jquery', 'knockout', 'text'], function ($, ko) {
+    "use strict";
+
+    ko.bindingHandlers.stopBinding = {
+        init: function () {
+            return {controlsDescendantBindings: true};
+        }
+    };
+
+    // accepts jQuery node and remove boolean
+    ko.unapplyBindings = function ($node, remove) {
+        // unbind events
+        $node.find("*").each(function () {
+            $(this).unbind();
+        });
+
+        // Remove KO subscriptions and references
+        if (remove) {
+            ko.removeNode($node[0]);
+        } else {
+            ko.cleanNode($node[0]);
+        }
+    };
+
     ko.oneTimeDirtyFlag = function (root) {
         var _initialized;
 
@@ -21,4 +44,7 @@
 
         return result;
     };
+
+    ko.components.register("profile-tabs", {require: "App/kocomponents/profileTabs"});
+
 });//Module end

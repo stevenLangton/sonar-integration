@@ -326,3 +326,14 @@ a:link, a:visited {
 .meeting-banner {
     background-color: #ececec;
 }
+
+/*For profile tabs on profile page*/ 
+.disableLink {
+    pointer-events: none;
+    text-decoration: none;
+    color: #ccc;
+}
+
+.disableTab {
+    cursor: not-allowed;
+}

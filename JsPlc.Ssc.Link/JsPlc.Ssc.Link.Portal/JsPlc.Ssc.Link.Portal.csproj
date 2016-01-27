@@ -288,6 +288,8 @@
     <Content Include="Scripts\App\ConfirmModal.js" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
+    <Content Include="Scripts\App\kocomponents\profileTabs.html" />
+    <Content Include="Scripts\App\kocomponents\profileTabs.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
     <Content Include="Scripts\App\ViewScripts\LinkFormCreate.js" />
     <Content Include="Scripts\App\ViewScripts\LinkMeetings.js" />
@@ -429,7 +431,6 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
     <Content Include="Views\Profile\Show.cshtml" />
-  
     <Content Include="Views\Shared\_ConfirmModal.cshtml" />
     <Content Include="Views\Home\_MyMeetings.cshtml" />
   </ItemGroup>
