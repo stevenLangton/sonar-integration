@@ -138,7 +138,9 @@
         };
 
         self.formatDateMonthDYHM = function (dateObj) {
-            var formattedString = moment(dateObj).format('MMMM Do YYYY [at] HH:mma');
+            if (!dateObj) return '-';
+
+            var formattedString = moment(dateObj).format('dddd, MMMM Do YYYY [at] HH:mma');
             return formattedString;
         }
 

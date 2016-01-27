@@ -2,250 +2,251 @@
     ViewBag.Title = "Link Meeting";
 }
 
-
 <div id="linkpage">
     <!-- knockout binding to this -->
-    <div id="msgs"></div>
     <div class="row">
         <div class="col-md-6">YOUR DEVELOPMENT > LINK MEETINGS</div>
     </div>
-    <h2>
-        @ViewBag.Title - 
-            @*<span data-bind="text: $root.dataModel().MeetingDate"></span>*@
-        <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;" 
-              data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span>
-    </h2>
-    <h3>@ViewBag.Message</h3>
-
-    <div class="alert meeting-banner">
-        <div class="col-xs-6 col-md-2"><img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130"> </div>
-        <div class="col-xs-12 col-md-10"><h2><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span></h2><hr /></div>
-        <br style="clear:both;">
+    <div id="msgs"></div>
+    <div style="display: none" data-bind="visible: !$root.dataAvailable()">
+        <h2 style="color:red">Error - No such meeting or access denied.</h2>
     </div>
+    
+    <div data-bind="visible: $root.dataAvailable">
+        <h2>
+            @ViewBag.Title -
+            <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
+                  data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span>
+        </h2>
+        <h3>@ViewBag.Message</h3>
 
-    <!-- Columns are always 50% wide, on mobile and desktop -->
-    <div data-bind="with: dataModel, visible: dataAvailable">
+        <div class="alert meeting-banner">
+            <div class="col-xs-6 col-md-2"><img src="http://www.freelanceme.net/Images/default%20profile%20picture.png" alt="..." class="img-circle" width="130"> </div>
+            <div class="col-xs-12 col-md-10"><h2><span data-bind="text: $root.dataModel().ColleagueName  + ' (' + $root.dataModel().ColleagueId + ')'"></span></h2><hr /></div>
+            <br style="clear:both;">
+        </div>
 
-        <!--Looking Back -->
-        <h3 class="linksection-heading">LOOKING BACK</h3>
-        <!-- LinkForm data items here -->
-        <!-- QUESTIONS Loop around this -->
-        <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
+        <!-- Columns are always 50% wide, on mobile and desktop -->
+        <div data-bind="with: dataModel">
 
-            <h3><span data-bind="text: Question"></span> </h3>
-            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
+            <!--Looking Back -->
+            <h3 class="linksection-heading">LOOKING BACK</h3>
+            <!-- LinkForm data items here -->
+            <!-- QUESTIONS Loop around this -->
+            <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingBackQuestions">
 
-            <div class="panel">
+                <h3><span data-bind="text: Question"></span> </h3>
+                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
 
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
-                        Comments
-                    </a>
-                </h4>
+                <div class="panel">
+
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
+                            Comments
+                        </a>
+                    </h4>
 
 
-                <!-- ko if: $index() == 0 -->
-                <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                    @*Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>*@
+                    <!-- ko if: $index() == 0 -->
+                    <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                        @*Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>*@
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: $index() != 0 -->
-                <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                    <!-- /ko -->
+                    <!-- ko if: $index() != 0 -->
+                    <div data-bind="attr:{id:'collapse1'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /ko -->
+
                 </div>
-                <!-- /ko -->
 
             </div>
 
-        </div>
 
+            <!-- Looking Forward -->
+            <h3 class="linksection-heading">LOOKING FORWARD</h3>
+            <!-- LinkForm data items here -->
+            <!-- QUESTIONS Loop around this -->
+            <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
 
-        <!-- Looking Forward -->
-        <h3 class="linksection-heading">LOOKING FORWARD</h3>
-        <!-- LinkForm data items here -->
-        <!-- QUESTIONS Loop around this -->
-        <div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true" data-bind="foreach: LookingFwdQuestions">
+                <h3><span data-bind="text: Question"></span> </h3>
+                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
 
-            <h3><span data-bind="text: Question"></span> </h3>
-            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
+                <div class="panel">
 
-            <div class="panel">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
+                            Comments
+                        </a>
+                    </h4>
 
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
-                        Comments
-                    </a>
-                </h4>
-
-                <!-- ko if: $index() == 0 -->
-                <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                @*<div class="col-xs-2 threeiconContainer">
-                                        <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
-                                    </div>*@
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                    <!-- ko if: $index() == 0 -->
+                    <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    @*<div class="col-xs-2 threeiconContainer">
+                                            <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                        </div>*@
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: $index() != 0 -->
-                <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                    <!-- /ko -->
+                    <!-- ko if: $index() != 0 -->
+                    <div data-bind="attr:{id:'collapse2'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /ko -->
+
+
                 </div>
-                <!-- /ko -->
+            </div>
 
 
+            <!-- DRIVING MY DEVELOPMENT -->
+            <h3 class="linksection-heading">DRIVING MY DEVELOPMENT</h3>
+            <!-- LinkForm data items here -->
+            <!-- QUESTIONS Loop around this -->
+            <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true" data-bind="foreach: DrivingDevelopmentQuestions">
+
+                <h3><span data-bind="text: Question"></span> </h3>
+                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
+
+                <div class="panel">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion3" data-bind="attr:{href:'#collapse3'+ $index() }">
+                            Comments
+                        </a>
+                    </h4>
+
+
+
+                    <!-- ko if: $index() == 0 -->
+                    <div data-bind="attr:{id:'collapse3'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: $index() != 0 -->
+                    <div data-bind="attr:{id:'collapse3'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+
+                </div>
+            </div>
+
+
+            <!-- IN A NUTSHELL -->
+            <h3 class="linksection-heading">IN A NUTSHELL</h3>
+            <!-- LinkForm data items here -->
+            <!-- QUESTIONS Loop around this -->
+            <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true" data-bind="foreach: InANutShellQuestions">
+
+                <h3><span data-bind="text: Question"></span> </h3>
+                <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
+
+                <div class="panel">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion4" data-bind="attr:{href:'#collapse4'+ $index() }">
+                            Comments
+                        </a>
+                    </h4>
+
+
+                    <!-- ko if: $index() == 0 -->
+                    <div data-bind="attr:{id:'collapse4'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: $index() != 0 -->
+                    <div data-bind="attr:{id:'collapse4'+ $index()}" class="panel-collapse collapse" role="tabpanel">
+                        <div class="panel-body" style="padding:0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    @*<div class="col-xs-2 threeiconContainer">
+                                            <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                        </div>*@
+                                    <div class="col-xs-10">
+                                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+
+                </div>
             </div>
         </div>
 
-
-        <!-- DRIVING MY DEVELOPMENT -->
-        <h3 class="linksection-heading">DRIVING MY DEVELOPMENT</h3>
-        <!-- LinkForm data items here -->
-        <!-- QUESTIONS Loop around this -->
-        <div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true" data-bind="foreach: DrivingDevelopmentQuestions">
-
-            <h3><span data-bind="text: Question"></span> </h3>
-            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
-
-            <div class="panel">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion3" data-bind="attr:{href:'#collapse3'+ $index() }">
-                        Comments
-                    </a>
-                </h4>
-
-
-
-                <!-- ko if: $index() == 0 -->
-                <div data-bind="attr:{id:'collapse3'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: $index() != 0 -->
-                <div data-bind="attr:{id:'collapse3'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ko -->
-
-
-            </div>
+        <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
+            <div class="col-xs-12">
+                @*<strong>Meeting Date:</strong> <span id="MeetingDate" data-bind="text: dataModel().MeetingDate" class="" disabled name="MeetingDate"></span><br />*@
+                <strong>Meeting complete: </strong>&nbsp;&nbsp;
+                <input id="Checkbox2" type="checkbox" data-bind="checked: (dataModel().ManagerSignOff==1) && (dataModel().ColleagueSignOff==1)" name="ManagerSignOff" disabled="disabled" />
+                @*<strong>Colleague Completed: </strong><input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff" name="ColleagueSignOff" disabled="disabled" />*@
+                <a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>
+            </div><br />
         </div>
-
-
-        <!-- IN A NUTSHELL -->
-        <h3 class="linksection-heading">IN A NUTSHELL</h3>
-        <!-- LinkForm data items here -->
-        <!-- QUESTIONS Loop around this -->
-        <div class="panel-group" id="accordion4" role="tablist" aria-multiselectable="true" data-bind="foreach: InANutShellQuestions">
-
-            <h3><span data-bind="text: Question"></span> </h3>
-            <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>
-
-            <div class="panel">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion4" data-bind="attr:{href:'#collapse4'+ $index() }">
-                        Comments
-                    </a>
-                </h4>
-
-
-                <!-- ko if: $index() == 0 -->
-                <div data-bind="attr:{id:'collapse4'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: $index() != 0 -->
-                <div data-bind="attr:{id:'collapse4'+ $index()}" class="panel-collapse collapse" role="tabpanel">
-                    <div class="panel-body" style="padding:0">
-                        <div class="container-fluid">
-                            <div class="row">
-                                @*<div class="col-xs-2 threeiconContainer">
-                                        <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
-                                        <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
-                                    </div>*@
-                                <div class="col-xs-10">
-                                    <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" rows="4"></textarea><br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /ko -->
-
-
-            </div>
-        </div>
-    </div>
-
-    <div class="alert alert-info col-xs-12" style="text-align: left; background-color: whitesmoke">
-        <div class="col-xs-6 left">
-            <a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>
-        </div>
-        <div class="col-xs-6" style="padding-left: 100px">
-            @*<strong>Meeting Date:</strong> <span id="MeetingDate" data-bind="text: dataModel().MeetingDate" class="" disabled name="MeetingDate"></span><br />*@
-
-            <strong>Meeting complete: </strong>&nbsp;&nbsp;
-            <input id="Checkbox2" type="checkbox" data-bind="checked: (dataModel().ManagerSignOff==1) && (dataModel().ColleagueSignOff==1)" name="ManagerSignOff" disabled="disabled" />
-            @*<strong>Colleague Completed: </strong><input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff" name="ColleagueSignOff" disabled="disabled" />*@
-        </div><br />
     </div>
 </div><!-- / ko linkpage -->
 
