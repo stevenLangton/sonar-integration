@@ -241,11 +241,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\Bulb_icon.PNG" />
+    <Content Include="Content\Images\calendar_icon.png" />
     <Content Include="Content\Images\collaboration_icon.PNG" />
     <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\LinkSheetLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
+    <Content Include="Content\Images\round_black_cross.png" />
+    <Content Include="Content\Images\round_black_tick.png" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
     <Content Include="Content\Images\Tick_icon.PNG" />
     <Content Include="Content\timePicker\bootstrap-timepicker.css" />
@@ -429,7 +432,6 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
     <Content Include="Views\Profile\Show.cshtml" />
-  
     <Content Include="Views\Shared\_ConfirmModal.cshtml" />
     <Content Include="Views\Home\_MyMeetings.cshtml" />
   </ItemGroup>
@@ -466,7 +468,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59387</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
