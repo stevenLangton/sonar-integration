@@ -1,0 +1,110 @@
+﻿@model JsPlc.Ssc.Link.Models.Entities.LinkPdp
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+}
+
+
+
+    <div class="form-horizontal">
+        <h1>Personal Development Plan</h1>
+        <hr />
+
+
+
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Achieving my objectives</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Key Strengths</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Career aspirations</a></li>
+
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                    <h4>What areas do I need to develop to achieve my objectives?</h4>
+
+                    @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <h4>What actions will I take?</h4>
+
+                    @Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <h4>
+                        By when?
+                    </h4>
+
+                    @Html.EditorFor(model => model.achieveObjectivesWhen, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="profile">
+                    <h4>
+                        What are my key strengths?
+                    </h4>
+
+                    @Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <h4>
+                        What actions will I take to further develop these areas?
+                    </h4>
+
+                    @Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control" } })
+
+                    <h4>
+                        By when?
+                    </h4>
+
+                    @Html.EditorFor(model => model.keyStrengthsWhen, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="messages">
+                    <h4>
+                        What are my key strengths?
+                    </h4>
+
+                    @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+                    <h4>
+                        What actions will I take to further develop these areas?
+                    </h4>
+
+                    @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                    <h4>
+                        By when?
+                    </h4>
+
+                    @Html.EditorFor(model => model.careerAspirationsWhen, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+        <br />
+
+
+
+
+        <input type="submit" value="Save changes" class="btn btn-default" style="float:right;" />
+        <br /><br />
+    </div>
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
