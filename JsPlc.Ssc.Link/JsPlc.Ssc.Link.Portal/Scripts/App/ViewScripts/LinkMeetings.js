@@ -24,11 +24,22 @@
             return createLink;
         };
 
-        var getColleagueName = function(colleague) {
+        self.getColleagueName = function (colleague) {
+            if (!colleague) return null;
+
             if (colleague.FirstName && colleague.LastName) {
                 return colleague.FirstName + ' ' + colleague.LastName;
             }
-            return "-";
+            return null;
+        };
+
+        self.getColleagueFirstName = function (colleague) {
+            if (!colleague) return null;
+
+            if (colleague.FirstName) {
+                return colleague.FirstName;
+            }
+            return null;
         };
 
         // Extract tree from List<LinkMeetingView>
@@ -111,8 +122,8 @@
                 var memberView = {
                     Member: colleague,
                     ColleagueId: colleague.ColleagueId,
-                    FullName: getColleagueName(colleague),
-                    ManagerName: (colleague.HasManager) ? getColleagueName(colleague.Manager) : '-',
+                    FullName: self.getColleagueName(colleague),
+                    ManagerName: (colleague.HasManager) ? self.getColleagueName(colleague.Manager) : '-',
                     ManagerFirstName: (colleague.HasManager) ? colleague.Manager.FirstName : '-',
                     //HasMeetings: false,
 
