@@ -17,7 +17,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
         protected static string postLogoutRedirectUri = ConfigurationManager.AppSettings["ida:PostLogoutRedirectUri"];
 
         protected static string LinkApiResourceId = ConfigurationManager.AppSettings["LinkApiResourceId"];
-        protected static string LinkApiBaseAddress = ConfigurationManager.AppSettings["LinkApiBaseAddress"];
+        protected static string ServicesBaseUrl = ConfigurationManager.AppSettings["ServicesBaseUrl"];
 
         protected static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 

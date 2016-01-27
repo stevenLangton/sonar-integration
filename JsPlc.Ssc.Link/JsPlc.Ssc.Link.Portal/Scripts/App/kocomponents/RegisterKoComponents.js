@@ -1,42 +1,24 @@
 ﻿define(['jquery', 'knockout', 'text'], function ($, ko) {
-    //knockout component registrations
-    ko.components.register("meeting-history",
-    {
-        require: "App/kocomponents/meeting-history"
-    });
-    //ko.components.register("location-heirarchy",
-    //{
-    //    require: "kocomponents/locationHierarchy"
-    //});
+    ko.oneTimeDirtyFlag = function (root) {
+        var _initialized;
 
-    //ko.components.register("product-level",
-    //{
-    //    require: "kocomponents/productLevel"
-    //});
+        //one-time dirty flag that gives up its dependencies on first change
+        var result = ko.computed(function () {
+            if (!_initialized) {
+                //just for subscriptions
+                ko.toJS(root);
 
-    //ko.components.register("product-heirarchy",
-    //{
-    //    require: "kocomponents/productHierarchy"
-    //});
+                //next time return true and avoid ko.toJS
+                _initialized = true;
 
-    //ko.components.register("store-grades",
-    //{
-    //    require: "kocomponents/storeGrades"
-    //});
+                //on initialization this flag is not dirty
+                return false;
+            }
 
-    //ko.components.register("alerts-filter",
-    //{
-    //    require: "kocomponents/alertsFilter"
-    //});
+            //on subsequent changes, flag is now dirty
+            return true;
+        });
 
-    //ko.components.register("products-filter",
-    //{
-    //    require: "kocomponents/productsFilter"
-    //});
-
-    //ko.components.register("login-panel",
-    //{
-    //    require: "kocomponents/loginPanel"
-    //});
-
+        return result;
+    };
 });//Module end

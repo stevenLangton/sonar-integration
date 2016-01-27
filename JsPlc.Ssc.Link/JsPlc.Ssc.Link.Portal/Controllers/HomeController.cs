@@ -11,47 +11,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("Welcome");
         }
 
-        [System.Web.Mvc.Authorize]
-        public ActionResult LinkForm()
-        {
-            // for now, may this should show any Ongoing(InProgress) LinkForm or NewLinkForm if no ongoing exists.
-
-            ViewBag.Message = "Link Meeting Form for - " + User.Identity.Name;
-
-            return View();
-        }
-
-        [System.Web.Mvc.Authorize]
-        public ActionResult LinkReport()
-        {
-            //ViewBag.Message = "Link Report for - " + CurrentUser.Colleague.FirstName + " " + CurrentUser.Colleague.LastName;
-            ViewBag.Message = "Link Report for - " + User.Identity.Name;
-            return MyMeetings();
-
-            //return View();
-        }
-
-        // GET: /Team/LinkMeetings/My
-        // ## COLLEAGUE meetings view
+        // GET: /Home/LinkMeetings/
+        // ## COLLEAGUE's meetings
         [System.Web.Mvc.HttpGet]
         [System.Web.Mvc.Authorize]
-        public ActionResult MyMeetings()
+        public ActionResult LinkMeetings()
         {
-            //if (string.IsNullOrEmpty(id))
-            //{
-            //    RedirectToAction("Index", "Home");
-            //}
-            TempData["tabName"] = "report";
+            TempData["tabName"] = "meetings";
             TempData["ViewType"] = "MyMeetings";
-            return View("../Team/LinkMeetings");
-        }
-
-        [System.Web.Mvc.Authorize]
-        public ActionResult Team()
-        {
-            ViewBag.Message = "Team for - " + User.Identity.Name;
-
-            return View();
+            return View("LinkMeetings");
         }
 
         public ActionResult Contact()

@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "common"], function ($, ko, komap, moment, common) {
+﻿define(["jquery", "knockout", "komap", "moment", "common", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, common, confirmModal) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -11,6 +11,7 @@
 
     var init = function (serverModel) {
         var vm = komap.fromJS(serverModel);
+        vm.dirtyFlag = ko.oneTimeDirtyFlag(vm);
         vm.displayCreateDate = moment(vm.CreatedDate()).format('LLLL');
         vm.displayUpdateDate = moment(vm.LastAmendedDate()).format('LLLL');
 
@@ -38,9 +39,30 @@
                 }
             });
 
+
             $promise.error(function (request, status, error) {
                 alert(request.responseText);
             });
+        };
+
+        vm.cancel = function () {
+            if (vm.dirtyFlag()) {
+
+                var yesHandler = function () {
+                    window.location.href = common.getSiteRoot() + "Objective";
+                };
+
+                confirmModal.init("Edit/View Objective", //Title
+                                  "Changed have been made to this Objective. Are you sure you wish to discard them?", //Body text
+                                  "No",// txtNoButton 
+                                  "Yes"); //txtYesButton
+
+                confirmModal.setProceedHandler(yesHandler);
+                confirmModal.show();
+
+            } else {
+                window.location.href = common.getSiteRoot() + "Objective";
+            }
         };
 
         ko.applyBindings(vm, document.getElementById('ObjectiveView'));

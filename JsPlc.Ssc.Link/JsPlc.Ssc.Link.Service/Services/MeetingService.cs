@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
+using System.Data.Entity;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -36,11 +37,31 @@ namespace JsPlc.Ssc.Link.Service.Services
             return _db.Questions.OrderBy(q => q.Id);
         }
 
+        /// <summary>
+        /// Get the next meeting in the future.
+        /// </summary>
+        /// <param name="colleagueId"></param>
+        /// <returns></returns>
+        public LinkMeeting GetNextMeeting(string colleagueId)
+        {
+            //var meeting = _db.Meeting.Where(x => x.MeetingDate > DateTime.Now).OrderBy(x => x.MeetingDate).First();
+            var query = from meeting in _db.Meeting
+                        where (meeting.ColleagueId == colleagueId && meeting.MeetingDate > DateTime.Now)
+                        orderby (meeting.MeetingDate)
+                        select meeting;
+
+            //var FoundMeeting = query.FirstOrDefault();
+            //if (FoundMeeting == null) return null;
+            return (query.FirstOrDefault());
+        }
+
         // meetings history of an employee
         public ColleagueTeamView GetColleagueAndMeetings(string colleagueId)
         {
             ColleagueView colleague = _colleagueService.GetColleague(colleagueId);
             ColleagueTeamView myReport;
+
+            // TODO Ideally limit past meetings to last 12 months, but no limit on future meetings (not many expected in future)
             myReport = (from m in _db.Meeting
                             .Where(m => m.ColleagueId.Equals(colleagueId))
                             select new ColleagueTeamView
@@ -48,7 +69,12 @@ namespace JsPlc.Ssc.Link.Service.Services
                                 //Colleague = new ColleagueView{ColleagueId = cv},
                                 Meetings = (from m1 in _db.Meeting
                                             orderby m1.MeetingDate descending
-                                            where m1.ColleagueId == colleague.ColleagueId
+                                            where m1.ColleagueId == colleague.ColleagueId 
+                                            && (
+                                                DbFunctions.DiffMonths(m1.MeetingDate, DateTime.Now) <= 12 // Only Past ones within last 12 months
+                                                ||
+                                                DbFunctions.DiffDays(DateTime.Now, m1.MeetingDate) >= 1 // All Future meetings
+                                                )
                                             select new LinkMeetingView
                                             {
                                                 MeetingId = m1.Id,
@@ -86,35 +112,37 @@ namespace JsPlc.Ssc.Link.Service.Services
             var meeting = _db.Meeting.FirstOrDefault(x => x.Id == meetingId);
             if (meeting == null) return null;
 
-            var coll = _colleagueService.GetColleague(meeting.ColleagueId);
-            ColleagueView mgr = null;
-            if (coll.HasManager)
-            {
-                mgr = _colleagueService.GetColleague(meeting.ManagerId);
-            }
+            return GetMeetingView(meeting);
 
-            MeetingView meetingView = meeting.ToMeetingView();
-            meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
-            meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
+            //var coll = _colleagueService.GetColleague(meeting.ColleagueId);
+            //ColleagueView mgr = null;
+            //if (coll.HasManager)
+            //{
+            //    mgr = _colleagueService.GetColleague(meeting.ManagerId);
+            //}
 
-            //Get questions with answers for particular meeting
-            var question = from q in _db.Questions
-                           join a in _db.Answers on new { q.Id, LinkMeetingId = meetingId } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
-                           from a in a_join.DefaultIfEmpty()
-                           select new QuestionView
-                           {
-                               QuestionId = q.Id,
-                               Question = q.Description,
-                               QuestionType = q.QuestionType,
-                               AnswerId = a.Id,
-                               ColleagueComment = a.ColleagueComments,
-                               ManagerComment = a.ManagerComments,
-                               Discussed = a.Discussed
-                           };
+            //MeetingView meetingView = meeting.ToMeetingView();
+            //meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
+            //meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
 
-            meetingView.Questions = question;
+            ////Get questions with answers for particular meeting
+            //var question = from q in _db.Questions
+            //               join a in _db.Answers on new { q.Id, LinkMeetingId = meetingId } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
+            //               from a in a_join.DefaultIfEmpty()
+            //               select new QuestionView
+            //               {
+            //                   QuestionId = q.Id,
+            //                   Question = q.Description,
+            //                   QuestionType = q.QuestionType,
+            //                   AnswerId = a.Id,
+            //                   ColleagueComment = a.ColleagueComments,
+            //                   ManagerComment = a.ManagerComments,
+            //                   Discussed = a.Discussed
+            //               };
 
-            return meetingView;
+            //meetingView.Questions = question;
+
+            //return meetingView;
         }
 
         // create new meeting object for view, NOT persisted yet.
@@ -255,6 +283,41 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             _db.Dispose();
         }
+
+        #region Private methods
+        private MeetingView GetMeetingView(LinkMeeting meeting)
+        {
+            var coll = _colleagueService.GetColleague(meeting.ColleagueId);
+            ColleagueView mgr = null;
+            if (coll.HasManager)
+            {
+                mgr = _colleagueService.GetColleague(meeting.ManagerId);
+            }
+
+            MeetingView meetingView = meeting.ToMeetingView();
+            meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
+            meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
+
+            //Get questions with answers for particular meeting
+            var question = from q in _db.Questions
+                           join a in _db.Answers on new { q.Id, LinkMeetingId = meeting.Id } equals new { Id = a.QuestionId, a.LinkMeetingId } into a_join
+                           from a in a_join.DefaultIfEmpty()
+                           select new QuestionView
+                           {
+                               QuestionId = q.Id,
+                               Question = q.Description,
+                               QuestionType = q.QuestionType,
+                               AnswerId = a.Id,
+                               ColleagueComment = a.ColleagueComments,
+                               ManagerComment = a.ManagerComments,
+                               Discussed = a.Discussed
+                           };
+
+            meetingView.Questions = question;
+
+            return meetingView;
+        }
+        #endregion
     }
 
 

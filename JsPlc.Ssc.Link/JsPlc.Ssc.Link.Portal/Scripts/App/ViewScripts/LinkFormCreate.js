@@ -121,10 +121,11 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
             // Manage bool binding to MeetingStatus.
             // Values depend on MeetingStatus object in C#
-            data.ManagerSignOff = $("input[name='Completed1']").prop('checked');
             data.ColleagueSignOff = $("input[name='Completed2']").prop('checked');
-            data.ColleagueSignOff = (data.ColleagueSignOff == 0 || data.ColleagueSignOff == false) ? "InComplete" : "Completed";
-            data.ManagerSignOff = (data.ManagerSignOff == 0 || data.ManagerSignOff == false) ? "InComplete" : "Completed";
+            data.ColleagueSignOff = data.ColleagueSignOff && (data.ColleagueSignOff == 1 || data.ColleagueSignOff == true) ? "Completed" : "InComplete";
+
+            data.ManagerSignOff = $("input[name='Completed1']").prop('checked');
+            data.ManagerSignOff = data.ManagerSignOff && (data.ManagerSignOff == 1 || data.ManagerSignOff == true) ? "Completed" : "InComplete";
 
             //var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
             //var yyyymmdd = ukDate.toISOString();
@@ -169,7 +170,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
                         // Redirect for colleagues initiated create meeting success.. (my Link Report page)
                         if (data.ColleagueInitiated) {
-                            window.location.href = common.getSiteRoot() + "Home/LinkReport";
+                            window.location.href = common.getSiteRoot() + "Home/LinkMeetings";
                         } else {
                             window.location.href = common.getSiteRoot() + "Team";
                         }

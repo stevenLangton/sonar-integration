@@ -33,7 +33,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             HttpClient client = new HttpClient();
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
-            HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
+            HttpResponseMessage response = await client.GetAsync(ServicesBaseUrl + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
 
             var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
 

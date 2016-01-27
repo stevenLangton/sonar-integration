@@ -10,7 +10,7 @@
 
         self.bind = function () { };
 
-        var ListOfTeamViews = [];
+        var listOfColleagueTeamViews = [];
 
         var getEditOrViewLink = function (item) {
             var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
@@ -22,6 +22,13 @@
         var getCreateLink = function (colleagueId) {
             var createLink = common.getSiteRoot() + "LinkForm/Create/?colleagueId=" + colleagueId;
             return createLink;
+        };
+
+        var getColleagueName = function(colleague) {
+            if (colleague.FirstName && colleague.LastName) {
+                return colleague.FirstName + ' ' + colleague.LastName;
+            }
+            return "-";
         };
 
         // Extract tree from List<LinkMeetingView>
@@ -101,25 +108,32 @@
                 debugger;
                 var colleague = item.Colleague;
                 // Build the item
-                var MemberView = {
+                var memberView = {
                     Member: colleague,
-                    CreateLink: getCreateLink(colleague.ColleagueId),
-                    // extract years out of each data.Meetings (i.e from List<LinkMeetingView>)
-                    MeetingYears: buildMeetingsForMember(item.Meetings, colleague.ColleagueId),
                     ColleagueId: colleague.ColleagueId,
-                    FullName: colleague.FirstName + " " + colleague.LastName,
-                    HasMeetings: false
+                    FullName: getColleagueName(colleague),
+                    ManagerName: (colleague.HasManager) ? getColleagueName(colleague.Manager) : '-',
+                    //HasMeetings: false,
+
+                    // List<LinkMeetingView>
+                    UpcomingMeetings: item.UpcomingMeetings,
+                    // List<LinkMeetingView>
+                    PastMeetings: item.PastMeetings,
+
+                    LastInCompleteMeeting: item.LastInCompleteMeeting,
+                    LatestMeeting: item.LatestMeeting,
+                    LastMeeting: item.LastMeeting,
+
+                    MeetingsInLast12Months: item.MeetingsInLast12Months,
+                
+                    CreateLink: getCreateLink(colleague.ColleagueId)
                 };
 
-                if (MemberView.MeetingYears.length > 0) {
-                    MemberView.HasMeetings = true;
-                }
-
                 // add item to array
-                ListOfTeamViews.push(MemberView);
+                listOfColleagueTeamViews.push(memberView);
             });
 
-            self.dataModel(ListOfTeamViews);
+            self.dataModel(listOfColleagueTeamViews);
         };
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template

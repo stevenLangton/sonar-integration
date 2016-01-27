@@ -1,0 +1,54 @@
+﻿@using JsPlc.Ssc.Link.Models
+@{
+    var viewType = TempData["ViewType"];
+    // This view still used for Link Meetings (i.e My Meetings.)
+    // This view is NOT used for Team view, refer to Team/YourTeam
+}
+<div id="linkpage" style="display: none;" data-bind="visible: true">
+    <div id="msgs"></div>
+    <div>YOUR LINK</div>
+
+    <!-- ko foreach: $root.dataModel() -->
+    <div class="row">
+        <div class="col-md-8">
+            <h1 style="margin:0; padding:0">Link meetings</h1>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12" style="padding-left: 30px">
+                <a data-bind="attr: {'href': CreateLink}"
+                   class="btn btn-lg btn-primary" style="background-color: silver; text-decoration: none">Create Link meeting</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            You've had
+            <strong>
+                <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no meetings' :
+                                    (MeetingsInLast12Months == 1) ? '1 meeting' :
+                                    (MeetingsInLast12Months + ' meetings')"></span>
+            </strong>
+            meetings with your line manager in the last 12 months.
+        </div>
+    </div>
+    <br/>
+    <div class="row" style="padding-bottom: 30px; border-bottom: solid 2px silver">
+        <div class="col-md-12">
+            <span style="color: red">TODO Continue creating future and past meeting views here..</span> 
+            @*<!-- TODO ko if: HasMeetings -->
+                Html.Partial("_MyMeetings")
+                <!-- /ko -->
+                <!-- ko ifnot: HasMeetings -->*@
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+<script type="text/javascript">
+    require(["LinkMeetings"], function (lm) {
+        $(document).ready(function () {
+            lm.init("@viewType");
+        });
+    });
+</script>

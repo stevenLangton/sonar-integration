@@ -199,8 +199,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Base\LinkBaseController.cs" />
     <Compile Include="Controllers\LinkFormController.cs" />
-    <Compile Include="Controllers\PdpController.cs" />
     <Compile Include="Controllers\ObjectiveController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,6 +269,7 @@
     <Content Include="Content\ProfilePics\E008.jpg" />
     <Content Include="Content\ProfilePics\E009.jpg" />
     <Content Include="Content\Sidebar.css" />
+    <Content Include="ElmahErrorLogs\Elmaherrors.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -284,6 +285,7 @@
     <Content Include="Content\timePicker\timepicker.less" />
     <None Include="Properties\PublishProfiles\Link-PubPraveen.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Scripts\App\ConfirmModal.js" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
@@ -409,9 +411,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Shared\_Tabs.cshtml" />
-    <Content Include="Views\Home\LinkForm.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\LinkReport.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\LinkForm\ViewMeeting.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
@@ -420,7 +420,7 @@
     <Content Include="Views\Team\MyTeam_mockup.cshtml" />
     <Content Include="Views\LinkForm\MyDetails.cshtml" />
     <Content Include="Views\Team\_MeetingHistoryComponent.cshtml" />
-    <Content Include="Views\Team\LinkMeetings_old.cshtml" />
+    <Content Include="Views\Home\LinkMeetings.cshtml" />
     <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
     <Content Include="Views\Objective\Index.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
@@ -428,7 +428,10 @@
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
-    <Content Include="Views\Pdp\Index.cshtml" />
+    <Content Include="Views\Profile\Show.cshtml" />
+  
+    <Content Include="Views\Shared\_ConfirmModal.cshtml" />
+    <Content Include="Views\Home\_MyMeetings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

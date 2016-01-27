@@ -1,0 +1,46 @@
+﻿@using JsPlc.Ssc.Link.Models
+@using JsPlc.Ssc.Link.Models.Entities
+
+@{
+    ViewBag.Title = "Profile";
+    ColleagueView Colleague = ViewBag.Colleague;
+    LinkMeeting NextMeeting = ViewBag.NextMeeting;
+    string DateFormat = "dddd, MMMM d, yyyy 'at' h:mm tt";
+}
+
+<div id="ProfileView">
+    <div>LINE MANAGEMENT > YOUR TEAM</div>@*TODO:Use breadcrumbs*@
+    <div><span class="h1">@(Colleague.FirstName + " " + Colleague.LastName)</span></div>
+    <br />
+    <div>
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3 class="panel-title"><strong>Next Link meeting</strong></h3></div>
+            <div class="panel-body">
+                @if (null != NextMeeting)
+                {
+                    <div><span class="h2">@(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
+                    <div><span class="h4">What status should we place here?</span></div>
+                    <br />
+                    <a href="LinkForm/Edit/@NextMeeting.Id" class="btn btn-default">View Link meeting</a>
+                }
+                else
+                {
+                    <div><span class="h2">There is currently no future meeting arranged</span></div>
+                    <br />
+                    <a href="LinkForm/Create/?colleagueId=@Colleague.ColleagueId" class="btn btn-default">Create a Link meeting</a>
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row"></div>
+    <hr />
+</div>
+@*<script type="text/javascript">
+        require(["Objectives"], function (mod) {
+            $(document).ready(function () {
+                mod.init("ObjectivesListView");
+            });
+        });
+    </script>*@
