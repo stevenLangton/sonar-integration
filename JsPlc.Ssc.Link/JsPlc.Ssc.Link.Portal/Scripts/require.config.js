@@ -43,6 +43,7 @@ require.config({
 
         //View scripts
         "LinkFormCreate": "App/ViewScripts/LinkFormCreate",
+        "ViewMeeting" : "App/ViewScripts/ViewMeeting",
         "LinkMeetings": "App/ViewScripts/LinkMeetings",
         "Objectives": "App/ViewScripts/Objectives",
         "SingleObjective": "App/ViewScripts/SingleObjective",

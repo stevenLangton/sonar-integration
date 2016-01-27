@@ -127,6 +127,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 var fieldKeys = form.Fields.Keys;
 
                 string value = String.Empty;
+                
+                if (MeetingData == null) return;
 
                 foreach (string fieldKey in fieldKeys)
                 {

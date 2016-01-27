@@ -13,11 +13,10 @@
         var listOfColleagueTeamViews = [];
 
         self.getEditOrViewLink = function (item) {
-            debugger;
             var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
             var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
 
-            return (item.Status == 0) ? editLink : viewLink;
+            return (item.Status == 0) ? editLink : viewLink; // 0 = InComplete
         };
 
         var getCreateLink = function (colleagueId) {
@@ -139,7 +138,7 @@
         };
 
         self.formatDateMonthDYHM = function (dateObj) {
-            var formattedString = moment(dateObj).format('MMMM Do YYYY [at] HH:mm a');
+            var formattedString = moment(dateObj).format('MMMM Do YYYY [at] HH:mma');
             return formattedString;
         }
 

@@ -76,7 +76,7 @@
                 <p style="font-size:13px;">
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
-                        You have submitted this meeting for signoff.
+                            @*You have submitted this meeting for signoff.*@
                         <!-- ko if: (ManagerSignOff == 0) -->
                         <span data-bind="text: $parent.ManagerFirstName"></span> has not accepted your record for this Link meeting yet.
                         <!-- /ko -->
@@ -92,7 +92,7 @@
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-lg btn-primary" style="background-color: silver; text-decoration: none">View Link meeting</a>
+                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link meeting</a>
                 </p>
             </div>
         </div>
