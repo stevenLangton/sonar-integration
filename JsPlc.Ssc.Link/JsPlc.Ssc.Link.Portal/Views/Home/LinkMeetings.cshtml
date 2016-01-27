@@ -41,6 +41,9 @@
         <!-- ko if: (!LatestMeeting) -->
         <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
         <!-- /ko -->
+        <div class="col-md-12">
+            <h2>Past Link meetings</h2>
+        </div>
 
         <div class="col-md-12">
             <span style="color: red">TODO Continue creating past meeting views here..</span>
@@ -58,11 +61,11 @@
 </script>
 <script type="text/html" id="current-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <div class="col-md-12" style="background-color: silver; color: black">
+    <div style="margin: 10px 10px">
+        <div class="col-md-12" style="background-color: silver; color: black; border: solid 1px black; ">
             <p><span>Current Link meeting</span></p>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" style="border: solid 1px black; padding-top: 12px;">
             <div class="col-md-1">
                 <img src="/Content/Images/calendar_icon.png" style="width: 40px; height: 40px" />
             </div>
