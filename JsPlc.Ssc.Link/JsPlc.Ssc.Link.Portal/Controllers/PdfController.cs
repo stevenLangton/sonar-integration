@@ -127,6 +127,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 var fieldKeys = form.Fields.Keys;
 
                 string value = String.Empty;
+                
+                if (MeetingData == null) return;
 
                 foreach (string fieldKey in fieldKeys)
                 {
@@ -157,9 +159,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                         case "ColleagueComments4":
                             value = MeetingData.Questions.ToArray<QuestionView>()[3].ColleagueComment;
                             break;
-                        case "ColleagueComments5":
-                            value = MeetingData.Questions.ToArray<QuestionView>()[4].ColleagueComment;
-                            break;
                         case "ManagerComments1":
                             value = MeetingData.Questions.ToArray<QuestionView>()[0].ManagerComment;
                             break;
@@ -171,9 +170,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                             break;
                         case "ManagerComments4":
                             value = MeetingData.Questions.ToArray<QuestionView>()[3].ManagerComment;
-                            break;
-                        case "ManagerComments5":
-                            value = MeetingData.Questions.ToArray<QuestionView>()[4].ManagerComment;
                             break;
                     };
 

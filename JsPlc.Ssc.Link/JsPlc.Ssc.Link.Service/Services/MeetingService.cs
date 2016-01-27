@@ -80,7 +80,9 @@ namespace JsPlc.Ssc.Link.Service.Services
                                                 MeetingId = m1.Id,
                                                 MeetingDate = m1.MeetingDate,
                                                 ColleagueSignOff = m1.ColleagueSignOff,
-                                                ManagerSignOff = m1.ManagerSignOff
+                                                ManagerSignOff = m1.ManagerSignOff,
+                                                ColleagueId = m1.ColleagueId,
+                                                ManagerAtTimeId = m1.ManagerId 
                                             }).ToList(),
                             }).FirstOrDefault();
 
@@ -98,7 +100,8 @@ namespace JsPlc.Ssc.Link.Service.Services
                     select p).FirstOrDefault();
 
                 if (period == null) continue; // should not occur since each meeting should fall within a period
-                
+                meeting.Colleague = _colleagueService.GetColleague(meeting.ColleagueId);
+                meeting.ManagerAtTime = _colleagueService.GetColleague(meeting.ManagerAtTimeId);
                 meeting.Period = period.Description;
                 meeting.Year = period.Year;
             }

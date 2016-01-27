@@ -13,11 +13,10 @@
         var listOfColleagueTeamViews = [];
 
         self.getEditOrViewLink = function (item) {
-            debugger;
             var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
             var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
 
-            return (item.Status == 0) ? editLink : viewLink;
+            return (item.Status == 0) ? editLink : viewLink; // 0 = InComplete
         };
 
         var getCreateLink = function (colleagueId) {
@@ -25,11 +24,22 @@
             return createLink;
         };
 
-        var getColleagueName = function(colleague) {
+        self.getColleagueName = function (colleague) {
+            if (!colleague) return null;
+
             if (colleague.FirstName && colleague.LastName) {
                 return colleague.FirstName + ' ' + colleague.LastName;
             }
-            return "-";
+            return null;
+        };
+
+        self.getColleagueFirstName = function (colleague) {
+            if (!colleague) return null;
+
+            if (colleague.FirstName) {
+                return colleague.FirstName;
+            }
+            return null;
         };
 
         // Extract tree from List<LinkMeetingView>
@@ -112,8 +122,8 @@
                 var memberView = {
                     Member: colleague,
                     ColleagueId: colleague.ColleagueId,
-                    FullName: getColleagueName(colleague),
-                    ManagerName: (colleague.HasManager) ? getColleagueName(colleague.Manager) : '-',
+                    FullName: self.getColleagueName(colleague),
+                    ManagerName: (colleague.HasManager) ? self.getColleagueName(colleague.Manager) : '-',
                     ManagerFirstName: (colleague.HasManager) ? colleague.Manager.FirstName : '-',
                     //HasMeetings: false,
 
@@ -139,7 +149,9 @@
         };
 
         self.formatDateMonthDYHM = function (dateObj) {
-            var formattedString = moment(dateObj).format('MMMM Do YYYY [at] HH:mm a');
+            if (!dateObj) return '-';
+
+            var formattedString = moment(dateObj).format('dddd, MMMM Do YYYY [at] HH:mma');
             return formattedString;
         }
 

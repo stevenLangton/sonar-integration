@@ -104,15 +104,21 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 else {
                     buildViewModels(data);
                     self.dataAvailable(true);
-                    self.bind();
                 }
+                self.bind();
             })
             .fail(function () {
                 self.dataAvailable(false);
+                self.bind();
                 $('#msgs').html("Error occured");
             });
         }
 
+        self.IsDataAvailable = function () {
+            debugger;
+            var retval = self.dataAvailable() ? 1 : 0;
+            return retval;
+        }
         // ### POST LinkForm data back to server.
         self.saveLinkForm = function () {
             moment.locale("en-gb");
@@ -254,7 +260,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             else if (window.location.href.search("LinkForm/Edit") > 0) {
                 self.crudMode = "Edit";
 
-                var url = "LinkForm/GetMeetingView";
+                var url = "LinkForm/GetMeetingForEdit";
 
                 var meetingId = new URI(window.location.href).filename(); // using URI library
                 var jsonArgs = { meetingId: meetingId };
