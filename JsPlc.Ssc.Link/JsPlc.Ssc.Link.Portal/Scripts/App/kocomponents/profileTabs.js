@@ -5,6 +5,7 @@
     function testModel(params) {
         var self = this;
         self.activeTab = '';
+        self.tabChangedHandler = params.OnTabChanged || $.noop;
 
         self.showTab1 = function () {
             var $selectedTab = $(event.target.parentElement);
@@ -13,6 +14,8 @@
                 //Manage tab labels
                 $selectedTab.addClass('active');
                 $('#profileTabs li').not($selectedTab).removeClass('active');
+
+                self.tabChangedHandler(1);//Tab number (1 based)
 
                 //Remove ko bindings etc..
                 ko.unapplyBindings($('#featureContainer'), false);
@@ -31,6 +34,8 @@
                     //Manage tab labels
                 $selectedTab.addClass('active');
                 $('#profileTabs li').not($selectedTab).removeClass('active');
+
+                self.tabChangedHandler(2);//Tab number (1 based)
 
                 //Update tab contents here
 
@@ -51,6 +56,8 @@
                 //Manage tab labels
                 $selectedTab.addClass('active');
                 $('#profileTabs li').not($selectedTab).removeClass('active');
+
+                self.tabChangedHandler(3);//Tab number (1 based)
 
                 //Update tab contents here
 

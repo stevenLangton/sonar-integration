@@ -46,7 +46,8 @@ require.config({
         "LinkMeetings": "App/ViewScripts/LinkMeetings",
         "Objectives": "App/ViewScripts/Objectives",
         "SingleObjective": "App/ViewScripts/SingleObjective",
-        "YourTeam": "App/ViewScripts/YourTeam"
+        "YourTeam": "App/ViewScripts/YourTeam",
+        "ColleagueProfile": "App/ViewScripts/ColleagueProfile"
 
     },
     shim: {
