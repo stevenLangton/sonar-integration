@@ -38,9 +38,29 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             //var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
 
             //New
+            //using (var facade = new LinkServiceFacade())
+            //{
+            //    var ObjectivesList = facade.GetObjectivesList(CurrentUser.Colleague.ColleagueId);
+
+            //    var jsonResult = new JsonResult
+            //    {
+            //        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            //        Data = ObjectivesList
+            //    };
+
+            //    return jsonResult;
+            //}
+            ////End new
+
+            return GetObjectives(CurrentUser.Colleague.ColleagueId);
+        }
+
+        [HttpGet]
+        public ActionResult GetObjectives(string ColleagueId)
+        {
             using (var facade = new LinkServiceFacade())
             {
-                var ObjectivesList = facade.GetObjectivesList(CurrentUser.Colleague.ColleagueId);
+                var ObjectivesList = facade.GetObjectivesList(ColleagueId);
 
                 var jsonResult = new JsonResult
                 {
@@ -50,11 +70,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
                 return jsonResult;
             }
-            //End new
-
-
         }
-
 
         [HttpGet]
         public ActionResult New()
