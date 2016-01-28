@@ -176,6 +176,29 @@ namespace JsPlc.Ssc.Link.Portal
         }
         #endregion
 
+        #region PDP
+
+        public async Task<LinkPdp> UpdatePdp(LinkPdp modified)
+        {
+            var jsonString = JsonConvert.SerializeObject(modified);
+
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            string pathSuffix = "colleagues/" + modified.ColleagueId + "/pdp/";
+
+            HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
+            var pdp = response.Content.ReadAsAsync<LinkPdp>().Result;
+            return response.IsSuccessStatusCode ? pdp : null;
+        }
+
+        public LinkPdp GetPdp(string ColleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/pdp/").Result;
+            var pdp = response.Content.ReadAsAsync<LinkPdp>().Result;
+            return response.IsSuccessStatusCode ? pdp : null;
+        }
+
+        #endregion
+
         public void Dispose()
         {
             _client = null;

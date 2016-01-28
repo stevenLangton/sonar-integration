@@ -9,7 +9,7 @@ namespace JsPlc.Ssc.Link.Interfaces
     {
         LinkPdp GetPdp(string colleagueId);
 
-        bool UpdatePdp(LinkPdp linkPdp);
+        LinkPdp UpdatePdp(LinkPdp linkPdp);
 
         void Dispose();
     }

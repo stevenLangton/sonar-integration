@@ -1,62 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Newtonsoft.Json;
+
+using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
+using JsPlc.Ssc.Link.Portal.Controllers.Base;
+
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
-    public class PdpController : Controller
+    public class PdpController : LinkBaseController
     {
         // GET: LinkPdp
         public ActionResult Index()
         {
-            return View();
-        }
-
-
-        public async Task<JsonResult> GetAllColleagueObjectives()
-        {
-            Uri redirectUri = new Uri(postLogoutRedirectUri);
-            Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext authContext = new AuthenticationContext(Authority);
-
-            //AuthenticationResult authResult = authContext.AcquireToken(LinkApiResourceId, clientId, redirectUri);
-
-            HttpClient client = new HttpClient();
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
-            HttpResponseMessage response = await client.GetAsync(LinkApiBaseAddress + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
-
-            var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
-
-            var jsonResult = new JsonResult
+            LinkPdp Pdp;
+            using (var facade = new LinkServiceFacade())
             {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = ObjectivesList
-            };
-
-            return jsonResult;
-        }
-
-        [HttpPost]
-        public ActionResult Update(LinkObjective modifiedObjective)
-        {
-            bool Success = false;
-
-            if (ModelState.IsValid)
-            {
-                using (var facade = new LinkServiceFacade())
-                {
-                    modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
-                    modifiedObjective.LastAmendedDate = DateTime.Now;
-                    Success = facade.UpdateObjective(modifiedObjective).Result;
-                }
+                Pdp = facade.GetPdp(CurrentUser.Colleague.ColleagueId);
             }
 
-            return new JsonResult
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success }
-            };
-        }//Update
+            return View(Pdp);
+
+        }
+
+
+        [HttpPost]//Update
+        public ActionResult Index(LinkPdp modifiedPdp)
+        {
+
+
+            LinkPdp Pdp;
+                using (var facade = new LinkServiceFacade())
+                {
+                    modifiedPdp.ColleagueId = CurrentUser.Colleague.ColleagueId;
+                    Pdp = facade.UpdatePdp(modifiedPdp).Result;
+                }
+
+                return View(Pdp);
+           
+        }
+
+
     }
 }

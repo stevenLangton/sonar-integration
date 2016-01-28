@@ -1,12 +1,7 @@
 ﻿@model JsPlc.Ssc.Link.Models.Entities.LinkPdp
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-}
 
-
-
+<form action="pdp" method="post">
     <div class="form-horizontal">
         <h1>Personal Development Plan</h1>
         <hr />
@@ -14,6 +9,7 @@
 
 
         <div>
+
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -26,7 +22,7 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="home">
-                    <h4>What areas do I need to develop to achieve my objectives?</h4>
+                    <h4>What areas do I need to develop to achieve my objectives?</h4>@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
 
                     @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control" } })
 
@@ -102,7 +98,7 @@
         <input type="submit" value="Save changes" class="btn btn-default" style="float:right;" />
         <br /><br />
     </div>
-
+</form>
 
     <div>
         @Html.ActionLink("Back to List", "Index")

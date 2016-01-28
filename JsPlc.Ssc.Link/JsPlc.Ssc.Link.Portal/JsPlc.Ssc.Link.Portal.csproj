@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Base\LinkBaseController.cs" />
     <Compile Include="Controllers\LinkFormController.cs" />
     <Compile Include="Controllers\ObjectiveController.cs" />
+    <Compile Include="Controllers\PdpController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
@@ -429,9 +430,9 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
     <Content Include="Views\Profile\Show.cshtml" />
-  
     <Content Include="Views\Shared\_ConfirmModal.cshtml" />
     <Content Include="Views\Home\_MyMeetings.cshtml" />
+    <Content Include="Views\Pdp\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

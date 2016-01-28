@@ -24,23 +24,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/pdp", Name = "PdpUrl")]
         public IHttpActionResult PutPdp(LinkPdp Pdp)
         {
-            if (ModelState.IsValid)
-            {
-                var status = _dbPdp.UpdatePdp(Pdp);
-
-                if (status)
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            else
-            {
-                return BadRequest();
-            }
+            LinkPdp pdp = _dbPdp.UpdatePdp(Pdp);
+            return Ok(pdp);
+              
         }
 
         [HttpGet] 
