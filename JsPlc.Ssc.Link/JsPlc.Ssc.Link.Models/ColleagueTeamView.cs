@@ -7,7 +7,9 @@ namespace JsPlc.Ssc.Link.Models
         public ColleagueView Colleague { get; set; }
         public List<LinkMeetingView> Meetings { get; set; } // Whole list - Maybe remove later..
 
-        // Both below not populated by service. Intended to split Meetings by UI/Portal methods, ideally populate in "nearest to furthest" order
+        // Below info not populated by service. Intended to split Meetings by UI/Portal methods, 
+        //  Use outputColleagueTeamView = TeamController.AssignMeetingsByDate(inputColleagueTeamView)
+        //  Populates in "nearest to furthest" order
         public List<LinkMeetingView> UpcomingMeetings { get; set; } 
         public List<LinkMeetingView> PastMeetings { get; set; } 
 

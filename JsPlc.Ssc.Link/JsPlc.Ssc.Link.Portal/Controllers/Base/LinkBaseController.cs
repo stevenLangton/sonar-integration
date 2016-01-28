@@ -5,6 +5,7 @@ using JsPlc.Ssc.Link.Portal.Models;
 using System.Configuration;
 using System;
 using System.Globalization;
+using Microsoft.Ajax.Utilities;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 {
@@ -46,5 +47,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             return CurrentUser != null && CurrentUser.IsLineManager; // for controllers
         }
 
+        public static bool HasMeetingAccess(int meetingId, string colleagueId)
+        {
+            if (CurrentUser == null || CurrentUser.Colleague == null) return false;
+
+            if (colleagueId.IsNullOrWhiteSpace()) colleagueId = CurrentUser.Colleague.ColleagueId;
+
+            using (var facade = new LinkServiceFacade())
+            {
+                return facade.HasMeetingAccess(meetingId, colleagueId);
+            }
+            return false;
+        }
     }
 }

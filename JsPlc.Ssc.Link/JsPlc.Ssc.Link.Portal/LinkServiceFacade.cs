@@ -30,6 +30,17 @@ namespace JsPlc.Ssc.Link.Portal
             _client.Value.DefaultRequestHeaders.Accept.Clear();
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        #region "Security api - Check various access types based on use cases"
+        public bool HasMeetingAccess(int meetingId, string colleagueId)
+        {
+            var filter = String.Format("{0}/{1}", meetingId, colleagueId);
+
+            HttpResponseMessage response = _client.Value.GetAsync("api/HasMeetingAccess/" + filter).Result;
+
+            return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+        }
+
+        #endregion "security api"
 
         #region User api - api to provide info related to the logged in user
 

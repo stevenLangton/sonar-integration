@@ -20,6 +20,7 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
         ColleagueDto IColleagueServices.GetColleague(string colleagueId)
         {
             var colleague = _db.Colleagues.FirstOrDefault(e =>e.ColleagueId.ToLower().Equals(colleagueId.ToLower()));
+            if (colleague == null) return null;
             var mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(colleague.ManagerId));
             var retval = colleague.ToColleagueDto(mgr);
             //retval.Manager = mgr.ToColleagueDto(mgr);

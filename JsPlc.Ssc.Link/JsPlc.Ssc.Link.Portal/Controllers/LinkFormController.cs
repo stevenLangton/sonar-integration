@@ -74,8 +74,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 jsonData = meeting;
-                if (mode.Equals("edit") && (meeting.ColleagueSignOff == MeetingStatus.Completed &&
-                    meeting.ManagerSignOff == MeetingStatus.Completed))
+                if ((mode.Equals("edit") && (meeting.ColleagueSignOff == MeetingStatus.Completed &&
+                    meeting.ManagerSignOff == MeetingStatus.Completed)) 
+                    || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
                 {
                     jsonData = "Error"; // cannot Edit completed meeting..
                 }
@@ -170,6 +171,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 return RedirectToAction("Welcome", "Home");
             }
+            
             // assuming we're creating a new Link Meeting for now
             //LinkForm model = MockData.MockLinkForm();
             return View();//"LinkMeeting", model);

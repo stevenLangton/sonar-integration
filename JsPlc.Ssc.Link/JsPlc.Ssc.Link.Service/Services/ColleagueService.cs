@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
@@ -38,21 +36,27 @@ namespace JsPlc.Ssc.Link.Service.Services
         List<ColleagueView> IColleagueService.GetDirectReports(string managerId)
         {
             IEnumerable<ColleagueView> coll = _svc.GetDirectReports(managerId);
-            foreach (var item in coll)
+            if (coll == null) return null;
+
+            var colleagues = coll as ColleagueView[] ?? coll.ToArray();
+            foreach (var item in colleagues)
             {
                 item.EmailAddress = whatDomain(item.EmailAddress);
             }
-            return coll.ToList();
+            return colleagues.ToList();
         }
 
         List<ColleagueView> IColleagueService.GetDirectReportsByManagerEmail(string emailAddress)
         {
             IEnumerable<ColleagueView> coll = _svc.GetDirectReportsByManagerEmail(emailAddress);
-            foreach (var item in coll)
+            if (coll == null) return null;
+
+            var colleagues = coll as ColleagueView[] ?? coll.ToArray();
+            foreach (var item in colleagues)
             {
                 item.EmailAddress = whatDomain(item.EmailAddress);
             }
-            return coll.ToList();
+            return colleagues.ToList();
         }
 
         bool IColleagueService.IsManager(string colleagueId)
