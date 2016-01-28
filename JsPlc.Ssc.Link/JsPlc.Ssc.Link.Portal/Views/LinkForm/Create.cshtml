@@ -20,7 +20,7 @@
         <!-- knockout binding to this -->
         <div id="msgs"></div>
         <div style="display: none;" data-bind="visible: !$root.dataAvailable()">
-            <h2 style="color: red">Cannot edit/create meeting. Invalid meeting or meeting might have completed.</h2>
+            <h2 style="color: red">Cannot retrieve meeting. Invalid access or meeting might have completed.</h2>
         </div>
         <form id="myform" method="post" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
             <div class="row">
