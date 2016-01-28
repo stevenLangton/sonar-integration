@@ -56,9 +56,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return jsonResult;
         }
 
+        [ScriptMethod(UseHttpGet = true)]
+        public JsonResult GetMeetingForEdit(int meetingId)
+        {
+            return GetMeetingView(meetingId, "edit");
+        }
 
         [ScriptMethod(UseHttpGet = true)]
-        public JsonResult GetMeetingView(int meetingId)
+        public JsonResult GetMeetingView(int meetingId, string mode="view")
         {
             var facade = new LinkServiceFacade();
 
@@ -69,11 +74,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 jsonData = meeting;
+                if (mode.Equals("edit") && (meeting.ColleagueSignOff == MeetingStatus.Completed &&
+                    meeting.ManagerSignOff == MeetingStatus.Completed))
+                {
+                    jsonData = "Error"; // cannot Edit completed meeting..
+                }
             }
             else
             {
                 jsonData = "Error";
             }
+
 
             var jsonResult = new JsonResult
             {

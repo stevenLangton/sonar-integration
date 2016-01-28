@@ -9,10 +9,9 @@
     //var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
     //var currentUser = manager.FindById(User.Identity.GetUserId());
     var currentUser = TempData["CurrentUser"] as LinkUserView;
-    ColleagueView colleague;
     if (currentUser != null)
     {
-        colleague = currentUser.Colleague;
+        ColleagueView colleague = currentUser.Colleague;
     }
 }
 
@@ -20,21 +19,18 @@
 <div class="col-md-3">
 
     <br/>
-    <p class="lead">Line Management</p>
-    <div class="list-group">
-
-
-
-        
-
-        <a href="/Team" class="list-group-item @(tabName == "team" ? "active" : "")">Your team</a>
-        <a href="/Team" class="list-group-item">Meeting Records</a>
-    </div>
-
+    @if ((currentUser != null && currentUser.IsLineManager) || !Request.IsAuthenticated)
+    {
+        <p class="lead">Line Management</p>
+        <div class="list-group">
+            <a href="/Team" class="list-group-item @(tabName == "team" ? "active" : "")">Your team</a>
+            <a href="/Team" class="list-group-item">Meeting Records</a>
+        </div>
+    }
     <p class="lead">Your Development</p>
     <div class="list-group">
         <a href="/Objective" class="list-group-item @(tabName == "objective" ? "active" : "")">Objectives</a>
-        <a href="/Home/LinkReport" class="list-group-item @(tabName == "report" ? "active" : "")">Link meetings</a>
+        <a href="/Home/LinkMeetings" class="list-group-item @(tabName == "meetings" ? "active" : "")">Link meetings</a>
         <a href="/Pdp" class="list-group-item @(tabName == "pdp" ? "active" : "")">PDP</a>
     </div>
 

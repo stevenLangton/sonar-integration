@@ -12,11 +12,11 @@
 
         var listOfColleagueTeamViews = [];
 
-        var getEditOrViewLink = function (item) {
+        self.getEditOrViewLink = function (item) {
             var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
             var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
 
-            return (item.Status == 0) ? editLink : viewLink;
+            return (item.Status == 0) ? editLink : viewLink; // 0 = InComplete
         };
 
         var getCreateLink = function (colleagueId) {
@@ -24,11 +24,22 @@
             return createLink;
         };
 
-        var getColleagueName = function(colleague) {
+        self.getColleagueName = function (colleague) {
+            if (!colleague) return null;
+
             if (colleague.FirstName && colleague.LastName) {
                 return colleague.FirstName + ' ' + colleague.LastName;
             }
-            return "-";
+            return null;
+        };
+
+        self.getColleagueFirstName = function (colleague) {
+            if (!colleague) return null;
+
+            if (colleague.FirstName) {
+                return colleague.FirstName;
+            }
+            return null;
         };
 
         // Extract tree from List<LinkMeetingView>
@@ -62,7 +73,7 @@
                         return {
                             MeetingDate: moment(item.MeetingDate).format("L"),
                             Status: item.Status, // 1 = Completed, 0 = InComplete
-                            ActionLink: getEditOrViewLink(item)
+                            ActionLink: self.getEditOrViewLink(item)
                         };
                     });
 
@@ -111,8 +122,9 @@
                 var memberView = {
                     Member: colleague,
                     ColleagueId: colleague.ColleagueId,
-                    FullName: getColleagueName(colleague),
-                    ManagerName: (colleague.HasManager) ? getColleagueName(colleague.Manager) : '-',
+                    FullName: self.getColleagueName(colleague),
+                    ManagerName: (colleague.HasManager) ? self.getColleagueName(colleague.Manager) : '-',
+                    ManagerFirstName: (colleague.HasManager) ? colleague.Manager.FirstName : '-',
                     //HasMeetings: false,
 
                     // List<LinkMeetingView>
@@ -135,6 +147,13 @@
 
             self.dataModel(listOfColleagueTeamViews);
         };
+
+        self.formatDateMonthDYHM = function (dateObj) {
+            if (!dateObj) return '-';
+
+            var formattedString = moment(dateObj).format('dddd, MMMM Do YYYY [at] HH:mma');
+            return formattedString;
+        }
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (myOrTeams) {

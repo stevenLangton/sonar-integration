@@ -12,6 +12,14 @@ namespace JsPlc.Ssc.Link.Models
 
         public string Period { get; set; }
 
+        public string ColleagueId { get; set; }
+
+        public string ManagerAtTimeId { get; set; } // Manager at that time when meeting was conducted..
+
+        public ColleagueView Colleague { get; set; }
+
+        public ColleagueView ManagerAtTime { get; set; } // Manager at that time when meeting was conducted..
+
         public MeetingStatus ColleagueSignOff { get; set; }
 
         public MeetingStatus ManagerSignOff { get; set; }

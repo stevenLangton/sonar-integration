@@ -53,7 +53,7 @@
                 };
 
                 confirmModal.init("Edit/View Objective", //Title
-                                  "Changed have been made to this Objective. Are you sure you wish to discard them?", //Body text
+                                  "Changes have been made to this Objective. Are you sure you wish to discard them?", //Body text
                                   "No",// txtNoButton 
                                   "Yes"); //txtYesButton
 

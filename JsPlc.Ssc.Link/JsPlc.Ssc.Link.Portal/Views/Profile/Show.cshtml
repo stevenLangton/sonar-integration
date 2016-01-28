@@ -18,7 +18,7 @@
             <div class="panel-body">
                 @if (null != NextMeeting)
                 {
-                    <div><span class="h2">@(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
+                    <div><span class="h2"><i class="fa fa-calendar"></i> @(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
                     <div><span class="h4">What status should we place here?</span></div>
                     <br />
                     <a href="LinkForm/Edit/@NextMeeting.Id" class="btn btn-default">View Link meeting</a>
@@ -34,13 +34,11 @@
     </div>
     <br />
     <br />
-    <div class="row"></div>
+        <div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
     <hr />
 </div>
-@*<script type="text/javascript">
-        require(["Objectives"], function (mod) {
-            $(document).ready(function () {
-                mod.init("ObjectivesListView");
-            });
-        });
-    </script>*@
+<script type="text/javascript">
+    require(["ColleagueProfile", "RegisterKoComponents"], function (cp) {
+        cp.init(ProfileView);
+    });
+</script>
