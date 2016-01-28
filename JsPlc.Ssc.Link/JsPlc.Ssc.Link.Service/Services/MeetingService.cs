@@ -184,7 +184,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         }
 
         // save new meeting, returns 0 if not saved.
-        public int SaveMeeting(MeetingView view)
+        public int SaveNewMeeting(MeetingView view)
         {
             var colleague = _colleagueService.GetColleague(view.ColleagueId);
             if (colleague == null) return 0;
