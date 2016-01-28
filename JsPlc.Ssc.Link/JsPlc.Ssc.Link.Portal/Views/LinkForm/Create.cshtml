@@ -24,16 +24,24 @@
         </div>
         <form id="myform" method="post" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
             <div class="row">
-                <div class="col-md-9" xstyle="border: margin-top: 15px;">
-                    <h2 class="content-inline">@ViewBag.Title</h2>&nbsp;
-                    <!-- Meeting Date -->
-                    <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control content-inline"
-                           readonly name="MeetingDate" style="width:100px" />
-                    <span class="content-inline">&nbsp;at&nbsp;</span>
+                <div class="col-md-12">
+                    <div class="content-inline heading-withdatepicker">
+                        <h2>@ViewBag.Title</h2>
+                    </div>
 
-                    <div class="input-group bootstrap-timepicker timepicker" style="width: 120px">
-                        <input id="timepicker1" type="text" class="form-control input-small" data-bind="value: dataModel().MeetingTime">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    <!-- Meeting Date -->
+                    <div class="content-inline">
+                        <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control xcontent-inline"
+                               readonly name="MeetingDate" style="width:100px" />
+                    </div>
+                    <div class="content-inline text-between-pickers">
+                        <span>&nbsp;at&nbsp;</span>
+                    </div>
+                    <div class="content-inline">
+                        <div class="input-group bootstrap-timepicker timepicker" style="width: 130px">
+                            <input id="timepicker1" type="text" class="form-control input-small" data-bind="value: dataModel().MeetingTime">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,15 +77,15 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         @*<div class="col-xs-2 threeiconContainer">
-                                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
-                                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
-                                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
-                                            </div>*@
+                                            <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                        </div>*@
                                         <div class="col-xs-12 comments-container">
                                             @*<span>Comment:</span><br />*@
                                             <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter colleague comments here (max 800 chars)"></textarea><br />
                                             @*<span>Manager Comment:</span><br />
-                                                <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here (max 800 chars)"></textarea>*@
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here (max 800 chars)"></textarea>*@
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +203,7 @@
                             <div class="col-md-10">
                                 <p class="right">
                                     <!-- If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId then this meeting is initiated by Colleague,
-                                    else it is by manager -> This check is done in controller itself -->
+                                else it is by manager -> This check is done in controller itself -->
                                     <!-- ko if: !dataModel().ColleagueInitiated -->
 
                                     <strong>Approved:</strong>
@@ -214,7 +222,8 @@
                                                       click: $root.confirmCheckbox" name="Completed2" />
                                     <br />
                                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save Changes</button>
-                                    &nbsp; &nbsp; <a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>
+                                    &nbsp; &nbsp;
+                                    @*<a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>*@
                                 </p>
                             </div>
                         </div>
