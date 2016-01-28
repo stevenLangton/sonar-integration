@@ -42,6 +42,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
             // Init the calendar to the data.MeetingDate
             $('.datepicker').datepicker("setDate", initDate);
+            debugger;
 
             meetingView = {
                 EmployeeId: data.colleagueId,

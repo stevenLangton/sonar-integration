@@ -35,19 +35,25 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [HttpPost]//Update
         public ActionResult Index(LinkPdp modifiedPdp)
         {
+            ViewBag.PdpUpdated = false;
 
+            try
+            {
+                LinkPdp Pdp;
 
-            LinkPdp Pdp;
                 using (var facade = new LinkServiceFacade())
                 {
                     modifiedPdp.ColleagueId = CurrentUser.Colleague.ColleagueId;
                     Pdp = facade.UpdatePdp(modifiedPdp).Result;
                 }
 
+                ViewBag.PdpUpdated = true;
                 return View(Pdp);
-           
+            }
+            catch (Exception ex)
+            {
+                return new EmptyResult();
+            }
         }
-
-
     }
 }
