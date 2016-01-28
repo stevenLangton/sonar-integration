@@ -18,27 +18,22 @@
 
 
 <div class="col-md-3">
-
-    <br/>
-    <p class="lead">Line Management</p>
-    <div class="list-group">
-
-
-
-        
-
-        <a href="/Team" class="list-group-item @(tabName == "team" ? "active" : "")">Your team</a>
-        <a href="/Team" class="list-group-item">Meeting Records</a>
-    </div>
-
-    <p class="lead">Your Development</p>
-    <div class="list-group">
-        <a href="/Objective" class="list-group-item @(tabName == "objective" ? "active" : "")">Objectives</a>
-        <a href="/Home/LinkMeetings" class="list-group-item @(tabName == "meetings" ? "active" : "")">Link meetings</a>
-        <a href="/Pdp" class="list-group-item @(tabName == "pdp" ? "active" : "")">PDP</a>
-    </div>
-
-
+    @if (User.Identity.IsAuthenticated) { 
+        <br/>
+        if (currentUser != null && currentUser.IsLineManager) { 
+            <p class="lead">Line Management</p>
+            <div class="list-group">
+                <a href="/Team" class="list-group-item @(tabName == "team" ? "active" : "")">Your team</a>
+                <a href="/Team" class="list-group-item">Meeting Records</a>
+            </div>
+        }
+        <p class="lead">Your Development</p>
+        <div class="list-group">
+            <a href="/Objective" class="list-group-item @(tabName == "objective" ? "active" : "")">Objectives</a>
+            <a href="/Home/LinkMeetings" class="list-group-item @(tabName == "meetings" ? "active" : "")">Link meetings</a>
+            <a href="/Pdp" class="list-group-item @(tabName == "pdp" ? "active" : "")">PDP</a>
+        </div>
+    }
 </div>
 
 
