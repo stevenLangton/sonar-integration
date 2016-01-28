@@ -64,8 +64,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 List<LinkMeetingView> meetings = mymeeting.Meetings;
                 mymeeting.PastMeetings = meetings
-                            .Where(x => DateTime.Now.Subtract(x.MeetingDate).Days / (365.25 / 12) <= 12
-                            && DateTime.Now.Subtract(x.MeetingDate).Hours >= -8)
+                            .Where(x => DateTime.Now.Subtract(x.MeetingDate).TotalDays / (365.25 / 12) <= 12
+                            && DateTime.Now.Subtract(x.MeetingDate).TotalHours >= 0)
                             .OrderByDescending(x => x.MeetingDate)
                             .ToList();
                 mymeeting.MeetingsInLast12Months = mymeeting.PastMeetings.Count();
