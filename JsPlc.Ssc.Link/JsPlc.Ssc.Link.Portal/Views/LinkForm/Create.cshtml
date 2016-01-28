@@ -197,16 +197,15 @@
                 <div class="col-xs-12">
                     <div class="container-fluid well" style="text-align: left;">
                         <div class="row">
-                            <div class="col-md-2">
-                                <!-- date picker moved to top -->
-                            </div>
-                            <div class="col-md-10">
-                                <p class="right">
-                                    <!-- If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId then this meeting is initiated by Colleague,
-                                        else it is by manager -> This check is done in controller itself
-                                        -->
-                                    @*<-- Only manager can tick this.. -->*@
-                                    <div data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff==1)">
+                            <div class="col-md-12">
+                                <div class="right">
+                                    <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
+                                        then this meeting is being viewed by Colleague,
+                                        else it is being viewed by manager
+                                        -> This check is done in controller itself
+                                    -->
+                                    @*<-- Manager view: Signoff section.. (only show "Approved" box once colleague has done Signoff) -->*@
+                                    <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff==1)">
                                         <strong>Approved:</strong>
                                         &nbsp;&nbsp;<input id="Checkbox1" type="checkbox" class="pointable"
                                                            data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
@@ -220,21 +219,24 @@
                                             has submitted this meeting.
                                         </div>
                                     </div>
-                                    <div data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff!=1)">
+                                    <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff!=1)">
                                         <span data-bind="text: $root.dataModel().ColleagueName"></span>
                                         has not yet submitted this meeting.
                                     </div>
-                                    <div data-bind="visible: (dataModel().ColleagueInitiated)">
+                                    @*<-- Colleague view: Signoff section.. -->*@
+                                    <div style="display: none" data-bind="visible: (dataModel().ColleagueInitiated)">
                                         <strong>Meeting complete:</strong>
                                         <input id="Checkbox2" type="checkbox" class="pointable"
                                                data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
                                                       click: $root.confirmCheckbox" name="Completed2" />
                                     </div>
                                     <br />
-                                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save Changes</button>
-                                    &nbsp; &nbsp;
+                                    <div class="right">
+                                        <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save Changes</button>
+                                        &nbsp; &nbsp;
+                                    </div>
                                     @*<a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>*@
-                                </p>
+                                </div>
                             </div>
                         </div>
                     </div>
