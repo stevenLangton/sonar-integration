@@ -17,9 +17,9 @@
 
 
 <div class="col-md-3">
-
+@if (User.Identity.IsAuthenticated) {
     <br/>
-    @if ((currentUser != null && currentUser.IsLineManager) || !Request.IsAuthenticated)
+    if ((currentUser != null && currentUser.IsLineManager))
     {
         <p class="lead">Line Management</p>
         <div class="list-group">
@@ -33,8 +33,7 @@
         <a href="/Home/LinkMeetings" class="list-group-item @(tabName == "meetings" ? "active" : "")">Link meetings</a>
         <a href="/Pdp" class="list-group-item @(tabName == "pdp" ? "active" : "")">PDP</a>
     </div>
-
-
+}
 </div>
 
 

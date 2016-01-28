@@ -275,6 +275,7 @@
     <Content Include="Content\ProfilePics\E008.jpg" />
     <Content Include="Content\ProfilePics\E009.jpg" />
     <Content Include="Content\Sidebar.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="ElmahErrorLogs\Elmaherrors.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -305,6 +306,7 @@
     <Content Include="Scripts\App\kocomponents\profileTabs.html" />
     <Content Include="Scripts\App\kocomponents\profileTabs.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
+    <Content Include="Scripts\App\ViewScripts\pdp.js" />
     <Content Include="Scripts\App\ViewScripts\ViewMeeting.js" />
     <Content Include="Scripts\App\ViewScripts\ColleagueProfile.js" />
     <Content Include="Scripts\App\ViewScripts\LinkFormCreate.js" />
@@ -403,6 +405,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\text.min.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\Utils\helpers.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\UriJs\punycode.js" />

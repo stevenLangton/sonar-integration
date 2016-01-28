@@ -104,3 +104,14 @@
         @Html.ActionLink("Back to List", "Index")
     </div>
 
+<script type="text/javascript">
+    @if (ViewBag.PdpUpdated != null) {
+        <text>
+            require(["pdp"], function (pdp) {
+                $(document).ready(function () {
+                    pdp.init(@(ViewBag.PdpUpdated?"true":"false"));
+                });
+            });
+        </text>
+    }
+</script>
