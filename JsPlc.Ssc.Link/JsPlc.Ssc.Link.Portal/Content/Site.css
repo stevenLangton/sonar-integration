@@ -283,10 +283,12 @@ font-size:80%;
 }
 
 .img-circle {
-    width: 120px;
-    height: 120px;
+    width: 30px;
+    height: 30px;
 }
-
+.meeting-banner .colleagueInfo {
+    line-height: 25px;
+}
 .legend {
     border: solid 1px silver;
     font-size: x-small;
@@ -347,6 +349,8 @@ a:link, a:visited {
 .myPageContainer{}
 .meeting-banner {
     background-color: #ececec;
+    height: 40px;
+    padding: 5px 0;
 }
 
 /*For profile tabs on profile page*/ 
