@@ -34,11 +34,15 @@
     </div>
     <br />
     <br />
-        <div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
+    <div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
+    <br />
+    <div data-bind="stopBinding: true">
+        <div id="featureContainer"></div>
+    </div>
     <hr />
 </div>
 <script type="text/javascript">
     require(["ColleagueProfile", "RegisterKoComponents"], function (cp) {
-        cp.init(ProfileView);
+        cp.init("ProfileView", "@Colleague.ColleagueId");
     });
 </script>

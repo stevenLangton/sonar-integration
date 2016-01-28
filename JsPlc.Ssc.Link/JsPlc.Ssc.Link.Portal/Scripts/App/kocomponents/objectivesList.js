@@ -4,7 +4,7 @@
     //View model
     function viewModel(params) {
         var self = {};
-        self.objectives = params.objectives;
+        self.objectives = params.data;
 
         return self;
     }
