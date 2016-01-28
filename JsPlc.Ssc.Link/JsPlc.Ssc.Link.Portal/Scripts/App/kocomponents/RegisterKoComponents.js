@@ -45,6 +45,7 @@
         return result;
     };
 
-    ko.components.register("profile-tabs", {require: "App/kocomponents/profileTabs"});
+    ko.components.register("profile-tabs", { require: "App/kocomponents/profileTabs" });
+    ko.components.register("objectives-list", { require: "App/kocomponents/objectivesList" });
 
 });//Module end

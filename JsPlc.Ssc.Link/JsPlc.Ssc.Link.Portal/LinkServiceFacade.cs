@@ -174,6 +174,20 @@ namespace JsPlc.Ssc.Link.Portal
             HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
             return response.IsSuccessStatusCode ? true : false;
         }
+
+        /// <summary>
+        /// Get a list of all objectives for a colleague
+        /// </summary>
+        /// <param name="ColleagueId">Sainsburys colleague id</param>
+        /// <returns></returns>
+        public List<LinkObjective> GetObjectivesList(string ColleagueId)
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives").Result;
+
+            var ObjectivesList = response.Content.ReadAsAsync<List<LinkObjective>>().Result;
+
+            return ObjectivesList;
+        }
         #endregion
 
         public void Dispose()

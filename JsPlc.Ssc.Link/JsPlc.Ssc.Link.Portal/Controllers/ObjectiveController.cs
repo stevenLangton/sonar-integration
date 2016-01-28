@@ -24,27 +24,37 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
-        public async Task<JsonResult> GetAllColleagueObjectives()
+        public ActionResult GetAllColleagueObjectives()
         {
-            Uri redirectUri = new Uri(postLogoutRedirectUri);
-            Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext authContext = new AuthenticationContext(Authority);
+            //Uri redirectUri = new Uri(postLogoutRedirectUri);
+            //Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext authContext = new AuthenticationContext(Authority);
 
-            //AuthenticationResult authResult = authContext.AcquireToken(LinkApiResourceId, clientId, redirectUri);
+            ////AuthenticationResult authResult = authContext.AcquireToken(LinkApiResourceId, clientId, redirectUri);
 
-            HttpClient client = new HttpClient();
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
-            HttpResponseMessage response = await client.GetAsync(ServicesBaseUrl + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
+            //HttpClient client = new HttpClient();
+            ////client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
+            //HttpResponseMessage response = await client.GetAsync(ServicesBaseUrl + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
 
-            var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
+            //var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
 
-            var jsonResult = new JsonResult
+            //New
+            using (var facade = new LinkServiceFacade())
             {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = ObjectivesList
-            };
+                var ObjectivesList = facade.GetObjectivesList(CurrentUser.Colleague.ColleagueId);
 
-            return jsonResult;
+                var jsonResult = new JsonResult
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = ObjectivesList
+                };
+
+                return jsonResult;
+            }
+            //End new
+
+
         }
+
 
         [HttpGet]
         public ActionResult New()

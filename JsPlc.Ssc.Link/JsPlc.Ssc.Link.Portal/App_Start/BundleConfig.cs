@@ -27,6 +27,7 @@ namespace JsPlc.Ssc.Link.Portal
                 "~/Scripts/knockout-3.3.0.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/font-awesome.min.css",
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker3.min.css",
                       "~/Content/timepicker/bootstrap-timepicker.css",
