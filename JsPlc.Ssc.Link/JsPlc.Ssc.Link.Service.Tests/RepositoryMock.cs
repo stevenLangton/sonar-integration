@@ -13,7 +13,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
     {
         protected static ILinkRepository _repository;
         protected static IMeetingService _meeting;
-        protected static IObjectivesService _objectives;
+        protected static IObjectivesService _objective;
 
         protected static RepositoryContext _context;
 
@@ -27,9 +27,9 @@ namespace JsPlc.Ssc.Link.Service.Tests
             get { return _meeting ?? (_meeting = new MeetingService(_context)); }
         }
 
-        public static IObjectivesService Objectives
+        public static IObjectivesService Objective
         {
-            get { return _objectives ?? (_objectives = new ObjectivesService(_context)); }
+            get { return _objective ?? (_objective = new ObjectivesService(_context)); }
         }
 
         public static RepositoryContext Context
@@ -51,7 +51,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
             _context = Context;
             _repository = Repository;
             _meeting = Meeting;
-            _objectives = Objectives;
+            _objective = Objective;
 
         }
     }

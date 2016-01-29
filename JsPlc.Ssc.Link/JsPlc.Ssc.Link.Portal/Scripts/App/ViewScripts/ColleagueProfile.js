@@ -11,6 +11,14 @@
         ko.applyBindings(koViewModel, document.getElementById('featureContainer'));
     };
 
+    var showPdp = function (colleagueId) {
+        var $promise = dataService.getPdp(colleagueId);
+        $promise.done(function (result) {
+            var pdpTabKoVm = result;
+            refreshTabContent(pdpTabKoVm, "<pdp-accordion  params='data: $root'></pdp-accordion>");
+        });
+    };
+
     var viewModel = function () {
         var vm = {};
 
@@ -27,7 +35,7 @@
                 break;
             case 2:
                 //Show colleague Pdp
-                refreshTabContent();
+                showPdp(vm.colleagueId);
                 break;
             case 3:
                 //Show colleague Objectives

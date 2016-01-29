@@ -306,6 +306,8 @@
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\kocomponents\objectivesList.html" />
     <Content Include="Scripts\App\kocomponents\objectivesList.js" />
+    <Content Include="Scripts\App\kocomponents\pdpAccordion.html" />
+    <Content Include="Scripts\App\kocomponents\pdpAccordion.js" />
     <Content Include="Scripts\App\kocomponents\profileTabs.html" />
     <Content Include="Scripts\App\kocomponents\profileTabs.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
+    [Authorize]
     public class ProfileController : LinkBaseController
     {
         // GET: Profile

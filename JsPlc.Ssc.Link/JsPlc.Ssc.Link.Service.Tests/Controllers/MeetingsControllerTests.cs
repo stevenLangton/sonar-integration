@@ -33,7 +33,6 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             var meeting = new MeetingView()
             {
                    MeetingId=0,
-                   EmployeeId=1,
                    ColleagueId="E001",
                    ColleagueName="vasu",
                    ManagerId ="E0010",
@@ -61,8 +60,8 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         {
             var meeting = new MeetingView()
             {
+                
                 MeetingId = 1,
-                EmployeeId = 1,
                 ColleagueId = "E001",
                 ColleagueName = "vasu",
                 ManagerId = "E0010",

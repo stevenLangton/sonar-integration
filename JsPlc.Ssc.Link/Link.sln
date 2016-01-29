@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj", "{A5A6F815-7A8D-463F-9F01-E2610E533A4B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -36,6 +36,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.StubService"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StubService", "StubService", "{724B9D1B-883E-410C-BE39-801F29874C39}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{7CDEA3D2-A5AD-4284-BD94-9511621E566E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Service.Tests", "JsPlc.Ssc.Link.Service.Tests\JsPlc.Ssc.Link.Service.Tests.csproj", "{144C63B1-D8AE-41D2-8922-E6AA9C609DE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal.Tests", "JsPlc.Ssc.Link.Portal.Tests\JsPlc.Ssc.Link.Portal.Tests.csproj", "{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +72,14 @@ Global
 		{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144C63B1-D8AE-41D2-8922-E6AA9C609DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144C63B1-D8AE-41D2-8922-E6AA9C609DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144C63B1-D8AE-41D2-8922-E6AA9C609DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144C63B1-D8AE-41D2-8922-E6AA9C609DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +91,7 @@ Global
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5} = {551CB1B4-E458-451B-914E-94CABB5F91DB}
 		{5E71294B-3F45-48F1-A37F-737FB5F22F38} = {E192C1F1-50DC-4172-92C9-17A353E219FF}
 		{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD} = {724B9D1B-883E-410C-BE39-801F29874C39}
+		{144C63B1-D8AE-41D2-8922-E6AA9C609DE7} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
+		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
 	EndGlobalSection
 EndGlobal
