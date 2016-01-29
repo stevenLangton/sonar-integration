@@ -247,6 +247,7 @@
     <Content Include="Content\Images\Bulb_icon.PNG" />
     <Content Include="Content\Images\calendar_icon.png" />
     <Content Include="Content\Images\collaboration_icon.PNG" />
+    <Content Include="Content\Images\default_profile_picture.png" />
     <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\LinkSheetLogo.png" />
@@ -305,6 +306,8 @@
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\kocomponents\objectivesList.html" />
     <Content Include="Scripts\App\kocomponents\objectivesList.js" />
+    <Content Include="Scripts\App\kocomponents\pdpAccordion.html" />
+    <Content Include="Scripts\App\kocomponents\pdpAccordion.js" />
     <Content Include="Scripts\App\kocomponents\profileTabs.html" />
     <Content Include="Scripts\App\kocomponents\profileTabs.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />

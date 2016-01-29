@@ -29,9 +29,9 @@
                 //{
                 //    welcomeText += ".";
                 //}
-                if (!string.IsNullOrEmpty(welcomeText))
+                if (!string.IsNullOrEmpty(welcomeText) && currentUser.Colleague != null)
                 {
-                    @Html.ActionLink(welcomeText, "Index", "Manage") //, htmlAttributes: new { title = "Manage" })
+                    @Html.ActionLink(welcomeText, "Show", new { controller="Profile", id = currentUser.Colleague.ColleagueId }) //, htmlAttributes: new { title = "Manage" })
                 }
             }
         </li>

@@ -16,6 +16,7 @@ using JsPlc.Ssc.Link.Portal.Controllers.Base;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
+    [Authorize]
     public class PdpController : LinkBaseController
     {
         // GET: LinkPdp
@@ -55,5 +56,23 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 return new EmptyResult();
             }
         }
+
+        [HttpGet]
+        public JsonResult GetPdp(string ColleagueId)
+        {
+            using (var facade = new LinkServiceFacade())
+            {
+                var Pdp = facade.GetPdp(ColleagueId);
+
+                var jsonResult = new JsonResult
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = Pdp
+                };
+
+                return jsonResult;
+            }
+        }
+
     }
 }

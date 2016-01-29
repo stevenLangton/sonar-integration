@@ -42,5 +42,25 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(false);
         }
 
+        [HttpGet]
+        [Route("api/HasColleagueAccess/{colleagueId}/{otherColleagueId}")]
+        public IHttpActionResult HasColleagueAccess(string colleagueId, string otherColleagueId)
+        {
+            var colleague = _dbColleagues.GetColleague(colleagueId);
+            var otherColleague = _dbColleagues.GetColleague(otherColleagueId);
+            var directReports = _dbColleagues.GetDirectReports(colleagueId);
+            if (colleague == null || otherColleague == null)
+                return NotFound();
+
+            // Either you are otherColleague 
+            // OR the otherColleague is of your directReports, you have access..
+            if ((colleagueId.Equals(otherColleagueId))
+                || (directReports != null && directReports.Any(x => x.ColleagueId.Equals(otherColleagueId))))
+            {
+                return Ok(true);
+            }
+
+            return Ok(false);
+        }
     }
 }

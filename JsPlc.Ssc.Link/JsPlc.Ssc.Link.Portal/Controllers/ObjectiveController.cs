@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-//using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -26,32 +25,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public ActionResult GetAllColleagueObjectives()
         {
-            //Uri redirectUri = new Uri(postLogoutRedirectUri);
-            //Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext authContext = new AuthenticationContext(Authority);
-
-            ////AuthenticationResult authResult = authContext.AcquireToken(LinkApiResourceId, clientId, redirectUri);
-
-            //HttpClient client = new HttpClient();
-            ////client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
-            //HttpResponseMessage response = await client.GetAsync(ServicesBaseUrl + "/colleagues/" + CurrentUser.Colleague.ColleagueId + "/objectives");
-
-            //var ObjectivesList = await response.Content.ReadAsAsync<List<LinkObjective>>();
-
-            //New
-            //using (var facade = new LinkServiceFacade())
-            //{
-            //    var ObjectivesList = facade.GetObjectivesList(CurrentUser.Colleague.ColleagueId);
-
-            //    var jsonResult = new JsonResult
-            //    {
-            //        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-            //        Data = ObjectivesList
-            //    };
-
-            //    return jsonResult;
-            //}
-            ////End new
-
             return GetObjectives(CurrentUser.Colleague.ColleagueId);
         }
 
@@ -93,7 +66,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 return View(item);
             }
         }
-
 
         [HttpPost]
         public ActionResult Create(LinkObjective modifiedObjective)
@@ -144,6 +116,5 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 Data = new { success = Success }
             };
         }//Update
-
     }
 }
