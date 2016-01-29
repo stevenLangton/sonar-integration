@@ -40,42 +40,42 @@ namespace JsPlc.Ssc.Link.Service.Tests
             questions.ForEach(c => context.Questions.Add(c));
             context.SaveChanges();
 
-            var users = new List<LinkUser>{
-                new LinkUser{Id=1,  ColleagueId="E001",     EmailAddress="Luan.Au@sainsburys.co.uk"},
-                new LinkUser{Id=2,  ColleagueId="E002",     EmailAddress="Parveen.Kumar@sainsburys.co.uk"},
-                new LinkUser{Id=3,  ColleagueId="E003",     EmailAddress="Steven.Farkas@sainsburys.co.uk"},
-                new LinkUser{Id=4,  ColleagueId="E004",     EmailAddress="Vasundhara.B@sainsburys.co.uk"},
+            //var users = new List<LinkUserView>{
+            //    new LinkUserView{UserId=1},
+            //    new LinkUserView{UserId=2},
+            //    new LinkUserView{UserId=3},
+            //    new LinkUserView{UserId=4},
 
-                new LinkUser{Id=10, ColleagueId="E0010",    EmailAddress="Sandip.Vaidya@sainsburys.co.uk"},
-                new LinkUser{Id=11, ColleagueId="E0011",    EmailAddress="Mike.Gwyer@sainsburys.co.uk"},
+            //    new LinkUserView{UserId=10},
+            //    new LinkUserView{UserId=11},
 
-                new LinkUser{Id=12, ColleagueId="E0012",    EmailAddress="ridley.scott@sainsburys.co.uk"},
-                new LinkUser{Id=13, ColleagueId="E0013",    EmailAddress="joss.whedon@sainsburys.co.uk"},
-                new LinkUser{Id=14, ColleagueId="E0014",    EmailAddress="rick.deckard@sainsburys.co.uk"},
-                new LinkUser{Id=15, ColleagueId="E0015",    EmailAddress="ellen.ripley@sainsburys.co.uk"},
-                new LinkUser{Id=16, ColleagueId="E0016",    EmailAddress="malcolm.reynolds@sainsburys.co.uk"},
-            };
+            //    new LinkUserView{UserId=12},
+            //    new LinkUserView{UserId=13},
+            //    new LinkUserView{UserId=14},
+            //    new LinkUserView{UserId=15},
+            //    new LinkUserView{UserId=16},
+            //};
 
-            users.ForEach(c => context.LinkUsers.Add(c));
-            context.SaveChanges();
+            //users.ForEach(c => context.LinkUsers.Add(c));
+            //context.SaveChanges();
 
             var meetings = new List<LinkMeeting>{
 
-                new LinkMeeting{Id=1, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" ,MeetingDate = new DateTime(2014,04,01)},
-                new LinkMeeting{Id=2, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2014,08,10)},
-                new LinkMeeting{Id=3, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E0010" , MeetingDate = new DateTime(2014,12,12)},
-                new LinkMeeting{Id=4, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,01,13)},
-                new LinkMeeting{Id=5, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" ,MeetingDate = new DateTime(2015,10,01)},
-                new LinkMeeting{Id=6, EmployeeId=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,10)},
-                new LinkMeeting{Id=7, EmployeeId=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,12)},
-                new LinkMeeting{Id=8, EmployeeId=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,13)},
-                new LinkMeeting{Id=9, EmployeeId=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,14)},
-                new LinkMeeting{Id=10, EmployeeId=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,15)},
-                new LinkMeeting{Id=11, EmployeeId=1, ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,18)},
-                new LinkMeeting{Id=12, EmployeeId=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,20)},
-                new LinkMeeting{Id=13, EmployeeId=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,21)},
-                new LinkMeeting{Id=14, EmployeeId=10, ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,23)},
-                new LinkMeeting{Id=15, EmployeeId=10, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,30)},
+                new LinkMeeting{Id=1, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" ,MeetingDate = new DateTime(2014,04,01)},
+                new LinkMeeting{Id=2, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2014,08,10)},
+                new LinkMeeting{Id=3, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E0010" , MeetingDate = new DateTime(2014,12,12)},
+                new LinkMeeting{Id=4, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,01,13)},
+                new LinkMeeting{Id=5, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" ,MeetingDate = new DateTime(2015,10,01)},
+                new LinkMeeting{Id=6, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,10)},
+                new LinkMeeting{Id=7, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,12)},
+                new LinkMeeting{Id=8, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,13)},
+                new LinkMeeting{Id=9, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,14)},
+                new LinkMeeting{Id=10, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,15)},
+                new LinkMeeting{Id=11, ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,18)},
+                new LinkMeeting{Id=12, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,20)},
+                new LinkMeeting{Id=13, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,21)},
+                new LinkMeeting{Id=14, ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,23)},
+                new LinkMeeting{Id=15, ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,30)},
             };
 
             meetings.ForEach(c => context.Meeting.Add(c));

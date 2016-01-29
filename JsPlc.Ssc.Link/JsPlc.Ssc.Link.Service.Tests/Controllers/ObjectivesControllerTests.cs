@@ -19,8 +19,8 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             var controller = new ObjectivesController();
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
-            var response = controller.GetAllObjectives(ColleagueId) as OkNegotiatedContentResult<List<Objectives>>;
-            List<Objectives> ObjectivesList = response.Content as List<Objectives>;
+            var response = controller.GetAllObjectives(ColleagueId) as OkNegotiatedContentResult<List<LinkObjective>>;
+            List<LinkObjective> ObjectivesList = response.Content as List<LinkObjective>;
             Assert.IsNotNull(response);
         }
     }
