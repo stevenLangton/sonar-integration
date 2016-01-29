@@ -39,6 +39,15 @@ namespace JsPlc.Ssc.Link.Portal
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
         }
+        public bool HasColleagueAccess(string colleagueId, string otherColleagueId)
+        {
+            var filter = String.Format("{0}/{1}", colleagueId, otherColleagueId);
+
+            HttpResponseMessage response = _client.Value.GetAsync("api/HasColleagueAccess/" + filter).Result;
+
+            return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+        }
+
 
         #endregion "security api"
 

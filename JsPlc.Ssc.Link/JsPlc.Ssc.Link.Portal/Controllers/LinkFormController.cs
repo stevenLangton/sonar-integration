@@ -41,6 +41,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 newMeeting.ManagerSignOff = MeetingStatus.InComplete;
                 newMeeting.ColleagueSignOff = MeetingStatus.InComplete;
                 jsonData = newMeeting;
+                if(!HasColleagueAccess(CurrentUser.Colleague.ColleagueId, colleagueId))
+                {
+                    jsonData = "Error";
+                }
             }
             else
             {

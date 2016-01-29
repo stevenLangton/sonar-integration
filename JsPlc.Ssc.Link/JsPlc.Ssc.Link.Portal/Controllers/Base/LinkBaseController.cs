@@ -59,5 +59,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             }
             return false;
         }
+        public static bool HasColleagueAccess(string colleagueId, string otherColleagueId)
+        {
+            if (CurrentUser == null || CurrentUser.Colleague == null) return false;
+
+            if (colleagueId.IsNullOrWhiteSpace()) colleagueId = CurrentUser.Colleague.ColleagueId;
+
+            using (var facade = new LinkServiceFacade())
+            {
+                return facade.HasColleagueAccess(colleagueId, otherColleagueId);
+            }
+            return false;
+        }
+
     }
 }
