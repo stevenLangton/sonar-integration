@@ -3,7 +3,7 @@
 
     //View model
     var viewModel = function (params) {
-        var self = {};
+        var self = params.data;
 
         return self;
     };

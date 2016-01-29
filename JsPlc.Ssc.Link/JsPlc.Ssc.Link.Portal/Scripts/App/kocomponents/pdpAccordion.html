@@ -11,17 +11,18 @@
             <div class="panel-body">
                     <h4>What areas do I need to develop to achieve my objectives?</h4><input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." htmlattributes="{ class = form-control }" id="Id" name="Id" type="hidden" value="2">
 
-                    <input class="form-control text-box single-line" id="achieveObjectives" name="achieveObjectives" type="text" value="">
+                <div readonly class="form-control text-box" id="achieveObjectives" name="achieveObjectives" type="text" data-bind="text: achieveObjectives"/>
 
                     <h4>What actions will I take?</h4>
 
-                    <input class="form-control text-box single-line" id="achieveObjectivesActions" name="achieveObjectivesActions" type="text" value="">
+                <textarea readonly class="form-control text-box" id="achieveObjectivesActions" name="achieveObjectivesActions" type="text" data-bind="textInput: achieveObjectivesActions"/>
 
                     <h4>
                         By when?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="achieveObjectivesWhen" name="achieveObjectivesWhen" type="text" value="">
+                <textarea readonly class="form-control text-box" id="achieveObjectivesWhen" name="achieveObjectivesWhen" type="text"
+                       data-bind="textInput: achieveObjectivesWhen"/>
             </div>
         </div>
     </div>
@@ -39,19 +40,22 @@
                         What are my key strengths?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="keyStrengths" name="keyStrengths" type="text" value="">
+                <textarea readonly class="form-control text-box single-line" id="keyStrengths" name="keyStrengths" type="text"
+                       data-bind="textInput: keyStrengths"/>
 
                     <h4>
                         What actions will I take to further develop these areas?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="keyStrengthsActions" name="keyStrengthsActions" type="text" value="">
+                <textarea readonly class="form-control text-box single-line" id="keyStrengthsActions" name="keyStrengthsActions" type="text"
+                       data-bind="textInput: keyStrengthsActions"/>
 
                     <h4>
                         By when?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="keyStrengthsWhen" name="keyStrengthsWhen" type="text" value="">
+                <textarea readonly class="form-control text-box single-line" id="keyStrengthsWhen" name="keyStrengthsWhen" type="text"
+                       data-bind="textInput: keyStrengthsWhen"/>
             </div>
         </div>
     </div>
@@ -69,7 +73,8 @@
                         What are my key strengths?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="careerAspirations" name="careerAspirations" type="text" value="">
+                <textarea readonly class="form-control text-box single-line" id="careerAspirations" name="careerAspirations" type="text"
+                       data-bind="textInput: careerAspirations"/>
 
 
 
@@ -77,14 +82,16 @@
                         What actions will I take to further develop these areas?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="careerAspirationsActions" name="careerAspirationsActions" type="text" value="">
+                <textarea readonly class="form-control text-box single-line" id="careerAspirationsActions" name="careerAspirationsActions" type="text"
+                       data-bind="textInput: careerAspirationsActions"/>
 
 
                     <h4>
                         By when?
                     </h4>
 
-                    <input class="form-control text-box single-line" id="careerAspirationsWhen" name="careerAspirationsWhen" type="text" value="">
+                <textarea readonly class="form-control text-box single-line" id="careerAspirationsWhen" name="careerAspirationsWhen" type="text"
+                       data-bind="textInput: careerAspirationsWhen"/>
             </div>
         </div>
     </div>

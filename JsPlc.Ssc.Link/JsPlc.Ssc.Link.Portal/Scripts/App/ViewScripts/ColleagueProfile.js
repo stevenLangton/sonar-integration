@@ -14,8 +14,8 @@
     var showPdp = function (colleagueId) {
         var $promise = dataService.getPdp(colleagueId);
         $promise.done(function (result) {
-            var pdpTabKoVm = {};
-            refreshTabContent(pdpTabKoVm, "<pdp-accordion></pdp-accordion>");
+            var pdpTabKoVm = result;
+            refreshTabContent(pdpTabKoVm, "<pdp-accordion  params='data: $root'></pdp-accordion>");
         });
     };
 
