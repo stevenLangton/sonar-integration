@@ -11,8 +11,8 @@
     <div style="display: none" data-bind="visible: !$root.dataAvailable()">
         <h2 style="color:red">Error - No such meeting or access denied.</h2>
     </div>
-    
-    <div data-bind="visible: $root.dataAvailable">
+
+    <div style="display:none" data-bind="visible: $root.dataAvailable">
         <h2>
             @ViewBag.Title -
             <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
@@ -240,9 +240,31 @@
 
         <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
             <div class="col-xs-12">
-                @*<strong>Meeting Date:</strong> <span id="MeetingDate" data-bind="text: dataModel().MeetingDate" class="" disabled name="MeetingDate"></span><br />*@
-                <strong>Meeting complete: </strong>&nbsp;&nbsp;
-                <input id="Checkbox2" type="checkbox" data-bind="checked: (dataModel().ManagerSignOff==1) && (dataModel().ColleagueSignOff==1)" name="ManagerSignOff" disabled="disabled" />
+
+                <!-- Show signoff dates -->
+                <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
+                    <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
+                    not yet submitted this Link meeting.
+                </div>
+                <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
+                    <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You' : dataModel().ColleagueName "></span>
+                    submitted this Link meeting on
+                    <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
+
+                    <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
+                        <span data-bind="text: (dataModel().ColleagueInitiated) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
+                        not yet approved this Link meeting
+                    </div>
+                    <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
+                        <span data-bind="text: (dataModel().ColleagueInitiated) ? dataModel().ManagerName : 'You ' "></span>
+                        approved this Link meeting on
+                        <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
+                        <div>
+                            <strong>Meeting complete: </strong>&nbsp;&nbsp;
+                            <input id="Checkbox2" type="checkbox" data-bind="checked: (dataModel().ManagerSignOff==1) && (dataModel().ColleagueSignOff==1)" name="ManagerSignOff" disabled="disabled" />
+                        </div>
+                    </div>
+                </div>
                 @*<strong>Colleague Completed: </strong><input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff" name="ColleagueSignOff" disabled="disabled" />*@
                 @*<a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>*@
             </div><br />

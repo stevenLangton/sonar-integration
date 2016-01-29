@@ -47,13 +47,12 @@
         <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
         <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
         <!-- /ko -->
-
         <!-- ko foreach: PastMeetings -->
         <div data-bind="template: { name: 'past-meeting-template', data: $data }"></div>
         <!-- /ko -->
         @*<div class="col-md-12">
-            <span style="color: red">TODO Continue creating past meeting views here..</span>
-        </div>*@
+                <span style="color: red">TODO Continue creating past meeting views here..</span>
+            </div>*@
     </div>
 
 
@@ -84,10 +83,13 @@
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         @*You have submitted this meeting for signoff.*@
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        <span data-bind="text: $parent.ManagerFirstName"></span> has not accepted your record for this Link meeting yet.
+                        You submitted this meeting on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        <br />
+                        <span data-bind="text: $parent.ManagerFirstName"></span> has not yet accepted your record for this Link meeting.
                         <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $parent.ManagerFirstName"></span> accepted your record for this Link meeting.
+                        <span data-bind="text: $parent.ManagerFirstName"></span> accepted your record for this Link meeting on
+                        <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
@@ -116,11 +118,11 @@
         <div class="col-md-12" style="border: solid 1px black; padding-top: 12px; margin-bottom: 10px">
             <div class="col-md-1">
                 <img data-bind="visible: (Status==0)" src="/Content/Images/round_black_cross.png" style="width: 40px; height: 40px" />
-                <img data-bind="visible: (Status==1)"  src="/Content/Images/round_black_tick.png" style="width: 40px; height: 40px" />
+                <img data-bind="visible: (Status==1)" src="/Content/Images/round_black_tick.png" style="width: 40px; height: 40px" />
             </div>
             <div id="u98" class="col-md-10">
                 <p style="font-size:20px;">
-                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;" 
+                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;"
                           data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
                 <p style="font-size:13px;">
@@ -128,10 +130,13 @@
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         @*You have submitted this meeting for signoff.*@
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not accepted your record for this Link meeting yet.
+                        You submitted this meeting on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        <br />
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link meeting.
                         <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link meeting.
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link meeting on
+                        <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->

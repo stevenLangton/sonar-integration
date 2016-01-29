@@ -82,7 +82,9 @@ namespace JsPlc.Ssc.Link.Service.Services
                                                 ColleagueSignOff = m1.ColleagueSignOff,
                                                 ManagerSignOff = m1.ManagerSignOff,
                                                 ColleagueId = m1.ColleagueId,
-                                                ManagerAtTimeId = m1.ManagerId 
+                                                ManagerAtTimeId = m1.ManagerId,
+                                                ColleagueSignedOffDate = m1.ColleagueSignedOffDate,
+                                                ManagerSignedOffDate = m1.ManagerSignedOffDate
                                             }).ToList(),
                             }).FirstOrDefault();
 
@@ -195,9 +197,16 @@ namespace JsPlc.Ssc.Link.Service.Services
                 ManagerId = colleague.ManagerId,
                 MeetingDate = view.MeetingDate,
                 ColleagueSignOff = view.ColleagueSignOff,
-                ManagerSignOff = view.ManagerSignOff
+                ManagerSignOff = view.ManagerSignOff,
             };
-
+            if (meeting.ColleagueSignOff == MeetingStatus.Completed)
+            {
+                meeting.ColleagueSignedOffDate = DateTime.Now;
+            }
+            if (meeting.ManagerSignOff == MeetingStatus.Completed)
+            {
+                meeting.ManagerSignedOffDate = DateTime.Now;
+            }
             var result = _db.Meeting.Add(meeting);
             int saveCount = _db.SaveChanges();
 
@@ -235,6 +244,14 @@ namespace JsPlc.Ssc.Link.Service.Services
                     ManagerId = meeting.ManagerId,
                     Id = view.MeetingId
                 };
+                if (linkMeeting.ColleagueSignOff == MeetingStatus.Completed)
+                {
+                    linkMeeting.ColleagueSignedOffDate = DateTime.Now;
+                }
+                if (linkMeeting.ManagerSignOff == MeetingStatus.Completed)
+                {
+                    linkMeeting.ManagerSignedOffDate = DateTime.Now;
+                }
                 _db.Meeting.AddOrUpdate(linkMeeting);
                 _db.SaveChanges();
             }

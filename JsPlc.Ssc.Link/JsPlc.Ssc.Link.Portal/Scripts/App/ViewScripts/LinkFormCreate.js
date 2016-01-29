@@ -51,7 +51,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 PeriodId: data.PeriodId,
                 ManagerName: data.ManagerName,
                 ColleagueName: data.ColleagueName,
-                MeetingDate: meetingDate,
+                ColleagueSignedOffDate: data.ColleagueSignedOffDate, 
+                ManagerSignedOffDate: data.ManagerSignedOffDate,
+                MeetingDate: meetingDate,  // No specific need for Signoff dates on this view
                 MeetingTime: meetingTime,
                 MeetingId: data.MeetingId,
                 ColleagueSignOff: data.ColleagueSignOff,
@@ -94,6 +96,12 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
             self.dataModel(meetingView);
         };
+
+        self.formatDateMonthDYHM = function (dateObj) {
+            if (!dateObj) return '-';
+            var formattedString = moment(dateObj, "").format('dddd, MMMM Do YYYY [at] HH:mma');
+            return formattedString;
+        }
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (promise) {
@@ -146,6 +154,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 data.MeetingDate = "";
                 data.MeetingTime = "";
             }
+            // These 2 are set server side, we dont set it client side, Need this statement for Model validation to pass..
+            data.ColleagueSignedOffDate = "";
+            data.ManagerSignedOffDate = "";
 
             data.Questions = [];
             ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {

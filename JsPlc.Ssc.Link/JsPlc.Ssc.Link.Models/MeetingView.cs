@@ -24,6 +24,10 @@ namespace JsPlc.Ssc.Link.Models
 
         public DateTime MeetingDate { get; set; }
 
+        public DateTime? ColleagueSignedOffDate { get; set; }
+
+        public DateTime? ManagerSignedOffDate { get; set; }
+
         public bool ColleagueInitiated { get; set; } // defaults to false so safer to use instead of ManagerInitiated
 
         public IEnumerable<QuestionView> Questions { get; set; }

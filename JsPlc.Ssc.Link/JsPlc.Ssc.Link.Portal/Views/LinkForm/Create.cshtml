@@ -22,7 +22,7 @@
         <div style="display: none;" data-bind="visible: !$root.dataAvailable()">
             <h2 style="color: red">Cannot retrieve meeting. Invalid access or meeting might have completed.</h2>
         </div>
-        <form id="myform" method="post" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
+        <form id="myform" method="post" style="display: none;" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
             <div class="row">
                 <div class="col-md-12">
                     <div class="content-inline heading-withdatepicker">
@@ -77,15 +77,15 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         @*<div class="col-xs-2 threeiconContainer">
-                                                <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
-                                                <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
-                                                <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
-                                            </div>*@
+                                            <img src="~/Content/Images/Tick_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/bulb_icon.PNG" class="threeicons" /><br />
+                                            <img src="~/Content/Images/collaboration_icon.PNG" class="threeicons" /><br />
+                                        </div>*@
                                         <div class="col-xs-12 comments-container">
                                             @*<span>Comment:</span><br />*@
                                             <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter colleague comments here (max 800 chars)"></textarea><br />
                                             @*<span>Manager Comment:</span><br />
-                                                <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here (max 800 chars)"></textarea>*@
+                                            <textarea data-bind="text: ManagerComment, value:ManagerComment, enable: $parent.ManagerId=='@currentUser.Colleague.ColleagueId'" rows="4" placeholder="Enter manager comments here (max 800 chars)"></textarea>*@
                                         </div>
                                     </div>
                                 </div>
@@ -193,54 +193,61 @@
 
             </div>
 
-            <div class="row">
+            <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
                 <div class="col-xs-12">
-                    <div class="container-fluid well" style="text-align: left;">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="right">
-                                    <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
-                                        then this meeting is being viewed by Colleague,
-                                        else it is being viewed by manager
-                                        -> This check is done in controller itself
-                                    -->
-                                    @*<-- Manager view: Signoff section.. (only show "Approved" box once colleague has done Signoff) -->*@
-                                    <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff==1)">
-                                        <strong>Approved:</strong>
-                                        &nbsp;&nbsp;<input id="Checkbox1" type="checkbox" class="pointable"
-                                                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
+                    <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
+                                then this meeting is being viewed by Colleague,
+                                else it is being viewed by manager
+                                -> This check is done in controller itself
+                                -->
+                    @*<-- Manager view: Signoff section.. (only show "Approved" box once colleague has done Signoff) -->*@
+                    <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff==1)">
+                        <strong>Approved:</strong>
+                        &nbsp;&nbsp;<input id="Checkbox1" type="checkbox" class="pointable"
+                                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
                                                       value: dataModel().ManagerSignOff,
                                                       enable: !(dataModel().ColleagueInitiated),
                                                       readonly: (dataModel().ColleagueInitiated),
                                                       click: $root.confirmCheckbox" name="Completed1" /><br />
 
-                                        <div data-bind="visible: dataModel().ColleagueSignOff">
-                                            <span data-bind="text: $root.dataModel().ColleagueName"></span>
-                                            has submitted this meeting.
-                                        </div>
-                                    </div>
-                                    <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff!=1)">
-                                        <span data-bind="text: $root.dataModel().ColleagueName"></span>
-                                        has not yet submitted this meeting.
-                                    </div>
-                                    @*<-- Colleague view: Signoff section.. -->*@
-                                    <div style="display: none" data-bind="visible: (dataModel().ColleagueInitiated)">
-                                        <strong>Meeting complete:</strong>
-                                        <input id="Checkbox2" type="checkbox" class="pointable"
-                                               data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
+                    </div>
+                    @*<-- Colleague view: Signoff section.. -->*@
+                    <div style="display: none" data-bind="visible: (dataModel().ColleagueInitiated)">
+                        <strong>Meeting complete:</strong>
+                        <input id="Checkbox2" type="checkbox" class="pointable"
+                               data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
                                                       click: $root.confirmCheckbox" name="Completed2" />
-                                    </div>
-                                    <br />
-                                    <div class="right">
-                                        <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save Changes</button>
-                                        &nbsp; &nbsp;
-                                    </div>
-                                    @*<a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>*@
-                                </div>
-                            </div>
+                    </div>
+
+                    <!-- Show signoff dates -->
+                    <div data-bind="visible: (dataModel().ColleagueSignOff==0)">
+                        <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
+                        not yet submitted this Link meeting.
+                    </div>
+                    <div data-bind="visible: (dataModel().ColleagueSignOff==1)">
+                        <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You' : dataModel().ColleagueName "></span>
+                        submitted this Link meeting on
+                        <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
+                              data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
+
+                        <div data-bind="visible: (dataModel().ManagerSignOff ==0)">
+                            <span data-bind="text: (dataModel().ColleagueInitiated) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
+                            not yet approved this Link meeting
+                        </div>
+                        <div data-bind="visible: (dataModel().ManagerSignOff ==1)">
+                            <span data-bind="text: (dataModel().ColleagueInitiated) ? dataModel().ManagerName : 'You ' "></span>
+                            approved this Link meeting on
+                            <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
+                                  data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
                         </div>
                     </div>
 
+                    <br />
+                    <div class="right">
+                        <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save Changes</button>
+                        &nbsp; &nbsp;
+                    </div>
+                    @*<a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>*@
                 </div>
             </div>
         </form>

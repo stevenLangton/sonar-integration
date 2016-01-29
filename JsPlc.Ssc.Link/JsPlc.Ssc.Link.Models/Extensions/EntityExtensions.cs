@@ -17,6 +17,8 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Extensions
                 ManagerId = linkMeeting.ManagerId,
                 ManagerSignOff = linkMeeting.ManagerSignOff,
                 MeetingDate = linkMeeting.MeetingDate,
+                ColleagueSignedOffDate = linkMeeting.ColleagueSignedOffDate,
+                ManagerSignedOffDate = linkMeeting.ManagerSignedOffDate,
                 MeetingId = linkMeeting.Id,
             };
             return retval;

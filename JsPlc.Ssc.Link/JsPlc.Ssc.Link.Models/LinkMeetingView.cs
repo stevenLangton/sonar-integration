@@ -30,5 +30,11 @@ namespace JsPlc.Ssc.Link.Models
         
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime MeetingDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? ColleagueSignedOffDate { get; set; }
+    
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? ManagerSignedOffDate { get; set; }
     }
 }

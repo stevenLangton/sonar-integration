@@ -26,6 +26,10 @@ namespace JsPlc.Ssc.Link.Models.Entities
         [Required]
         public DateTime MeetingDate { get; set; }
 
+        public DateTime? ColleagueSignedOffDate { get; set; }
+
+        public DateTime? ManagerSignedOffDate { get; set; }
+
         public ICollection<Answer> Answers { get; set; } 
     }
 

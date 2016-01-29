@@ -88,72 +88,111 @@ namespace JsPlc.Ssc.Link.Repository
 
             var meetings=new List<LinkMeeting>{
 
-                new LinkMeeting{Id=1, ColleagueId= "E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,MeetingDate = new DateTime(2014,04,01)},
-                new LinkMeeting{Id=2, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2014,08,10)},
-                new LinkMeeting{Id=3, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E003" , MeetingDate = new DateTime(2014,12,12)},
-                new LinkMeeting{Id=4, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2015,01,13)},
-                new LinkMeeting{Id=5, ColleagueId="E002", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,MeetingDate = new DateTime(2015,10,01)},
-                new LinkMeeting{Id=6, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,10)},
-                new LinkMeeting{Id=7, ColleagueId="E006", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E009" , MeetingDate = new DateTime(2015,10,12)},
-                new LinkMeeting{Id=8, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , MeetingDate = new DateTime(2015,10,13)},
-                new LinkMeeting{Id=9, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,14)},
-                new LinkMeeting{Id=10, ColleagueId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,15)},
+                new LinkMeeting{Id=1, ColleagueId= "E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,
+                    MeetingDate = new DateTime(2014,04,01), 
+                    ColleagueSignedOffDate = DateTime.Parse("2014-04-02 12:30pm"),
+                    ManagerSignedOffDate = DateTime.Parse("2014-04-03 2:30pm")},
+                new LinkMeeting{Id=2, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , 
+                    MeetingDate = new DateTime(2014,08,10),
+                    ColleagueSignedOffDate = DateTime.Parse("2014-08-12 2:00pm"),
+                    ManagerSignedOffDate = DateTime.Parse("2014-08-14 3:45pm")},
+                new LinkMeeting{Id=3, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed , ManagerId ="E003" , 
+                    MeetingDate = new DateTime(2014,12,12),
+                    ColleagueSignedOffDate = DateTime.Parse("2014-12-12 10:00am"),
+                    ManagerSignedOffDate = DateTime.Parse("2014-12-15 8:05pm")},
+                new LinkMeeting{Id=4, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , 
+                    MeetingDate = new DateTime(2015,01,13),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-01-14 11:00am"),
+                    ManagerSignedOffDate = DateTime.Parse("2015-01-17 8:05am")},
+                new LinkMeeting{Id=5, ColleagueId="E002", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,
+                    MeetingDate = new DateTime(2015,10,01),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-03 04:00pm"),
+                    ManagerSignedOffDate = DateTime.Parse("2015-10-12 9:05am")},
+                new LinkMeeting{Id=6, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , 
+                    MeetingDate = new DateTime(2015,10,10),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-15 04:00pm"),
+                    ManagerSignedOffDate = null},                
+                new LinkMeeting{Id=7, ColleagueId="E006", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete , ManagerId ="E009" , 
+                    MeetingDate = new DateTime(2015,10,12),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-15 09:00am"),
+                    ManagerSignedOffDate = null},     
+                new LinkMeeting{Id=8, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" , 
+                    MeetingDate = new DateTime(2015,10,13),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-23 04:20pm"),
+                    ManagerSignedOffDate = DateTime.Parse("2015-10-24 9:15am")},
+                new LinkMeeting{Id=9, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , 
+                    MeetingDate = new DateTime(2015,10,14),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-16 08:45am"),
+                    ManagerSignedOffDate = DateTime.Parse("2015-10-20 9:25am")},
+                new LinkMeeting{Id=10, ColleagueId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E0010" , 
+                    MeetingDate = new DateTime(2015,10,15),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-16 09:45am"),
+                    ManagerSignedOffDate = DateTime.Parse("2015-10-19 09:25am")},
                 new LinkMeeting{Id=11, ColleagueId="E001", ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E003" , MeetingDate = new DateTime(2015,10,18)},
-                new LinkMeeting{Id=12, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,20)},
-                new LinkMeeting{Id=13, ColleagueId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , MeetingDate = new DateTime(2015,10,21)},
+                new LinkMeeting{Id=12, ColleagueId="E003", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , 
+                    MeetingDate = new DateTime(2015,10,20),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-20 09:30am"),
+                    ManagerSignedOffDate = null},
+                new LinkMeeting{Id=13, ColleagueId="E004", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0010" , 
+                    MeetingDate = new DateTime(2015,10,21),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-10-22 03:30pm"),
+                    ManagerSignedOffDate = null},
                 new LinkMeeting{Id=14, ColleagueId="E0010", ColleagueSignOff  = MeetingStatus.InComplete , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,23)},
-                new LinkMeeting{Id=15, ColleagueId="E0010", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , MeetingDate = new DateTime(2015,10,30)},
+                new LinkMeeting{Id=15, ColleagueId="E0010", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.InComplete, ManagerId ="E0011" , 
+                    MeetingDate = new DateTime(2015,10,30),
+                    ColleagueSignedOffDate = DateTime.Parse("2015-12-29 03:00pm"),
+                    ManagerSignedOffDate = null},
             };
 
             meetings.ForEach(c => context.Meeting.Add(c));
             context.SaveChanges();
 
             var answers = new List<Answer>{
+                // Id = 1
                 new Answer{Id=1, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=1, Discussed=false},
-                new Answer{Id=2, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=1,  Discussed=false},
-                new Answer{Id=3, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=1,  Discussed=false},
-                new Answer{Id=4, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=1,  Discussed=false},
+                new Answer{Id=3, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=2,LinkMeetingId=1,  Discussed=false},
+                new Answer{Id=4, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=3 ,LinkMeetingId=1,  Discussed=false},
                 new Answer{Id=5, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=1,  Discussed=false},
+
+                // Id = 10
                 new Answer{Id=6, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1, LinkMeetingId=10,  Discussed=false},
-                new Answer{Id=7, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1, LinkMeetingId=10,  Discussed=false},
+                new Answer{Id=7, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2, LinkMeetingId=10,  Discussed=false},
                 new Answer{Id=8, ManagerComments="More Organizational skills", ColleagueComments="I can contribute my organizational skills and my ability to work well in a group.", QuestionId=3, LinkMeetingId=10,  Discussed=false},
                 new Answer{Id=9, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4, LinkMeetingId=10,  Discussed=false},
-                new Answer{Id=10, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4, LinkMeetingId=10,  Discussed=false},
+
+                // Id = 2
                 new Answer{Id=11, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=2,  Discussed=false},
-                new Answer{Id=12, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=2,  Discussed=false},
+                new Answer{Id=12, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId=2,  Discussed=false},
                 new Answer{Id=13, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=2,  Discussed=false},
                 new Answer{Id=14, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=2,  Discussed=false},
-                new Answer{Id=15, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=2,  Discussed=false},
 
+                // id =3
                 new Answer{Id=16, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=3,  Discussed=false},
-                new Answer{Id=17, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=3,  Discussed=false},
+                new Answer{Id=17, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId=3,  Discussed=false},
                 new Answer{Id=18, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=3,  Discussed=false},
                 new Answer{Id=19, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=3,  Discussed=false},
-                new Answer{Id=20, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=3,  Discussed=false},
 
+                // id = 4
                 new Answer{Id=21, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=4,  Discussed=false},
-                new Answer{Id=22, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=4,  Discussed=false},
+                new Answer{Id=22, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId=4,  Discussed=false},
                 new Answer{Id=23, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=4,  Discussed=false},
                 new Answer{Id=24, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=4,  Discussed=false},
-                new Answer{Id=25, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=4,  Discussed=false},
-
+                // Id= 5
                 new Answer{Id=26, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=5,  Discussed=false},
-                new Answer{Id=27, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=5,  Discussed=false},
+                new Answer{Id=27, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId=5,  Discussed=false},
                 new Answer{Id=28, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=5,  Discussed=false},
                 new Answer{Id=29, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=5,  Discussed=false},
-                new Answer{Id=30, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=5,  Discussed=false},
 
+                // id= 8
                 new Answer{Id=31, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=8,  Discussed=false},
-                new Answer{Id=32, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=8,  Discussed=false},
+                new Answer{Id=32, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId=8,  Discussed=false},
                 new Answer{Id=33, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=8,  Discussed=false},
                 new Answer{Id=34, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=8,  Discussed=false},
-                new Answer{Id=35, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=8,  Discussed=false},
-
+                // id = 11
                 new Answer{Id=36, ManagerComments="Commitment ", ColleagueComments="More commitment towards work", QuestionId=1,LinkMeetingId=11,  Discussed=false},
-                new Answer{Id=37, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=1,LinkMeetingId=11,  Discussed=false},
+                new Answer{Id=37, ManagerComments="Approach", ColleagueComments="BY changing the approach", QuestionId=2,LinkMeetingId=11,  Discussed=false},
                 new Answer{Id=38, ManagerComments="Hard Worker", ColleagueComments="I'm a hard worker with the experience to get things done efficiently.", QuestionId=3,LinkMeetingId=11,  Discussed=false},
-                new Answer{Id=39, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=11,  Discussed=false},
-                new Answer{Id=40, ManagerComments="Training", ColleagueComments="By getting trainning in specific areas", QuestionId=4,LinkMeetingId=11,  Discussed=false},
+                new Answer{Id=39, ManagerComments="Studying", ColleagueComments="By researching and reading books", QuestionId=4 ,LinkMeetingId=11,  Discussed=false}
              };
 
             answers.ForEach(c => context.Answers.Add(c));
