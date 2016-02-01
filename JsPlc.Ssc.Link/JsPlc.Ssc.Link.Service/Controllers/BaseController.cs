@@ -23,6 +23,16 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbPdp = new PdpService(new RepositoryContext());
         }
 
+        public BaseController(ILinkRepository linkRepository, IMeetingService meetingService, IObjectivesService objectivesService,
+            IColleagueService colleagueService, IPdpService pdpService)
+        {
+            _db = linkRepository;
+            _dbMeeting = meetingService;
+            _dbObjectives = objectivesService;
+            _dbColleagues = colleagueService;
+            _dbPdp = pdpService;
+        }
+
         public BaseController(ILinkRepository repository)
         {
             _db = repository;
