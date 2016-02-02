@@ -8,7 +8,7 @@
 
 
 
-h1 {font-size:170%;}
+h1 {font-size:170%;font-weight: bold;}
 h2 {font-size:170%;}
 h3 {font-size:150%;}
 
@@ -241,11 +241,19 @@ textarea.form-control.multilinePdp {
     color: #428BCA;
     text-decoration: none;
 }
-
+.nav > li > .active {
+    font-size: 150% !important;
+}
 .navbar-inverse .navbar-nav > li > a:hover {
   color:#EF6600;
 }
 
+.headlineSubText {
+    padding: 8px;
+    margin: 3px;
+    border: solid 1px grey;
+    font-size: 80%;
+}
 /* The following rule clipped the menu opton in sm view*/
 /*.nav {margin-left:-25px;}*/
 
