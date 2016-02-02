@@ -200,18 +200,22 @@ textarea {
 
 /* Main Menu */
 
-#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;}
+#mainTabs{border:0;width:100%;background-color:#333333;padding:0;border-bottom:2px solid #000000;}
 
 
 .tab-heading {
     /*padding-right: 0;
     padding-left: 0;*/
     background-color: #333333;
-    padding: 0 0 0 0px;
+    padding: 0 0 0 0;
     font-size: 120%;
-    
+    color: whitesmoke;
 }
-
+.tab-heading .welcomeText {
+    margin: 10px 0;
+    padding-left: 12px;
+    padding-right: 20px;
+}
 .navbar-inverse .navbar-nav > li > a {
   color:#ffffff;
 }
