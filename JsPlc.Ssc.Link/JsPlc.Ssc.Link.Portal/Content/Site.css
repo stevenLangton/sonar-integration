@@ -225,27 +225,21 @@ textarea.form-control.multilinePdp {
 }
 
 .navbar {
-border-radius: 0px;
-}
-
-.navbar {
+    border-radius: 0;
     position: relative;
-    min-height: 0px;
+    min-height: 0;
     margin-bottom: 10px;
-
 }
-
-
-
 
 .nav > li > a {
-position: relative;
-display: block;
-padding-top: 12px;
-padding-bottom: 12px;
-font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-font-size:80%;
-
+    position: relative;
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 95%;
+    color: #428BCA;
+    text-decoration: none;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
