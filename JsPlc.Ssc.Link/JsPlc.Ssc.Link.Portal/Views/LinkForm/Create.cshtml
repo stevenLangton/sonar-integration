@@ -62,8 +62,7 @@
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
-
+                        @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
 
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion1" data-bind="attr:{href:'#collapse1'+ $index() }">
@@ -103,7 +102,7 @@
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
+                        @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
 
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion2" data-bind="attr:{href:'#collapse2'+ $index() }">
@@ -137,7 +136,7 @@
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
+                        @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
 
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion3" data-bind="attr:{href:'#collapse3'+ $index() }">
@@ -168,7 +167,7 @@
                     <div class="panel">
 
                         <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
-                        <div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>
+                        @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
 
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion4" data-bind="attr:{href:'#collapse4'+ $index() }">
@@ -196,10 +195,10 @@
             <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
                 <div class="col-xs-12">
                     <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
-                                then this meeting is being viewed by Colleague,
-                                else it is being viewed by manager
-                                -> This check is done in controller itself
-                                -->
+                            then this meeting is being viewed by Colleague,
+                            else it is being viewed by manager
+                            -> This check is done in controller itself
+                            -->
                     @*<-- Manager view: Signoff section.. (only show "Approved" box once colleague has done Signoff) -->*@
                     <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff==1)">
                         <strong>Approved:</strong>

@@ -200,47 +200,46 @@ textarea {
 
 /* Main Menu */
 
-#mainTabs{border:0px;width:100%;background-color:#333333;padding:0px;border-bottom:2px solid #000000;}
+#mainTabs{border:0;width:100%;background-color:#333333;padding:0;border-bottom:2px solid #000000;}
 
 
 .tab-heading {
     /*padding-right: 0;
     padding-left: 0;*/
     background-color: #333333;
-    padding: 0 0 0 0px;
+    padding: 0 0 0 0;
     font-size: 120%;
-    
+    color: whitesmoke;
 }
-
+.tab-heading .welcomeText {
+    margin: 10px 0;
+    padding-left: 12px;
+    padding-right: 20px;
+}
 .navbar-inverse .navbar-nav > li > a {
   color:#ffffff;
 }
 
-
-
-
-.navbar {
-border-radius: 0px;
+textarea.form-control.multilinePdp {
+    height:150px; width:100%;
 }
 
 .navbar {
+    border-radius: 0;
     position: relative;
-    min-height: 0px;
+    min-height: 0;
     margin-bottom: 10px;
-
 }
-
-
-
 
 .nav > li > a {
-position: relative;
-display: block;
-padding-top: 12px;
-padding-bottom: 12px;
-font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-font-size:80%;
-
+    position: relative;
+    display: block;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 95%;
+    color: #428BCA;
+    text-decoration: none;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {

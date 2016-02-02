@@ -31,7 +31,9 @@
                 //}
                 if (!string.IsNullOrEmpty(welcomeText) && currentUser.Colleague != null)
                 {
-                    @Html.ActionLink(welcomeText, "Show", new { controller="Profile", id = currentUser.Colleague.ColleagueId }) //, htmlAttributes: new { title = "Manage" })
+                    <div class="welcomeText"> @welcomeText</div>
+                <!-- link removed as there is no story for colleague's view of their own Profile, only Line Manager views Colleague Profile -->
+                    @*@Html.ActionLink(welcomeText, "Show", new { controller="Profile", id = currentUser.Colleague.ColleagueId }) //, htmlAttributes: new { title = "Manage" })*@
                 }
             }
         </li>
