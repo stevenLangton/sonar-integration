@@ -24,11 +24,11 @@
                 <div role="tabpanel" class="tab-pane fade in active" id="home">
                     <h4>What areas do I need to develop to achieve my objectives?</h4>@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
 
-                    @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
                     <h4>What actions will I take?</h4>
 
-                    @Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
                     <h4>
                         By when?
@@ -41,13 +41,13 @@
                         What are my key strengths?
                     </h4>
 
-                    @Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
                     <h4>
                         What actions will I take to further develop these areas?
                     </h4>
 
-                    @Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
                     <h4>
                         By when?
@@ -60,7 +60,7 @@
                         What are my key strengths?
                     </h4>
 
-                    @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
 
 
@@ -68,7 +68,7 @@
                         What actions will I take to further develop these areas?
                     </h4>
 
-                    @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
 
                     <h4>
