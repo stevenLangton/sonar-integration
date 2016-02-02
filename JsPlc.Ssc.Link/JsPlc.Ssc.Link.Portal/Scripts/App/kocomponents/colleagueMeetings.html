@@ -1,8 +1,8 @@
 ﻿<div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>
-    <div>YOUR LINK</div>
+    <!--<div>YOUR LINK</div>-->
     <!-- ko foreach: dataModel -->
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-8">
             <h1 style="margin:0; padding:0">Link meetings</h1>
         </div>
@@ -12,15 +12,17 @@
                    class="btn btn-lg btn-primary" style="background-color: silver; text-decoration: none">Create Link meeting</a>
             </div>
         </div>
-    </div>
+    </div>-->
     <p>
-        You've had
+        <!--You've had-->
+        Had
         <strong>
             <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no meetings ' :
                                     (MeetingsInLast12Months == 1) ? '1 meeting ' :
                                     (MeetingsInLast12Months + ' meetings ')"></span>
         </strong>
-        with your line manager in the last 12 months.
+        <!--with your line manager in the last 12 months.-->
+        with line manager in the last 12 months.
     </p>
     <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
     Last meeting: <strong><span data-bind="text: $component.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
@@ -49,7 +51,8 @@
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <p>You have no upcoming meetings. Click Create Link meeting button to arrange one.</p>
+        <!--<p>You have no upcoming meetings. Click Create Link meeting button to arrange one.</p>-->
+        <p>Has no upcoming meetings.</p>
     </div>
 </script>
 <script type="text/html" id="current-meeting-template">
