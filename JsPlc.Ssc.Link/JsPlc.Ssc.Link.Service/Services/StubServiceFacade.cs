@@ -10,11 +10,11 @@ using System.Web;
 
 namespace JsPlc.Ssc.Link.Service.Services
 {
-    public class ServiceFacade : IDisposable
+    public class StubServiceFacade : IStubServiceFacade
     {
         private Lazy<HttpClient> _client;
 
-        public ServiceFacade()
+        public StubServiceFacade()
         {
             _client = new Lazy<HttpClient>();
             //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.StubService/api/");

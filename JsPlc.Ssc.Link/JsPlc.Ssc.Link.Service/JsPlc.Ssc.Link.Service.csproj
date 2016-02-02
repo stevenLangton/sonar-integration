@@ -239,7 +239,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\ColleagueService.cs" />
     <Compile Include="Services\PdpService.cs" />
-    <Compile Include="Services\ServiceFacade.cs" />
+    <Compile Include="Services\StubServiceFacade.cs" />
     <Compile Include="Services\MeetingService.cs" />
     <Compile Include="Services\ObjectivesService.cs" />
     <Compile Include="Startup.cs" />
