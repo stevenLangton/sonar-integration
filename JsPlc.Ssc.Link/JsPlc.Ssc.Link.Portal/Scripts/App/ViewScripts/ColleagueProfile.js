@@ -11,6 +11,10 @@
         ko.applyBindings(koViewModel, document.getElementById('featureContainer'));
     };
 
+    var showColleagueMeetings = function (colleagueId) {
+        refreshTabContent(null, "<colleague-meetings params='ColleagueId: \"" + colleagueId + "\"'></colleague-meetings>");
+    };
+
     var showPdp = function (colleagueId) {
         var $promise = dataService.getPdp(colleagueId);
         $promise.done(function (result) {
@@ -31,7 +35,7 @@
             switch (tabNo) {
             case 1:
                 //Show colleague Meetings
-                refreshTabContent();
+                showColleagueMeetings(vm.colleagueId);
                 break;
             case 2:
                 //Show colleague Pdp
@@ -61,6 +65,8 @@
         var vm = viewModel();
         vm.colleagueId = colleagueId;
         ko.applyBindings(vm, document.getElementById(koBoundDivId));
+        //$('profile-tabs').trigger('show', 1);
+        vm.tabChanged(1);
     };
 
     return {

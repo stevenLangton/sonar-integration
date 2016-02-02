@@ -49,5 +49,6 @@
     ko.components.register("objectives-list", { require: "App/kocomponents/objectivesList" });
     ko.components.register("pdp-accordion", { require: "App/kocomponents/pdpAccordion" });
     ko.components.register("meeting-history", { require: "App/kocomponents/meeting-history" });
+    ko.components.register("colleague-meetings", { require: "App/kocomponents/colleagueMeetings" });
 
 });//Module end
