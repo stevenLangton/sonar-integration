@@ -24,5 +24,17 @@
         $('#showTab1').on('click', self.showTab);
     };
 
-    return { viewModel: tabModel, template: htmlTemplate };
+    var viewModel = {
+        createViewModel: function (params, componentInfo) {
+            var vm = new tabModel(params);
+
+            //$(componentInfo.element).on('show', function (event, tabNo) {
+            //    $("#showTab" + tabNo).trigger("click");
+            //});
+
+            return vm;
+        }
+    };
+
+    return { viewModel: viewModel, template: htmlTemplate };
 });

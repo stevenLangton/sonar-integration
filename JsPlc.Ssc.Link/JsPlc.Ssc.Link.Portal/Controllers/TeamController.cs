@@ -21,6 +21,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // ## Mockups:
         // /LinkForm/MyTeam.cshtml and Linkform/_ListMeetingsPartial.cshtml
 
+        [HttpGet]
+        [Authorize]
+        public JsonResult GetColleagueMeetings(string ColleagueId) // Another method in LinkForm for MyMeetings
+        {
+            object jsonData;
+
+            using (var facade = new LinkServiceFacade())
+            {
+                List<ColleagueTeamView> teamMeetings = new List<ColleagueTeamView>();
+
+                ColleagueTeamView mymeeting = facade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
+                mymeeting = AssignMeetingsByDate(mymeeting);
+                teamMeetings.Add(mymeeting);
+                jsonData = teamMeetings ?? (object)"Error";
+            }
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = jsonData // will be "Error" if requesting "TeamMeeting" and not LineManager
+            };
+            return jsonResult;
+        }
+
         [ScriptMethod(UseHttpGet = true)]
         [HttpGet]
         [Authorize]

@@ -302,6 +302,8 @@
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\App\ConfirmModal.js" />
     <Content Include="Scripts\App\DataService.js" />
+    <Content Include="Scripts\App\kocomponents\colleagueMeetings.html" />
+    <Content Include="Scripts\App\kocomponents\colleagueMeetings.js" />
     <Content Include="Scripts\App\kocomponents\meeting-history.html" />
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\kocomponents\objectivesList.html" />
