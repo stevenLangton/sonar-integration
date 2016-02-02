@@ -20,7 +20,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         public MeetingService()
         {
             _db = new RepositoryContext();
-            _colleagueService = new ColleagueService(new ServiceFacade());
+            _colleagueService = new ColleagueService(new StubServiceFacade());
         }
 
         public MeetingService(RepositoryContext context) { _db = context; }

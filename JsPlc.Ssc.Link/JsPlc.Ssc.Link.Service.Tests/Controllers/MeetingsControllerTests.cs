@@ -1,22 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http.Results;
+using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Service.Controllers;
+using JsPlc.Ssc.Link.Service.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JsPlc.Ssc.Link.Models.Entities;
+using Moq;
+using Moq.Language.Flow;
 
 namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 {
     [TestClass]
-    public class MeetingsControllerTests
+    public class MeetingsControllerTests : RepositoryMock
     {
         [TestMethod]
         public void GetMeeting()
         {
-            var controller=new MeetingsController();
+            var mockStubServiceFacade = new Mock<IStubServiceFacade>();
+            IStubServiceFacade stubServiceFacade = mockStubServiceFacade.Object;
+            var mockGetColleagueMethodSetup = mockStubServiceFacade.Setup(facade => facade.GetColleague("E001"))
+                .Returns(new ColleagueView{ FirstName = "mock colleague", ManagerId = "E003", HasManager = true });
+            mockGetColleagueMethodSetup.Verifiable();
+
+            var mockGetColleaguesManagerSetup = mockStubServiceFacade.Setup(facade => facade.GetColleague("E003"))
+                .Returns(new ColleagueView
+                {
+                    FirstName = "mock manager"
+                });
+            mockGetColleaguesManagerSetup.Verifiable();
+
+            // FORCE Failure is off.
+            // Never called, only here to force test to fail 
+            var mockGetColleagueMethodSetup1 = mockStubServiceFacade.Setup(facade => facade.GetColleague("E005"))
+                            .Returns(new ColleagueView
+                            {
+                                FirstName = "manager", LastName = "lastname"
+                            });
+            mockGetColleagueMethodSetup1.Verifiable();
+
+            IColleagueService mockColleagueService = new ColleagueService(stubServiceFacade);
+
+            IMeetingService mockMeetingService = new MeetingService(RepositoryMock.Context, mockColleagueService);
+
+            var controller = new MeetingsController(_repository, mockMeetingService, mockColleagueService);
             var result=controller.GetMeeting(1) as OkNegotiatedContentResult<MeetingView>;
             Assert.IsNotNull(result);
+            // Meeting 1 has Colleague E001 and Manager E003, so expectations are below..
+            mockStubServiceFacade.Verify(facade => facade.GetColleague("E001"));
+            mockStubServiceFacade.Verify(facade => facade.GetColleague("E003"));
+            // FORCE Failure - off.
+            //mockStubServiceFacade.Verify(facade => facade.GetColleague("E005")); // Never called, so uncomment will fail test.
         }
 
         [TestMethod]

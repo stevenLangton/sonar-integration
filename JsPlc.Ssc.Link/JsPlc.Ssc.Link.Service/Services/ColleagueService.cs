@@ -10,11 +10,11 @@ namespace JsPlc.Ssc.Link.Service.Services
 {
     public class ColleagueService : IColleagueService
     {
-        private readonly ServiceFacade _svc;
+        private readonly IStubServiceFacade _svc;
 
         public ColleagueService() { }
 
-        public ColleagueService(ServiceFacade svc) { _svc = svc; }
+        public ColleagueService(IStubServiceFacade svc) { _svc = svc; }
 
         /// <summary>
         /// Get ColleagueProfile
