@@ -50,6 +50,7 @@ require.config({
         Objectives: "App/ViewScripts/Objectives",
         SingleObjective: "App/ViewScripts/SingleObjective",
         YourTeam: "App/ViewScripts/YourTeam",
+        MeetingRecords: "App/ViewScripts/MeetingRecords",
         ColleagueProfile: "App/ViewScripts/ColleagueProfile",
         pdp: "App/ViewScripts/pdp"
 

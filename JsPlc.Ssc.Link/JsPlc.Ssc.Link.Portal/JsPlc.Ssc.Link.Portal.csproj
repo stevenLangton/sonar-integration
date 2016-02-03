@@ -313,6 +313,7 @@
     <Content Include="Scripts\App\kocomponents\profileTabs.html" />
     <Content Include="Scripts\App\kocomponents\profileTabs.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
+    <Content Include="Scripts\App\ViewScripts\MeetingRecords.js" />
     <Content Include="Scripts\App\ViewScripts\pdp.js" />
     <Content Include="Scripts\App\ViewScripts\ViewMeeting.js" />
     <Content Include="Scripts\App\ViewScripts\ColleagueProfile.js" />
@@ -444,12 +445,7 @@
     <Content Include="Views\LinkForm\ViewMeeting.cshtml" />
     <Content Include="Views\LinkForm\Create.cshtml" />
     <Content Include="Views\Home\JSVars.cshtml" />
-    <Content Include="Views\LinkForm\_ListMeetingsPartial.cshtml" />
-    <Content Include="Views\Team\MyTeam_mockup.cshtml" />
-    <Content Include="Views\LinkForm\MyDetails.cshtml" />
-    <Content Include="Views\Team\_MeetingHistoryComponent.cshtml" />
     <Content Include="Views\Home\LinkMeetings.cshtml" />
-    <Content Include="Views\Team\_MeetingHistorySimpleTree.cshtml" />
     <Content Include="Views\Objective\Index.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Objective\Show.cshtml" />
@@ -460,6 +456,7 @@
     <Content Include="Views\Shared\_ConfirmModal.cshtml" />
     <Content Include="Views\Home\_MyMeetings.cshtml" />
     <Content Include="Views\Pdp\Index.cshtml" />
+    <Content Include="Views\Team\MeetingRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

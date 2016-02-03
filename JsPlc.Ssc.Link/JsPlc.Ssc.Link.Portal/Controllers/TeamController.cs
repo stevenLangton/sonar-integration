@@ -8,6 +8,7 @@ using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Security;
+using Microsoft.Ajax.Utilities;
 using Org.BouncyCastle.Asn1.Crmf;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
@@ -82,6 +83,59 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return jsonResult;
         }
 
+        /// <summary>
+        /// Gets a flattened list of Past meetings for the entire team (sorted - nearest then oldest..)
+        /// </summary>
+        /// <param name="managerId">Optional param - maybe useful for unit testing. If blank uses CurretnUser details</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        [LinkAuthorizeManager] // IMPORTANT Check - only manager screen will call this..
+        public JsonResult GetTeamsMeetingRecords(string managerId="")
+        {
+            object jsonData;
+
+            using (var facade = new LinkServiceFacade())
+            {
+                // Logged in user is manager
+                if (managerId.IsNullOrWhiteSpace()) managerId = CurrentUser.Colleague.ColleagueId;
+                if (!managerId.Equals(CurrentUser.Colleague.ColleagueId))
+                    // Protect from trying to get data for another line manager
+                {
+                    jsonData = "AccessDenied";
+                }
+                else
+                {
+                    var teamView = facade.GetTeamView(managerId); // ONE facade call..
+                    var pastTeamMeetings = new List<LinkMeetingView>();
+                    if (teamView != null)
+                    {
+                        foreach (var colleague in teamView)
+                        {
+                            var coll = AssignMeetingsByDate(colleague); // very quick assignment on portal side
+                            if (coll.PastMeetings != null)
+                            {
+                                pastTeamMeetings.AddRange(coll.PastMeetings);
+                            }
+                        }
+                        if (pastTeamMeetings.Any())
+                        {
+                            pastTeamMeetings = pastTeamMeetings.OrderByDescending(x => x.MeetingDate).ToList();
+                        }
+                    }
+                    jsonData = pastTeamMeetings;
+                }
+            }
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = jsonData
+            };
+            return jsonResult;
+        }
+
+
         public static ColleagueTeamView AssignMeetingsByDate(ColleagueTeamView mymeeting)
         {
             if (mymeeting.Meetings != null && mymeeting.Meetings.Any())
@@ -107,16 +161,27 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         // GET: /Team/LinkMeetings
-        // ## TEAM meetings view
+        // ## TEAM view (old name Meetings)
         [HttpGet]
         [Authorize]
         [LinkAuthorizeManager] // IMPORTANT Check
-        public ActionResult Meetings()
+        public ActionResult YourTeam()
         {
             TempData["tabName"] = "team";
             ViewBag.ViewType = "team";
             TempData["ViewType"] = "TeamMeetings";
             return View("YourTeam");
+        }
+
+        // GET: /Team/MeetingRecords
+        // ## Meeting records view
+        [HttpGet]
+        [Authorize]
+        [LinkAuthorizeManager] // IMPORTANT Check
+        public ActionResult MeetingRecords()
+        {
+            TempData["tabName"] = "meetingRecords";
+            return View();
         }
 
         // GET: /Team  // Calls LinkMeetings method
@@ -129,7 +194,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             ViewBag.Title = "Team";
             var managerId = CurrentUser.Colleague.ColleagueId; // Current manager is logged in - so use their ColleagueId 
 
-            return Meetings(); // use the new action method
+            return YourTeam(); // use the new action method
 
             //using (var facade = new LinkServiceFacade())
             //{
@@ -138,9 +203,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             //}
         }
 
-        public ActionResult MyTeam_mockup()
-        {
-            return View();
-        }
+        //public ActionResult MyTeam_mockup()
+        //{
+        //    return View();
+        //}
     }
 }
