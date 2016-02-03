@@ -95,7 +95,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             //domain to use
             string azureAdEmailDomain = WebConfigurationManager.AppSettings["AzureLinkDomain"];
             string dbLinkDomain = WebConfigurationManager.AppSettings["DbLinkDomain"];
-            if (dbLinkDomain.IsNullOrWhiteSpace()) dbLinkDomain = "@linktool.onmicrosoft.com"; // use stubbed values
+            if (dbLinkDomain.IsNullOrWhiteSpace()) dbLinkDomain = "@domain.com"; // use stubbed values
 
             // No need to touch anything if both domains match
             if (azureAdEmailDomain.Equals(dbLinkDomain)) return colleagueEmail;

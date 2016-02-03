@@ -11,7 +11,8 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
         {
             // ColleagueIds should match with RepositoryInitializer in Service project
             var employees=new List<StubColleague>{
-                // Users in Directory LinkTool.OnMicrosoft.com
+                // Users in Azure Directory, Part before @ should match.
+                // (e.g. Luan.Au@LinkTool.onmicrosoft.com) in Azure Dir LinkTool.onmicrosoft.com
                 new StubColleague{Id=1, FirstName="Luan", LastName="Au", ColleagueId="E001", ManagerId="E003", 
                     EmailAddress="Luan.Au@domain.com"},
                 new StubColleague{Id=2, FirstName="Parveen", LastName="Kumar", ColleagueId="E002", ManagerId="E003", 

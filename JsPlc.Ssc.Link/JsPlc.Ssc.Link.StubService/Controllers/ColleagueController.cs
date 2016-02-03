@@ -105,7 +105,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         }
 
         [HttpGet]
-        [Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@linktool.onmicrosoft.com
+        [Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@sainsburys.co.uk
         public IHttpActionResult IsManagerByEmail(string email)
         {
             var isMgr = ColleagueServices.IsManagerByEmail(email);

@@ -12,19 +12,19 @@ namespace JsPlc.Ssc.Link.Repository
         {
             #region "deprecated code"
             //var users=new List<LinkUser>{
-            //    new LinkUser{Id=1,  ColleagueId="E001",     EmailAddress="Luan.Au@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=2,  ColleagueId="E002",     EmailAddress="Parveen.Kumar@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=3,  ColleagueId="E003",     EmailAddress="Steven.Farkas@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=4,  ColleagueId="E004",     EmailAddress="Vasundhara.B@linktool.onmicrosoft.com"},
+            //    new LinkUser{Id=1,  ColleagueId="E001",     EmailAddress="Luan.Au@sainsburys.co.uk"},
+            //    new LinkUser{Id=2,  ColleagueId="E002",     EmailAddress="Parveen.Kumar@sainsburys.co.uk"},
+            //    new LinkUser{Id=3,  ColleagueId="E003",     EmailAddress="Steven.Farkas@sainsburys.co.uk"},
+            //    new LinkUser{Id=4,  ColleagueId="E004",     EmailAddress="Vasundhara.B@sainsburys.co.uk"},
 
-            //    new LinkUser{Id=10, ColleagueId="E0010",    EmailAddress="Sandip.Vaidya@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=11, ColleagueId="E0011",    EmailAddress="Mike.Gwyer@linktool.onmicrosoft.com"},
+            //    new LinkUser{Id=10, ColleagueId="E0010",    EmailAddress="Sandip.Vaidya@sainsburys.co.uk"},
+            //    new LinkUser{Id=11, ColleagueId="E0011",    EmailAddress="Mike.Gwyer@sainsburys.co.uk"},
 
-            //    new LinkUser{Id=12, ColleagueId="E0012",    EmailAddress="ridley.scott@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=13, ColleagueId="E0013",    EmailAddress="joss.whedon@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=14, ColleagueId="E0014",    EmailAddress="rick.deckard@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=15, ColleagueId="E0015",    EmailAddress="ellen.ripley@linktool.onmicrosoft.com"},
-            //    new LinkUser{Id=16, ColleagueId="E0016",    EmailAddress="malcolm.reynolds@linktool.onmicrosoft.com"},
+            //    new LinkUser{Id=12, ColleagueId="E0012",    EmailAddress="ridley.scott@sainsburys.co.uk"},
+            //    new LinkUser{Id=13, ColleagueId="E0013",    EmailAddress="joss.whedon@sainsburys.co.uk"},
+            //    new LinkUser{Id=14, ColleagueId="E0014",    EmailAddress="rick.deckard@sainsburys.co.uk"},
+            //    new LinkUser{Id=15, ColleagueId="E0015",    EmailAddress="ellen.ripley@sainsburys.co.uk"},
+            //    new LinkUser{Id=16, ColleagueId="E0016",    EmailAddress="malcolm.reynolds@sainsburys.co.uk"},
             //};
 
             //users.ForEach(c=>context.LinkUsers.Add(c));
