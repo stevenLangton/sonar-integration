@@ -370,3 +370,5 @@ a:link, a:visited {
 .disableTab {
     cursor: not-allowed;
 }
+
+a:link {text-decoration: none;}
