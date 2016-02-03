@@ -15,16 +15,29 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
     [TestClass]
     public class MeetingsControllerTests : RepositoryMock
     {
+        MeetingsController _controller;
+        private Mock<IStubServiceFacade> _mockStubServiceFacade;
+
+        [TestInitialize]
+        public void MeetingTestSetup()
+        {
+            // Test Initialize/Setup
+            _mockStubServiceFacade = new Mock<IStubServiceFacade>();
+            IStubServiceFacade stubServiceFacade = _mockStubServiceFacade.Object;
+            IColleagueService mockColleagueService = new ColleagueService(stubServiceFacade);
+            IMeetingService mockMeetingService = new MeetingService(RepositoryMock.Context, mockColleagueService);
+            _controller = new MeetingsController(_repository, mockMeetingService, mockColleagueService);
+        }
+
         [TestMethod]
         public void GetMeeting()
         {
-            var mockStubServiceFacade = new Mock<IStubServiceFacade>();
-            IStubServiceFacade stubServiceFacade = mockStubServiceFacade.Object;
-            var mockGetColleagueMethodSetup = mockStubServiceFacade.Setup(facade => facade.GetColleague("E001"))
+            // Arrange
+            var mockGetColleagueMethodSetup = _mockStubServiceFacade.Setup(facade => facade.GetColleague("E001"))
                 .Returns(new ColleagueView{ FirstName = "mock colleague", ManagerId = "E003", HasManager = true });
             mockGetColleagueMethodSetup.Verifiable();
 
-            var mockGetColleaguesManagerSetup = mockStubServiceFacade.Setup(facade => facade.GetColleague("E003"))
+            var mockGetColleaguesManagerSetup = _mockStubServiceFacade.Setup(facade => facade.GetColleague("E003"))
                 .Returns(new ColleagueView
                 {
                     FirstName = "mock manager"
@@ -33,23 +46,21 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 
             // FORCE Failure is off.
             // Never called, only here to force test to fail 
-            var mockGetColleagueMethodSetup1 = mockStubServiceFacade.Setup(facade => facade.GetColleague("E005"))
+            var mockGetColleagueMethodSetup1 = _mockStubServiceFacade.Setup(facade => facade.GetColleague("E005"))
                             .Returns(new ColleagueView
                             {
                                 FirstName = "manager", LastName = "lastname"
                             });
             mockGetColleagueMethodSetup1.Verifiable();
 
-            IColleagueService mockColleagueService = new ColleagueService(stubServiceFacade);
+            // Act
+            var result = _controller.GetMeeting(1) as OkNegotiatedContentResult<MeetingView>;
 
-            IMeetingService mockMeetingService = new MeetingService(RepositoryMock.Context, mockColleagueService);
-
-            var controller = new MeetingsController(_repository, mockMeetingService, mockColleagueService);
-            var result=controller.GetMeeting(1) as OkNegotiatedContentResult<MeetingView>;
+            // Assert
             Assert.IsNotNull(result);
             // Meeting 1 has Colleague E001 and Manager E003, so expectations are below..
-            mockStubServiceFacade.Verify(facade => facade.GetColleague("E001"));
-            mockStubServiceFacade.Verify(facade => facade.GetColleague("E003"));
+            _mockStubServiceFacade.Verify(facade => facade.GetColleague("E001"));
+            _mockStubServiceFacade.Verify(facade => facade.GetColleague("E003"));
             // FORCE Failure - off.
             //mockStubServiceFacade.Verify(facade => facade.GetColleague("E005")); // Never called, so uncomment will fail test.
         }
@@ -57,8 +68,19 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         [TestMethod]
         public void CreateMeeting()
         {
-            var controller = new MeetingsController();
-            var result = controller.CreateMeeting("E001") as OkNegotiatedContentResult<MeetingView>;
+            var mockGetColleagueMethodSetup = _mockStubServiceFacade.Setup(facade => facade.GetColleague("E001"))
+                .Returns(new ColleagueView { FirstName = "mock colleague", ManagerId = "E003", HasManager = true });
+            mockGetColleagueMethodSetup.Verifiable();
+
+            var mockGetColleaguesManagerSetup = _mockStubServiceFacade.Setup(facade => facade.GetColleague("E003"))
+                .Returns(new ColleagueView
+                {
+                    FirstName = "mock manager"
+                });
+            mockGetColleaguesManagerSetup.Verifiable();
+
+            //var controller = new MeetingsController();
+            var result = _controller.CreateMeeting("E001") as OkNegotiatedContentResult<MeetingView>;
             Assert.IsNotNull(result);
         }
 
@@ -85,8 +107,8 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
                    }
             };
 
-            var controller = new MeetingsController();
-            var result = controller.SaveMeeting(meeting);
+            //var controller = new MeetingsController();
+            var result = _controller.SaveMeeting(meeting);
             Assert.IsNotNull(result);
         }
 
@@ -114,8 +136,8 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
                    }
             };
 
-            var controller = new MeetingsController();
-            var result = controller.UpdateMeeting(meeting);
+            //var controller = new MeetingsController();
+            var result = _controller.UpdateMeeting(meeting);
             Assert.IsNotNull(result);
         }
     }
