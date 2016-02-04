@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "dataService", "RegisterKoComponents"], function ($, ko, dataService) {
+﻿define(["jquery", "knockout", "dataService", "meetingService", "RegisterKoComponents"], function ($, ko, dataService, meetingService) {
     "use strict";
 
     var refreshTabContent = function (koViewModel, htmlString) {
@@ -11,8 +11,8 @@
         ko.applyBindings(koViewModel, document.getElementById('featureContainer'));
     };
 
-    var showColleagueMeetings = function (colleagueId) {
-        refreshTabContent(null, "<colleague-meetings params='ColleagueId: \"" + colleagueId + "\"'></colleague-meetings>");
+    var showColleagueMeetings = function (colleagueId, data) {
+        refreshTabContent(data, "<past-meetings params='data: $root, ColleagueId: \"" + colleagueId + "\"'></past-meetings>");
     };
 
     var showPdp = function (colleagueId) {
@@ -20,6 +20,15 @@
         $promise.done(function (result) {
             var pdpTabKoVm = result;
             refreshTabContent(pdpTabKoVm, "<pdp-accordion  params='data: $root'></pdp-accordion>");
+        });
+    };
+
+    var showObjectives = function (colleagueId) {
+        var $promise = dataService.getObjectives(colleagueId);
+        $promise.done(function (result) {
+            var objectivesTabKoVm = {};
+            objectivesTabKoVm.objectives = ko.observableArray(result);
+            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives'></objectives-list>");
         });
     };
 
@@ -35,7 +44,7 @@
             switch (tabNo) {
             case 1:
                 //Show colleague Meetings
-                showColleagueMeetings(vm.colleagueId);
+                showColleagueMeetings(vm.colleagueId, vm.data);
                 break;
             case 2:
                 //Show colleague Pdp
@@ -43,29 +52,21 @@
                 break;
             case 3:
                 //Show colleague Objectives
-                vm.showObjectives(vm.colleagueId);
+                showObjectives(vm.colleagueId);
                 break;
             }
-        };
-
-        vm.showObjectives = function (colleagueId) {
-            var $promise = dataService.getObjectives(colleagueId);
-            $promise.done(function (result) {
-                var objectivesTabKoVm = {};
-                objectivesTabKoVm.objectives = ko.observableArray(result);
-                refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives'></objectives-list>");
-            });
         };
 
         return vm;
     };
 
     //Module init function
-    var init = function (koBoundDivId, colleagueId) {
+    //var init = function (koBoundDivId, colleagueId) {
+    var init = function (koBoundDivId, colleagueMeetings) {
         var vm = viewModel();
-        vm.colleagueId = colleagueId;
+        vm.data = meetingService.buildColleagueMeetingsViewModel(colleagueMeetings);
+        vm.colleagueId = vm.data.ColleagueId;
         ko.applyBindings(vm, document.getElementById(koBoundDivId));
-        //$('profile-tabs').trigger('show', 1);
         vm.tabChanged(1);
     };
 

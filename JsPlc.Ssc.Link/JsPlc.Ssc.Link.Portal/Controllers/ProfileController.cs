@@ -21,6 +21,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 LinkMeeting NextMeetingView = facade.GetNextMeeting(ColleagueId);
                 ViewBag.Colleague = ColleagueDetails;
                 ViewBag.NextMeeting = NextMeetingView;
+
+                ColleagueTeamView ColleagueMeetings = facade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
+                ColleagueMeetings = TeamController.AssignMeetingsByDate(ColleagueMeetings);
+
+                ViewBag.ColleagueMeetings = ColleagueMeetings;
+
                 return View();
             }
         }

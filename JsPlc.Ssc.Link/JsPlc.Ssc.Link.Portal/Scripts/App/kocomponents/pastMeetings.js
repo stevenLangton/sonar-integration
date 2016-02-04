@@ -1,4 +1,4 @@
-﻿define(["text!App/kocomponents/colleagueMeetings.html", "meetingService"], function (htmlTemplate, meetingService) {
+﻿define(["text!App/kocomponents/pastMeetings.html", "meetingService"], function (htmlTemplate, meetingService) {
     "use strict";
 
     function viewModel(params) {
@@ -12,5 +12,5 @@
         return self;
     }
 
-    return {viewModel: viewModel, template: htmlTemplate};
+    return { viewModel: viewModel, template: htmlTemplate };
 });

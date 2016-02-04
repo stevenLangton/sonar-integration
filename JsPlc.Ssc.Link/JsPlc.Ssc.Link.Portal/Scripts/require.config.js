@@ -42,6 +42,7 @@ require.config({
         //Services
         LinkService: "App/Services/LinkService",
         dataService: "App/DataService",
+        meetingService: "App/MeetingService",
 
         //View scripts
         LinkFormCreate: "App/ViewScripts/LinkFormCreate",

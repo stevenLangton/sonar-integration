@@ -1,18 +1,5 @@
 ﻿<div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>
-    <!--<div>YOUR LINK</div>-->
-    <!-- ko foreach: dataModel -->
-    <!--<div class="row">
-        <div class="col-md-8">
-            <h1 style="margin:0; padding:0">Link meetings</h1>
-        </div>
-        <div class="col-md-4">
-            <div class="col-md-12" style="padding-left: 30px">
-                <a data-bind="attr: {'href': CreateLink}"
-                   class="btn btn-lg btn-primary" style="background-color: silver; text-decoration: none">Create Link meeting</a>
-            </div>
-        </div>
-    </div>-->
     <p>
         <!--You've had-->
         Had
@@ -25,7 +12,7 @@
         with line manager in the last 12 months.
     </p>
     <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
-    Last meeting: <strong><span data-bind="text: $component.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+    Last meeting: <strong><span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
     <!-- /ko -->
     <div class="row" style="padding-bottom: 30px; border-bottom: solid 2px silver">
         <!-- Latest Meeting if any -->
@@ -46,7 +33,6 @@
         <!-- /ko -->
     </div>
 
-    <!-- /ko --><!-- end of root.datamodel -->
 </div>
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
@@ -67,19 +53,19 @@
             </div>
             <div id="u98" class="col-md-10">
                 <p style="font-size:20px;">
-                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;" data-bind="text: $component.formatDateMonthDYHM(MeetingDate) "></span>
+                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;" data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
                 <p style="font-size:13px;">
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this meeting on <span data-bind="text: $component.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        You submitted this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
                         <span data-bind="text: $parent.ManagerFirstName"></span> has not yet accepted your record for this Link meeting.
                         <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
                         <span data-bind="text: $parent.ManagerFirstName"></span> accepted your record for this Link meeting on
-                        <span data-bind="text: $component.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                        <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
@@ -89,7 +75,7 @@
                     </span>
                 </p>
                 <p>
-                    <a data-bind="attr: {'href': $component.getEditOrViewLink($data)}"
+                    <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}"
                        class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link meeting</a>
                 </p>
             </div>
@@ -113,29 +99,29 @@
             <div id="u98" class="col-md-10">
                 <p style="font-size:20px;">
                     <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;"
-                          data-bind="text: $component.formatDateMonthDYHM(MeetingDate) "></span>
+                          data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
                 <p style="font-size:13px;">
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this meeting on <span data-bind="text: $component.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        You submitted this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
-                        <span data-bind="text: $component.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link meeting.
+                        <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link meeting.
                         <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $component.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link meeting on
-                        <span data-bind="text: $component.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                        <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link meeting on
+                        <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
                         This meeting is not complete yet. Once you complete it, please submit it for signoff by
-                        <span data-bind="text: $component.getColleagueFirstName(ManagerAtTime)"></span>
+                        <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span>
                         <!-- /ko -->
                     </span>
                 </p>
                 <p>
-                    <a data-bind="attr: {'href': $component.getEditOrViewLink($data)}"
+                    <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}"
                        class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link meeting</a>
                 </p>
             </div>
