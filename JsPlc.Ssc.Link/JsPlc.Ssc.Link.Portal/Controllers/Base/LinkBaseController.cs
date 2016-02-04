@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
@@ -72,5 +74,47 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             return false;
         }
 
+        public static string GetIPAddress()
+        {
+            try
+            {
+                return GetIP4Address(System.Web.HttpContext.Current);
+            }
+            catch (Exception)
+            {
+                return "-";
+            }
+        }
+        public static string GetIP4Address(HttpContext context)
+        {
+            string IP4Address = String.Empty;
+
+            if (context != null && context.Request.UserHostAddress != null)
+            {
+                foreach (IPAddress IPA in Dns.GetHostAddresses(context.Request.UserHostAddress))
+                {
+                    if (IPA.AddressFamily.ToString() == "InterNetwork")
+                    {
+                        IP4Address = IP4Address + "=" + IPA;
+                        break;
+                    }
+                }
+                foreach (IPAddress IPA in Dns.GetHostAddresses(Dns.GetHostName()))
+                {
+                    if (IPA.AddressFamily.ToString() == "InterNetwork")
+                    {
+                        IP4Address = IP4Address + "=" + IPA;
+                        break;
+                    }
+                }
+
+                if (IP4Address != String.Empty)
+                {
+                    return IP4Address;
+                }
+
+            }
+            return IP4Address;
+        }
     }
 }

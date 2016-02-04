@@ -8,6 +8,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     {
         public ActionResult Index()
         {
+            TempData["IPAddress"] = GetIPAddress();
             return View("Welcome");
         }
 
