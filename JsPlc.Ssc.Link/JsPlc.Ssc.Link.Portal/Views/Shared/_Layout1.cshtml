@@ -40,13 +40,13 @@
 
                 @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
 
-             
+
                 <div class="col-md-9">
 
                     @RenderBody()
                 </div>
 
-                </div>
+            </div>
         </div>
         <div class="push"></div>
     </div>
@@ -82,24 +82,28 @@
             </div>
 
         </div>
+        <!-- Machine name only needed for diagnosing Load balanced env -->
+        <div class="row" style="color: whitesmoke">
+            <div class="col-md-6">Machine name: @Environment.MachineName</div>
+            <div class="col-md-6">Machine IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
+        </div>
+
+    </footer>
 
 
-        </footer>
 
 
 
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*@Scripts.Render("~/bundles/knockout")*@
+    @RenderSection("scripts", required: false)
 
 
-        @*@Scripts.Render("~/bundles/jquery")*@
-        @*@Scripts.Render("~/bundles/bootstrap")*@
-        @*@Scripts.Render("~/bundles/knockout")*@
-        @RenderSection("scripts", required: false)
-
-
-        <script type="text/javascript">
-            require(['bootstrap'], function () {
-            });
-        </script>
+    <script type="text/javascript">
+        require(['bootstrap'], function () {
+        });
+    </script>
 
 </body>
 </html>
