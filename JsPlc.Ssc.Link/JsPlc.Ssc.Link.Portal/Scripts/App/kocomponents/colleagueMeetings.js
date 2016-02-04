@@ -1,27 +1,16 @@
-﻿define(["jquery", "knockout", "text!App/kocomponents/colleagueMeetings.html", "moment", "URI", "underscore", "common", "helpers", "meetingService", "dataService"],
-function ($, ko, htmlTemplate, moment, URI, _, common, helpers, meetingService, dataService) {
+﻿define(["text!App/kocomponents/colleagueMeetings.html", "meetingService"], function (htmlTemplate, meetingService) {
     "use strict";
 
-    //View model
-    function PageViewModel(params) {
-
-        var self = {};
+    function viewModel(params) {
 
         // params.data is an object returned from meetingService.buildColleagueMeetingsViewModel
-        self.dataModel = ko.observable(params.data);
+        var self = params.data || {};
 
         //To provide methods used in the templates
         self.meetingService = meetingService;
 
         return self;
-    };
-    
-    var viewModel = {
-        createViewModel: function (params, componentInfo) {
-            var vm = PageViewModel(params);
-            return vm;
-        }
-    };
+    }
 
-       return { viewModel: viewModel, template: htmlTemplate };
-   });
+    return {viewModel: viewModel, template: htmlTemplate};
+});
