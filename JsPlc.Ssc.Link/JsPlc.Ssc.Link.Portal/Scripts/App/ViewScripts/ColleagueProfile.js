@@ -12,7 +12,7 @@
     };
 
     var showColleagueMeetings = function (colleagueId, data) {
-        refreshTabContent(data, "<colleague-meetings params='data: $root, ColleagueId: \"" + colleagueId + "\"'></colleague-meetings>");
+        refreshTabContent(data, "<past-meetings params='data: $root, ColleagueId: \"" + colleagueId + "\"'></past-meetings>");
     };
 
     var showPdp = function (colleagueId) {
