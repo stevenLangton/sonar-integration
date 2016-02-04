@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "dataService", "RegisterKoComponents"], function ($, ko, dataService) {
+﻿define(["jquery", "knockout", "dataService", "meetingService", "RegisterKoComponents"], function ($, ko, dataService, meetingService) {
     "use strict";
 
     var refreshTabContent = function (koViewModel, htmlString) {
@@ -23,6 +23,15 @@
         });
     };
 
+    var showObjectives = function (colleagueId) {
+        var $promise = dataService.getObjectives(colleagueId);
+        $promise.done(function (result) {
+            var objectivesTabKoVm = {};
+            objectivesTabKoVm.objectives = ko.observableArray(result);
+            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives'></objectives-list>");
+        });
+    };
+
     var viewModel = function () {
         var vm = {};
 
@@ -43,29 +52,21 @@
                 break;
             case 3:
                 //Show colleague Objectives
-                vm.showObjectives(vm.colleagueId);
+                showObjectives(vm.colleagueId);
                 break;
             }
-        };
-
-        vm.showObjectives = function (colleagueId) {
-            var $promise = dataService.getObjectives(colleagueId);
-            $promise.done(function (result) {
-                var objectivesTabKoVm = {};
-                objectivesTabKoVm.objectives = ko.observableArray(result);
-                refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives'></objectives-list>");
-            });
         };
 
         return vm;
     };
 
     //Module init function
-    var init = function (koBoundDivId, colleagueId) {
+    //var init = function (koBoundDivId, colleagueId) {
+    var init = function (koBoundDivId, colleagueMeetings) {
         var vm = viewModel();
-        vm.colleagueId = colleagueId;
+        vm.data = meetingService.buildColleagueMeetingsViewModel(colleagueMeetings);
+        vm.colleagueId = vm.data.ColleagueId;
         ko.applyBindings(vm, document.getElementById(koBoundDivId));
-        //$('profile-tabs').trigger('show', 1);
         vm.tabChanged(1);
     };
 

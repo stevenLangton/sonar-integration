@@ -6,34 +6,15 @@
     ColleagueView Colleague = ViewBag.Colleague;
     LinkMeeting NextMeeting = ViewBag.NextMeeting;
     string DateFormat = "dddd, MMMM d, yyyy 'at' h:mm tt";
+
+    ColleagueTeamView ColleagueMeetings = ViewBag.ColleagueMeetings;//4/2/16
 }
 
 <div id="ProfileView">
     <div>LINE MANAGEMENT > YOUR TEAM</div>@*TODO:Use breadcrumbs*@
     <div><span class="h1">@(Colleague.FirstName + " " + Colleague.LastName)</span></div>
     <br />
-    <div>
-        <div class="panel panel-info">
-            <div class="panel-heading"><h3 class="panel-title"><strong>Next Link meeting</strong></h3></div>
-            <div class="panel-body">
-                @if (null != NextMeeting)
-                {
-                    <div><span class="h2"><i class="fa fa-calendar"></i> @(NextMeeting.MeetingDate.ToString(DateFormat))</span></div>
-                    <div><span class="h4">What status should we place here?</span></div>
-                    <br />
-                    <a href="LinkForm/Edit/@NextMeeting.Id" class="btn btn-default">View Link meeting</a>
-                }
-                else
-                {
-                    <div><span class="h2">There is currently no future meeting arranged</span></div>
-                    <br />
-                    <a href="LinkForm/Create/?colleagueId=@Colleague.ColleagueId" class="btn btn-default">Create a Link meeting</a>
-                }
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
+    <current-meeting params="{data: data}"></current-meeting>
     <div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
     <br />
     <div data-bind="stopBinding: true">
@@ -43,6 +24,6 @@
 </div>
 <script type="text/javascript">
     require(["ColleagueProfile", "RegisterKoComponents"], function (cp) {
-        cp.init("ProfileView", "@Colleague.ColleagueId");
+        cp.init("ProfileView", @Html.Raw(Json.Encode(ColleagueMeetings)));
     });
 </script>

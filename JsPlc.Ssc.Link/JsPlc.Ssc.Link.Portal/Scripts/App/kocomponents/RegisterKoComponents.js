@@ -50,5 +50,6 @@
     ko.components.register("pdp-accordion", { require: "App/kocomponents/pdpAccordion" });
     ko.components.register("meeting-history", { require: "App/kocomponents/meeting-history" });
     ko.components.register("colleague-meetings", { require: "App/kocomponents/colleagueMeetings" });
+    ko.components.register("current-meeting", { require: "App/kocomponents/currentMeeting" });
 
 });//Module end

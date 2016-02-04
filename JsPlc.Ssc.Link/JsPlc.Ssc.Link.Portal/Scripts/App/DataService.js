@@ -17,8 +17,14 @@
         return $promise;
     };
 
+    var getColleagueMeetings = function (colleagueId) {
+        var $promise = common.callService("get", "Team/GetColleagueMeetings", { ColleagueId: colleagueId });
+        return $promise;
+    };
+
     return {
-        getObjectives: getObjectives,
-        getPdp: getPdp
+        getColleagueMeetings: getColleagueMeetings,
+        getPdp: getPdp,
+        getObjectives: getObjectives
     };
 });
