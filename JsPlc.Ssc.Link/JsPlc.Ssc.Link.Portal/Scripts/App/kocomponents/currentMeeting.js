@@ -4,8 +4,7 @@
     //View model
     var viewModel = function (params) {
         var self = params.data;
-        self.formatDateMonthDYHM = meetingService.formatDateMonthDYHM; //Borrow a function
-        self.getEditOrViewLink = meetingService.getEditOrViewLink
+        self.meetingService = meetingService;
         return self;
     };
 
