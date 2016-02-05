@@ -26,6 +26,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
         public static LinkUserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
 
+        protected ILinkServiceFacade ServiceFacade { get; set; }
+
+        public LinkBaseController()
+        {
+            ServiceFacade = new LinkServiceFacade();
+        }
+
+        public LinkBaseController(ILinkServiceFacade Facade)
+        {
+            ServiceFacade = Facade;
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);

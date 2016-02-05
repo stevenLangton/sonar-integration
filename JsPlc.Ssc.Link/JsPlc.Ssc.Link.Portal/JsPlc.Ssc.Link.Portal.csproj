@@ -217,6 +217,7 @@
     <Compile Include="Helpers\LinkServiceCaller.cs" />
     <Compile Include="Helpers\Extensions\ToJsonResult.cs" />
     <Compile Include="Helpers\NaiveSessionCache.cs" />
+    <Compile Include="ILinkServiceFacade.cs" />
     <Compile Include="LinkServiceFacade.cs" />
     <Compile Include="ModelBinding\MeetingViewModelBinder.cs" />
     <Compile Include="Models\LinkForm.cs" />

@@ -17,23 +17,31 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     [Authorize]
     public class ObjectiveController : LinkBaseController
     {
+        public ObjectiveController() { }
+        public ObjectiveController(ILinkServiceFacade Facade):base(Facade)
+        {
+            
+        }
+
         // GET: Objective
         public ActionResult Index()
         {
+            ViewBag.ColleagueId = CurrentUser.Colleague.ColleagueId;
             return View();
         }
 
-        public ActionResult GetAllColleagueObjectives()
+        public ActionResult GetAllColleagueObjectives(string ColleagueId)
         {
-            return GetObjectives(CurrentUser.Colleague.ColleagueId);
+            //return GetObjectives(CurrentUser.Colleague.ColleagueId);
+            return GetObjectives(ColleagueId);
         }
 
         [HttpGet]
         public ActionResult GetObjectives(string ColleagueId)
         {
-            using (var facade = new LinkServiceFacade())
-            {
-                var ObjectivesList = facade.GetObjectivesList(ColleagueId);
+            //using (var facade = new LinkServiceFacade())
+            //{
+                var ObjectivesList = ServiceFacade.GetObjectivesList(ColleagueId);
 
                 var jsonResult = new JsonResult
                 {
@@ -42,7 +50,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 };
 
                 return jsonResult;
-            }
+            //}
         }
 
         [HttpGet]
@@ -59,12 +67,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [HttpGet]
         public ActionResult Show(int Id)
         {
-            using (var facade = new LinkServiceFacade())
-            {
-                LinkObjective item = facade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
-
+            //using (var facade = new LinkServiceFacade())
+            //{
+                LinkObjective item = ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
+                ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
                 return View(item);
-            }
+            //}
         }
 
         [HttpPost]
@@ -74,19 +82,19 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             if (ModelState.IsValid)
             {
-                using (var facade = new LinkServiceFacade())
-                {
+                //using (var facade = new LinkServiceFacade())
+                //{
                     modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
                     modifiedObjective.LastAmendedDate = DateTime.Now;
 
                     //Add new item
-                    int NewObjectId = facade.CreateObjective(modifiedObjective).Result;
+                    int NewObjectId = ServiceFacade.CreateObjective(modifiedObjective).Result;
                     Success = NewObjectId != 0;
                     if (Success)
                     {
                         modifiedObjective.Id = NewObjectId;
                     }
-                }
+                //}
             }
 
             return new JsonResult
@@ -103,12 +111,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             if (ModelState.IsValid)
             {
-                using (var facade = new LinkServiceFacade())
-                {
+                //using (var facade = new LinkServiceFacade())
+                //{
                     modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
                     modifiedObjective.LastAmendedDate = DateTime.Now;
-                    Success = facade.UpdateObjective(modifiedObjective).Result;
-                }
+                    Success = ServiceFacade.UpdateObjective(modifiedObjective).Result;
+                //}
             }
 
             return new JsonResult {
