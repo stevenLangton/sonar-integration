@@ -15,11 +15,12 @@
     };
 
     //var init = $.noop;
-    var init = function (divId) {
+    var init = function (divId, colleagueId) {
         var $promise = $.ajax({
             url: "objective/GetAllColleagueObjectives",
             type: "get",
-            dataType: "json"
+            dataType: "json",
+            data: { ColleagueId: colleagueId }
         });
 
         $promise.done(function (result) {

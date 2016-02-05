@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using JsPlc.Ssc.Link.Portal;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace JsPlc.Ssc.Link.Portal
 {
-    public class LinkServiceFacade : IDisposable
+    public class LinkServiceFacade : IDisposable, ILinkServiceFacade
     {
         private Lazy<HttpClient> _client;
 
