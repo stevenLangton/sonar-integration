@@ -62,7 +62,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             using (var facade = new LinkServiceFacade())
             {
                 LinkObjective item = facade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
-
+                ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
                 return View(item);
             }
         }

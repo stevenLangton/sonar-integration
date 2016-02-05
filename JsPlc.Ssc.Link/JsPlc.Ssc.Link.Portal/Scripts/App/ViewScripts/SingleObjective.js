@@ -49,7 +49,8 @@
             if (vm.dirtyFlag()) {
 
                 var yesHandler = function () {
-                    window.location.href = common.getSiteRoot() + "Objective";
+                    //window.location.href = common.getSiteRoot() + "Objective";
+                    history.go(-1);
                 };
 
                 confirmModal.init("Edit/View Objective", //Title
@@ -61,8 +62,10 @@
                 confirmModal.show();
 
             } else {
-                window.location.href = common.getSiteRoot() + "Objective";
+                //window.location.href = common.getSiteRoot() + "Objective";
+                history.go(-1);
             }
+
         };
 
         ko.applyBindings(vm, document.getElementById('ObjectiveView'));

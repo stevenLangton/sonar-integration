@@ -1,6 +1,7 @@
 ﻿@model JsPlc.Ssc.Link.Models.Entities.LinkObjective
 @{
     ViewBag.Title = "Objective";
+    bool ReadOnly = ViewBag.ReadOnly??false;
 }
 <script type="text/javascript">
     require(["SingleObjective"], function (mod) {
@@ -17,19 +18,19 @@
     <span data-bind="text: 'Created on ' + displayCreateDate"></span>
     <h3>Objective title</h3>
     <div>
-        <textarea data-bind="textInput: Title"></textarea>
+        <textarea data-bind="textInput: Title" disabled="@ReadOnly"></textarea>
     </div>
     <h3>What will I do to make a difference this year?</h3>
     <div>
-        <textarea data-bind="textInput: Objective"></textarea>
+        <textarea data-bind="textInput: Objective" disabled="@ReadOnly"></textarea>
     </div>
     <h3>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h3>
     <div>
-        <textarea data-bind="textInput: MeasuredBy"></textarea>
+        <textarea data-bind="textInput: MeasuredBy" disabled="@ReadOnly"></textarea>
     </div>
     <h3>Which company or divisional priority does this support?</h3>
     <div>
-        <textarea data-bind="textInput: RelevantTo"></textarea>
+        <textarea data-bind="textInput: RelevantTo" disabled="@ReadOnly"></textarea>
     </div>
     <br />
     <br />
@@ -37,7 +38,7 @@
     <div class="container-fluid">
         <div class="pull-right">
             <span>Updated on </span><span data-bind="text: displayUpdateDate"></span>
-            <button class="btn btn-default" data-bind="click: update">Save changes</button>
+            <button class="btn btn-default" data-bind="click: update" disabled="@ReadOnly">Save changes</button>
             <button class="btn btn-default" data-bind="click: cancel">Cancel</button>
         </div>
     </div>
