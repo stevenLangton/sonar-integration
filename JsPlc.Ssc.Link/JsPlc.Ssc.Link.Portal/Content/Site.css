@@ -327,7 +327,7 @@ html, body {
 }
 
 a:link, a:visited {
-    color: inherit;
+    /*color: inherit;*/
     text-decoration: underline;
 }
 .linkErrorMsg {

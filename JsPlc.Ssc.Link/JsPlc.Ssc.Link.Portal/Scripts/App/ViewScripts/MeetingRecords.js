@@ -43,9 +43,23 @@
             return null;
         };
 
+        self.getColleagueAposName = function (colleague) {
+            if (!colleague) return null;
+
+            var lenFname = colleague.FirstName.length;
+            if (colleague.FirstName) {
+                return (colleague.FirstName.substring(lenFname - 1, lenFname) == 's') ?
+                    colleague.FirstName + "'" : colleague.FirstName + "'s";
+            }
+            return null;
+        };
+
+
         var buildViewModels = function (data) {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
             //var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
+
+            debugger;
 
             // each ColleagueTeamView item
             _.each(data, function (meetingItem) {
@@ -53,7 +67,6 @@
                 // pre process each item
                 //item.MeetingDate = moment(item.MeetingDate).format("L");
 
-                debugger;
                 // Build the item from LinkMeetingView
                 var meetingView = { 
                     Meeting: meetingItem,
@@ -64,6 +77,7 @@
                 // add item to array
                 listOfMeetings.push(meetingView);
             });
+            //self.dataModel('');
 
             self.dataModel(listOfMeetings);
         };
