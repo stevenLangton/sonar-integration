@@ -9,8 +9,9 @@ using JsPlc.Ssc.Link.Models;
 using Moq;
 using Moq.Language.Flow;
 using System.Net.Http;
-//using System.Web.Http;
 using JsPlc.Ssc.Link.Models.Entities;
+using System.Threading.Tasks;
+using System.Web.Routing;
 
 namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
 {
@@ -147,22 +148,45 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             Assert.IsNotNull(actResult);
         }
 
-        //[TestMethod]
-        //public void Create()
-        //{
-        //    //Arrange
-        //    var colleague = new ColleagueView() { ColleagueId = "Anything" };
-        //    var user = new Mock<ILinkUserView>();
-        //    user.Setup(x => x.Colleague).Returns(colleague);
+        [TestMethod]
+        public void Create()
+        {
+            //Arrange
+            var colleague = new ColleagueView() { ColleagueId = "Anything" };
+            var user = new Mock<ILinkUserView>();
+            user.Setup(x => x.Colleague).Returns(colleague);
 
-        //    var controller = new ObjectiveController(user.Object, TestHelpers.MockLinkServiceFacade().Object);
+            var controller = new ObjectiveController(user.Object, TestHelpers.MockLinkServiceFacade().Object);
 
-        //    //Act
-        //    var actResult = controller.Create(Mock.Of <LinkObjective>()) as ViewResult;
+            //Act
+            JsonResult actual = controller.Create(Mock.Of<LinkObjective>()) as JsonResult;
 
-        //    //Assert
-        //    Assert.IsNotNull(actResult);
-        //}
+            //Assert
+            IDictionary<string, object> data = new RouteValueDictionary(actual.Data);
+            Assert.AreEqual(true, data["success"]);
+        }
+
+        [TestMethod]
+        public void Update()
+        {
+            //Arrange
+            var colleague = new ColleagueView() { ColleagueId = "Anything" };
+            var user = new Mock<ILinkUserView>();
+            user.Setup(x => x.Colleague).Returns(colleague);
+
+            var LinkServiceFacade = TestHelpers.MockLinkServiceFacade();
+            LinkServiceFacade.Setup(x => x.UpdateObjective(It.IsAny<LinkObjective>()))
+                .Returns(() => Task<bool>.Factory.StartNew(() => true));
+
+            var controller = new ObjectiveController(user.Object, LinkServiceFacade.Object);
+
+            //Act
+            JsonResult actual = controller.Update(Mock.Of<LinkObjective>()) as JsonResult;
+
+            //Assert
+            IDictionary<string, object> data = new RouteValueDictionary(actual.Data);
+            Assert.AreEqual(true, data["success"]);
+        }
         
     }
 
@@ -187,10 +211,12 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             LinkService.Setup(x => x.GetObjective(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(anObjective);
 
-            //LinkService.Setup(x => x.CreateObjective(It.IsAny<string>(), It.IsAny<int>()))
-            //    .Returns(anObjective);
+            Random rnd = new Random();
+            LinkService.Setup(x => x.CreateObjective(It.IsAny<LinkObjective>()))
+                .Returns(() => Task<int>.Factory.StartNew(() => rnd.Next()));
 
-            //ServiceFacade.CreateObjective(modifiedObjective)
+            LinkService.Setup(x => x.UpdateObjective(It.IsAny<LinkObjective>()))
+                .Returns(() => Task<bool>.Factory.StartNew(() => true));
 
             return LinkService;
         }
