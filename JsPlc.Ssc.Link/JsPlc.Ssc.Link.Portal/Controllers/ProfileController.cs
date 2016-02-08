@@ -12,23 +12,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     [Authorize]
     public class ProfileController : LinkBaseController
     {
+        public ProfileController() { }
+        public ProfileController(ILinkUserView CurrentUser, ILinkServiceFacade Facade)
+            : base(CurrentUser, Facade)
+        {
+            
+        }
+
         // GET: Profile
         public ActionResult Show([Bind(Prefix = "id")] string ColleagueId)
         {
-            using (var facade = new LinkServiceFacade())
-            {
-                ColleagueView ColleagueDetails = facade.GetColleague(ColleagueId);
-                LinkMeeting NextMeetingView = facade.GetNextMeeting(ColleagueId);
+            //using (var facade = new LinkServiceFacade())
+            //{
+                ColleagueView ColleagueDetails = ServiceFacade.GetColleague(ColleagueId);
+                LinkMeeting NextMeetingView = ServiceFacade.GetNextMeeting(ColleagueId);
                 ViewBag.Colleague = ColleagueDetails;
                 ViewBag.NextMeeting = NextMeetingView;
 
-                ColleagueTeamView ColleagueMeetings = facade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
+                ColleagueTeamView ColleagueMeetings = ServiceFacade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
                 ColleagueMeetings = TeamController.AssignMeetingsByDate(ColleagueMeetings);
 
                 ViewBag.ColleagueMeetings = ColleagueMeetings;
 
                 return View();
-            }
+            //}
         }
     }
 }
