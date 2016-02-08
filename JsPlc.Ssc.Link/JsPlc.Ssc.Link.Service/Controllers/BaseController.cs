@@ -13,9 +13,14 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         protected readonly IObjectivesService _dbObjectives;
         protected readonly IColleagueService _dbColleagues;
         protected readonly IPdpService _dbPdp;
+        protected readonly IConfigurationDataService _configurationDataService;
+        protected readonly IDomainTranslationService _domainTranslationService;
 
         public BaseController()
         {
+            _configurationDataService = new ConfigurationDataService();
+            _domainTranslationService = new DomainTranslationService(_configurationDataService);
+
             _db = new LinkRepository(new RepositoryContext());
             _dbMeeting = new MeetingService(new RepositoryContext(), new ColleagueService(new StubServiceFacade()));
             _dbObjectives = new ObjectivesService(new RepositoryContext());
@@ -23,9 +28,15 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbPdp = new PdpService(new RepositoryContext());
         }
 
-        public BaseController(ILinkRepository linkRepository, IMeetingService meetingService, IObjectivesService objectivesService,
-            IColleagueService colleagueService, IPdpService pdpService)
+        public BaseController(ILinkRepository linkRepository=null,
+            IMeetingService meetingService = null, IObjectivesService objectivesService = null,
+            IColleagueService colleagueService = null, IPdpService pdpService = null,
+            IConfigurationDataService configurationDataService = null,
+            IDomainTranslationService domainTranslationService = null)
         {
+            _configurationDataService = configurationDataService;
+            _domainTranslationService = domainTranslationService;
+
             _db = linkRepository;
             _dbMeeting = meetingService;
             _dbObjectives = objectivesService;

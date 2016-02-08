@@ -11,10 +11,22 @@ namespace JsPlc.Ssc.Link.Service.Services
     public class ColleagueService : IColleagueService
     {
         private readonly IStubServiceFacade _svc;
+        private readonly IDomainTranslationService _domainTranslationService;
 
         public ColleagueService() { }
 
-        public ColleagueService(IStubServiceFacade svc) { _svc = svc; }
+        public ColleagueService(IStubServiceFacade svc)
+        {
+            _svc = svc; 
+            IConfigurationDataService configurationDataService = new ConfigurationDataService();
+            _domainTranslationService = new DomainTranslationService(configurationDataService);
+        }
+
+        public ColleagueService(IStubServiceFacade svc, IDomainTranslationService domainTranslationService)
+        {
+            _svc = svc;
+            _domainTranslationService = domainTranslationService;
+        }
 
         /// <summary>
         /// Get ColleagueProfile
@@ -31,7 +43,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         ColleagueView IColleagueService.GetColleagueByEmail(string emailAddress)
         {
-            emailAddress = AdDomainToDbDomain(emailAddress);
+            emailAddress = _domainTranslationService.AdDomainToDbDomain(emailAddress);
 
             var coll = _svc.GetColleagueByEmail(emailAddress);
             //coll.EmailAddress = AdDomainToDbDomain(coll.EmailAddress);
@@ -46,14 +58,14 @@ namespace JsPlc.Ssc.Link.Service.Services
             var colleagues = coll as ColleagueView[] ?? coll.ToArray();
             foreach (var item in colleagues)
             {
-                item.EmailAddress = AdDomainToDbDomain(item.EmailAddress);
+                item.EmailAddress = _domainTranslationService.AdDomainToDbDomain(item.EmailAddress);
             }
             return colleagues.ToList();
         }
 
         List<ColleagueView> IColleagueService.GetDirectReportsByManagerEmail(string emailAddress)
         {
-            emailAddress = AdDomainToDbDomain(emailAddress);
+            emailAddress = _domainTranslationService.AdDomainToDbDomain(emailAddress);
 
             IEnumerable<ColleagueView> coll = _svc.GetDirectReportsByManagerEmail(emailAddress);
             if (coll == null) return null;
@@ -74,7 +86,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
         bool IColleagueService.IsManagerByEmail(string emailAddress)
         {
-            emailAddress = AdDomainToDbDomain(emailAddress);
+            emailAddress = _domainTranslationService.AdDomainToDbDomain(emailAddress);
             IEnumerable<ColleagueView> coll = _svc.GetDirectReportsByManagerEmail(emailAddress);
             return (coll != null) && coll.Any();
         }
@@ -84,37 +96,6 @@ namespace JsPlc.Ssc.Link.Service.Services
             _svc.Dispose();
         }
 
-        /// <summary>
-        /// Used to replace domain coming from Azure AD to that stored in DB for lookups to work in dev, test and live
-        /// </summary>
-        /// <param name="colleagueEmail"></param>
-        /// <returns></returns>
-
-        private string AdDomainToDbDomain(string colleagueEmail)
-        {
-            //domain to use
-            string azureAdEmailDomain = WebConfigurationManager.AppSettings["AzureLinkDomain"];
-            string dbLinkDomain = WebConfigurationManager.AppSettings["DbLinkDomain"];
-            if (dbLinkDomain.IsNullOrWhiteSpace()) dbLinkDomain = "@domain.com"; // use stubbed values
-
-            // No need to touch anything if both domains match
-            if (azureAdEmailDomain.Equals(dbLinkDomain)) return colleagueEmail;
-
-            // Replacing Authenticated email domain with the DB Email domain...
-            var inputString = colleagueEmail;
-            string name = ""; 
-            string domain = ""; 
-            string[] parts = inputString.Split('@');
-            if (parts.Length < 2) return colleagueEmail;
-            name = parts[0];  
-            domain = parts[1];
-
-            if (!domain.Equals(dbLinkDomain))
-            {
-                colleagueEmail = string.Format("{0}{1}", name, dbLinkDomain);
-            }
-            return colleagueEmail;
-        }
     }
 
 

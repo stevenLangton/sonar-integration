@@ -1,6 +1,7 @@
 ﻿using Effort;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Interfaces;
+using JsPlc.Ssc.Link.StubService.StubRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -16,6 +17,8 @@ namespace JsPlc.Ssc.Link.Service.Tests
         protected static IObjectivesService _objective;
 
         protected static RepositoryContext _context;
+        protected static StubRepositoryContext _colleagueContext;
+
 
         public static ILinkRepository Repository
         {
@@ -38,10 +41,23 @@ namespace JsPlc.Ssc.Link.Service.Tests
             {
                 if (_context != null) return _context;
 
-                _context = new RepositoryContext(DbConnectionFactory.CreateTransient());
+                _context = new RepositoryContext(Effort.DbConnectionFactory.CreateTransient());
                 _context = ContextSetup.MockContext(_context);
 
                 return _context;
+            }
+        }
+
+        public static StubRepositoryContext ColleagueContext
+        {
+            get
+            {
+                if (_colleagueContext != null) return _colleagueContext;
+
+                _colleagueContext = new StubRepositoryContext(Effort.DbConnectionFactory.CreateTransient());
+                _colleagueContext = ContextSetup.MockColleagueContext(_colleagueContext);
+
+                return _colleagueContext;
             }
         }
 
@@ -49,6 +65,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         public static void InitializeContext(TestContext context)
         {
             _context = Context;
+            _colleagueContext = ColleagueContext;
             _repository = Repository;
             _meeting = Meeting;
             _objective = Objective;

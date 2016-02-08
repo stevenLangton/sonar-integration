@@ -12,7 +12,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         public QuestionsController(ILinkRepository repository):base(repository) { }
 
         public QuestionsController(ILinkRepository repository, IMeetingService meetingService, IColleagueService colleagueService) : 
-            base(repository, meetingService, null, colleagueService, null) { }
+            base(repository, meetingService, null, colleagueService) { }
 
         [HttpGet] // api/questions/
         public IHttpActionResult GetQuestions()

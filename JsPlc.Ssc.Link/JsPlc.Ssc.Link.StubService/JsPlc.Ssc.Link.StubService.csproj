@@ -208,9 +208,9 @@
     <Compile Include="StubModels\ColleagueDto.cs" />
     <Compile Include="StubModels\StubColleague.cs" />
     <Compile Include="StubInterfaces\IStubRepositoryContext.cs" />
-    <Compile Include="StubInterfaces\IStubLinkRepository.cs" />
+    <Compile Include="StubInterfaces\IColleagueServices.cs" />
     <Compile Include="StubRepository\StubRepositoryInitializer.cs" />
-    <Compile Include="StubRepository\StubLinkRepository.cs" />
+    <Compile Include="StubRepository\ColleagueServices.cs" />
     <Compile Include="StubRepository\StubRepositoryContext.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
