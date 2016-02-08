@@ -9,7 +9,7 @@ using JsPlc.Ssc.Link.Models;
 using Moq;
 using Moq.Language.Flow;
 using System.Net.Http;
-using System.Web.Http;
+//using System.Web.Http;
 using JsPlc.Ssc.Link.Models.Entities;
 
 namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
@@ -110,6 +110,59 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             //Assert
             TestHelpers.IsSameAsMockObjectivesList(ObjectivesList);
         }
+
+        /// <summary>
+        /// Test the New method returning Specific "Show" View
+        /// </summary>
+        [TestMethod]
+        public void New()
+        {
+            //Arrange
+            var colleague = new ColleagueView() { ColleagueId = "Anything" };
+            var user = new Mock<ILinkUserView>();
+            user.Setup(x => x.Colleague).Returns(colleague);
+            var controller = new ObjectiveController(user.Object, TestHelpers.MockLinkServiceFacade().Object);
+
+            //Act
+            var actResult = controller.New() as ViewResult;
+
+            //Assert
+            Assert.AreEqual(actResult.ViewName, "Show");
+        }
+
+        [TestMethod]
+        public void Show()
+        {
+            //Arrange
+            var colleague = new ColleagueView() { ColleagueId = "Anything" };
+            var user = new Mock<ILinkUserView>();
+            user.Setup(x => x.Colleague).Returns(colleague);
+
+            var controller = new ObjectiveController(user.Object, TestHelpers.MockLinkServiceFacade().Object);
+
+            //Act
+            var actResult = controller.Show(101) as ViewResult;
+
+            //Assert
+            Assert.IsNotNull(actResult);
+        }
+
+        //[TestMethod]
+        //public void Create()
+        //{
+        //    //Arrange
+        //    var colleague = new ColleagueView() { ColleagueId = "Anything" };
+        //    var user = new Mock<ILinkUserView>();
+        //    user.Setup(x => x.Colleague).Returns(colleague);
+
+        //    var controller = new ObjectiveController(user.Object, TestHelpers.MockLinkServiceFacade().Object);
+
+        //    //Act
+        //    var actResult = controller.Create(Mock.Of <LinkObjective>()) as ViewResult;
+
+        //    //Assert
+        //    Assert.IsNotNull(actResult);
+        //}
         
     }
 
@@ -126,9 +179,18 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             var LinkService = new Mock<ILinkServiceFacade>();
 
             var TestList = TestHelpers.GetMockObjectivesList();
+            var anObjective = Mock.Of<LinkObjective>();
 
             LinkService.Setup(x => x.GetObjectivesList(It.IsAny<string>()))
                 .Returns(TestList);
+
+            LinkService.Setup(x => x.GetObjective(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(anObjective);
+
+            //LinkService.Setup(x => x.CreateObjective(It.IsAny<string>(), It.IsAny<int>()))
+            //    .Returns(anObjective);
+
+            //ServiceFacade.CreateObjective(modifiedObjective)
 
             return LinkService;
         }
