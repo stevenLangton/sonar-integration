@@ -5,33 +5,33 @@
 }
 <div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>
-    <div>LINE MANAGEMENT</div>
+    <h6>LINE MANAGEMENT</h6>
 
-    <!-- ko foreach: $root.dataModel() -->
     <div class="row">
         <div class="col-md-8">
             <h1 style="margin:0; padding:0">Meeting records</h1>
         </div>
     </div>
 
-    
-
-    <div class="row" style="padding-bottom: 30px; border-bottom: solid 2px silver">
-        <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
-        <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
-        <!-- /ko -->
-        <!-- ko foreach: PastMeetings -->
-        <div data-bind="template: { name: 'past-meeting-template', data: $data }"></div>
-        <!-- /ko -->
+    <div data-bind="visible: $root.dataModel().length == 0">
+        <div data-bind="template: { name: 'nopast-meeting-template', data: $root}"></div>
+    </div>
+    <div data-bind="visible: $root.dataModel().length > 0" style="margin-top: 10px">
+        <!-- ko foreach: $root.dataModel() -->
+        <div class="row" style="padding-bottom: 2px;">
+            <!-- ko if: (!Meeting) || (Meeting.ColleagueId != "") -->
+            <div data-bind="template: { name: 'past-meeting-template', data: Meeting }"></div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko --><!-- end of root.datamodel -->
     </div>
 
 
-    <!-- /ko --><!-- end of root.datamodel -->
 </div>
 <script type="text/html" id="nopast-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <p>No meetings records found.</p>
+        <p>No meeting records found.</p>
     </div>
 </script>
 <script type="text/html" id="past-meeting-template">
@@ -45,7 +45,7 @@
             <div id="u98" class="col-md-10">
                 <p style="font-size:20px;">
                     <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;"
-                          data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></span>
+                          data-bind="text: $root.getColleagueName(Colleague) + ' - ' + $root.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
                 <p style="font-size:13px;">
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
@@ -69,7 +69,11 @@
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link meeting</a>
+                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">
+                        View
+                        <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
+                        record
+                    </a>
                 </p>
             </div>
         </div>
