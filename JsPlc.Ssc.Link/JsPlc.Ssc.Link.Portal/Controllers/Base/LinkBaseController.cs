@@ -24,8 +24,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
         protected static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
-        public static LinkUserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
+        //public static LinkUserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
 
+        public static ILinkUserView CurrentUser { get; private set; }
         protected ILinkServiceFacade ServiceFacade { get; set; }
 
         public LinkBaseController()
@@ -33,9 +34,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             ServiceFacade = new LinkServiceFacade();
         }
 
-        public LinkBaseController(ILinkServiceFacade Facade)
+        public LinkBaseController(ILinkUserView _CurrentUser, ILinkServiceFacade _Facade)
         {
-            ServiceFacade = Facade;
+            CurrentUser = _CurrentUser;
+            ServiceFacade = _Facade;
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

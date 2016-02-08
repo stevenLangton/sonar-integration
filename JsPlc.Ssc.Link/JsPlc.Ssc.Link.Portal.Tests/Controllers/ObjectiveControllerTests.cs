@@ -71,7 +71,10 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         public void Index()
         {
             //Arrange
-            ObjectiveController controller = new ObjectiveController();
+            var user = new LinkUserView();
+            user.Colleague = new ColleagueView();
+            user.Colleague.ColleagueId = "Any thing";
+            var controller = new ObjectiveController(user, TestHelpers.MockLinkServiceFacade().Object);
 
             //Act
             ActionResult result = controller.Index();
@@ -84,7 +87,7 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         public void GetAllColleagueObjectives()
         {
             //Arrange
-            var controller = new ObjectiveController(TestHelpers.MockLinkServiceFacade().Object);
+            var controller = new ObjectiveController(new LinkUserView(), TestHelpers.MockLinkServiceFacade().Object);
 
             //Act 
             JsonResult response = controller.GetAllColleagueObjectives("Any string") as JsonResult;
@@ -98,7 +101,7 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         public void GetObjectives()
         {
             //Arrange
-            var controller = new ObjectiveController(TestHelpers.MockLinkServiceFacade().Object);
+            var controller = new ObjectiveController(new LinkUserView(), TestHelpers.MockLinkServiceFacade().Object);
 
             //Act 
             JsonResult response = controller.GetObjectives("Any string") as JsonResult;
