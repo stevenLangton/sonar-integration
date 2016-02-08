@@ -44,11 +44,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
-            else
-            {
-                return BadRequest();
-            }
-
+            return BadRequest();
         }
 
         // POST/Insert: api/Objectives
@@ -100,15 +96,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
                 {
                     return Ok();
                 }
-                else
-                {
-                    return NotFound();
-                }
+                return NotFound();
             }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
         /// <summary>
@@ -156,14 +146,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             {
                 return true;
             }
-            else
-            {
-                return false;
-            } 
+            return false;
         }
-
-
-
-
     }
 }
