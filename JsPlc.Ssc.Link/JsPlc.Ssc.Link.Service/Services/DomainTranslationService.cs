@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
+using Elmah;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using System.Web.Configuration;
@@ -29,15 +31,16 @@ namespace JsPlc.Ssc.Link.Service.Services
             string dbLinkDomain = configurationDataService.GetConfigSettingValue("DbLinkDomain"); //WebConfigurationManager.AppSettings["DbLinkDomain"];
             if (dbLinkDomain.IsNullOrWhiteSpace()) dbLinkDomain = "@domain.com"; // use stubbed values
 
+            var inputString = colleagueEmail;
+            string[] parts = inputString.Split('@');
+            if (parts.Length < 2) throw new ApplicationException("Invalid email: expected at least one @ symbol in it : " + colleagueEmail);
+
             // No need to touch anything if both domains match
             if (azureAdEmailDomain.Equals(dbLinkDomain)) return colleagueEmail;
 
             // Replacing Authenticated email domain with the DB Email domain...
-            var inputString = colleagueEmail;
             string name = "";
             string domain = "";
-            string[] parts = inputString.Split('@');
-            if (parts.Length < 2) return colleagueEmail;
             name = parts[0];
             domain = parts[1];
 
