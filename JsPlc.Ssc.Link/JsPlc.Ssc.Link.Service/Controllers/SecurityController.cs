@@ -12,7 +12,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     {
         public SecurityController() { }
 
-        public SecurityController(ILinkRepository repository) : base(repository) { }
+        //public SecurityController(ILinkRepository repository) : base(repository) { }
 
         public SecurityController(IMeetingService repository) : base(repository) { }
 

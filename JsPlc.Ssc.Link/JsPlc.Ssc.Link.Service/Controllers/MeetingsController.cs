@@ -12,12 +12,14 @@ namespace JsPlc.Ssc.Link.Service.Controllers
     {
         public MeetingsController() { }
 
-        public MeetingsController(ILinkRepository repository) : base(repository) { }
+        //public MeetingsController(ILinkRepository repository) : base(repository) { }
 
         public MeetingsController(IMeetingService repository) : base(repository) { }
 
-        public MeetingsController(ILinkRepository repository, IMeetingService meetingService, IColleagueService colleagueService) : 
-            base(repository, meetingService, null, colleagueService) { }
+        public MeetingsController(//ILinkRepository repository, 
+            IMeetingService meetingService, IColleagueService colleagueService) : 
+            base(//repository, 
+            meetingService, null, colleagueService) { }
 
         [HttpGet] //api/Meetings/10
         public IHttpActionResult GetMeeting(int id)

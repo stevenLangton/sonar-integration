@@ -19,7 +19,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         public void GetQuestions()
         {
             IMeetingService mockMeetingService = new MeetingService(RepositoryMock.Context);
-            var controller = new QuestionsController(_repository, mockMeetingService, null);
+            var controller = new QuestionsController(mockMeetingService, null);
             //var mockColleagueService = new Mock<IColleagueService>();
             //var colleagueService = mockColleagueService.Object;
             

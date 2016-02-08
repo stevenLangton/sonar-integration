@@ -16,7 +16,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         //public ColleagueController(ILinkRepository repository) : base(repository) { }
 
         public ColleagueController(IColleagueService colleagueService) 
-            : base(null, null, null, colleagueService) {}
+            : base(null, null, colleagueService) {}
 
         [HttpGet] // api/Colleague/E002
         [Route("api/Colleague/{id}")]
