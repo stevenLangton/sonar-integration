@@ -70,6 +70,7 @@
     <Compile Include="Entities\LinkPdp.cs" />
     <Compile Include="Entities\LinkMeeting.cs" />
     <Compile Include="Extensions\EntityExtensions.cs" />
+    <Compile Include="ILinkUserView.cs" />
     <Compile Include="LinkMeetingView.cs" />
     <Compile Include="MeetingView.cs" />
     <Compile Include="Entities\LinkObjective.cs" />

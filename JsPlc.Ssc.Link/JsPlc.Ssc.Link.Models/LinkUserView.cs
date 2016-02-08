@@ -1,6 +1,6 @@
 ﻿namespace JsPlc.Ssc.Link.Models
 {
-    public class LinkUserView
+    public class LinkUserView : ILinkUserView
     {
         public string UserId { get; set; } // A Guid.. unsure why needed..
 

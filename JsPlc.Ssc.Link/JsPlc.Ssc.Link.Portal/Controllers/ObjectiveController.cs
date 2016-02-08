@@ -18,7 +18,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     public class ObjectiveController : LinkBaseController
     {
         public ObjectiveController() { }
-        public ObjectiveController(ILinkServiceFacade Facade):base(Facade)
+        public ObjectiveController(ILinkUserView CurrentUser, ILinkServiceFacade Facade)
+            : base(CurrentUser, Facade)
         {
             
         }
