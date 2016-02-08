@@ -116,7 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextSetup.cs" />
-    <Compile Include="Controllers\EmployeesControllerTest.cs" />
+    <Compile Include="Controllers\DomainTranslationTest.cs" />
+    <Compile Include="Controllers\ColleagueControllerTest.cs" />
     <Compile Include="Controllers\MeetingsControllerTests.cs" />
     <Compile Include="Controllers\ObjectivesControllerTests.cs" />
     <Compile Include="Controllers\QuestionsControllerTests.cs" />
@@ -147,6 +148,10 @@
     <ProjectReference Include="..\JsPlc.Ssc.Link.Service\JsPlc.Ssc.Link.Service.csproj">
       <Project>{B3FC18AA-C34C-4F58-B8AB-36907A6C1C73}</Project>
       <Name>JsPlc.Ssc.Link.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.StubService\JsPlc.Ssc.Link.StubService.csproj">
+      <Project>{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD}</Project>
+      <Name>JsPlc.Ssc.Link.StubService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILinkRepository.cs" />
+    <Compile Include="Services\IConfigurationDataService.cs" />
+    <Compile Include="Services\IDomainTranslationService.cs" />
     <Compile Include="Services\IColleagueService.cs" />
     <Compile Include="Services\IMeetingService.cs" />
     <Compile Include="Services\IObjectivesService.cs" />

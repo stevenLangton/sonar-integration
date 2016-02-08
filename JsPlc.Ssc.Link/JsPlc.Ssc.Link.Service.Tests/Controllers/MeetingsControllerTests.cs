@@ -26,7 +26,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             IStubServiceFacade stubServiceFacade = _mockStubServiceFacade.Object;
             IColleagueService mockColleagueService = new ColleagueService(stubServiceFacade);
             IMeetingService mockMeetingService = new MeetingService(RepositoryMock.Context, mockColleagueService);
-            _controller = new MeetingsController(_repository, mockMeetingService, mockColleagueService);
+            _controller = new MeetingsController(mockMeetingService, mockColleagueService);
         }
 
         [TestMethod]
