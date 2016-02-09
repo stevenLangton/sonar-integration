@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\PdfControllerTests.cs" />
+    <Compile Include="Controllers\PdpControllerTests.cs" />
     <Compile Include="Controllers\ProfileControllerTests.cs" />
     <Compile Include="Helpers\Extensions\HttpResponseMessageExtensionsTests.cs" />
     <Compile Include="Helpers\TestMocks.cs" />
