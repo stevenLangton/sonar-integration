@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Filters;
 using Elmah;
 using iTextSharp.text;
 using JsPlc.Ssc.Link.Models;
@@ -47,6 +48,16 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             CurrentUser = _CurrentUser;
             ServiceFacade = _Facade;
         }
+
+        //protected override void OnAuthentication(AuthenticationContext filterContext)
+        //{
+        //    base.OnAuthentication(filterContext);
+        //    // http://stackoverflow.com/questions/12568426/mvc3-windows-authentication-override-user-identity
+        //    //if (Request.IsAuthenticated)
+        //    //{
+        //    //    filterContext.HttpContext.User = new ClaimsPrincipal(User);
+        //    //}
+        //}
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
