@@ -59,7 +59,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                 using (var facade = new LinkServiceFacade())
                 {
                     var authenticatedEmailAddr = User.Identity.Name;
-                    authenticatedEmailAddr = "";
                     CurrentUser.IsLineManager = facade.IsManagerByEmail(authenticatedEmailAddr);
                     CurrentUser.Colleague = facade.GetColleagueByUsername(authenticatedEmailAddr);
 
