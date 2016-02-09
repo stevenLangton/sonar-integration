@@ -52,20 +52,49 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
         {
             base.OnActionExecuting(filterContext);
 
-            if (Request.IsAuthenticated)
+            if (Request.IsAuthenticated && !Request.RawUrl.ToLower().Contains("/account/signout"))
             {
                 CurrentUser = new LinkUserView();
 
                 using (var facade = new LinkServiceFacade())
                 {
-                    var authenticatedEmailAddr = User.Identity.Name;
+                    //var authenticatedEmailAddr = User.Identity.Name;
+                    var emailClaim =
+                        ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+                    var authenticatedEmailAddr = "";
+                    if (emailClaim != null)
+                    {
+                        authenticatedEmailAddr = emailClaim.Value;
+                    }
+
+                    if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+                    {
+                        authenticatedEmailAddr = User.Identity.Name;
+                    }
+                    // Last ditch check
+                    if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+                    {
+                        var exceptionMsg = "";
+                        if (emailClaim == null || emailClaim.Value.IsNullOrWhiteSpace())
+                        {
+                            exceptionMsg += "Error: Missing claim = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+                        }
+                        if (User.Identity.Name.IsNullOrWhiteSpace())
+                        {
+                            exceptionMsg += "\n --- Error: Username/Email expected on authentication, Found blank email address claim value";
+                        }
+                        var ex = new ApplicationException(exceptionMsg);
+                        throw ex; 
+                    }
+
                     CurrentUser.IsLineManager = facade.IsManagerByEmail(authenticatedEmailAddr);
                     CurrentUser.Colleague = facade.GetColleagueByUsername(authenticatedEmailAddr);
 
-                    if (authenticatedEmailAddr.IsNullOrWhiteSpace() || CurrentUser.Colleague == null ||
+                    if (CurrentUser.Colleague == null ||
                         CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
                     {
-                        CurrentUser.Colleague = new ColleagueView() { FirstName = "Link Guest" };
+                        throw new ApplicationException("No such colleague in Link (or lookup failed for):=" + authenticatedEmailAddr);
+                        //CurrentUser.Colleague = new ColleagueView() { FirstName = "Link Guest" };
                         //throw new ApplicationException("Invalid authentication: ");
                     }
                 }
