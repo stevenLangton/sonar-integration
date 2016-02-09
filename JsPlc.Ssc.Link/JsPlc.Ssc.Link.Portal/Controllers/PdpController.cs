@@ -19,17 +19,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     [Authorize]
     public class PdpController : LinkBaseController
     {
+        public PdpController(){}
+        public PdpController(ILinkUserView CurrentUser, ILinkServiceFacade Facade) : base(CurrentUser, Facade) {}
+
         // GET: LinkPdp
         public ActionResult Index()
         {
             LinkPdp Pdp;
-            using (var facade = new LinkServiceFacade())
-            {
-                Pdp = facade.GetPdp(CurrentUser.Colleague.ColleagueId);
-            }
+
+            Pdp = ServiceFacade.GetPdp(CurrentUser.Colleague.ColleagueId);
 
             return View(Pdp);
-
         }
 
 
@@ -42,11 +42,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 LinkPdp Pdp;
 
-                using (var facade = new LinkServiceFacade())
-                {
-                    modifiedPdp.ColleagueId = CurrentUser.Colleague.ColleagueId;
-                    Pdp = facade.UpdatePdp(modifiedPdp).Result;
-                }
+                modifiedPdp.ColleagueId = CurrentUser.Colleague.ColleagueId;
+                Pdp = ServiceFacade.UpdatePdp(modifiedPdp).Result;
 
                 ViewBag.PdpUpdated = true;
                 return View(Pdp);
@@ -60,18 +57,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [HttpGet]
         public JsonResult GetPdp(string ColleagueId)
         {
-            using (var facade = new LinkServiceFacade())
+            var Pdp = ServiceFacade.GetPdp(ColleagueId);
+
+            var jsonResult = new JsonResult
             {
-                var Pdp = facade.GetPdp(ColleagueId);
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = Pdp
+            };
 
-                var jsonResult = new JsonResult
-                {
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                    Data = Pdp
-                };
-
-                return jsonResult;
-            }
+            return jsonResult;
         }
 
     }

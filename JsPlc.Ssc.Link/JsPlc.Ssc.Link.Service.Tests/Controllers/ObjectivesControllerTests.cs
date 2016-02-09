@@ -12,6 +12,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
     [TestClass]
     public class ObjectivesControllerTests
     {
+        [Ignore]
         [TestMethod]
         public void GetAllObjectives()
         {
