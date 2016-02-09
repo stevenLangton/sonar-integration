@@ -1,0 +1,17 @@
+﻿@model List<String>
+
+@{
+    ViewBag.Title = "ShowClaims";
+}
+
+<h2>ShowClaims</h2>
+<table>
+    @foreach (var claimString in Model)
+    {
+        <tr>
+            <td>
+                @claimString
+            </td>
+        </tr>
+    }
+</table>

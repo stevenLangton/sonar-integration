@@ -463,6 +463,7 @@
     <Content Include="Views\Home\_MyMeetings.cshtml" />
     <Content Include="Views\Pdp\Index.cshtml" />
     <Content Include="Views\Team\MeetingRecords.cshtml" />
+    <Content Include="Views\Home\ShowClaims.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

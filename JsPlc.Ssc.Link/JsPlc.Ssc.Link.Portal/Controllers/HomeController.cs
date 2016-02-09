@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 
@@ -51,6 +52,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             ViewBag.unauthPage = unauthPage;
             return View();
+        }
+
+        public ActionResult ShowClaims()
+        {
+            List<string> claims = GetAllClaims(User.Identity);
+            return View(claims);
         }
     }
 }
