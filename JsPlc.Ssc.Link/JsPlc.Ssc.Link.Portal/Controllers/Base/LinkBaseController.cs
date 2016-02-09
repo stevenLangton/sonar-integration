@@ -1,6 +1,13 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Net;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using Elmah;
+using iTextSharp.text;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
@@ -8,6 +15,7 @@ using System.Configuration;
 using System;
 using System.Globalization;
 using Microsoft.Ajax.Utilities;
+using ApplicationException = Elmah.ApplicationException;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 {
@@ -50,12 +58,40 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
                 using (var facade = new LinkServiceFacade())
                 {
-                    CurrentUser.IsLineManager = facade.IsManagerByEmail(User.Identity.Name);
-                    CurrentUser.Colleague = facade.GetColleagueByUsername(User.Identity.Name);
-                }
+                    var authenticatedEmailAddr = User.Identity.Name;
+                    authenticatedEmailAddr = "";
+                    CurrentUser.IsLineManager = facade.IsManagerByEmail(authenticatedEmailAddr);
+                    CurrentUser.Colleague = facade.GetColleagueByUsername(authenticatedEmailAddr);
 
+                    if (authenticatedEmailAddr.IsNullOrWhiteSpace() || CurrentUser.Colleague == null ||
+                        CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
+                    {
+                        CurrentUser.Colleague = new ColleagueView() { FirstName = "Link Guest" };
+                        //throw new ApplicationException("Invalid authentication: ");
+                    }
+                }
                 TempData["CurrentUser"] = CurrentUser;
             }
+        }
+
+        protected List<string> GetAllClaims(IIdentity userIdentity)
+        {
+            var retval = new List<string>();
+            try
+            {
+                var claimIdentity = userIdentity as ClaimsIdentity;
+                if (claimIdentity != null)
+                {
+                    var claims = claimIdentity.Claims;
+                    var claimsList = claims as IList<Claim> ?? claims.ToList();
+                    retval.AddRange(claimsList.Select(claim => string.Format("Type: {0}, Value: {1}", claim.Type, claim.Value)));
+                }
+            }
+            catch (Exception)
+            {
+                // suppress all errors
+            }
+            return retval;
         }
 
         public bool IsLineManager()
