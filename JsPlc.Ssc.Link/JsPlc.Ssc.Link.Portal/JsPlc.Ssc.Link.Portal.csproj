@@ -300,6 +300,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\Link-PubPraveen.pubxml" />
+    <None Include="Properties\PublishProfiles\Link-ReleasePublish.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\App\ConfirmModal.js" />
     <Content Include="Scripts\App\DataService.js" />
