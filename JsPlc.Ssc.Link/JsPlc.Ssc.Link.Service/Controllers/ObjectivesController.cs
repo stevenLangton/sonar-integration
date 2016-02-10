@@ -14,14 +14,15 @@ using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Service.Models;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Interfaces;
+using JsPlc.Ssc.Link.Interfaces.Services;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
     public class ObjectivesController : BaseController
     {
-        //public ObjectivesController() { }
+        public ObjectivesController() { }
 
-        //public ObjectivesController(ILinkRepository repository) : base(repository) { }
+        public ObjectivesController(IObjectivesService service) : base(service) { }//For testing
 
         // PUT/Update: api/Objectives/5
         [Route("Objectives")]
