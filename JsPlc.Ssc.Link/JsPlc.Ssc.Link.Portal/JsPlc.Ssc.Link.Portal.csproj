@@ -54,6 +54,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WolfeReiter.iTextSharp.BC.4.1.6.0\lib\net40\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="Kentor.OwinCookieSaver, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Kentor.OwinCookieSaver.1.1.0\lib\net45\Kentor.OwinCookieSaver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory">
       <HintPath>..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.2.19.208020213\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
@@ -214,6 +218,7 @@
     <Compile Include="Helpers\LinkJsonResponse.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Helpers\LinkServiceCaller.cs" />
     <Compile Include="Helpers\Extensions\ToJsonResult.cs" />
     <Compile Include="Helpers\NaiveSessionCache.cs" />
@@ -467,6 +472,7 @@
     <Content Include="Views\Pdp\Index.cshtml" />
     <Content Include="Views\Team\MeetingRecords.cshtml" />
     <Content Include="Views\Home\ShowClaims.cshtml" />
+    <Content Include="Views\Home\ShowKeys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -53,7 +53,7 @@ namespace JsPlc.Ssc.Link.Service.Services
         List<ColleagueView> IColleagueService.GetDirectReports(string managerId)
         {
             IEnumerable<ColleagueView> coll = _svc.GetDirectReports(managerId);
-            //if (coll == null) return null;
+            if (coll == null) return null;
 
             var colleagues = coll as ColleagueView[] ?? coll.ToArray();
             foreach (var item in colleagues)
@@ -68,7 +68,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             emailAddress = _domainTranslationService.AdDomainToDbDomain(emailAddress);
 
             IEnumerable<ColleagueView> coll = _svc.GetDirectReportsByManagerEmail(emailAddress);
-            //if (coll == null) return null;
+            if (coll == null) return null;
 
             var colleagues = coll as ColleagueView[] ?? coll.ToArray();
             //foreach (var item in colleagues)

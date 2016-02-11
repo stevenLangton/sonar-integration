@@ -23,10 +23,22 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
  
     public class AccountController : LinkBaseController
     {
+        // NOT USED
         public ActionResult Login(string reason)
         {
-            var result = new RedirectToRouteResult(
-                new RouteValueDictionary(new {controller = "Home", action = "Unauthorized", reason = "This login is unauthorized."}));
+            RedirectToRouteResult result=null;
+            if (Request.IsAuthenticated)
+            {
+                result = new RedirectToRouteResult(new RouteValueDictionary(
+                    new RouteValueDictionary(
+                        new {controller = "Home", action = "Unauthorized", reason = "This login is unauthorized."})));
+            }
+            //else
+            //{
+            //    result = new RedirectToRouteResult(new RouteValueDictionary(
+            //        new RouteValueDictionary(
+            //            new { controller = "Account", action = "SignIn"})));
+            //}
             return result;
         } 
 
@@ -36,9 +48,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // Send an OpenID Connect sign-in request.
             if (!Request.IsAuthenticated)
             {
-                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectAuthenticationDefaults.AuthenticationType);
+                HttpContext.GetOwinContext().Authentication.Challenge(new AuthenticationProperties { RedirectUri = "/", IsPersistent = true}, OpenIdConnectAuthenticationDefaults.AuthenticationType);
             }
         }
+
+        //public void OwinSignIn()
+        //{
+        //    HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { RedirectUri = "/", IsPersistent = true});
+        //}
+
         public void SignOut()
         {
             // Remove all cache entries for this user and send an OpenID Connect sign-out request.

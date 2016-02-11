@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
@@ -58,6 +60,22 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             List<string> claims = GetAllClaims(User.Identity);
             return View(claims);
+        }
+        public ActionResult ShowKeys()
+        {
+            var keys = ConfigurationManager.AppSettings.AllKeys;
+            List<string> keyValues= keys.Select(key => string.Format("Key: {0}, Value: {1}", 
+                key, ConfigurationManager.AppSettings[key])).ToList();
+
+            List<string> serviceKeyValues = new List<string>();
+            using (var facade = new LinkServiceFacade())
+            {
+                serviceKeyValues = facade.GetApiServiceKeys();
+            }
+            keyValues.Add("=========== Service layer Keys ==============");
+            keyValues.AddRange(serviceKeyValues);
+
+            return View("ShowClaims", keyValues);
         }
     }
 }

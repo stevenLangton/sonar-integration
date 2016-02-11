@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using JsPlc.Ssc.Link.Interfaces.Services;
@@ -61,6 +62,16 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             }
 
             return Ok(false);
+        }
+
+        [HttpGet]
+        [Route("api/ShowKeys")]
+        public IHttpActionResult ShowKeys()
+        {
+            var keys = ConfigurationManager.AppSettings.AllKeys;
+            List<string> keyValues = keys.Select(key => string.Format("Key: {0}, Value: {1}", key, ConfigurationManager.AppSettings[key])).ToList();
+
+            return Ok(keyValues);
         }
     }
 }

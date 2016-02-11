@@ -209,6 +209,17 @@ namespace JsPlc.Ssc.Link.Portal
 
             return ObjectivesList;
         }
+
+        public List<string> GetApiServiceKeys()
+        {
+            HttpResponseMessage response = _client.Value.GetAsync("api/ShowKeys").Result;
+
+            var keyValues = response.Content.ReadAsAsync<List<string>>().Result;
+
+            return keyValues;
+        }
+
+        
         #endregion
 
         #region PDP
