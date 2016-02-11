@@ -49,6 +49,7 @@ namespace JsPlc.Ssc.Link.Portal
         public void ConfigureAuth(IAppBuilder app)
         {
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
+            app.UseKentorOwinCookieSaver();
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

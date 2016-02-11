@@ -52,10 +52,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             }
         }
 
-        public void OwinSignIn()
-        {
-            HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { RedirectUri = "/", IsPersistent = true});
-        }
+        //public void OwinSignIn()
+        //{
+        //    HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties { RedirectUri = "/", IsPersistent = true});
+        //}
 
         public void SignOut()
         {
