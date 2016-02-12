@@ -27,6 +27,11 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         {
             var _mockService = new Mock<IObjectivesService>();
             _mockService.Setup(x => x.GetAllObjectives(It.IsAny<string>())).Returns(MockObjectives);
+
+            _mockService.Setup(x => x.DeleteObjective(It.IsAny<int>())).Returns(true);
+
+            _mockService.Setup(x => x.GetObjective(It.IsAny<int>())).Returns(new LinkObjective() { Objective = "May the force be with you" });
+
             return _mockService;
         }
 
@@ -37,11 +42,26 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetAllObjectives()
+        public void TestGetAllObjectives()
         {
             var response = _controller.GetAllObjectives("Any string") as OkNegotiatedContentResult<List<LinkObjective>>;
             List<LinkObjective> ObjectivesList = response.Content as List<LinkObjective>;
             Assert.IsTrue(ObjectivesList.Count==MockObjectives.Count, @"Unexpected number of Objectives found");
+        }
+
+        [TestMethod]
+        public void TestDeleteObjective()
+        {
+            bool response = _controller.DeleteObjective(123);
+            Assert.IsTrue(response);
+        }
+
+        [TestMethod]
+        public void TestGetObjective()
+        {
+            var response = _controller.GetObjective("Any string", 123) as OkNegotiatedContentResult<LinkObjective>;
+            LinkObjective item = response.Content as LinkObjective;
+            Assert.IsNotNull(response);
         }
     }
 }
