@@ -99,6 +99,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
+        [ScriptMethod(UseHttpGet = false)]
         public async Task<JsonResult> PostLinkForm([FromBody] MeetingView meetingView)
         {
             #region 'Old approach = Receiving FormCollection' 
