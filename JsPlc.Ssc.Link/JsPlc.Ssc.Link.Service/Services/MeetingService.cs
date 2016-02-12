@@ -299,6 +299,47 @@ namespace JsPlc.Ssc.Link.Service.Services
             return teamView;
         }
 
+        //UNDER TESTING
+        public IEnumerable<ColleagueTeamView> GetTeamLastMeetings(string managerId)
+        {
+            var team = _colleagueService.GetDirectReports(managerId);
+
+            var teamView = new List<ColleagueTeamView>();
+
+            var query = from c in team
+                        from m1 in _db.Meeting
+                        where m1.ColleagueId.Equals(c.ColleagueId)
+                                                && ((DateTime.Now.Month - m1.MeetingDate.Month) <= 12
+                                                    || (m1.MeetingDate.Day - DateTime.Now.Day) >= 1)
+                        group new { meeting=m1, colleague=c } by new { ColleagueId = m1.ColleagueId } into grp1
+                        select grp1;
+
+            foreach (var reportee in query)
+            {
+                var newestGrp = reportee.OrderByDescending(x => x.meeting.MeetingDate).FirstOrDefault();
+
+                var m1 = newestGrp.meeting;
+                var colleague = newestGrp.colleague;
+
+                teamView.Add(new ColleagueTeamView {
+                    Colleague = colleague,
+                    Meetings = new List<LinkMeetingView>() { new LinkMeetingView {
+                                    MeetingId = m1.Id,
+                                    MeetingDate = m1.MeetingDate,
+                                    ColleagueSignOff = m1.ColleagueSignOff,
+                                    ManagerSignOff = m1.ManagerSignOff,
+                                    ColleagueId = m1.ColleagueId,
+                                    ManagerAtTimeId = m1.ManagerId,
+                                    ColleagueSignedOffDate = m1.ColleagueSignedOffDate,
+                                    ManagerSignedOffDate = m1.ManagerSignedOffDate
+                                }}
+                });
+            }
+
+            return teamView;
+        }
+        //END UNDER TESTING
+
         public void Dispose()
         {
             _db.Dispose();
