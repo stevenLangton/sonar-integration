@@ -121,6 +121,7 @@
   <ItemGroup>
     <Compile Include="ContextSetup.cs" />
     <Compile Include="Controllers\ColleagueServiceTest.cs" />
+    <Compile Include="Controllers\RepositoryContextTests.cs" />
     <Compile Include="Controllers\DomainTranslationTest.cs" />
     <Compile Include="Controllers\ColleagueControllerTest.cs" />
     <Compile Include="Controllers\MeetingsControllerTests.cs" />

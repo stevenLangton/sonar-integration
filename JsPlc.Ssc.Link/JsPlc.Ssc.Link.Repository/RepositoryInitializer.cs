@@ -10,6 +10,11 @@ namespace JsPlc.Ssc.Link.Repository
     {
         protected override void Seed(RepositoryContext context)
         {
+            SeedTheDb(context);
+        }
+
+        internal void SeedTheDb(RepositoryContext context)
+        {
             #region "deprecated code"
             //var users=new List<LinkUser>{
             //    new LinkUser{Id=1,  ColleagueId="E001",     EmailAddress="Luan.Au@sainsburys.co.uk"},
@@ -31,7 +36,7 @@ namespace JsPlc.Ssc.Link.Repository
             //context.SaveChanges();
             #endregion "deprecated code"
 
-         var periods = new List<Period>{
+            var periods = new List<Period>{
                 new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
                 new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
                 new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},
@@ -55,8 +60,8 @@ namespace JsPlc.Ssc.Link.Repository
             new Question{Id=3,Description="What personal development will you undertake to enable the delivery of your objectives and support any career aspirations?", QuestionType = "DRIVING MY DEVELOPMENT"},
             new Question{Id=4,Description="What are the key takeaways from your conversation?", QuestionType = "IN A NUTSHELL"}
             };
-            
-            questions.ForEach(c => context.Questions.Add(c));            
+
+            questions.ForEach(c => context.Questions.Add(c));
             context.SaveChanges();
 
             #region "deprecated code"
@@ -79,14 +84,14 @@ namespace JsPlc.Ssc.Link.Repository
             //    new Employee{Id=16, FirstName="Malcolm", LastName="Reynolds",  ColleagueId="E0016", ManagerId="E0013", EmailAddress="malcolm.reynolds@sainsburys.co.uk"},
             //    new Employee{Id=17, FirstName="Zoe", LastName="Washburne",  ColleagueId="E0017", ManagerId="E0013", EmailAddress="zoe.washburne@sainsburys.co.uk"},
             //    new Employee{Id=18, FirstName="Chris", LastName="Mullaney",  ColleagueId="E0018", ManagerId="E0013", EmailAddress="Chris.Mullaney@sainsburys.co.uk"},
-           
+
             //};
-         
+
             //employees.ForEach(c=>context.Employees.Add(c));
             //context.SaveChanges();
             #endregion "deprecated code"
 
-            var meetings=new List<LinkMeeting>{
+            var meetings = new List<LinkMeeting>{
 
                 new LinkMeeting{Id=1, ColleagueId= "E001", ColleagueSignOff  = MeetingStatus.Completed , ManagerSignOff = MeetingStatus.Completed, ManagerId ="E003" ,
                     MeetingDate = new DateTime(2014,04,01), 
@@ -218,8 +223,9 @@ namespace JsPlc.Ssc.Link.Repository
             pdp.ForEach(c => context.Pdp.Add(c));
             context.SaveChanges();
 
-            
+
             base.Seed(context);
+
         }
     }
 }
