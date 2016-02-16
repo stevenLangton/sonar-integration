@@ -72,7 +72,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             _mockConfigurationDataService.Setup(service => service.GetConfigSettingValue("AzureLinkDomain")).Returns("@jsmocktest1.onmicrosoft.com");
             _mockConfigurationDataService.Setup(service => service.GetConfigSettingValue("DbLinkDomain")).Returns("@domain.com");
             // Act
-            var colleagueEmail = _domainTranslationService.AdDomainToDbDomain("Luan.Au");
+            _domainTranslationService.AdDomainToDbDomain("Luan.Au");
 
             //Assert that exception is thrown as per attrib
         }

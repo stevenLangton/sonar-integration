@@ -1,15 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Service.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JsPlc.Ssc.Link.Models.Entities;
+using Moq;
 
 namespace JsPlc.Ssc.Link.Service.Tests
 {
     [TestClass]
     public class LinkRepositoryTest : RepositoryMock
     {
+        private IMeetingService _meeting;
+        private Mock<IColleagueService> _mockColleagueService;
+
+        [TestInitialize]
+        public void LinkRepositoryTestSetup()
+        {
+            // Test Initialize/Setup
+            _mockColleagueService = new Mock<IColleagueService>();
+
+            _meeting = new MeetingService(_context, _mockColleagueService.Object);
+        }
 
         [TestMethod]
         public void GetQuestions()
@@ -22,6 +36,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void GetMeeting()
         {
+            _mockColleagueService.Setup(service => service.GetColleague("E001")).Returns(new ColleagueView());
             var result = _meeting.GetMeeting(1);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result,typeof(MeetingView),"Not expected type");
@@ -30,6 +45,8 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void CreateMeeting()
         {
+            _mockColleagueService.Setup(service => service.GetColleague("E001")).Returns(new ColleagueView());
+
             var result = _meeting.CreateMeeting("E001");
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(MeetingView), "Not expected type");
@@ -38,6 +55,11 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void SaveMeeting()
         {
+            _mockColleagueService.Setup(service => service.GetColleague("E001")).Returns(new ColleagueView
+            {
+                ColleagueId = "E001", ManagerId = "E0011"
+            });
+
             var meeting = new MeetingView()
             {
                 MeetingId = 0,
@@ -58,8 +80,10 @@ namespace JsPlc.Ssc.Link.Service.Tests
                    }
             };
 
+            var beforeSaveCount = _context.Meeting.Count();
+
             int meetingId = _meeting.SaveNewMeeting(meeting);
-            Assert.AreEqual(meetingId,5,"Invalid number of meetings");
+            Assert.AreEqual(meetingId, beforeSaveCount+1,"Invalid number of meetings");
         }
 
         [TestMethod]
@@ -92,21 +116,11 @@ namespace JsPlc.Ssc.Link.Service.Tests
         }
 
         [TestMethod]
-        public void GetEmployee()
+        public void GetNextMeeting()
         {
-
-            var result = _meeting.CreateMeeting("E001");
+            var result = _meeting.GetNextMeeting("E0010");
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(MeetingView), "Not expected type");
-        }
-
-        [TestMethod]
-        public void GetMeetings()
-        {
-
-            //var result = _meeting.GetMeetings("E001");
-            //Assert.IsNotNull(result);
-            //Assert.IsInstanceOfType(result, typeof(ColleagueTeamView), "Not meetings found");
+            Assert.IsInstanceOfType(result, typeof(LinkMeeting), "Not meetings found");
         }
 
         [TestMethod]
@@ -122,6 +136,29 @@ namespace JsPlc.Ssc.Link.Service.Tests
         [TestMethod]
         public void GetTeam()
         {
+            _mockColleagueService.Setup(service => service.GetDirectReports("E0010")).Returns(new List<ColleagueView>
+            {
+                new ColleagueView
+                {
+                    ColleagueId = "E001",
+                },
+                new ColleagueView
+                {
+                    ColleagueId = "E002",
+                }
+            });
+            _mockColleagueService.Setup(service => service.GetColleague("E001")).Returns(new ColleagueView
+            {
+                ColleagueId = "E001",
+                ManagerId = "E0010"
+            });
+
+            _mockColleagueService.Setup(service => service.GetColleague("E002")).Returns(new ColleagueView
+            {
+                ColleagueId = "E002",
+                ManagerId = "E0010"
+            });
+
             var result = _meeting.GetTeam("E0010");
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<ColleagueTeamView>), "Not meetings found");

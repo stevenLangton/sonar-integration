@@ -39,10 +39,10 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             {
                 _context.Periods.Remove(period);
             }
-            foreach (var objective in _context.Objectives)
-            {
-                _context.Objectives.Remove(objective);
-            }
+            //foreach (var objective in _context.Objectives)
+            //{
+            //    _context.Objectives.Remove(objective);
+            //}
             ri.SeedTheDb(_context);
             
             //Assert

@@ -13,7 +13,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
     public class RepositoryMock
     {
         //protected static ILinkRepository _repository;
-        protected static IMeetingService _meeting;
+        //protected static IMeetingService _meeting;
         protected static IObjectivesService _objective;
 
         protected static RepositoryContext _context;
@@ -25,10 +25,10 @@ namespace JsPlc.Ssc.Link.Service.Tests
         //    get { return _repository ?? (_repository = new LinkRepository(_context)); }
         //}
 
-        public static IMeetingService Meeting
-        {
-            get { return _meeting ?? (_meeting = new MeetingService(_context)); }
-        }
+        //public static IMeetingService Meeting
+        //{
+        //    get { return _meeting ?? (_meeting = new MeetingService(_context)); }
+        //}
 
         public static IObjectivesService Objective
         {
@@ -67,7 +67,7 @@ namespace JsPlc.Ssc.Link.Service.Tests
             _context = Context;
             _colleagueContext = ColleagueContext;
             ///_repository = Repository;
-            _meeting = Meeting;
+            //_meeting = Meeting;
             _objective = Objective;
 
         }
