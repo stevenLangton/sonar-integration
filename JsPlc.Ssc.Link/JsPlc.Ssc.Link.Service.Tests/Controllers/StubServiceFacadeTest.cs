@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -126,7 +127,32 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             Assert.IsNotNull(result, "Direct reports not found, expected 2");
             Assert.AreEqual(result.Count(), 2);
         }
+
+        /// <summary>
+        /// All methods - test that it when not success, we get null return value
+        /// </summary>
+        [TestMethod]
+        public void TestApiCallNotSuccessReturnsNull()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("/api/noSuchApiOrReturnsNotSuccess")));
+            _serviceFacade = new StubServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result1 = _serviceFacade.GetColleague("");
+            var result2 = _serviceFacade.GetColleagueByEmail("");
+            var result3 = _serviceFacade.GetDirectReports("");
+            var result4 = _serviceFacade.GetDirectReportsByManagerEmail("");
+
+            //Assert
+            Assert.IsNull(result1, "GetColleague should return null when Api NotSuccess");
+            Assert.IsNull(result2, "GetColleagueByEmail should return null when Api NotSuccess");
+            Assert.IsNull(result3, "GetDirectReports should return null when Api NotSuccess");
+            Assert.IsNull(result4, "GetDirectReportsByManagerEmail should return null when Api NotSuccess");
+        }
+
     }
+    [ExcludeFromCodeCoverage]
     internal class UnitTestRoutedHttpMsgHandler : HttpMessageHandler
     {
         private string _apiRoute = "";
@@ -138,6 +164,12 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            if (_apiRoute.Contains("noSuchApiOrReturnsNotSuccess"))
+            {
+                string c = Json.Encode(GetStubColleague());
+                return Task.FromResult(GetNotSucessResponseMessage(c));
+            }
+        
             // Cases for all StubServiceFacade routes (NOTE: Lowercase strings)
             switch (request.RequestUri.PathAndQuery.ToLower())
             {
@@ -182,6 +214,15 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         private HttpResponseMessage GetJsonResponseMessage(string jsonContent)
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(jsonContent, Encoding.UTF8, "application/json"),
+            };
+            return response;
+        }
+
+        private HttpResponseMessage GetNotSucessResponseMessage(string jsonContent)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
                 Content = new StringContent(jsonContent, Encoding.UTF8, "application/json"),
             };

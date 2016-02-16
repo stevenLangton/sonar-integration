@@ -56,15 +56,21 @@ namespace JsPlc.Ssc.Link.Service.Services
         public IEnumerable<ColleagueView> GetDirectReports(string managerId)
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/directReports/" + managerId.ToString(CultureInfo.InvariantCulture)).Result;
-            var meeting = response.Content.ReadAsAsync<IEnumerable<ColleagueView>>().Result;
-            return response.IsSuccessStatusCode ? meeting : null;
+            
+            if (!response.IsSuccessStatusCode) return null;
+            
+            var directReports = response.Content.ReadAsAsync<IEnumerable<ColleagueView>>().Result;
+            return directReports;
         }
 
         public IEnumerable<ColleagueView> GetDirectReportsByManagerEmail(string managerEmail)
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/directReportsByEmail/" + managerEmail.ToString(CultureInfo.InvariantCulture)).Result;
-            var meeting = response.Content.ReadAsAsync<IEnumerable<ColleagueView>>().Result;
-            return response.IsSuccessStatusCode ? meeting : null;
+            
+            if (!response.IsSuccessStatusCode) return null;
+
+            var directReports = response.Content.ReadAsAsync<IEnumerable<ColleagueView>>().Result;
+            return directReports;
         }
 
         public void Dispose()
