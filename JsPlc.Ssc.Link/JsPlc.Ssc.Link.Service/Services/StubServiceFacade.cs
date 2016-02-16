@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Threading.Tasks;
+using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using System;
 using System.Collections.Generic;
@@ -14,11 +16,14 @@ namespace JsPlc.Ssc.Link.Service.Services
     {
         private Lazy<HttpClient> _client;
 
-        public StubServiceFacade()
+        public StubServiceFacade(Lazy<HttpClient> client=null, IConfigurationDataService configurationDataService=null)
         {
-            _client = new Lazy<HttpClient>();
+            _client = client ?? new Lazy<HttpClient>();
             //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.StubService/api/");
-            _client.Value.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"] + ""); 
+            var url = (configurationDataService == null)
+                ? ConfigurationManager.AppSettings["ServicesBaseUrl"] + ""
+                : configurationDataService.GetConfigSettingValue("ServicesBaseUrl");
+            _client.Value.BaseAddress = new Uri(url); 
             
             _client.Value.DefaultRequestHeaders.Accept.Clear();
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -67,4 +72,5 @@ namespace JsPlc.Ssc.Link.Service.Services
             _client = null;
         }
     }
+
 }
