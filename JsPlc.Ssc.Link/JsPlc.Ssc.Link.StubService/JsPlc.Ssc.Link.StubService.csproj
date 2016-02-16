@@ -212,7 +212,6 @@
     <Compile Include="StubRepository\StubRepositoryInitializer.cs" />
     <Compile Include="StubRepository\ColleagueServices.cs" />
     <Compile Include="StubRepository\StubRepositoryContext.cs" />
-    <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +277,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Results\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
