@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JsPlc.Ssc.Link.Portal.Controllers;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using System.IO;
 namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class PdfControllerTests
     {
         [Ignore]
