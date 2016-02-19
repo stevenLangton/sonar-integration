@@ -22,20 +22,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Profile
         public ActionResult Show([Bind(Prefix = "id")] string ColleagueId)
         {
-            //using (var facade = new LinkServiceFacade())
-            //{
-                ColleagueView ColleagueDetails = ServiceFacade.GetColleague(ColleagueId);
-                LinkMeeting NextMeetingView = ServiceFacade.GetNextMeeting(ColleagueId);
-                ViewBag.Colleague = ColleagueDetails;
-                ViewBag.NextMeeting = NextMeetingView;
+            ColleagueView ColleagueDetails = ServiceFacade.GetColleague(ColleagueId);
+            LinkMeeting NextMeetingView = ServiceFacade.GetNextMeeting(ColleagueId);
+            ViewBag.Colleague = ColleagueDetails;
+            ViewBag.NextMeeting = NextMeetingView;
 
-                ColleagueTeamView ColleagueMeetings = ServiceFacade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
-                ColleagueMeetings = TeamController.AssignMeetingsByDate(ColleagueMeetings);
+            ColleagueTeamView ColleagueMeetings = ServiceFacade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
+            ColleagueMeetings = TeamController.AssignMeetingsByDate(ColleagueMeetings);
 
-                ViewBag.ColleagueMeetings = ColleagueMeetings;
+            ViewBag.ColleagueMeetings = ColleagueMeetings;
 
-                return View();
-            //}
+            return View();
         }
     }
 }

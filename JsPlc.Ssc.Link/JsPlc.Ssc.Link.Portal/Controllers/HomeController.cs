@@ -68,10 +68,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 key, ConfigurationManager.AppSettings[key])).ToList();
 
             List<string> serviceKeyValues = new List<string>();
-            using (var facade = new LinkServiceFacade())
-            {
-                serviceKeyValues = facade.GetApiServiceKeys();
-            }
+            serviceKeyValues = ServiceFacade.GetApiServiceKeys();
             keyValues.Add("=========== Service layer Keys ==============");
             keyValues.AddRange(serviceKeyValues);
 

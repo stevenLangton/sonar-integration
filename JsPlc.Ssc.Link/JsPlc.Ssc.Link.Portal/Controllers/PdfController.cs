@@ -15,14 +15,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     public class PdfController : LinkBaseController
     {
         private const string PdfMimeType = "application/pdf";
-        private Lazy<LinkServiceFacade> _LinkService;
         private string AppBasePath { get; set; }
         private NameValueCollection AppSettings { get; set; }
 
         public PdfController()
         {
-            _LinkService = new Lazy<LinkServiceFacade>();
-
             AppSettings = ConfigurationManager.AppSettings;
         }
 
@@ -31,7 +28,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             AppBasePath = Request.ApplicationPath;
 
-            MeetingView MeetingData = _LinkService.Value.GetMeeting(MeetingId);
+            MeetingView MeetingData = ServiceFacade.GetMeeting(MeetingId);
 
             PdfMeetingTemplate template = new PdfMeetingTemplate(MeetingData, GetPdfTemplateFileName());
             PdfMaker maker = new PdfMaker(template);
@@ -44,7 +41,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             AppBasePath = Request.ApplicationPath;
 
-            MeetingView MeetingData = _LinkService.Value.GetMeeting(MeetingId);
+            MeetingView MeetingData = ServiceFacade.GetMeeting(MeetingId);
 
             PdfMeetingTemplate template = new PdfMeetingTemplate(MeetingData, GetPdfTemplateFileName());
             PdfMaker maker = new PdfMaker(template);
