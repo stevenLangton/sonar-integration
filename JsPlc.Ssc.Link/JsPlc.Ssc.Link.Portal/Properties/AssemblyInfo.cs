@@ -37,7 +37,7 @@ using Microsoft.Owin;
 //
 // You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")] // This is displayed in Link Footer..
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("JsPlc.Ssc.Link.Portal.Tests")]
 

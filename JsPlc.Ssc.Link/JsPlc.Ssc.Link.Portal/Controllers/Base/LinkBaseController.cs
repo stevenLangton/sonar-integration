@@ -16,6 +16,7 @@ using System.Configuration;
 using System;
 using System.Globalization;
 using Microsoft.Ajax.Utilities;
+using Org.BouncyCastle.Asn1;
 using ApplicationException = Elmah.ApplicationException;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers.Base
@@ -108,6 +109,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                 }
                 TempData["CurrentUser"] = CurrentUser;
             }
+            ViewBag.VersionNumber = GetAssemblyVersion();
         }
 
         protected List<string> GetAllClaims(IIdentity userIdentity)
@@ -194,6 +196,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
             }
             return IP4Address;
+        }
+
+        public string GetAssemblyVersion()
+        {
+            // Test version
+            var currentAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+            string versionNumber = currentAssembly.GetName().Version.ToString();
+            return versionNumber;
         }
     }
 }
