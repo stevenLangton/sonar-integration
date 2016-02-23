@@ -306,6 +306,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
             var teamView = new List<ColleagueTeamView>();
 
+            //Currently incorrect. Need to do outer join
             var query = from c in team
                         from m1 in _db.Meeting
                         where m1.ColleagueId.Equals(c.ColleagueId)

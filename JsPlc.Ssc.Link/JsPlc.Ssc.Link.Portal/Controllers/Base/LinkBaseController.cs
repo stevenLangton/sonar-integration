@@ -16,6 +16,7 @@ using System.Configuration;
 using System;
 using System.Globalization;
 using Microsoft.Ajax.Utilities;
+using Org.BouncyCastle.Asn1;
 using ApplicationException = Elmah.ApplicationException;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers.Base
@@ -67,50 +68,48 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             {
                 CurrentUser = new LinkUserView();
 
-                using (var facade = new LinkServiceFacade())
+                //var authenticatedEmailAddr = User.Identity.Name;
+                var emailClaim =
+                    ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+                var authenticatedEmailAddr = "";
+                if (emailClaim != null)
                 {
-                    //var authenticatedEmailAddr = User.Identity.Name;
-                    var emailClaim =
-                        ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
-                    var authenticatedEmailAddr = "";
-                    if (emailClaim != null)
-                    {
-                        authenticatedEmailAddr = emailClaim.Value;
-                    }
+                    authenticatedEmailAddr = emailClaim.Value;
+                }
 
-                    if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+                if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+                {
+                    authenticatedEmailAddr = User.Identity.Name;
+                }
+                // Last ditch check
+                if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+                {
+                    var exceptionMsg = "";
+                    if (emailClaim == null || emailClaim.Value.IsNullOrWhiteSpace())
                     {
-                        authenticatedEmailAddr = User.Identity.Name;
+                        exceptionMsg += "Error: Missing claim = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
                     }
-                    // Last ditch check
-                    if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+                    if (User.Identity.Name.IsNullOrWhiteSpace())
                     {
-                        var exceptionMsg = "";
-                        if (emailClaim == null || emailClaim.Value.IsNullOrWhiteSpace())
-                        {
-                            exceptionMsg += "Error: Missing claim = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
-                        }
-                        if (User.Identity.Name.IsNullOrWhiteSpace())
-                        {
-                            exceptionMsg += "\n --- Error: Username/Email expected on authentication, Found blank email address claim value";
-                        }
-                        var ex = new ApplicationException(exceptionMsg);
-                        throw ex; 
+                        exceptionMsg += "\n --- Error: Username/Email expected on authentication, Found blank email address claim value";
                     }
+                    var ex = new ApplicationException(exceptionMsg);
+                    throw ex; 
+                }
 
-                    CurrentUser.IsLineManager = facade.IsManagerByEmail(authenticatedEmailAddr);
-                    CurrentUser.Colleague = facade.GetColleagueByUsername(authenticatedEmailAddr);
+                CurrentUser.IsLineManager = ServiceFacade.IsManagerByEmail(authenticatedEmailAddr);
+                CurrentUser.Colleague = ServiceFacade.GetColleagueByUsername(authenticatedEmailAddr);
 
-                    if (CurrentUser.Colleague == null ||
-                        CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
-                    {
-                        throw new ApplicationException("No such colleague in Link (or lookup failed for):=" + authenticatedEmailAddr);
-                        //CurrentUser.Colleague = new ColleagueView() { FirstName = "Link Guest" };
-                        //throw new ApplicationException("Invalid authentication: ");
-                    }
+                if (CurrentUser.Colleague == null ||
+                    CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
+                {
+                    throw new ApplicationException("No such colleague in Link (or lookup failed for):=" + authenticatedEmailAddr);
+                    //CurrentUser.Colleague = new ColleagueView() { FirstName = "Link Guest" };
+                    //throw new ApplicationException("Invalid authentication: ");
                 }
                 TempData["CurrentUser"] = CurrentUser;
             }
+            ViewBag.VersionNumber = GetAssemblyVersion();
         }
 
         protected List<string> GetAllClaims(IIdentity userIdentity)
@@ -138,29 +137,22 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             return CurrentUser != null && CurrentUser.IsLineManager; // for controllers
         }
 
-        public static bool HasMeetingAccess(int meetingId, string colleagueId)
+        public bool HasMeetingAccess(int meetingId, string colleagueId)
         {
             if (CurrentUser == null || CurrentUser.Colleague == null) return false;
 
             if (colleagueId.IsNullOrWhiteSpace()) colleagueId = CurrentUser.Colleague.ColleagueId;
 
-            using (var facade = new LinkServiceFacade())
-            {
-                return facade.HasMeetingAccess(meetingId, colleagueId);
-            }
-            return false;
+            return ServiceFacade.HasMeetingAccess(meetingId, colleagueId);
         }
-        public static bool HasColleagueAccess(string colleagueId, string otherColleagueId)
+
+        public bool HasColleagueAccess(string colleagueId, string otherColleagueId)
         {
             if (CurrentUser == null || CurrentUser.Colleague == null) return false;
 
             if (colleagueId.IsNullOrWhiteSpace()) colleagueId = CurrentUser.Colleague.ColleagueId;
 
-            using (var facade = new LinkServiceFacade())
-            {
-                return facade.HasColleagueAccess(colleagueId, otherColleagueId);
-            }
-            return false;
+            return ServiceFacade.HasColleagueAccess(colleagueId, otherColleagueId);
         }
 
         public static string GetIPAddress()
@@ -204,6 +196,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
             }
             return IP4Address;
+        }
+
+        public string GetAssemblyVersion()
+        {
+            // Test version
+            var currentAssembly = System.Reflection.Assembly.GetExecutingAssembly();
+            string versionNumber = currentAssembly.GetName().Version.ToString();
+            return versionNumber;
         }
     }
 }

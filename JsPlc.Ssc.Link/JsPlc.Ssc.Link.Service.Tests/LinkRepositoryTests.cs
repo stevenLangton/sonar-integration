@@ -30,7 +30,8 @@ namespace JsPlc.Ssc.Link.Service.Tests
         {
             var result = _meeting.GetQuestions();
             Assert.IsNotNull(result);
-            Assert.AreEqual(5, result.Count(), "Wrong number of questions");
+            var questions = result as IList<Question> ?? result.ToList();
+            Assert.AreEqual(5, questions.Count(), "Wrong number of questions found:" + questions.Count());
         }
 
         [TestMethod]

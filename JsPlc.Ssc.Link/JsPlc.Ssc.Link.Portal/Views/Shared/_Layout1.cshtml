@@ -18,8 +18,15 @@
     <title>@ViewBag.Title - Link Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     <script type="text/javascript" src="~/Scripts/require.js"></script>
     <script type="text/javascript" src="~/Scripts/require.config.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <script type="text/javascript">
         require(["toastr", "LinkService"], function (toastr, LinkService) {
             toastr.options = {
@@ -64,37 +71,41 @@
         <div class="navbar navbar-default link-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <h4>Useful Pages</h4>
                         <ul class="footerlinks">
-                            <li><a href="~/Home/Welcome">Home</a></li>
-                            <li><a href="~/Home/LinkMeetings">Link Meetings</a></li>
-                            @*<li><a href="~/Account/SignIn">Log in</a></li>*@
-                            @*<li><a href="~/Account/Register">Register</a></li>*@
+                            <li>@Html.ActionLink("Help", "help", "help")</li>
+                            <li>@Html.ActionLink("Contact us", "Contact", "Home")</li>
+                            <li>@Html.Partial("_LoginPartialFooter")</li>
                         </ul>
                     </div>
-                    <div class="col-md-4">
-                        <h4>Link Help</h4>
+                    @*<div class="col-md-4">
+                            <h4>Link Help</h4>
+                        </div>*@
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h4>Think Link</h4>
+                            <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
+                        </div>
+                        <div class="row">&copy; @DateTime.Now.Year - J Sainsbury Plc<br />Link v @ViewBag.VersionNumber</div>
                     </div>
-                    <div class="col-md-4">
-                        <h4>Think Link</h4>
-                        <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
-                    </div>
-                </div>
-                <br /><br />
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4">&copy; @DateTime.Now.Year - © J Sainsbury plc - Link v1.0.0.1</div>
                 </div>
             </div>
 
         </div>
-        <!-- Machine name only needed for diagnosing Load balanced env -->
-        <div class="row" style="color: whitesmoke">
-            <div class="col-md-4">Machine name: @Environment.MachineName</div>
-            <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
-            <div class="col-md-4"><pre>Server IP: @TempData["IPAddress"]</pre></div>
-        </div>
+        @{
+            var displaySvrInfo = "";
+            displaySvrInfo = Request.QueryString["displaySvrInfo"];
+            if (displaySvrInfo != null && displaySvrInfo.Equals("Yes"))
+            {
+                <!-- Machine name only needed for diagnosing Load balanced env -->
+                <div class="row" style="color: silver">
+                    <div class="col-md-4">Machine name: @Environment.MachineName</div>
+                    <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
+                    <div class="col-md-4"><pre>Server IP: @TempData["IPAddress"]</pre></div>
+                </div>
+            }
+        }
 
     </footer>
 

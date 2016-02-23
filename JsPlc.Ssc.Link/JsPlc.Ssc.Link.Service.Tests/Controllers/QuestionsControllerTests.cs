@@ -26,7 +26,8 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
             var response = controller.GetQuestions() as OkNegotiatedContentResult<IEnumerable<Question>>;
             Assert.IsNotNull(response);
             var questions = response.Content;
-            Assert.IsTrue(questions.Count() == 5); // MockContext has 5 questions setup
+            var numques = questions as Question[] ?? questions.ToArray();
+            Assert.IsTrue(numques.Count() == 5, "Wrong number of questions found:" + numques.Count()); // MockContext has 5 questions setup
         }
     }
 }

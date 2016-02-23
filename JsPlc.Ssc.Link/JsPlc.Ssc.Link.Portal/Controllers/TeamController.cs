@@ -28,15 +28,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             object jsonData;
 
-            using (var facade = new LinkServiceFacade())
-            {
-                List<ColleagueTeamView> teamMeetings = new List<ColleagueTeamView>();
+            List<ColleagueTeamView> teamMeetings = new List<ColleagueTeamView>();
 
-                ColleagueTeamView mymeeting = facade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
-                mymeeting = AssignMeetingsByDate(mymeeting);
-                teamMeetings.Add(mymeeting);
-                jsonData = teamMeetings ?? (object)"Error";
-            }
+            ColleagueTeamView mymeeting = ServiceFacade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
+            mymeeting = AssignMeetingsByDate(mymeeting);
+            teamMeetings.Add(mymeeting);
+            jsonData = teamMeetings ?? (object)"Error";
 
             var jsonResult = new JsonResult
             {
@@ -54,26 +51,27 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             object jsonData;
 
-            using (var facade = new LinkServiceFacade())
-            {
-                List<ColleagueTeamView> teamMeetings = null;
-                var colleagueId = CurrentUser.Colleague.ColleagueId; // If Currently a manager is logged in - use their ColleagueId
+            List<ColleagueTeamView> teamMeetings = null;
+            var colleagueId = CurrentUser.Colleague.ColleagueId; // If Currently a manager is logged in - use their ColleagueId
 
-                // diff method called based on myOrTeams = "MyMeetings" or "TeamMeetings"
-                if (myOrTeams == "TeamMeetings" && CurrentUser.IsLineManager)
-                {
-                    var meetings = facade.GetTeamView(colleagueId); // Get Meetings for the Manager
-                    if (meetings!= null) teamMeetings = meetings.ToList();
+            // diff method called based on myOrTeams = "MyMeetings" or "TeamMeetings"
+            if (myOrTeams == "TeamMeetings" && CurrentUser.IsLineManager)
+            {
+                var meetings = ServiceFacade.GetTeamView(colleagueId); // Get Meetings for the Manager
+
+                if (meetings != null) {
+                    teamMeetings = meetings.ToList(); 
+                    teamMeetings.ForEach(p => AssignMeetingsByDate(p));
                 }
-                else
-                {
-                    teamMeetings = new List<ColleagueTeamView>();
-                    ColleagueTeamView mymeeting = facade.GetMyMeetingsView(colleagueId) ?? new ColleagueTeamView();
-                    mymeeting = AssignMeetingsByDate(mymeeting);
-                    teamMeetings.Add(mymeeting);
-                }
-                jsonData = teamMeetings ?? (object) "Error";
             }
+            else
+            {
+                teamMeetings = new List<ColleagueTeamView>();
+                ColleagueTeamView mymeeting = ServiceFacade.GetMyMeetingsView(colleagueId) ?? new ColleagueTeamView();
+                mymeeting = AssignMeetingsByDate(mymeeting);
+                teamMeetings.Add(mymeeting);
+            }
+            jsonData = teamMeetings ?? (object) "Error";
 
             var jsonResult = new JsonResult
             {
@@ -95,36 +93,35 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             object jsonData;
 
-            using (var facade = new LinkServiceFacade())
+            // Logged in user is manager
+            if (managerId.IsNullOrWhiteSpace()) 
+                managerId = CurrentUser.Colleague.ColleagueId;
+
+            if (!managerId.Equals(CurrentUser.Colleague.ColleagueId))
+                // Protect from trying to get data for another line manager
             {
-                // Logged in user is manager
-                if (managerId.IsNullOrWhiteSpace()) managerId = CurrentUser.Colleague.ColleagueId;
-                if (!managerId.Equals(CurrentUser.Colleague.ColleagueId))
-                    // Protect from trying to get data for another line manager
+                jsonData = "AccessDenied";
+            }
+            else
+            {
+                var teamView = ServiceFacade.GetTeamView(managerId); // ONE facade call..
+                var pastTeamMeetings = new List<LinkMeetingView>();
+                if (teamView != null)
                 {
-                    jsonData = "AccessDenied";
-                }
-                else
-                {
-                    var teamView = facade.GetTeamView(managerId); // ONE facade call..
-                    var pastTeamMeetings = new List<LinkMeetingView>();
-                    if (teamView != null)
+                    foreach (var colleague in teamView)
                     {
-                        foreach (var colleague in teamView)
+                        var coll = AssignMeetingsByDate(colleague); // very quick assignment on portal side
+                        if (coll.PastMeetings != null)
                         {
-                            var coll = AssignMeetingsByDate(colleague); // very quick assignment on portal side
-                            if (coll.PastMeetings != null)
-                            {
-                                pastTeamMeetings.AddRange(coll.PastMeetings);
-                            }
-                        }
-                        if (pastTeamMeetings.Any())
-                        {
-                            pastTeamMeetings = pastTeamMeetings.OrderByDescending(x => x.MeetingDate).ToList();
+                            pastTeamMeetings.AddRange(coll.PastMeetings);
                         }
                     }
-                    jsonData = pastTeamMeetings;
+                    if (pastTeamMeetings.Any())
+                    {
+                        pastTeamMeetings = pastTeamMeetings.OrderByDescending(x => x.MeetingDate).ToList();
+                    }
                 }
+                jsonData = pastTeamMeetings;
             }
 
             var jsonResult = new JsonResult
@@ -195,12 +192,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             var managerId = CurrentUser.Colleague.ColleagueId; // Current manager is logged in - so use their ColleagueId 
 
             return YourTeam(); // use the new action method
-
-            //using (var facade = new LinkServiceFacade())
-            //{
-            //    var team = facade.GetTeamView(managerId);
-            //    return team == null ? View() : View(team.ToList());
-            //}
         }
 
         //public ActionResult MyTeam_mockup()

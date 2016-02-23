@@ -473,6 +473,7 @@
     <Content Include="Views\Team\MeetingRecords.cshtml" />
     <Content Include="Views\Home\ShowClaims.cshtml" />
     <Content Include="Views\Home\ShowKeys.cshtml" />
+    <Content Include="Views\Shared\_LoginPartialFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

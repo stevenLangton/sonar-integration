@@ -1,5 +1,5 @@
-﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "datetimepicker", "underscore", "common", "helpers", "URI"],
-function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, helpers, URI) {
+﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "datetimepicker", "underscore", "common", "helpers", "URI", "toastr"],
+function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, helpers, URI, toastr) {
     var getMessages = function (crudMode) {
         switch (crudMode) {
             case "Create":
@@ -184,7 +184,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 .done(function (response, textStatus, jqXhr) {
 
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
-                        window.alert(messages.success);
+                        toastr.info(messages.success);
 
                         // Redirect for colleagues initiated create meeting success.. (my Link Report page)
                         if (data.ColleagueInitiated) {
@@ -194,7 +194,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                         }
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
-                        window.alert(messages.failure);
+                        toastr.error(messages.failure);
                         $('#msgs').html("<strong>" + messages.failure + " : " + response + "</strong>");
                     }
                     else { // UI validation errors
@@ -208,7 +208,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 })
                 .fail(function (jqXhr, textStatus, errorThrown) {
                     // msg failure
-                    window.alert(messages.failure);
+                    toastr.error(messages.failure);
                     $('#msgs').html("<strong>" + messages.failure + ":" + errorThrown + "</strong>");
                 });
         }

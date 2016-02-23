@@ -2,30 +2,55 @@
     ViewBag.Title = "Your team";
 }
 
- <div id="linkpage" style="display: none;" data-bind="visible: true">
-        <div>LINE MANAGEMENT</div>
-        <span class="h2">Your Team</span>
-        <br />
-        <br />
-        <div class="list-group" data-bind="foreach: teamMembers">
-            <div class="media list-group-item">
-                <div class="media-body">
-                    <div>
-                        <span class="h3" data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
-                        <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-default pull-right">View profile</a>
-                    </div>
-                    <br/>
-                    <div data-bind="if: Meetings!== null">
-                        <a data-bind="attr: {'href': 'LinkForm/Edit/'+Meetings[0].MeetingId}" class="btn btn-default">View Link meeting</a>
-                    </div>
-                    <div data-bind="if:  Meetings === null">
-                        <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Create a Link meeting</a>
-                    </div>
-                    <br/>
+<div id="linkpage" style="display: none;" data-bind="visible: true">
+    <div>LINE MANAGEMENT</div>
+    <span class="h2">Your Team</span>
+    <br />
+    <br />
+    <div class="list-group" data-bind="foreach: teamMembers">
+        <div class="media list-group-item">
+            <div class="media-body">
+                <div>
+                    <span class="h3" data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
+                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-default pull-right">View profile</a>
                 </div>
+                <br />
+                <div>
+                    You've had
+                    <strong>
+                        <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no meetings ' :
+                                    (MeetingsInLast12Months == 1) ? '1 meeting ' :
+                                    (MeetingsInLast12Months + ' meetings ')"></span>
+                    </strong>
+                    with <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span> in the last 12 months.
+                </div>
+                <div data-bind="if: LastMeeting && LastMeeting.MeetingDate">
+                    Last meeting: <strong><span data-bind="text: $root.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+                </div>
+                <div data-bind="if: !LatestMeeting">
+                    <strong>
+
+                        You do not have any meetings scheduled with
+                        <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
+                    </strong>
+                </div>
+                <div data-bind="if: LatestMeeting">
+                    <strong>
+                        Next meeting: <span data-bind="text: $root.formatDateMonthDYHM(MeetingDate)"></span>
+                    </strong>
+                </div>
+                <br />
+                <div data-bind="if: Meetings!== null">
+                    <a data-bind="attr: {'href': 'LinkForm/Edit/'+Meetings[0].MeetingId}" class="btn btn-default">View Link meeting</a>
+                </div>
+                <div data-bind="if:  Meetings === null">
+                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Arrange a Link meeting</a>
+                </div>
+                <br />
             </div>
         </div>
-        <hr />
+    </div>
+    <hr />
 </div>
 <script type="text/javascript">
     require(["YourTeam"], function (lm) {

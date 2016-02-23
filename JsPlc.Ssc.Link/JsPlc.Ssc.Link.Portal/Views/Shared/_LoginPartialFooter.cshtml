@@ -1,0 +1,17 @@
+﻿@{
+    //var tab = TempData["tabName"];
+    //var tabName = (tab == null) ? "Welcome" : tab.ToString().ToLower();
+}
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm1" }))
+    {
+            <a href="javascript:document.getElementById('logoutForm1').submit()">Log out</a>
+    }
+}
+else
+{
+    @*<ul class="nav navbar-nav navbar-right">
+        <li class="@(tabName == "Log in" ? "active" : "") tab-heading">@Html.ActionLink("Log in", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>*@
+}

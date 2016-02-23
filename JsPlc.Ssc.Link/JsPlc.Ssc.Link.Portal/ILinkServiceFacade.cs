@@ -8,6 +8,8 @@ namespace JsPlc.Ssc.Link.Portal
 {
     public interface ILinkServiceFacade
     {
+        List<string> GetApiServiceKeys();
+
         Task<int> CreateObjective(LinkObjective modified);
         ColleagueView GetColleague(string ColleagueId);
         ColleagueView GetColleagueByUsername(string email);

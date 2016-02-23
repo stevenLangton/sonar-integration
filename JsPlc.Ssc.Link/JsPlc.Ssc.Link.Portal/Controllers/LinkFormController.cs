@@ -30,10 +30,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string colleagueId)
         {
-           var facade = new LinkServiceFacade();
-
             object jsonData;
-            var newMeeting = facade.GetNewMeetingView(colleagueId);
+            var newMeeting = ServiceFacade.GetNewMeetingView(colleagueId);
 
             if (newMeeting != null)
             {
@@ -68,10 +66,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetMeetingView(int meetingId, string mode="view")
         {
-            var facade = new LinkServiceFacade();
-
             object jsonData;
-            var meeting = facade.GetMeeting(meetingId);
+            var meeting = ServiceFacade.GetMeeting(meetingId);
 
             if (meeting != null)
             {
