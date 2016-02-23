@@ -147,6 +147,9 @@ div, span, h1, h2, h3, h4, h5, h6 {
     color: #0C5B94;
     font-size:120%;
 }
+.linkmeeting-question {
+    margin-bottom: 0;
+}
 .section-heading {
     color: #fff;
     background-color: #20a9cb;
@@ -304,7 +307,8 @@ textarea.form-control.multilinePdp {
 }
     
 .comments-container {
-    padding-top: 15px;
+    padding-top: 5px;
+    font-size: smaller;
 }
 
 

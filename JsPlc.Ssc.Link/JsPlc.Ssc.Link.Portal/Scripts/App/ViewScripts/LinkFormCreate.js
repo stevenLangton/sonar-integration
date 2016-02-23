@@ -1,5 +1,5 @@
-﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "datetimepicker", "underscore", "common", "helpers", "URI", "toastr"],
-function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, helpers, URI, toastr) {
+﻿define(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "datetimepicker", "underscore", "common", "helpers", "URI", "toastr", "autogrow"],
+function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, helpers, URI, toastr, autogrow) {
     var getMessages = function (crudMode) {
         switch (crudMode) {
             case "Create":
@@ -79,6 +79,13 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 { ques.ColleagueComment = ""; } // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                 if (!ques.ManagerComment)
                 { ques.ManagerComment = ""; }
+
+                //ques.UpdCharCount = function (textAreaId, charSpanId) {
+                //    var txtLen = $(textAreaId).val().length; // bit inaccurate this..
+                //    var charCount = (5000 - txtLen-10);
+                //    $(charSpanId).html(charCount + " chars remaining");
+                //};
+
             });
 
             //meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
@@ -320,6 +327,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
         var binder = function () {
             ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
+            $('textarea').autogrow({ onInitialize: true });
             // set locales
             try {
                 $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
@@ -340,6 +348,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         vm.getDataForMeeting();
 
         var MeetingViewJsonForPdf = vm.getMeetingView();
+        if (!jQuery || jQuery == undefined) window.jQuery = $;
     });
 });
 
