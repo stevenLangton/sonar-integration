@@ -47,7 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColleagueDto.cs" />
     <Compile Include="ColleagueImportRoutine.cs" />
+    <Compile Include="IImportFactory.cs" />
+    <Compile Include="ImportData.cs" />
+    <Compile Include="ImportFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
