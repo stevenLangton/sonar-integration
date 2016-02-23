@@ -25,23 +25,27 @@
                     with <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span> in the last 12 months.
                 </div>
                 <div data-bind="if: LastMeeting && LastMeeting.MeetingDate">
-                    Last meeting: <strong><span data-bind="text: $root.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+                    Last meeting: <strong><span data-bind="text: $root.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
                 </div>
-                <div data-bind="if: !LatestMeeting">
+                <div data-bind="if: !LatestMeeting" class="h4">
                     <strong>
-
                         You do not have any meetings scheduled with
                         <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
                     </strong>
                 </div>
-                <div data-bind="if: LatestMeeting">
+                <!-- Next meeting date -->
+                <div data-bind="if: LatestMeeting" class="h4">
                     <strong>
-                        Next meeting: <span data-bind="text: $root.formatDateMonthDYHM(MeetingDate)"></span>
+                        Next meeting: <span data-bind="text: $root.meetingService.formatDateMonthDYHM(UpcomingMeetings[0].MeetingDate)"></span>
                     </strong>
                 </div>
                 <br />
-                <div data-bind="if: Meetings!== null">
-                    <a data-bind="attr: {'href': 'LinkForm/Edit/'+Meetings[0].MeetingId}" class="btn btn-default">View Link meeting</a>
+                <!-- View meeting button -->
+                <div data-bind="if: LatestMeeting">
+                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])}" class="btn btn-default">View Link meeting</a>
+                </div>
+                <div data-bind="if: !LatestMeeting && Meetings!== null">
+                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])}" class="btn btn-default">View Link meeting</a>
                 </div>
                 <div data-bind="if:  Meetings === null">
                     <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Arrange a Link meeting</a>
