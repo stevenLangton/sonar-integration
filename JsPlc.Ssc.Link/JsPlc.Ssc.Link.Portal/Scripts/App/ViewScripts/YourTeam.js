@@ -1,9 +1,9 @@
-﻿define(["jquery", "knockout", "komap", "moment", "common"], function ($, ko, komap, moment, common) {
+﻿define(["jquery", "knockout", "common", "meetingService"], function ($, ko, common, ms) {
     "use strict";
 
     var yourTeamVm = function () {
         var vm = {};
-
+        vm.formatDateMonthDYHM = ms.formatDateMonthDYHM;
         vm.teamMembers = ko.observableArray([]);
         return vm;
     };
@@ -24,7 +24,9 @@
                     //Sort the meetings list of each team member so the youngest one appears first
                     ko.utils.arrayForEach(vm.teamMembers(), function (member) {
                         if (member.Meetings) {
-                            member.Meetings.sort(function (left, right) { return left.MeetingDate == right.MeetingDate ? 0 : (left.MeetingDate > right.MeetingDate ? -1 : 1) });
+                            member.Meetings.sort(function (left, right) {
+                                return left.MeetingDate === right.MeetingDate ? 0 : (left.MeetingDate > right.MeetingDate ? -1 : 1);
+                            });
                         }
                     });
                 }

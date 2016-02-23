@@ -58,7 +58,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             if (myOrTeams == "TeamMeetings" && CurrentUser.IsLineManager)
             {
                 var meetings = ServiceFacade.GetTeamView(colleagueId); // Get Meetings for the Manager
-                if (meetings!= null) teamMeetings = meetings.ToList();
+
+                if (meetings != null) {
+                    teamMeetings = meetings.ToList(); 
+                    teamMeetings.ForEach(p => AssignMeetingsByDate(p));
+                }
             }
             else
             {
