@@ -54,6 +54,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [HttpGet]
         public ActionResult New()
         {
+            ViewBag.Title = "Add a new objective";
             LinkObjective item = new LinkObjective();
             item.LastAmendedBy = item.ColleagueId = CurrentUser.Colleague.ColleagueId;
             item.LastAmendedDate = item.CreatedDate = DateTime.Now;
@@ -65,6 +66,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [HttpGet]
         public ActionResult Show(int Id)
         {
+            ViewBag.Title = "View objective";
             LinkObjective item = ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
             ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
             return View(item);
