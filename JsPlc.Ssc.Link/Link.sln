@@ -47,6 +47,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_Solution
 		settings1.runsettings = settings1.runsettings
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImportRoutine", "ImportRoutine", "{61EACC95-90EB-48DC-A131-85EA0FD0DAAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.ImportRoutine", "JsPlc.Ssc.Link.ImportRoutine\JsPlc.Ssc.Link.ImportRoutine.csproj", "{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +89,10 @@ Global
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +106,7 @@ Global
 		{3CBDB199-BF2E-4DAF-B182-DE38B19ADADD} = {724B9D1B-883E-410C-BE39-801F29874C39}
 		{144C63B1-D8AE-41D2-8922-E6AA9C609DE7} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
+		{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A} = {61EACC95-90EB-48DC-A131-85EA0FD0DAAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
