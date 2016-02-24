@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-8">
-            <h1 style="margin:0; padding:0">Meeting records</h1>
+            <h1 style="margin:0; padding:0">Conversation tracker</h1>
         </div>
     </div>
 
@@ -70,9 +70,7 @@
                 <p>
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
                        class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">
-                        View
-                        <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
-                        record
+                        <span data-bind="text: $root.getColleagueName(Colleague)"></span>
                     </a>
                 </p>
             </div>
