@@ -18,10 +18,10 @@ namespace JsPlc.Ssc.Link.Models.Entities
         public string ManagerId { get; set; } // E0010 etc (same reason as above)
       
         [Required]
-        public MeetingStatus ColleagueSignOff { get; set; }
+        public MeetingStatus ColleagueSignOff { get; set; } // Completed tickbox
 
         [Required]
-        public MeetingStatus ManagerSignOff { get; set; }
+        public MeetingStatus ManagerSignOff { get; set; } // Approved tickbox
         
         [Required]
         public DateTime MeetingDate { get; set; }
@@ -30,6 +30,11 @@ namespace JsPlc.Ssc.Link.Models.Entities
 
         public DateTime? ManagerSignedOffDate { get; set; }
 
+        [Required]
+        public MeetingSharingStatus SharingStatus { get; set; } // Shared tickbox
+        
+        public DateTime? SharingDate { get; set; }
+        
         public ICollection<Answer> Answers { get; set; } 
     }
 
@@ -37,5 +42,11 @@ namespace JsPlc.Ssc.Link.Models.Entities
     {
         Completed = 1,
         InComplete = 0
+    }
+
+    public enum MeetingSharingStatus
+    {
+        NotShared = 0,
+        Shared = 1
     }
 }
