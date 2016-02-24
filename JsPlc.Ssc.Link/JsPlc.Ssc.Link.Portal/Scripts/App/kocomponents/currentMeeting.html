@@ -2,17 +2,17 @@
     <p>
         Had
         <strong>
-            <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no meetings ' :
-         (MeetingsInLast12Months == 1) ? '1 meeting ' :
-         (MeetingsInLast12Months + ' meetings ')"></span>
+            <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
+         (MeetingsInLast12Months == 1) ? '1 conversation ' :
+         (MeetingsInLast12Months + ' conversations ')"></span>
         </strong>
         with line manager in the last 12 months.
     </p>
     <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
-    Last meeting: <strong><span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+    Last conversation: <strong><span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
     <!-- /ko -->
     <div class="row" style="padding-bottom: 30px;">
-        <!-- Latest Meeting if any -->
+        <!-- Latest conversation if any -->
         <!-- ko if: (LatestMeeting) -->
         <div data-bind="template: { name: 'current-meeting-template', data: LatestMeeting }"></div>
         <!-- /ko -->
@@ -24,15 +24,15 @@
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <!--<p>You have no upcoming meetings. Click Create Link meeting button to arrange one.</p>-->
-        <p>Has no upcoming meetings.</p>
+        <!--<p>You have no upcoming conversations. Click Create Link conversation button to arrange one.</p>-->
+        <p>Has no upcoming conversations.</p>
     </div>
 </script>
 <script type="text/html" id="current-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div style="margin: 10px 10px">
         <div class="col-md-12" style="background-color: silver; color: black; border: solid 1px black; ">
-            <p><span>Current Link meeting</span></p>
+            <p><span>Current Link conversation</span></p>
         </div>
         <div class="col-md-12" style="border: solid 1px black; padding-top: 12px;">
             <div class="col-md-1">
@@ -46,24 +46,24 @@
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        You submitted this conversation on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
-                        <span data-bind="text: $parent.ManagerFirstName"></span> has not yet accepted your record for this Link meeting.
+                        <span data-bind="text: $parent.ManagerFirstName"></span> has not yet accepted your record for this Link conversation.
                         <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $parent.ManagerFirstName"></span> accepted your record for this Link meeting on
+                        <span data-bind="text: $parent.ManagerFirstName"></span> accepted your record for this Link conversation on
                         <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
-                        This meeting is not complete yet. Once you complete it, please submit it for signoff by
+                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
                         <span data-bind="text: $parent.ManagerFirstName"></span>
                         <!-- /ko -->
                     </span>
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link meeting</a>
+                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link conversation</a>
                 </p>
             </div>
         </div>

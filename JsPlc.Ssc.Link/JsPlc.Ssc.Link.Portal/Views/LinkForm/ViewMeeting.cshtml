@@ -1,15 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Link Meeting";
+    ViewBag.Title = "Link conversation";
 }
 
 <div id="linkpage">
     <!-- knockout binding to this -->
     <div class="row">
-        <div class="col-md-6">YOUR DEVELOPMENT > LINK MEETINGS</div>
+        <div class="col-md-6">YOUR DEVELOPMENT > LINK CONVERSATION</div>
     </div>
     <div id="msgs"></div>
     <div style="display: none" data-bind="visible: !$root.dataAvailable()">
-        <h2 style="color:red">Error - No such meeting or access denied.</h2>
+        <h2 style="color:red">Error - No such conversation or access denied.</h2>
     </div>
 
     <div style="display:none" data-bind="visible: $root.dataAvailable">
@@ -108,23 +108,23 @@
                 <!-- Show signoff dates -->
                 <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
                     <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
-                    not yet submitted this Link meeting.
+                    not yet submitted this Link conversation.
                 </div>
                 <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
                     <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You' : dataModel().ColleagueName "></span>
-                    submitted this Link meeting on
+                    submitted this Link conversation on
                     <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
 
                     <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
                         <span data-bind="text: (dataModel().ColleagueInitiated) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
-                        not yet approved this Link meeting
+                        not yet approved this Link conversation
                     </div>
                     <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
                         <span data-bind="text: (dataModel().ColleagueInitiated) ? dataModel().ManagerName : 'You ' "></span>
-                        approved this Link meeting on
+                        approved this Link conversation on
                         <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
                         <div>
-                            <strong>Meeting complete: </strong>&nbsp;&nbsp;
+                            <strong>conversation complete: </strong>&nbsp;&nbsp;
                             <input id="Checkbox2" type="checkbox" data-bind="checked: (dataModel().ManagerSignOff==1) && (dataModel().ColleagueSignOff==1)" name="ManagerSignOff" disabled="disabled" />
                         </div>
                     </div>
