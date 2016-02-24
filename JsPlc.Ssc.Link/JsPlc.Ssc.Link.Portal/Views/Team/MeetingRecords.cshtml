@@ -31,7 +31,7 @@
 <script type="text/html" id="nopast-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <p>No meeting records found.</p>
+        <p>No conversation records found.</p>
     </div>
 </script>
 <script type="text/html" id="past-meeting-template">
@@ -50,19 +50,19 @@
                 <p style="font-size:13px;">
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
-                        @*You have submitted this meeting for signoff.*@
+                        @*You have submitted this conversation for signoff.*@
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this meeting on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        You submitted this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link meeting.
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
                         <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link meeting on
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
                         <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
-                        This meeting is not complete yet. Once you complete it, please submit it for signoff by
+                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
                         <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
                         <!-- /ko -->
                     </span>
