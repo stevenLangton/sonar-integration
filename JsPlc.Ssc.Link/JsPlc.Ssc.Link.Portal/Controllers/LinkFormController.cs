@@ -190,7 +190,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Edit(int? id)
         {
-            ViewBag.Title = "Edit Meeting";
+            ViewBag.Title = "Edit conversation";
 
             return View("Create", new { colleagueId = id.ToString() });
             //return RedirectToAction("Create", new { colleagueId = id.ToString() });
