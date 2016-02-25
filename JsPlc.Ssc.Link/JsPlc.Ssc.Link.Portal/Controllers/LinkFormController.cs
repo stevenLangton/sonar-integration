@@ -22,11 +22,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class LinkFormController : LinkBaseController
     {
-        public ActionResult MyDetails()
-        {
-            return View();
-        }
-
         [ScriptMethod(UseHttpGet = true)]
         public JsonResult GetLinkForm(string colleagueId)
         {
@@ -38,6 +33,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 newMeeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == colleagueId;
                 newMeeting.ManagerSignOff = MeetingStatus.InComplete;
                 newMeeting.ColleagueSignOff = MeetingStatus.InComplete;
+                newMeeting.SharingStatus = MeetingSharingStatus.NotShared;
                 jsonData = newMeeting;
                 if(!HasColleagueAccess(CurrentUser.Colleague.ColleagueId, colleagueId))
                 {
@@ -73,11 +69,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 jsonData = meeting;
-                if ((mode.Equals("edit") && (meeting.ColleagueSignOff == MeetingStatus.Completed &&
-                    meeting.ManagerSignOff == MeetingStatus.Completed)) 
+                if ((mode.Equals("edit") && meeting.ManagerSignOff == MeetingStatus.Completed) 
                     || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
                 {
-                    jsonData = "Error"; // cannot Edit completed meeting..
+                    jsonData = "Error"; // cannot Edit completed meeting..Or one you dont have access to
                 }
             }
             else
