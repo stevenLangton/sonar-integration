@@ -3,7 +3,7 @@
 
     var yourTeamVm = function () {
         var vm = {};
-        vm.formatDateMonthDYHM = ms.formatDateMonthDYHM;
+        vm.meetingService = ms;
         vm.teamMembers = ko.observableArray([]);
         return vm;
     };

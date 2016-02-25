@@ -1,4 +1,5 @@
-﻿require(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "URI", "underscore", "common", "helpers"], function ($, ko, moment, datepicker, datePickerGb, URI, _, common, helpers) {
+﻿require(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "URI", "underscore", "common", "helpers", "autogrow"],
+    function ($, ko, moment, datepicker, datePickerGb, URI, _, common, helpers, autogrow) {
 
     function PageViewModel() {
 
@@ -95,6 +96,7 @@
 
         var binder = function () {
             ko.applyBindings(vm, $("#linkpage")[0]); // important - we have to refer to div element with index 0.
+            $('textarea').autogrow({ onInitialize: true });
         };
         vm.bind = binder;
 

@@ -28,7 +28,12 @@ namespace JsPlc.Ssc.Link.Models
 
         public DateTime? ManagerSignedOffDate { get; set; }
 
+        // This field actually says, who's viewing this and is only a UI field, not persisted..
         public bool ColleagueInitiated { get; set; } // defaults to false so safer to use instead of ManagerInitiated
+
+        public MeetingSharingStatus SharingStatus { get; set; } 
+
+        public DateTime? SharingDate { get; set; }
 
         public IEnumerable<QuestionView> Questions { get; set; }
     }

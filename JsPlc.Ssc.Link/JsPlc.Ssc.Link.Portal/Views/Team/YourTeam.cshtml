@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Your team";
+    ViewBag.Title = "Your team members";
 }
 
 <div id="linkpage" style="display: none;" data-bind="visible: true">
@@ -12,39 +12,45 @@
             <div class="media-body">
                 <div>
                     <span class="h3" data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
-                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-default pull-right">View profile</a>
+                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-default pull-right">
+                        <span data-bind ="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
+                    </a>
                 </div>
                 <br />
                 <div>
                     You've had
                     <strong>
-                        <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no meetings ' :
-                                    (MeetingsInLast12Months == 1) ? '1 meeting ' :
-                                    (MeetingsInLast12Months + ' meetings ')"></span>
+                        <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
+                                    (MeetingsInLast12Months == 1) ? '1 conversation ' :
+                                    (MeetingsInLast12Months + ' conversations ')"></span>
                     </strong>
                     with <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span> in the last 12 months.
                 </div>
                 <div data-bind="if: LastMeeting && LastMeeting.MeetingDate">
-                    Last meeting: <strong><span data-bind="text: $root.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+                    Last conversation: <strong><span data-bind="text: $root.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
                 </div>
-                <div data-bind="if: !LatestMeeting">
+                <div data-bind="if: !LatestMeeting" class="h4">
                     <strong>
-
-                        You do not have any meetings scheduled with
+                        You do not have any conversations scheduled with
                         <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
                     </strong>
                 </div>
-                <div data-bind="if: LatestMeeting">
+                <!-- Next conversation date -->
+                <div data-bind="if: LatestMeeting" class="h4">
                     <strong>
-                        Next meeting: <span data-bind="text: $root.formatDateMonthDYHM(MeetingDate)"></span>
+                        Next conversation: <span data-bind="text: $root.meetingService.formatDateMonthDYHM(UpcomingMeetings[0].MeetingDate)"></span>
                     </strong>
                 </div>
                 <br />
-                <div data-bind="if: Meetings!== null">
-                    <a data-bind="attr: {'href': 'LinkForm/Edit/'+Meetings[0].MeetingId}" class="btn btn-default">View Link meeting</a>
+                <!-- View conversation button -->
+                <div data-bind="if: LatestMeeting">
+                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])}" class="btn btn-default">View Link conversation</a>
+                </div>
+                <div data-bind="if: !LatestMeeting && Meetings!== null">
+                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])}" class="btn btn-default">View Link conversation</a>
                 </div>
                 <div data-bind="if:  Meetings === null">
-                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Arrange a Link meeting</a>
+                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Arrange a Link conversation</a>
                 </div>
                 <br />
             </div>

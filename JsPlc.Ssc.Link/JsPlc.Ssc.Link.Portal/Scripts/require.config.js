@@ -20,6 +20,7 @@ require.config({
         URI: "UriJs/Uri",
         underscore: "underscore",
         toastr: "toastr.min",
+        autogrow: "autogrow",
         //"fragmentQuery": "UriJs/URI.fragmentQuery",
         //"fragmentUri": "UriJs/URI.fragmentUri",
 

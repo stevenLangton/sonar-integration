@@ -84,7 +84,9 @@ namespace JsPlc.Ssc.Link.Service.Services
                                                 ColleagueId = m1.ColleagueId,
                                                 ManagerAtTimeId = m1.ManagerId,
                                                 ColleagueSignedOffDate = m1.ColleagueSignedOffDate,
-                                                ManagerSignedOffDate = m1.ManagerSignedOffDate
+                                                ManagerSignedOffDate = m1.ManagerSignedOffDate,
+                                                SharingStatus = m1.SharingStatus,
+                                                SharingDate = m1.SharingDate
                                             }).ToList(),
                             }).FirstOrDefault();
 
@@ -168,8 +170,10 @@ namespace JsPlc.Ssc.Link.Service.Services
                 ColleagueName = string.Concat(coll.FirstName, " " + coll.LastName),
                 ManagerId = (mgr == null) ? "" : mgr.ColleagueId,
                 ManagerName = (mgr == null) ? "" : string.Concat(mgr.FirstName, " " + mgr.LastName),
-                ColleagueSignOff = 0,
-                ManagerSignOff = 0,
+                ColleagueSignOff = MeetingStatus.InComplete,
+                ManagerSignOff = MeetingStatus.InComplete,
+                SharingStatus = MeetingSharingStatus.NotShared,
+                SharingDate = null
             };
             //Get questions with answers for particular meeting
             var question = from q in _db.Questions
@@ -198,6 +202,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                 MeetingDate = view.MeetingDate,
                 ColleagueSignOff = view.ColleagueSignOff,
                 ManagerSignOff = view.ManagerSignOff,
+                SharingStatus = view.SharingStatus,
             };
             if (meeting.ColleagueSignOff == MeetingStatus.Completed)
             {
@@ -206,6 +211,10 @@ namespace JsPlc.Ssc.Link.Service.Services
             if (meeting.ManagerSignOff == MeetingStatus.Completed)
             {
                 meeting.ManagerSignedOffDate = DateTime.Now;
+            }
+            if (meeting.SharingStatus == MeetingSharingStatus.Shared)
+            {
+                meeting.SharingDate = DateTime.Now;
             }
             var result = _db.Meeting.Add(meeting);
             int saveCount = _db.SaveChanges();
@@ -242,6 +251,8 @@ namespace JsPlc.Ssc.Link.Service.Services
                     ManagerSignOff = view.ManagerSignOff,
                     ColleagueId = meeting.ColleagueId,
                     ManagerId = meeting.ManagerId,
+                    SharingStatus = meeting.SharingStatus,
+                    SharingDate = null,
                     Id = view.MeetingId
                 };
                 if (linkMeeting.ColleagueSignOff == MeetingStatus.Completed)
@@ -251,6 +262,10 @@ namespace JsPlc.Ssc.Link.Service.Services
                 if (linkMeeting.ManagerSignOff == MeetingStatus.Completed)
                 {
                     linkMeeting.ManagerSignedOffDate = DateTime.Now;
+                }
+                if (linkMeeting.SharingStatus == MeetingSharingStatus.Shared)
+                {
+                    linkMeeting.SharingDate = DateTime.Now;
                 }
                 _db.Meeting.AddOrUpdate(linkMeeting);
                 _db.SaveChanges();
@@ -332,7 +347,9 @@ namespace JsPlc.Ssc.Link.Service.Services
                                     ColleagueId = m1.ColleagueId,
                                     ManagerAtTimeId = m1.ManagerId,
                                     ColleagueSignedOffDate = m1.ColleagueSignedOffDate,
-                                    ManagerSignedOffDate = m1.ManagerSignedOffDate
+                                    ManagerSignedOffDate = m1.ManagerSignedOffDate,
+                                    SharingStatus = m1.SharingStatus,
+                                    SharingDate = m1.SharingDate,
                                 }}
                 });
             }

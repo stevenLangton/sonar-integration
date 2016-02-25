@@ -25,9 +25,10 @@ namespace JsPlc.Ssc.Link.Models
         public MeetingStatus ManagerSignOff { get; set; }
 
         public MeetingStatus Status {
-            get { return ColleagueSignOff==MeetingStatus.Completed && ManagerSignOff ==MeetingStatus.Completed ? MeetingStatus.Completed : MeetingStatus.InComplete; }
+            get { return ColleagueSignOff == MeetingStatus.Completed && ManagerSignOff == MeetingStatus.Completed 
+                ? MeetingStatus.Completed : MeetingStatus.InComplete; }
         }
-        
+
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime MeetingDate { get; set; }
 
@@ -36,5 +37,11 @@ namespace JsPlc.Ssc.Link.Models
     
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ManagerSignedOffDate { get; set; }
+
+        public MeetingSharingStatus SharingStatus { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? SharingDate { get; set; }
+
     }
 }
