@@ -9,6 +9,8 @@ using System.IO;
 
 namespace JsPlc.Ssc.Link.ImportRoutine
 {
+    using System.Diagnostics.CodeAnalysis;
+
     public class ImportFactory : IImportFactory
     {
         List<ColleagueDto> IImportFactory.ImportColleagueDataFromFile()
@@ -70,6 +72,7 @@ namespace JsPlc.Ssc.Link.ImportRoutine
             return colleagueList;
         }
 
+        [ExcludeFromCodeCoverage] 
         void IImportFactory.LoadDataIntoSqlServer(List<ColleagueDto> colleagueList)
         {
             DataTable dt = ConvertToDataTable(colleagueList);
