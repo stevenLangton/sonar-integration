@@ -3,11 +3,9 @@
 
     var uiDateFormat = "DD/MM/YYYY";
     var serverDateFormat = "YYYYMMDD";
-
-    //Root page of web app
-    var siteRoot = '/';
-
-    siteRoot = $('base').attr('href');
+    var siteRoot = $('base').attr('href');
+    var userInfo = {};
+    userInfo.colleagueId = "";
 
     var getSiteRoot = function () {
         return siteRoot;
@@ -40,6 +38,15 @@
         return out;
     }
 
+    //Set from server
+    var setUserInfo = function (data) {
+        userInfo.colleagueId = data;
+    };
+
+    var getUserInfo = function () {
+        return userInfo;
+    };
+
     return {
         splitArray: splitArray,
         setSiteRoot: setSiteRoot,
@@ -48,7 +55,9 @@
         uiDateFormat: uiDateFormat,
         serverDateFormat: serverDateFormat,
         callService: callService,
-        callServerAction: callService
+        callServerAction: callService,
+        setUserInfo: setUserInfo,
+        getUserInfo: getUserInfo
     };
 });
 

@@ -16,6 +16,7 @@ using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
+using MvcSiteMapProvider;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {

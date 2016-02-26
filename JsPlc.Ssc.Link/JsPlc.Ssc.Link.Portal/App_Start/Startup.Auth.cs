@@ -51,21 +51,7 @@ namespace JsPlc.Ssc.Link.Portal
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
             app.UseKentorOwinCookieSaver();
 
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                ExpireTimeSpan = DateTime.Now.AddYears(1).TimeOfDay, // Make it work in IE, possibly misinterprets date of cookie expiry if not set.
-                CookieManager = new ChunkingCookieManagerWithSubdomains(),
-                LoginPath = new PathString("/Account/Signin"),
-                Provider = new CookieAuthenticationProvider
-                {
-                    OnValidateIdentity = context =>
-                    {
-                        var user = context.Identity;
-                        context.OwinContext.Authentication.SignIn(new AuthenticationProperties() { RedirectUri = "/", IsPersistent = true }, user);
-                        return Task.FromResult(0);
-                    }
-                }
-            });
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
             app.UseOpenIdConnectAuthentication(
                 new OpenIdConnectAuthenticationOptions

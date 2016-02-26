@@ -19,6 +19,23 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         };
     };
 
+    var adjustBreadcrumbs = function (meetingOwnerColleagueId) {
+        //Breadcrumbs reflect the static positions of web pages on the website with each page having a unique position.
+        //Because there are many ways to get to the "view conversation" page even though it has only a single location (or mvc route or address).
+        //But we wish to show different breadcrumbs for it depending on "My Team" view or "My Development". Hence this manual adjustment here.
+
+        var colleagueId = common.getUserInfo().colleagueId;
+        if (colleagueId === meetingOwnerColleagueId) {
+            //Own meeting
+            $anchor = $("#breadcrumbs a:contains('MY TEAM MEMBERS')");
+            $anchor.replaceWith("<a href='/Home/LinkMeetings'>LINK CONVERSATIONS</a>");
+
+            $anchor = $("#breadcrumbs a:contains('MY TEAM')");
+            $anchor.replaceWith("<a href='/Home/Index'>MY DEVELOPMENT</a>");
+        }
+
+    };
+
     function PageViewModel() {
 
         var self = this;
@@ -102,6 +119,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             meetingView.Questions = data.Questions;
 
             self.dataModel(meetingView);
+            adjustBreadcrumbs(self.dataModel().ColleagueId);
         };
 
         self.formatDateMonthDYHM = function (dateObj) {

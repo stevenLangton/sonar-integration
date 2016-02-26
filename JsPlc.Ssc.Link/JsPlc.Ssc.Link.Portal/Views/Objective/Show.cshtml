@@ -11,7 +11,7 @@
 </script>
 <div id="ObjectiveView">
     @*TODO: Add real breadcrumbs*@
-    <div>YOUR DEVELOPMENT > OBJECTIVES</div>
+    <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <span class="h2">@ViewBag.Title</span>
     <br/>
     <span data-bind="text: 'Created on ' + displayCreateDate"></span>

@@ -1,7 +1,7 @@
 ﻿@using JsPlc.Ssc.Link.Models
 
 @{
-    ViewBag.Title = "Link meeting";
+    ViewBag.Title = "Link conversation";
     var currentUser = TempData["CurrentUser"] as LinkUserView;
     if (currentUser == null)
     {
@@ -11,12 +11,8 @@
 }
 
 <div class="myPageContainer">
-
-    <div class=" row">
-        <div class="col-md-6">YOUR DEVELOPMENT > LINK MEETINGS</div>
-    </div>
-
-    <div id="linkpage">
+    <div id="linkpage" style="display: none;" data-bind="visible: true">
+        <div id="breadcrumbs">@Html.MvcSiteMap().SiteMapPath()</div>
         <!-- knockout binding to this -->
         <div id="msgs"></div>
         <div style="display: none;" data-bind="visible: !$root.dataAvailable()">
@@ -130,7 +126,7 @@
                 </div>
 
             </div>
-            <br/>
+            <br />
             <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
                 <div class="col-xs-12">
                     <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
