@@ -28,5 +28,6 @@ namespace JsPlc.Ssc.Link.Portal
         bool IsManagerByEmail(string email);
         Task<bool> UpdateObjective(LinkObjective modified);
         Task<LinkPdp> UpdatePdp(LinkPdp modified);
+        Task<MeetingView> UnshareMeeting(int meetingId);
     }
 }
