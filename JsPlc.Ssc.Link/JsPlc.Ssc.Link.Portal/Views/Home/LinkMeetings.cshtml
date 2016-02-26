@@ -40,7 +40,7 @@
         <!-- ko if: (!LatestMeeting) -->
         <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
         <!-- /ko -->
-        <div class="col-md-12 linkBox1">
+        <div class="col-md-12">
             <h2>Past Link conversations</h2>
         </div>
         <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
@@ -59,7 +59,7 @@
 </div>
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="col-md-12 linkBox1" >
+    <div class="col-md-12" >
         <p>You have no upcoming conversations. Click Create Link conversation button to arrange one.</p>
     </div>
 </script>
@@ -115,13 +115,13 @@
     <div class="aMeeting">
         <div class="col-md-12 linkBox1">
             <div class="col-md-1">
-                <img data-bind="visible: (Status==0)" src="/Content/Images/round_black_cross.png" width="40" height="40" />
-                <img data-bind="visible: (Status==1)" src="/Content/Images/round_black_tick.png" width="40" height="40" />
+                <img data-bind="visible: (Status==0)" src="/Content/Images/round_black_cross.png" width="40" height="40"/>
+                <img data-bind="visible: (Status==1)" src="/Content/Images/round_black_tick.png" width="40" height="40"/>
             </div>
             <div id="u98" class="col-md-10">
-                <p>
-                    <span data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></span>
-                </p>
+                
+                <h3 data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></h3>
+                
                 <p>
                     <span>
                         <!-- ko if: (ColleagueSignOff == 1) -->
@@ -143,8 +143,10 @@
                     </span>
                 </p>
                 <p>
+                   
+
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-sm" >View Link conversation</a>
+                       class="btn btn-sm btn-primary" >View conversation record</a>
                 </p>
             </div>
         </div>

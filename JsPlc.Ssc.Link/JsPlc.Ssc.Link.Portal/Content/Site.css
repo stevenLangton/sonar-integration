@@ -401,7 +401,7 @@ border-color: #00acc9;
 
 h1 {font-family:Mary Ann Regular;font-size:40px;color: #056792;font-weight: bold;}
 h2 {font-family:Mary Ann Regular;font-size:28px;color: #056792;}
-h3 {font-family:Mary Ann Regular;font-size:22px;}
+h3 {font-family:Mary Ann Regular;font-size:22px;margin-top: 0px;}
 
 .lead{font-size:150%;color: #056792;}
 
@@ -411,4 +411,6 @@ h3 {font-family:Mary Ann Regular;font-size:22px;}
 
 .wrapper{ min-height: 1050px;}
 
-.linkBox1{border: solid 2px #056792;margin-bottom: 10px;}
+.linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;margin-left: 15px;}
+
+
