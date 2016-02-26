@@ -11,7 +11,7 @@
 }
 
 <div id="ProfileView">
-    <div>LINE MANAGEMENT > YOUR TEAM</div>@*TODO:Use breadcrumbs*@
+    <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <div><span class="h1">@(Colleague.FirstName + " " + Colleague.LastName)</span></div>
     <br />
     <current-meeting params="{data: data}"></current-meeting>

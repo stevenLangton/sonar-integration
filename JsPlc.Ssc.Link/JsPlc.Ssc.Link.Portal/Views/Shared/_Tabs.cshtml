@@ -32,13 +32,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li role="presentation" class="@(tabName == "Welcome" ? "active" : "") tab-heading">
+                <li role="presentation" class="@(tabName == "Welcome" ? "active" : "") tab-heading tab-headingStart">
                     @Html.ActionLink("Home", "Welcome", "Home")
                 </li>
                 <!--@if (Request.IsAuthenticated)
                 {
 
-                    <li role="presentation" class="@(tabName == "meetings" ? "active" : "") tab-heading">
+                    <li role="presentation" class="@(tabName == "meetings" ? "active" : "") tab-heading ">
                         @Html.ActionLink("My Link Report", "LinkMeetings", "Home")
                     </li>
                     <li role="presentation" class="@(tabName == "objective" ? "active" : "") tab-heading">

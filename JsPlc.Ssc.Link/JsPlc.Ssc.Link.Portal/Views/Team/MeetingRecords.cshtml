@@ -5,7 +5,7 @@
 }
 <div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>
-    <h6>LINE MANAGEMENT</h6>
+    <div>@Html.MvcSiteMap().SiteMapPath()</div>
 
     <div class="row">
         <div class="col-md-8">
@@ -36,19 +36,19 @@
 </script>
 <script type="text/html" id="past-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div style="margin: 10px 10px;">
-        <div class="col-md-12" style="border: solid 1px black; padding-top: 12px; margin-bottom: 10px">
+    <div>
+        <div class="col-md-12 linkBox1">
             <div class="col-md-1">
-                <img data-bind="visible: (Status==0)" src="/Content/Images/round_black_cross.png" style="width: 40px; height: 40px" />
-                <img data-bind="visible: (Status==1)" src="/Content/Images/round_black_tick.png" style="width: 40px; height: 40px" />
+                <br/>
+                <i class="fa fa-check-circle fa-3x" data-bind="visible: (Status==1)"></i>
+                <i class="fa fa-times-circle fa-3x" data-bind="visible: (Status==0)"></i>
             </div>
             <div id="u98" class="col-md-10">
-                <p style="font-size:20px;">
-                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;"
-                          data-bind="text: $root.getColleagueName(Colleague) + ' - ' + $root.formatDateMonthDYHM(MeetingDate) "></span>
-                </p>
-                <p style="font-size:13px;">
-                    <span style="font-family:'Arial';font-weight:400;font-size:13px;">
+                
+                <h2 data-bind="text: $root.getColleagueName(Colleague) + ' - ' + $root.formatDateMonthDYHM(MeetingDate) "></h2>
+                
+                <p>
+                   
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         @*You have submitted this conversation for signoff.*@
                         <!-- ko if: (ManagerSignOff == 0) -->
@@ -65,11 +65,11 @@
                         This conversation is not complete yet. Once you complete it, please submit it for signoff by
                         <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
                         <!-- /ko -->
-                    </span>
+                  
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">
+                       class="btn btn-sm btn-primary">
                         <span data-bind="text: $root.getColleagueName(Colleague)"></span>
                     </a>
                 </p>

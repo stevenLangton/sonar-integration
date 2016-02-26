@@ -3,15 +3,6 @@
 }
 
 
-
-
-
-
-
-h1 {font-size:170%;font-weight: bold;}
-h2 {font-size:170%;}
-h3 {font-size:150%;}
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -203,17 +194,26 @@ textarea {
 
 /* Main Menu */
 
-#mainTabs{border:0;width:100%;background-color:#333333;padding:0;border-bottom:2px solid #000000;}
+#mainTabs{border:0;width:100%;background-color:#056792;padding:0;border-bottom:2px solid #000000;}
 
 
 .tab-heading {
     /*padding-right: 0;
     padding-left: 0;*/
-    background-color: #333333;
+    background-color: #056792;
     padding: 0 0 0 0;
     font-size: 120%;
     color: whitesmoke;
+    border-right:#fff solid 1px;
+    
 }
+
+.tab-headingStart {
+ 
+    border-left:#fff solid 1px;
+    
+}
+
 .tab-heading .welcomeText {
     margin: 10px 0;
     padding-left: 12px;
@@ -248,7 +248,8 @@ textarea.form-control.multilinePdp {
     font-size: 150% !important;
 }
 .navbar-inverse .navbar-nav > li > a:hover {
-  color:#EF6600;
+  color:#fff;
+    background-color: #00acc9;
 }
 
 .headlineSubText {
@@ -382,3 +383,35 @@ a:link, a:visited {
 }
 
 a:link {text-decoration: none;}
+
+
+/*UI STYLE GUIDLINES*/
+
+.list-group-item{ border: #00acc9 solid 1px;}
+.media-heading{ background-color:#00acc9;}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+z-index: 2;
+color: #fff;
+background-color: #00acc9;
+border-color: #00acc9;
+}
+
+
+
+h1 {font-size:40px;color: #056792;font-weight: bold;}
+h2 {font-size:28px;color: #056792;}
+h3 {font-size:22px;margin-top: 0px;}
+
+.lead{font-size:150%;color: #056792;}
+
+.element.style {
+    border: solid 1px #056792;
+}
+
+.wrapper{ min-height: 1050px;}
+
+.linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;}
+.linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding-top:10px;background-color:lightblue}
+
+

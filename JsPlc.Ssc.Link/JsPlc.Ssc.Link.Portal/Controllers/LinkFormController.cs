@@ -16,6 +16,7 @@ using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
+using MvcSiteMapProvider;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -69,7 +70,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 jsonData = meeting;
-                if ((mode.Equals("edit") && meeting.ManagerSignOff == MeetingStatus.Completed)
+                if ((mode.Equals("edit") && meeting.ManagerSignOff == MeetingStatus.Completed) 
                     || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
                 {
                     jsonData = "Error"; // cannot Edit completed meeting..Or one you dont have access to
@@ -125,7 +126,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [ScriptMethod(UseHttpGet = false)]
         public async Task<JsonResult> PostLinkForm([FromBody] MeetingView meetingView)
         {
-            #region 'Old approach = Receiving FormCollection'
+            #region 'Old approach = Receiving FormCollection' 
 
             // Get Json data in FormCollection formdata
             //var jsonData = formData["linkForm"];
@@ -198,7 +199,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 return RedirectToAction("Welcome", "Home");
             }
-
+            
             // assuming we're creating a new Link Meeting for now
             //LinkForm model = MockData.MockLinkForm();
             return View();//"LinkMeeting", model);
@@ -231,7 +232,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Edit(int? id)
         {
-            ViewBag.Title = "Edit Meeting";
+            ViewBag.Title = "Edit conversation";
             if (id != null)
             {
                 var meeting = ServiceFacade.GetMeeting(id.Value);
