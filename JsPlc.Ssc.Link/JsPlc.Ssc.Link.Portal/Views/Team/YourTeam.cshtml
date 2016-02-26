@@ -6,13 +6,12 @@
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <span class="h2">Your Team</span>
     <br />
-    <br />
     <div class="list-group" data-bind="foreach: teamMembers">
-        <div class="media list-group-item">
+        <div class="linkBox1 list-group-item">
             <div class="media-body">
                 <div>
                     <span class="h3" data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
-                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-default pull-right">
+                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-primary pull-right">
                         <span data-bind ="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
                     </a>
                 </div>
@@ -29,28 +28,28 @@
                 <div data-bind="if: LastMeeting && LastMeeting.MeetingDate">
                     Last conversation: <strong><span data-bind="text: $root.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
                 </div>
-                <div data-bind="if: !LatestMeeting" class="h4">
+                <h4 data-bind="if: !LatestMeeting">
                     <strong>
                         You do not have any conversations scheduled with
                         <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
                     </strong>
-                </div>
+                </h4>
                 <!-- Next conversation date -->
-                <div data-bind="if: LatestMeeting" class="h4">
+                <h4 data-bind="if: LatestMeeting">
                     <strong>
                         Next conversation: <span data-bind="text: $root.meetingService.formatDateMonthDYHM(UpcomingMeetings[0].MeetingDate)"></span>
                     </strong>
-                </div>
+                </h4>
                 <br />
                 <!-- View conversation button -->
                 <div data-bind="if: LatestMeeting">
-                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])}" class="btn btn-default">View Link conversation</a>
+                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])}" class="btn btn-primary">View Link conversation</a>
                 </div>
                 <div data-bind="if: !LatestMeeting && Meetings!== null">
-                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])}" class="btn btn-default">View Link conversation</a>
+                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])}" class="btn btn-primary">View Link conversation</a>
                 </div>
                 <div data-bind="if:  Meetings === null">
-                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-default">Arrange a Link conversation</a>
+                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-primary">Arrange a Link conversation</a>
                 </div>
                 <br />
             </div>

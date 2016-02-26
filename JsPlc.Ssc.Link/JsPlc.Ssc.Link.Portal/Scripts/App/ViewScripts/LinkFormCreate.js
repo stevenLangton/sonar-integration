@@ -68,6 +68,8 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 PeriodId: data.PeriodId,
                 ManagerName: data.ManagerName,
                 ColleagueName: data.ColleagueName,
+                Colleague: data.Colleague,
+                Manager: data.Manager,
                 ColleagueSignedOffDate: data.ColleagueSignedOffDate, 
                 ManagerSignedOffDate: data.ManagerSignedOffDate,
                 MeetingDate: meetingDate,  // No specific need for Signoff dates on this view
@@ -75,7 +77,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 MeetingId: data.MeetingId,
                 ColleagueSignOff: data.ColleagueSignOff,
                 ManagerSignOff: data.ManagerSignOff,
-                ColleagueInitiated: data.ColleagueInitiated,
+                IsColleagueView: data.ColleagueInitiated,
+                SharingDate: data.SharingDate,
+                SharingStatus: data.SharingStatus,
                 //Completed: data.Status,
                 LookingBackQuestions: [],
                 LookingFwdQuestions: [],
@@ -84,8 +88,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 Questions: []
             };
             // Oh the IE pain
-            $("input[name='Completed1']").prop('checked', (data.ManagerSignOff ==1) ? true: false);
-            $("input[name='Completed2']").prop('checked', (data.ColleagueSignOff == 1) ? true : false);
+            $("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff ==1) ? true: false);
+            $("input[name='CompletedColleague']").prop('checked', (data.ColleagueSignOff == 1) ? true : false);
+            $("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
 
             //if (data.ManagerSignOff == 1 || data.ManagerSignOff == true) meetingView.ManagerSignOff = true;
             //else meetingView.ManagerSignOff = false;
@@ -161,11 +166,14 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
             // Manage bool binding to MeetingStatus.
             // Values depend on MeetingStatus object in C#
-            data.ColleagueSignOff = $("input[name='Completed2']").prop('checked');
+            data.ColleagueSignOff = $("input[name='CompletedColleague']").prop('checked');
             data.ColleagueSignOff = data.ColleagueSignOff && (data.ColleagueSignOff == 1 || data.ColleagueSignOff == true) ? "Completed" : "InComplete";
 
-            data.ManagerSignOff = $("input[name='Completed1']").prop('checked');
+            data.ManagerSignOff = $("input[name='CompletedMgr']").prop('checked');
             data.ManagerSignOff = data.ManagerSignOff && (data.ManagerSignOff == 1 || data.ManagerSignOff == true) ? "Completed" : "InComplete";
+
+            data.SharingStatus = $("input[name='CheckboxShared']").prop('checked');
+            data.SharingStatus = data.SharingStatus && (data.SharingStatus == 1 || data.SharingStatus == true) ? "Shared" : "NotShared";
 
             //var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
             //var yyyymmdd = ukDate.toISOString();
@@ -182,6 +190,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             // These 2 are set server side, we dont set it client side, Need this statement for Model validation to pass..
             data.ColleagueSignedOffDate = "";
             data.ManagerSignedOffDate = "";
+            data.SharingDate = "";
 
             data.Questions = [];
             ko.utils.arrayForEach(data.LookingBackQuestions, function (ques) {
@@ -212,7 +221,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                         toastr.info(messages.success);
 
                         // Redirect for colleagues initiated create meeting success.. (my Link Report page)
-                        if (data.ColleagueInitiated) {
+                        if (data.IsColleagueView) {
                             window.location.href = common.getSiteRoot() + "Home/LinkMeetings";
                         } else {
                             window.location.href = common.getSiteRoot() + "Team";
@@ -270,8 +279,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             return self.dataModel();
         }
 
-        //Luan
-
+        self.utils = helpers.utils;
 
         //
         self.crudMode = "";
@@ -308,17 +316,17 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         };
 
         self.confirmCheckbox = function (data, event) {
-            debugger;
-            if (event.currentTarget.checked === true) {
-                var box = confirm("Are you sure you want to complete this form?");
-                if (box == true)
-                    return true;
-                else
-                    event.currentTarget.checked = false;
-                    return true;
-            } else {
-                event.currentTarget.checked = false;
-            }
+            //debugger;
+            //if (event.currentTarget.checked === true) {
+            //    var box = confirm("Are you sure you want to complete this form?");
+            //    if (box == true)
+            //        return true;
+            //    else
+            //        event.currentTarget.checked = false;
+            //        return true;
+            //} else {
+            //    event.currentTarget.checked = false;
+            //}
             return true;
         }
         //End Luan

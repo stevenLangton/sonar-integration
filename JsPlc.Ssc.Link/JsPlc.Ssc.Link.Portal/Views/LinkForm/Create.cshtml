@@ -19,20 +19,39 @@
             <h2 style="color: red">Cannot retrieve meeting. Invalid access or meeting might have completed.</h2>
         </div>
         <form id="myform" method="post" style="display: none;" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
+
+            <!-- Manager view: show colleague name banner -->
+            <div class="row meeting-banner hidden" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+                <div class="col-xs-6 col-md-1"><img src="/Content/Images/default_profile_picture.png" alt="..." class="img-circle" width="30"> </div>
+                <div class="col-xs-6 col-md-11 left"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
+                <br style="clear:both;">
+            </div>
+
+            <!-- Link conversation -->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="content-inline heading-withdatepicker">
+                <div class="col-md-10">
+                    <div class="heading-withdatepicker">
                         <h2>@ViewBag.Title</h2>
                     </div>
+                </div>
+                <!-- Save button (top) -->
+                <div class="col-md-2" data-bind="visible: (dataModel().SharingStatus==0)">
+                    <br />
+                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
+                </div>
+            </div>
 
-                    <!-- Meeting Date -->
+            <!-- Meeting date/time picker, readonly when Shared -->
+            <div class="row picker-row">
                     <div class="content-inline">
-                        <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control xcontent-inline"
+                    <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control"
                                readonly name="MeetingDate" style="width:100px" />
                     </div>
+
                     <div class="content-inline text-between-pickers">
                         <span>&nbsp;at&nbsp;</span>
                     </div>
+
                     <div class="content-inline">
                         <div class="input-group bootstrap-timepicker timepicker" style="width: 130px">
                             <input id="timepicker1" type="text" class="form-control input-small" data-bind="value: dataModel().MeetingTime">
@@ -40,13 +59,34 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
             <br />
-            <div class="meeting-banner">
-                <div class="col-xs-6 col-md-1"><img src="/Content/Images/default_profile_picture.png" alt="..." class="img-circle" width="30"> </div>
-                <div class="col-xs-6 col-md-11 left"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
-                <br style="clear:both;">
+            <!-- Conversation completed -->
+            <!-- Colleague view: Completion section.. -->
+            <div style="display: none" data-bind="visible: (dataModel().IsColleagueView &&  dataModel().ColleagueSignOff==0)">
+                <input id="Checkbox2" type="checkbox" class="pointable"
+                       data-bind="checked: dataModel().ColleagueSignOff,
+                                    value: dataModel().ColleagueSignOff,
+                                    enable: (dataModel().IsColleagueView),
+                                    readonly: !(dataModel().IsColleagueView),
+                                    click: $root.confirmCheckbox" name="CompletedColleague" />
+                <span>Conversation complete - I have finished my conversation with my line manager</span>
             </div>
+
+            <!-- When complete, this shows in Colleague view and Manager view -->
+            <div data-bind="visible: dataModel().ColleagueSignOff==1">
+                Conversation completed
+                <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
+                      data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
+            </div>
+
+            <hr />
+
+            <!-- Conversation record -->
+            <div class="row">
+                <h3 class="col-md-12 conversation-record-heading">Link conversation record</h3>
+            </div>
+
             <!-- Columns are always 50% wide, on mobile and desktop -->
             <div data-bind="with: dataModel">
                 <!--Looking Back -->
@@ -56,7 +96,7 @@
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: LookingBackQuestions">
 
-                    <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
                     @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
 
                     <!-- no collapse/expansion - always visible -->
@@ -78,7 +118,7 @@
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: LookingFwdQuestions">
 
-                    <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
 
                     <div class="row">
                         <div class="col-xs-12 comments-container">
@@ -96,7 +136,7 @@
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: DrivingDevelopmentQuestions">
 
-                    <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
 
                     <div class="row">
                         <div class="col-xs-12 comments-container">
@@ -113,7 +153,7 @@
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: InANutShellQuestions">
 
-                    <h3 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h3>
+                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
                     @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
 
                     <div class="row">
@@ -124,65 +164,70 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
             <br />
-            <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
-                <div class="col-xs-12">
+            <div class="alert alert-info col-xs-12" style="text-align: right;">
+                <div class="col-xs-2">
+                    
+            </div>
+                <div class="col-xs-8">
                     <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
                             then this meeting is being viewed by Colleague,
                             else it is being viewed by manager
                             -> This check is done in controller itself
                             -->
-                    @*<-- Manager view: Signoff section.. (only show "Approved" box once colleague has done Signoff) -->*@
-                    <div style="display: none" data-bind="visible: (!dataModel().ColleagueInitiated && dataModel().ColleagueSignOff==1)">
-                        <strong>Approved:</strong>
-                        &nbsp;&nbsp;<input id="Checkbox1" type="checkbox" class="pointable"
+                    <!-- Colleague view bottom part -->
+                    <div style="display: none" data-bind="visible: dataModel().IsColleagueView">
+                            &nbsp;&nbsp;
+                        <input id="Checkbox3" type="checkbox" class="pointable"
                                            data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
+                                                      value: dataModel().SharingStatus,
+                                                      enable: (dataModel().IsColleagueView),
+                                                      readonly: !(dataModel().IsColleagueView),
+                                                      click: $root.unshareConversation" name="CheckboxShared" />
+                            <span>Share with manager</span>
+
+                        @*<!-- Shared date: Colleague view -->
+                        <div style="display: none" data-bind="visible: dataModel().SharingStatus==1">
+                            Shared with manager on 
+                            <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
+                                  data-bind="text: $root.formatDateMonthDYHM($root.dataModel().SharingDate) "></span>
+                            <!-- TODO Unshare checkbox here -->
+                        </div>*@
+                    </div>
+
+                    <!-- Manager view bottom part -->
+                    <div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+                        @*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
+                        <div style="display: none" data-bind="visible: (dataModel().ColleagueSignOff==1) && (dataModel().ManagerSignOff ==0)">
+                            &nbsp;&nbsp;
+                            <input id="Checkbox1" type="checkbox" class="pointable"
+                                   data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
                                                       value: dataModel().ManagerSignOff,
-                                                      enable: !(dataModel().ColleagueInitiated),
-                                                      readonly: (dataModel().ColleagueInitiated),
-                                                      click: $root.confirmCheckbox" name="Completed1" /><br />
-
-                    </div>
-                    @*<-- Colleague view: Signoff section.. -->*@
-                    <div style="display: none" data-bind="visible: (dataModel().ColleagueInitiated)">
-                        <strong>Meeting complete:</strong>
-                        <input id="Checkbox2" type="checkbox" class="pointable"
-                               data-bind="checked: dataModel().ColleagueSignOff, value: dataModel().ColleagueSignOff, enable: (dataModel().ColleagueInitiated), readonly: !(dataModel().ColleagueInitiated),
-                                                      click: $root.confirmCheckbox" name="Completed2" />
-                    </div>
-
-                    <!-- Show signoff dates -->
-                    <div data-bind="visible: (dataModel().ColleagueSignOff==0)">
-                        <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
-                        not yet submitted this Link meeting.
-                    </div>
-                    <div data-bind="visible: (dataModel().ColleagueSignOff==1)">
-                        <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You' : dataModel().ColleagueName "></span>
-                        submitted this Link meeting on
-                        <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
-                              data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
-
-                        <div data-bind="visible: (dataModel().ManagerSignOff ==0)">
-                            <span data-bind="text: (dataModel().ColleagueInitiated) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
-                            not yet approved this Link meeting
+                                                      enable: !(dataModel().IsColleagueView),
+                                                      readonly: (dataModel().IsColleagueView),
+                                                      click: $root.confirmCheckbox" name="CompletedMgr" />
+                            <span>
+                                I accept <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"> conversation record.</span>
+                            </span>
                         </div>
-                        <div data-bind="visible: (dataModel().ManagerSignOff ==1)">
-                            <span data-bind="text: (dataModel().ColleagueInitiated) ? dataModel().ManagerName : 'You ' "></span>
-                            approved this Link meeting on
+                    </div>
+
+                    <!-- Show approval date -->
+                    <div data-bind="visible: (dataModel().ManagerSignOff == 1)">
+                        Approved by <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'you ' "></span>
+                        on
                             <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
                                   data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
                         </div>
-                    </div>
 
-                    <br />
-                    <div class="right">
-                        <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save Changes</button>
+                </div>
+                <div class="col-xs-2" data-bind="visible: (dataModel().SharingStatus==0)">
+                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
                         &nbsp; &nbsp;
                     </div>
-                    @*<a class="btn btn-default" data-bind="click: $root.downloadLinkFormAsPdf">Download</a>*@
-                </div>
+
             </div>
         </form>
 
