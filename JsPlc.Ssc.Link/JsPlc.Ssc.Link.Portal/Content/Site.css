@@ -399,9 +399,9 @@ border-color: #00acc9;
 
 
 
-h1 {font-family:Mary Ann Regular;font-size:40px;color: #056792;font-weight: bold;}
-h2 {font-family:Mary Ann Regular;font-size:28px;color: #056792;}
-h3 {font-family:Mary Ann Regular;font-size:22px;margin-top: 0px;}
+h1 {font-size:40px;color: #056792;font-weight: bold;}
+h2 {font-size:28px;color: #056792;}
+h3 {font-size:22px;margin-top: 0px;}
 
 .lead{font-size:150%;color: #056792;}
 
@@ -411,6 +411,7 @@ h3 {font-family:Mary Ann Regular;font-size:22px;margin-top: 0px;}
 
 .wrapper{ min-height: 1050px;}
 
-.linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;margin-left: 15px;}
+.linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;}
+.linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding-top:10px;background-color:lightblue}
 
 

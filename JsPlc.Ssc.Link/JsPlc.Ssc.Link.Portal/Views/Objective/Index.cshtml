@@ -4,23 +4,21 @@
 
 <div id="ObjectivesListView" style="display:none" data-bind="visible:true">
     <div>YOUR LINK</div>
-    <span class="h2">Objectives</span>
-    <div class="media list-group-item">
+    <h1>Objectives</h1>
+    <div class="linkBox2 list-group-item">
         <div class="media-body">
             <p>Personal objectives ensure we are clear on our how we can each make a difference to our team, the business and our customers.</p>
         </div>
     </div>
-    <a href="#">Read more</a>
     <br />
-    <br />
-    <a data-bind="attr: { href: 'objective/new' }" class="btn btn-default btn-lg">Add a new objective</a>
+    <a data-bind="attr: { href: 'objective/new' }" class="btn btn-primary btn-lg">Add a new objective</a>
     <br />
     <br />
     <div class="list-group" id="objectiveList" data-bind="foreach: objectives">
-        <div class="media list-group-item">
-            <a data-bind="attr: { href: 'objective/show/'+Id }" class=" btn btn-default pull-right">View objective</a>
+        <div class="linkBox1 list-group-item">
+            <a data-bind="attr: { href: 'objective/show/'+Id }" class=" btn btn-primary pull-right">View objective</a>
             <div class="media-body">
-                <h3 class="media-heading" data-bind="text: Title"></h3>
+                <h3 data-bind="text: Title"></h3>
                 <p data-bind="text: Objective"></p>
             </div>
         </div>
