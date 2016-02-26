@@ -4,7 +4,7 @@
 
 <div id="linkpage" style="display: none;" data-bind="visible: true">
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
-    <span class="h2">Your Team</span>
+    <span class="h2">@ViewBag.Title</span>
     <br />
     <div class="list-group" data-bind="foreach: teamMembers">
         <div class="linkBox1 list-group-item">
