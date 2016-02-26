@@ -19,6 +19,8 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Extensions
                 MeetingDate = linkMeeting.MeetingDate,
                 ColleagueSignedOffDate = linkMeeting.ColleagueSignedOffDate,
                 ManagerSignedOffDate = linkMeeting.ManagerSignedOffDate,
+                SharingStatus = linkMeeting.SharingStatus,
+                SharingDate = linkMeeting.SharingDate,
                 MeetingId = linkMeeting.Id,
             };
             return retval;

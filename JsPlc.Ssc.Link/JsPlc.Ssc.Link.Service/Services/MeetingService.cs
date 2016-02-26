@@ -168,6 +168,8 @@ namespace JsPlc.Ssc.Link.Service.Services
                 MeetingDate = DateTime.Now,
                 ColleagueId = coll.ColleagueId,
                 ColleagueName = string.Concat(coll.FirstName, " " + coll.LastName),
+                Colleague = coll,
+                Manager = mgr,
                 ManagerId = (mgr == null) ? "" : mgr.ColleagueId,
                 ManagerName = (mgr == null) ? "" : string.Concat(mgr.FirstName, " " + mgr.LastName),
                 ColleagueSignOff = MeetingStatus.InComplete,
@@ -251,7 +253,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                     ManagerSignOff = view.ManagerSignOff,
                     ColleagueId = meeting.ColleagueId,
                     ManagerId = meeting.ManagerId,
-                    SharingStatus = meeting.SharingStatus,
+                    SharingStatus = view.SharingStatus,
                     SharingDate = null,
                     Id = view.MeetingId
                 };
@@ -375,6 +377,8 @@ namespace JsPlc.Ssc.Link.Service.Services
 
             MeetingView meetingView = meeting.ToMeetingView();
             meetingView.ColleagueName = coll.FirstName + " " + coll.LastName;
+            meetingView.Colleague = coll;
+            meetingView.Manager = mgr;
             meetingView.ManagerName = (mgr == null) ? "-" : mgr.FirstName + " " + mgr.LastName;
 
             //Get questions with answers for particular meeting

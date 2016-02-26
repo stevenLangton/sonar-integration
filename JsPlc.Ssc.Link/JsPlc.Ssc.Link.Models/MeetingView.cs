@@ -36,5 +36,8 @@ namespace JsPlc.Ssc.Link.Models
         public DateTime? SharingDate { get; set; }
 
         public IEnumerable<QuestionView> Questions { get; set; }
+
+        public ColleagueView Colleague { get; set; }
+        public ColleagueView Manager { get; set; }
     }
 }
