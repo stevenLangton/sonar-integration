@@ -306,6 +306,9 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\mary_ann_web-bold.woff" />
+    <Content Include="fonts\mary_ann_web-medium.woff" />
+    <Content Include="fonts\mary_ann_web-regular.woff" />
     <None Include="Properties\PublishProfiles\Link-PubPraveen.pubxml" />
     <None Include="Properties\PublishProfiles\Link-ReleasePublish.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />

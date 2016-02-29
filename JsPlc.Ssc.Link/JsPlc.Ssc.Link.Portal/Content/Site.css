@@ -107,14 +107,13 @@ div, span, h1, h2, h3, h4, h5, h6 {
     font-size: 18pt;
 }
 .link-footer {
-    background-color:#333333;
+    background-color: #056791;
     padding: 20px;
-    padding-left:70px;
-    padding-right:70px;
-    border-top:#EF6600 solid 2px;
-
- 
+    padding-left: 70px;
+    padding-right: 70px;
+    border-top: #02ABCA solid 2px;
 }
+
 
 
  /*needed for accordian menu*/
@@ -151,7 +150,7 @@ div, span, h1, h2, h3, h4, h5, h6 {
 }
 .threeiconContainer {
     margin:0; margin-top: 0;
-    xbackground-color: #20a9cb;
+    background-color: #20a9cb;
     padding: 0;
 }
 .liWelcome {
@@ -397,11 +396,14 @@ background-color: #00acc9;
 border-color: #00acc9;
 }
 
+@font-face {
+    font-family: maryAnnWebMedium;
+    src: url(/fonts/mary_ann_web-medium.woff);
+}
 
-
-h1 {font-size:40px;color: #056792;font-weight: bold;}
-h2 {font-size:28px;color: #056792;}
-h3 {font-size:22px;margin-top: 0px;}
+h1 {font-family:maryAnnWebMedium;font-size:40px;color: #056792;font-weight: bold;}
+h2 {font-family:maryAnnWebMedium;font-size:28px;color: #056792;}
+h3 {font-family:maryAnnWebMedium;font-size:22px;margin-top: 0px;}
 
 .lead{font-size:150%;color: #056792;}
 
@@ -412,6 +414,6 @@ h3 {font-size:22px;margin-top: 0px;}
 .wrapper{ min-height: 1050px;}
 
 .linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;}
-.linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding-top:10px;background-color:lightblue}
+.linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding:10px;padding-bottom:0px;background-color:lightblue}
 
 
