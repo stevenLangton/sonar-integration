@@ -11,12 +11,8 @@
 }
 
 <div class="myPageContainer">
-
-    <div class=" row">
-        <div class="col-md-6">YOUR DEVELOPMENT > LINK MEETINGS</div>
-    </div>
-
-    <div id="linkpage">
+    <div id="linkpage" style="display: none;" data-bind="visible: true">
+        <div id="breadcrumbs">@Html.MvcSiteMap().SiteMapPath()</div>
         <!-- knockout binding to this -->
         <div id="msgs"></div>
         <div style="display: none;" data-bind="visible: !$root.dataAvailable()">
@@ -47,22 +43,22 @@
 
             <!-- Meeting date/time picker, readonly when Shared -->
             <div class="row picker-row">
-                <div class="content-inline">
+                    <div class="content-inline">
                     <input type="text" id="MeetingDate" data-bind="value: dataModel().MeetingDate" class="datepicker form-control"
-                           readonly name="MeetingDate" style="width:100px" />
-                </div>
+                               readonly name="MeetingDate" style="width:100px" />
+                    </div>
 
-                <div class="content-inline text-between-pickers">
-                    <span>&nbsp;at&nbsp;</span>
-                </div>
+                    <div class="content-inline text-between-pickers">
+                        <span>&nbsp;at&nbsp;</span>
+                    </div>
 
-                <div class="content-inline">
-                    <div class="input-group bootstrap-timepicker timepicker" style="width: 130px">
-                        <input id="timepicker1" type="text" class="form-control input-small" data-bind="value: dataModel().MeetingTime">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    <div class="content-inline">
+                        <div class="input-group bootstrap-timepicker timepicker" style="width: 130px">
+                            <input id="timepicker1" type="text" class="form-control input-small" data-bind="value: dataModel().MeetingTime">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <br />
             <!-- Conversation completed -->
@@ -174,18 +170,18 @@
             <div class="alert alert-info col-xs-12" style="text-align: right;">
                 <div class="col-xs-2">
                     
-                </div>
+            </div>
                 <div class="col-xs-8">
                     <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
-                        then this meeting is being viewed by Colleague,
-                        else it is being viewed by manager
-                        -> This check is done in controller itself
-                        -->
+                            then this meeting is being viewed by Colleague,
+                            else it is being viewed by manager
+                            -> This check is done in controller itself
+                            -->
                     <!-- Colleague view bottom part -->
                     <div style="display: none" data-bind="visible: dataModel().IsColleagueView">
                             &nbsp;&nbsp;
                         <input id="Checkbox3" type="checkbox" class="pointable"
-                               data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
+                                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
                                                       value: dataModel().SharingStatus,
                                                       enable: (dataModel().IsColleagueView),
                                                       readonly: !(dataModel().IsColleagueView),
@@ -222,15 +218,15 @@
                     <div data-bind="visible: (dataModel().ManagerSignOff == 1)">
                         Approved by <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'you ' "></span>
                         on
-                        <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
-                              data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
-                    </div>
+                            <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
+                                  data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
+                        </div>
 
                 </div>
                 <div class="col-xs-2" data-bind="visible: (dataModel().SharingStatus==0)">
                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
-                    &nbsp; &nbsp;
-                </div>
+                        &nbsp; &nbsp;
+                    </div>
 
             </div>
         </form>

@@ -57,6 +57,18 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             //return CreatedAtRoute("api/meetings", new {id=meetingView.MeetingId}, meetingView);
         }
 
+        [HttpGet] // GET: api/UnshareMeeting/5
+        [Route("api/UnshareMeeting/{meetingId}")] 
+        public IHttpActionResult UnshareMeeting(int meetingId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var meeting = _dbMeeting.UnshareMeeting(meetingId);
+
+            return Ok(meeting);
+        }
+
         [HttpPut] // PUT: api/Meetings/5
         public IHttpActionResult UpdateMeeting( MeetingView meetingView)
         {

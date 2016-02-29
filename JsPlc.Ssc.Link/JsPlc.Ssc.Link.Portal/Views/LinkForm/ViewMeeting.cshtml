@@ -98,29 +98,39 @@
                         <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
                     </div>
                 </div>
-
             </div>
         </div>
         <br/>
         <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
             <div class="col-xs-12">
+                <!-- Colleague view bottom part -->
+                <div style="display: none" data-bind="visible: dataModel().IsColleagueView">
+                    &nbsp;&nbsp;
+                    <input id="Checkbox3" type="checkbox" class="pointable"
+                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
+                                                      value: dataModel().SharingStatus,
+                                                      enable: (dataModel().IsColleagueView),
+                                                      readonly: !(dataModel().IsColleagueView),
+                                                      click: $root.unshareConversation" name="CheckboxShared" />
+                    <span>Share with manager</span>
+                </div>
 
                 <!-- Show signoff dates -->
                 <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
-                    <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
+                    <span data-bind="text: (dataModel().IsColleagueView) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
                     not yet submitted this Link conversation.
                 </div>
                 <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
-                    <span data-bind="text: (dataModel().ColleagueInitiated) ? 'You' : dataModel().ColleagueName "></span>
+                    <span data-bind="text: (dataModel().IsColleagueView) ? 'You' : dataModel().ColleagueName "></span>
                     submitted this Link conversation on
                     <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
 
                     <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
-                        <span data-bind="text: (dataModel().ColleagueInitiated) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
+                        <span data-bind="text: (dataModel().IsColleagueView) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
                         not yet approved this Link conversation
                     </div>
                     <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
-                        <span data-bind="text: (dataModel().ColleagueInitiated) ? dataModel().ManagerName : 'You ' "></span>
+                        <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'You ' "></span>
                         approved this Link conversation on
                         <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
                         <div>

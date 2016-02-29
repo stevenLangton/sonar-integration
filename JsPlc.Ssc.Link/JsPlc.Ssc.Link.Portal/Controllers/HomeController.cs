@@ -26,6 +26,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("LinkMeetings");
         }
 
+        [System.Web.Mvc.Authorize]
+        public ActionResult Help()
+        {
+            TempData["tabName"] = "Help";
+            ViewBag.Message = "Your help page.";
+
+            return View();
+        }
+
         public ActionResult Contact()
         {
             TempData["tabName"] = "Contact";

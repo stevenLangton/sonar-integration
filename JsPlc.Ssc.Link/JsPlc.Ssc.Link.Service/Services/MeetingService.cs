@@ -4,6 +4,7 @@ using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
 using System.Data.Entity;
+using Elmah;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -189,6 +190,23 @@ namespace JsPlc.Ssc.Link.Service.Services
             meetingView.Questions = question;
 
             return meetingView;
+        }
+
+        public MeetingView UnshareMeeting(int id)
+        {
+            var meeting = _db.Meeting.FirstOrDefault(m => m.Id == id);
+
+            if (meeting != null && meeting.ManagerSignOff != MeetingStatus.Completed)
+            {
+                meeting.SharingStatus = MeetingSharingStatus.NotShared;
+                _db.Meeting.AddOrUpdate(meeting);
+                _db.SaveChanges();
+            }
+            else
+            {
+                throw new Elmah.ApplicationException("Cannot unshare a meeting which has been approved.");
+            }
+            return meeting.ToMeetingView();
         }
 
         // save new meeting, returns 0 if not saved.

@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Your team members";
+    ViewBag.Title = "My team members";
 }
 
 <div id="linkpage" style="display: none;" data-bind="visible: true">
-    <div>LINE MANAGEMENT</div>
-    <h2>Your Team</h2>
+    <div>@Html.MvcSiteMap().SiteMapPath()</div>
+    <h1>@ViewBag.Title</h1>
     <br />
     <div class="list-group" data-bind="foreach: teamMembers">
         <div class="linkBox1 list-group-item">

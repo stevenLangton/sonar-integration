@@ -1,6 +1,6 @@
 ﻿@model JsPlc.Ssc.Link.Models.Entities.LinkPdp
 
-
+<div>@Html.MvcSiteMap().SiteMapPath()</div>
 <form action="pdp" method="post">
     <div class="form-horizontal">
         <h1>Personal Development Plan</h1>
@@ -62,7 +62,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="messages">
                     <h4>
-                        What are my key strengths?
+                        What are my career aspirations?
                     </h4>
 
                     @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
@@ -70,7 +70,7 @@
 
 
                     <h4>
-                        What actions will I take to further develop these areas?
+                        What actions do I need to take to move towards these aspirations?
                     </h4>
 
                     @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })

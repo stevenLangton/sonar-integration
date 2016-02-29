@@ -16,6 +16,7 @@ using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
+using MvcSiteMapProvider;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -35,7 +36,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 newMeeting.ColleagueSignOff = MeetingStatus.InComplete;
                 newMeeting.SharingStatus = MeetingSharingStatus.NotShared;
                 jsonData = newMeeting;
-                if(!HasColleagueAccess(CurrentUser.Colleague.ColleagueId, colleagueId))
+                if (!HasColleagueAccess(CurrentUser.Colleague.ColleagueId, colleagueId))
                 {
                     jsonData = "Error";
                 }
@@ -60,7 +61,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [ScriptMethod(UseHttpGet = true)]
-        public JsonResult GetMeetingView(int meetingId, string mode="view")
+        public JsonResult GetMeetingView(int meetingId, string mode = "view")
         {
             object jsonData;
             var meeting = ServiceFacade.GetMeeting(meetingId);
@@ -80,6 +81,38 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 jsonData = "Error";
             }
 
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = jsonData // MeetingView
+            };
+            return jsonResult;
+        }
+
+        [ScriptMethod(UseHttpGet = true)]
+        public async Task<JsonResult> UnShare(int meetingId)
+        {
+            object jsonData="Error";
+
+            var meeting = ServiceFacade.GetMeeting(meetingId);
+
+            if (meeting == null || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
+            {
+                jsonData = "Error";
+            }
+            if (meeting != null)
+            {
+                meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
+                if (meeting.ManagerSignOff == MeetingStatus.Completed)
+                {
+                    jsonData = "Approved"; // cannot Unshare completed meeting..
+                }
+                else
+                {
+                    jsonData = await ServiceFacade.UnshareMeeting(meetingId);
+                }
+            }
 
             var jsonResult = new JsonResult
             {
@@ -178,6 +211,20 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             ViewBag.Title = "My Team";
 
+            //// For Colleague- if meeting is neither Shared not Approved, change from View to Edit mode..
+            //if (id != null)
+            //{
+            //    var meeting = ServiceFacade.GetMeeting(id.Value);
+
+            //meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
+            //if (meeting.ColleagueInitiated && 
+            //    (meeting.SharingStatus == MeetingSharingStatus.NotShared) &&
+            //    (meeting.ManagerSignOff == MeetingStatus.InComplete))
+            //{
+            //    return RedirectToAction("Edit", new {id=id});
+            //}
+            //}
+
             return View();
         }
 
@@ -185,8 +232,19 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Edit(int? id)
         {
-            ViewBag.Title = "Edit Meeting";
+            ViewBag.Title = "Edit conversation";
+            if (id != null)
+            {
+                var meeting = ServiceFacade.GetMeeting(id.Value);
 
+                // For Colleague-If meeting is "shared or approved", change from Edit to View mode..
+                meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
+                if (meeting.ColleagueInitiated && (meeting.SharingStatus == MeetingSharingStatus.Shared) ||
+                    (meeting.ManagerSignOff == MeetingStatus.Completed))
+                {
+                    return RedirectToAction("ViewMeeting", new { id = id });
+                }
+            }
             return View("Create", new { colleagueId = id.ToString() });
             //return RedirectToAction("Create", new { colleagueId = id.ToString() });
         }
