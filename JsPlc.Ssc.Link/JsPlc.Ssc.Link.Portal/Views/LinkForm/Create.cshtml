@@ -179,16 +179,12 @@
             </div>
 
             <br />
+            <!-- Sharing, Approval checkboxes -->
             <div class="alert alert-info col-xs-12" style="text-align: right;">
                 <div class="col-xs-2">
 
                 </div>
                 <div class="col-xs-8">
-                    <!-- ColleagueInitiated means: If ColleagueId param is same as LoggedInUser.Colleague.ColleagueId
-                        then this meeting is being viewed by Colleague,
-                        else it is being viewed by manager
-                        -> This check is done in controller itself
-                        -->
                     <!-- Colleague view bottom part -->
                     <div style="display: none" data-bind="visible: dataModel().IsColleagueView">
                         &nbsp;&nbsp;
