@@ -24,6 +24,7 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
         IEnumerable<ColleagueTeamView> GetTeam(string managerId);
 
         MeetingView UnshareMeeting(int id);
+        MeetingView ApproveMeeting(int id);
 
         void Dispose();
     }
