@@ -4,14 +4,14 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         switch (crudMode) {
             case "Create":
                 return {
-                    success: "Meeting created",
-                    failure: "Meeting creation failed"
+                    success: "Conversation successfully created",
+                    failure: "Conversation creation failed"
                 };
                 break;
             case "Edit":
                 return {
-                    success: "Meeting updated",
-                    failure: "Meeting update failed"
+                    success: "Conversation successfully updated",
+                    failure: "Conversation update failed"
                 };
                 break;
             default:
@@ -272,7 +272,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 errorsList = errorsList + "<li>" + errors[i].Value[0] + "</li>";
             }
             $("#msgs").html("<ul class='linkErrorMsg'>" + errorsList + "</ul>");
-            window.alert("VALIDATION ERRORS, please see top of screen for remedial action.");
+            toastr.error("VALIDATION ERRORS, please see top of screen for remedial action.");
         }
 
         self.getMeetingView = function () {
