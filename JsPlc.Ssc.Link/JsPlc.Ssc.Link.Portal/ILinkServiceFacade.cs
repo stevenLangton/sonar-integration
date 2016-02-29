@@ -29,5 +29,6 @@ namespace JsPlc.Ssc.Link.Portal
         Task<bool> UpdateObjective(LinkObjective modified);
         Task<LinkPdp> UpdatePdp(LinkPdp modified);
         Task<MeetingView> UnshareMeeting(int meetingId);
+        Task<MeetingView> ApproveMeeting(int meetingId);
     }
 }

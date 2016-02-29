@@ -68,10 +68,19 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             if (meeting != null)
             {
+                // Is colleague View?
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 jsonData = meeting;
-                if ((mode.Equals("edit") && meeting.ManagerSignOff == MeetingStatus.Completed) 
-                    || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
+
+                // Checks - Return error if
+                // Trying to Edit a completed meeting
+                // You dont have access to meeting (not your meeting or user is not your manager)
+                // Manager trying to access unshared meeting
+                if (!HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId)
+                    ||
+                    (mode.Equals("edit") && meeting.ManagerSignOff == MeetingStatus.Completed)
+                    || 
+                    (!meeting.ColleagueInitiated && meeting.SharingStatus == MeetingSharingStatus.NotShared))
                 {
                     jsonData = "Error"; // cannot Edit completed meeting..Or one you dont have access to
                 }
@@ -111,6 +120,38 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 else
                 {
                     jsonData = await ServiceFacade.UnshareMeeting(meetingId);
+                }
+            }
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = jsonData // MeetingView
+            };
+            return jsonResult;
+        }
+
+        [ScriptMethod(UseHttpGet = true)]
+        public async Task<JsonResult> Approve(int meetingId)
+        {
+            object jsonData = "Error";
+
+            var meeting = ServiceFacade.GetMeeting(meetingId);
+
+            if (meeting == null || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
+            {
+                jsonData = "Error";
+            }
+            if (meeting != null)
+            {
+                meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
+                if (!meeting.ColleagueInitiated && meeting.SharingStatus == MeetingSharingStatus.NotShared)
+                {
+                    jsonData = "Unshared"; // cannot Approve unshared meeting..
+                }
+                else
+                {
+                    jsonData = await ServiceFacade.ApproveMeeting(meetingId);
                 }
             }
 
@@ -211,19 +252,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             ViewBag.Title = "My Team";
 
-            //// For Colleague- if meeting is neither Shared not Approved, change from View to Edit mode..
-            //if (id != null)
-            //{
-            //    var meeting = ServiceFacade.GetMeeting(id.Value);
+            if (id != null)
+            {
+                var meeting = ServiceFacade.GetMeeting(id.Value);
 
-            //meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
-            //if (meeting.ColleagueInitiated && 
-            //    (meeting.SharingStatus == MeetingSharingStatus.NotShared) &&
-            //    (meeting.ManagerSignOff == MeetingStatus.InComplete))
-            //{
-            //    return RedirectToAction("Edit", new {id=id});
-            //}
-            //}
+                // For Manager- if meeting is not Shared, goto unauthorized view..
+                meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
+                if (!meeting.ColleagueInitiated && (meeting.SharingStatus == MeetingSharingStatus.NotShared))
+                {
+                    return RedirectToAction("Unauthorized", "Home");
+                }
+            }
 
             return View();
         }
@@ -239,8 +278,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
                 // For Colleague-If meeting is "shared or approved", change from Edit to View mode..
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
-                if (meeting.ColleagueInitiated && (meeting.SharingStatus == MeetingSharingStatus.Shared) ||
-                    (meeting.ManagerSignOff == MeetingStatus.Completed))
+
+                // For Manager- if meeting is not Shared, goto unauthorized view..
+                if (!meeting.ColleagueInitiated && meeting.SharingStatus == MeetingSharingStatus.NotShared)
+                {
+                    return RedirectToAction("Unauthorized", "Home");
+                }
+
+                // Shared meeting: always goto "View" mode
+                if (meeting.SharingStatus == MeetingSharingStatus.Shared)
                 {
                     return RedirectToAction("ViewMeeting", new { id = id });
                 }

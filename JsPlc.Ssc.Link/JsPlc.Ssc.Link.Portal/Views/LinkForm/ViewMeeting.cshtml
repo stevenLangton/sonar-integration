@@ -13,18 +13,19 @@
     </div>
 
     <div style="display:none" data-bind="visible: $root.dataAvailable">
+        <!-- Manager view: show colleague name banner -->
+        <div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+            <div class="col-xs-6 col-md-1"><img src="/Content/Images/default_profile_picture.png" alt="..." class="img-circle" width="30"> </div>
+            <div class="col-xs-6 col-md-11 left"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
+            <br style="clear:both;">
+        </div>
+
         <h2>
             @ViewBag.Title -
             <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
                   data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span>
         </h2>
         <h3>@ViewBag.Message</h3>
-
-        <div class="meeting-banner">
-            <div class="col-xs-6 col-md-1"><img src="/Content/Images/default_profile_picture.png" alt="..." class="img-circle" width="30"> </div>
-            <div class="col-xs-6 col-md-11 left"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
-            <br style="clear:both;">
-        </div>
 
         <!-- Columns are always 50% wide, on mobile and desktop -->
         <div data-bind="with: dataModel">
@@ -40,7 +41,6 @@
                 <div class="row">
                     <div class="col-xs-12 comments-container">
                         <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
-                        @*Manager Comment:<br /><textarea disabled data-bind="text: ManagerComment, value:ManagerComment" rows="4"></textarea>*@
                     </div>
                 </div>
 
@@ -54,7 +54,6 @@
             <div data-bind="foreach: LookingFwdQuestions">
 
                 <h3 class="linkmeeting-question"><span data-bind="text: Question"></span> </h3>
-                @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>*@
 
                 <div class="row">
                     <div class="col-xs-12 comments-container">
@@ -79,8 +78,6 @@
                         <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
                     </div>
                 </div>
-
-
             </div>
 
 
@@ -91,7 +88,6 @@
             <div data-bind="foreach: InANutShellQuestions">
 
                 <h3 class="linkmeeting-question"><span data-bind="text: Question"></span> </h3>
-                @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" disabled="disabled" /></div>*@
 
                 <div class="row">
                     <div class="col-xs-12 comments-container">
@@ -100,46 +96,60 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
         <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
             <div class="col-xs-12">
                 <!-- Colleague view bottom part -->
-                <div style="display: none" data-bind="visible: dataModel().IsColleagueView">
+                <div style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
                     &nbsp;&nbsp;
                     <input id="Checkbox3" type="checkbox" class="pointable"
-                           data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff},
+                           data-bind="attr: {NOTBOUNDchecked: dataModel().SharingStatus==1},
                                                       value: dataModel().SharingStatus,
                                                       enable: (dataModel().IsColleagueView),
                                                       readonly: !(dataModel().IsColleagueView),
-                                                      click: $root.unshareConversation" name="CheckboxShared" />
+                                                      click: $root.unshareMeeting" name="CheckboxShared" />
                     <span>Share with manager</span>
+                </div>
+
+                <!-- Manager view: Approval -->
+                <div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+                    @*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
+                    <div style="display: none" data-bind="visible: (dataModel().ColleagueSignOff==1) && (dataModel().ManagerSignOff == 0)">
+                        &nbsp;&nbsp;
+                        <input id="Checkbox1" type="checkbox" class="pointable"
+                               data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff==1},
+                                                      value: dataModel().ManagerSignOff,
+                                                      enable: !(dataModel().IsColleagueView),
+                                                      readonly: (dataModel().IsColleagueView),
+                                                      click: $root.approveMeeting" name="CompletedMgr" />
+                        <span>
+                            I accept
+                            <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"> </span>
+                            conversation record.
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Show signoff dates -->
                 <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
                     <span data-bind="text: (dataModel().IsColleagueView) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
-                    not yet submitted this Link conversation.
+                    not yet completed this Link conversation.
                 </div>
                 <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
                     <span data-bind="text: (dataModel().IsColleagueView) ? 'You' : dataModel().ColleagueName "></span>
-                    submitted this Link conversation on
+                    completed this Link conversation on
                     <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
 
                     <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
                         <span data-bind="text: (dataModel().IsColleagueView) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
-                        not yet approved this Link conversation
+                        not yet accepted this Link conversation
                     </div>
                     <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
                         <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'You ' "></span>
-                        approved this Link conversation on
+                        accepted this Link conversation on
                         <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
-                        <div>
-                            <strong>conversation complete: </strong>&nbsp;&nbsp;
-                            <input id="Checkbox2" type="checkbox" data-bind="checked: (dataModel().ManagerSignOff==1) && (dataModel().ColleagueSignOff==1)" name="ManagerSignOff" disabled="disabled" />
-                        </div>
                     </div>
                 </div>
-                @*<strong>Colleague Completed: </strong><input id="Checkbox1" type="checkbox" data-bind="checked: dataModel().ColleagueSignOff" name="ColleagueSignOff" disabled="disabled" />*@
                 @*<a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>*@
             </div><br />
         </div>
