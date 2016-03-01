@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Properties;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -21,6 +22,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult LinkMeetings()
         {
+            ViewBag.Title = Resources.LinkConversations;
+
             TempData["tabName"] = "meetings";
             TempData["ViewType"] = "MyMeetings";
             return View("LinkMeetings");

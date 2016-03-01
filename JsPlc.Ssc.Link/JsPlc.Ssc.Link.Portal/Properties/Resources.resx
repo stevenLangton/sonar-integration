@@ -125,6 +125,22 @@
     <value>My development</value>
     <comment>Colleague section heading</comment>
   </data>
+  <data name="ConvTracker" xml:space="preserve">
+    <value>Conversation tracker</value>
+    <comment>A page title</comment>
+  </data>
+  <data name="LinkConversations" xml:space="preserve">
+    <value>Link conversations</value>
+    <comment>A page title</comment>
+  </data>
+  <data name="MyObjectives" xml:space="preserve">
+    <value>My objectives</value>
+    <comment>A page title</comment>
+  </data>
+  <data name="MyPdp" xml:space="preserve">
+    <value>My personal development plan</value>
+    <comment>A page title</comment>
+  </data>
   <data name="TeamSectionHeader" xml:space="preserve">
     <value>My team</value>
     <comment>Team section heading</comment>

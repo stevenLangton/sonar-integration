@@ -79,6 +79,42 @@ namespace JsPlc.Ssc.Link.Portal.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversation tracker.
+        /// </summary>
+        public static string ConvTracker {
+            get {
+                return ResourceManager.GetString("ConvTracker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link conversations.
+        /// </summary>
+        public static string LinkConversations {
+            get {
+                return ResourceManager.GetString("LinkConversations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My objectives.
+        /// </summary>
+        public static string MyObjectives {
+            get {
+                return ResourceManager.GetString("MyObjectives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My personal development plan.
+        /// </summary>
+        public static string MyPdp {
+            get {
+                return ResourceManager.GetString("MyPdp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My team.
         /// </summary>
         public static string TeamSectionHeader {

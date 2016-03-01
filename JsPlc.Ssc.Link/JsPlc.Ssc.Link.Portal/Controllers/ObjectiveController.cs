@@ -1,6 +1,7 @@
 ﻿using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Properties;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
@@ -27,6 +28,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Objective
         public ActionResult Index()
         {
+            ViewBag.Title = Resources.MyObjectives;
             ViewBag.ColleagueId = CurrentUser.Colleague.ColleagueId;
             return View();
         }
