@@ -49,29 +49,30 @@
                 
                 <p>
                    
-                        <!-- ko if: (ColleagueSignOff == 1) -->
-                        @*You have submitted this conversation for signoff.*@
-                        <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
-                        <br />
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
-                        <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
-                        <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko if: (ColleagueSignOff ==0) -->
-                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
-                        <!-- /ko -->
+                    <!-- ko if: (ColleagueSignOff == 1) -->
+                    @*You have submitted this conversation for signoff.*@
+                    <!-- ko if: (ManagerSignOff == 0) -->
+                    You submitted this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                    <br />
+                    <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
+                    <!-- /ko -->
+                    <!-- ko if: (ManagerSignOff == 1) -->
+                    <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
+                    <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: (ColleagueSignOff ==0) -->
+                    This conversation is not complete yet. Once you complete it, please submit it for signoff by
+                    <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
+                    <!-- /ko -->
                   
                 </p>
                 <p>
-                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
+                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}, visible: $data.SharingStatus == 1"
                        class="btn btn-sm btn-primary">
                         <span data-bind="text: $root.getColleagueName(Colleague)"></span>
                     </a>
+                    <span style="color: silver" data-bind="text: $data.MeetingId"></span>
                 </p>
             </div>
         </div>
