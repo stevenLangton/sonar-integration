@@ -235,7 +235,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         //[LinkAuthorizeManager] // might be needed for ManagerApproval method. Not needed here yet as Create can be called by Mgr or Employee.
         public ActionResult Create(string colleagueId)
         {
-            ViewBag.Title = "Create Link Form";
+            ViewBag.Title = "Create Link conversation";
             if (String.IsNullOrEmpty(colleagueId))
             {
                 return RedirectToAction("Welcome", "Home");

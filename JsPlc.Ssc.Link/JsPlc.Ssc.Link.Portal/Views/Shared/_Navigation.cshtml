@@ -1,5 +1,8 @@
 ﻿@using JsPlc.Ssc.Link.Models
 @using JsPlc.Ssc.Link.Portal.Models
+@using JsPlc.Ssc.Link.Portal.Properties
+
+
 @*@using Microsoft.AspNet.Identity*@
 @{
     var tab = TempData["tabName"];
@@ -21,13 +24,13 @@
     <br/>
     if ((currentUser != null && currentUser.IsLineManager))
     {
-        <p class="lead">My team</p>
+        <p class="lead">@Resources.TeamSectionHeader</p>
         <div class="list-group">
             <a href="/Team" class="list-group-item @(tabName == "team" ? "active" : "")">My team members</a>
             <a href="/Team/MeetingRecords" class="list-group-item @(tabName == "meetingrecords" ? "active" : "")">Conversation tracker</a>
         </div>
     }
-    <p class="lead">My development</p>
+    <p class="lead">@Resources.ColleagueSectionHeader</p>
     <div class="list-group">
         <a href="/Objective" class="list-group-item @(tabName == "objective" ? "active" : "")">My objectives</a>
         <a href="/Home/LinkMeetings" class="list-group-item @(tabName == "meetings" ? "active" : "")">Link conversations</a>
