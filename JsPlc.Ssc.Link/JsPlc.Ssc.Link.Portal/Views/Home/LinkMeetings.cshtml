@@ -43,18 +43,8 @@
         <div class="col-md-12">
             <h2>Past Link conversations</h2>
         </div>
-        <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
-        <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
-        <!-- /ko -->
-        <!-- ko foreach: PastMeetings -->
-        <div data-bind="template: { name: 'past-meeting-template', data: $data }"></div>
-        <!-- /ko -->
-        @*<div class="col-md-12">
-                <span style="color: red">TODO Continue creating past conversation views here..</span>
-            </div>*@
+        <past-meetings params="data: $data"></past-meetings>
     </div>
-
-
     <!-- /ko --><!-- end of root.datamodel -->
 </div>
 <script type="text/html" id="nocurrent-meeting-template">
@@ -105,55 +95,9 @@
         </div>
     </div>
 </script>
-<script type="text/html" id="nopast-meeting-template">
-    <!-- note: dataType = LinkMeetingView -->
-    <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <p>You have no past conversations.</p>
-    </div>
-</script>
-<script type="text/html" id="past-meeting-template">
-    <!-- note: dataType = LinkMeetingView -->
-    <div style="margin: 10px 10px;">
-        <div class="col-md-12" style="border: solid 1px black; padding-top: 12px; margin-bottom: 10px">
-            <div class="col-md-1">
-                <i class="fa fa-check-circle fa-3x" data-bind="visible: (Status==1)"></i>
-                <i class="fa fa-times-circle fa-3x" data-bind="visible: (Status==0)"></i>
-            </div>
-            <div id="u98" class="col-md-10">
-                <p style="font-size:20px;">
-                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;"
-                          data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></span>
-                </p>
-                <p style="font-size:13px;">
-                    <span style="font-family:'Arial';font-weight:400;font-size:13px;">
-                        <!-- ko if: (ColleagueSignOff == 1) -->
-                        @*You have submitted this conversation for signoff.*@
-                        <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
-                        <br />
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
-                        <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
-                        <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko if: (ColleagueSignOff ==0) -->
-                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
-                        <!-- /ko -->
-                    </span>
-                </p>
-                <p>
-                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link conversation</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</script>
+
 <script type="text/javascript">
-    require(["LinkMeetings"], function (lm) {
+    require(["LinkMeetings", "RegisterKoComponents"], function (lm) {
         $(document).ready(function () {
             lm.init("@viewType");
         });

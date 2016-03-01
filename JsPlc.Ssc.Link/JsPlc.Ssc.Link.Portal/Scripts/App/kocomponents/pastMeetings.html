@@ -17,7 +17,7 @@
 <script type="text/html" id="past-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div style="margin: 10px 10px;">
-        <div class="col-md-12" style="border: solid 1px black; padding-top: 12px; margin-bottom: 10px">
+        <div class="col-md-12 linkBox1">
             <div class="col-md-1">
                 <i class="fa fa-check-circle fa-3x" data-bind="visible: (Status==1)"></i>
                 <i class="fa fa-times-circle fa-3x" data-bind="visible: (Status==0)"></i>
@@ -48,7 +48,7 @@
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link conversation</a>
+                       class="btn btn-sm btn-primary">View Link conversation</a>
                 </p>
             </div>
         </div>
