@@ -11,7 +11,7 @@
     <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
     Last conversation: <strong><span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
     <!-- /ko -->
-    <div class="row" style="padding-bottom: 30px;">
+    <div class="row">
         <!-- Latest conversation if any -->
         <!-- ko if: (LatestMeeting) -->
         <div data-bind="template: { name: 'current-meeting-template', data: LatestMeeting }"></div>
