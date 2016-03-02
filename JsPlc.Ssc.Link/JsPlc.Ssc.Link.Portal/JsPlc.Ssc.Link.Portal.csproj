@@ -455,6 +455,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\text.min.js" />
+    <None Include="Scripts\toastr.min.js.map" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\Utils\helpers.js" />
     <Content Include="Scripts\underscore.js" />
