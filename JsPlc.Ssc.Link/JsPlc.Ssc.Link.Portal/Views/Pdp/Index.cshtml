@@ -5,7 +5,7 @@
     <div class="form-horizontal">
         <h1>My personal development plan</h1>
         <div>
-            <div class="linkBox2">
+            <div class="container-fluid linkBox2">
                     <p>A clear development plan helps you turn your ideas about your personal development into a tangible and action-focused plan</p>
             </div>
             <!-- Nav tabs -->
@@ -80,20 +80,9 @@
         </div>
 
         <br/>
-        <div class="row">
-            <div class="col-lg-6">@Html.ActionLink("Back to List", "Index")</div>
-            <div class="col-lg-6" style="text-align: right;"><input type="submit" value="Save" class="btn btn-primary" style="float:right;" /></div>
-        </div>
-
-
-
-
-      
-
+        <input type="submit" value="Save" class="btn btn-primary pull-right" />
     </div>
 </form>
-
-
 <script type="text/javascript">
     @if (ViewBag.PdpUpdated != null) {
         <text>
