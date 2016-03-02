@@ -29,8 +29,7 @@
 
         <h2>
             @ViewBag.Title -
-            <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
-                  data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span>
+            <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span>
         </h2>
         <h3>@ViewBag.Message</h3>
 
@@ -38,129 +37,136 @@
         <div data-bind="with: dataModel">
 
             <!--Looking Back -->
-            <h3 class="linksection-heading">LOOKING BACK</h3>
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: LookingBackQuestions">
 
-                <h3 class="linkmeeting-question"><span data-bind="text: Question"></span></h3>
 
-                <div class="row">
-                    <div class="col-xs-12 comments-container">
-                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
+
+            <h3>Looking back</h3>
+
+           
+
+                <!-- LinkForm data items here -->
+                <!-- QUESTIONS Loop around this -->
+                <div data-bind="foreach: LookingBackQuestions">
+                    <div class="linkBox3">
+                        <div class="linkBoxTitle"> <h4 class="special"><span data-bind="text: Question"></span></h4> </div>
+
+                        <div class="linkPadding">
+                            <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea>
+                        </div>
                     </div>
-                </div>
-
-            </div>
-
+               </div>
+          
 
             <!-- Looking Forward -->
-            <h3 class="linksection-heading">LOOKING FORWARD</h3>
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: LookingFwdQuestions">
+            <h3>Looking forward</h3>
 
-                <h3 class="linkmeeting-question"><span data-bind="text: Question"></span> </h3>
+            
+                <!-- LinkForm data items here -->
+                <!-- QUESTIONS Loop around this -->
+                <div data-bind="foreach: LookingFwdQuestions">
+                    <div class="linkBox3">
+                        <div class="linkBoxTitle"><h4 class="special"><span data-bind="text: Question"></span></h4></div>
 
-                <div class="row">
-                    <div class="col-xs-12 comments-container">
-                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
-                    </div>
+                        <div class="linkPadding">
+                            <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
+                        </div>
+                   </div>
                 </div>
 
 
-            </div>
+                    <!-- DRIVING MY DEVELOPMENT -->
+                    <h3>Driving my development</h3>
+                    <!-- LinkForm data items here -->
+                    <!-- QUESTIONS Loop around this -->
+                    <div data-bind="foreach: DrivingDevelopmentQuestions">
+
+                        <div class="linkBox3">
+                            <div class="linkBoxTitle"><h4 class="special"><span data-bind="text: Question"></span></h4>
+                            </div>
+
+                            <div class="linkPadding">
+                                <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br/>
+                            </div>
+                        </div>
+
+                    </div>
 
 
-            <!-- DRIVING MY DEVELOPMENT -->
-            <h3 class="linksection-heading">DRIVING MY DEVELOPMENT</h3>
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: DrivingDevelopmentQuestions">
+                    <!-- IN A NUTSHELL -->
+                    <h3>In a nutshell</h3>
+                    <!-- LinkForm data items here -->
+                    <!-- QUESTIONS Loop around this -->
+                    <div data-bind="foreach: InANutShellQuestions">
 
-                <h3 class="linkmeeting-question"><span data-bind="text: Question"></span> </h3>
+                        <div class="linkBox3">
+                            <div class="linkBoxTitle"><h4 class="special"><span data-bind="text: Question"></span></h4>
+                            </div>
 
-                <div class="row">
-                    <div class="col-xs-12 comments-container">
-                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
+                            <div class="linkPadding">
+                                <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br/>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-
-
-            <!-- IN A NUTSHELL -->
-            <h3 class="linksection-heading">IN A NUTSHELL</h3>
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: InANutShellQuestions">
-
-                <h3 class="linkmeeting-question"><span data-bind="text: Question"></span> </h3>
-
-                <div class="row">
-                    <div class="col-xs-12 comments-container">
-                        <br /><textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div class="alert alert-info col-xs-12" style="text-align: right; background-color: whitesmoke">
-            <div class="col-xs-12">
-                <!-- Colleague view bottom part -->
-                <div style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
-                    &nbsp;&nbsp;
-                    <input id="Checkbox3" type="checkbox" class="pointable"
-                           data-bind="attr: {NOTBOUNDchecked: dataModel().SharingStatus==1},
+                <br />
+                <div class="linkBox2 col-xs-12" style="text-align: right;">
+                    <div class="col-xs-12">
+                        <!-- Colleague view bottom part -->
+                        <div style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
+                            &nbsp;&nbsp;
+                            <input id="Checkbox3" type="checkbox" class="pointable"
+                                   data-bind="attr: {NOTBOUNDchecked: dataModel().SharingStatus==1},
                                                       value: dataModel().SharingStatus,
                                                       enable: (dataModel().IsColleagueView),
                                                       readonly: !(dataModel().IsColleagueView),
                                                       click: $root.unshareMeeting" name="CheckboxShared" />
-                    <span>Share with manager</span>
-                </div>
+                            <span>Share with manager</span>
+                        </div>
 
-                <!-- Manager view: Approval -->
-                <div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-                    @*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
-                    <div style="display: none" data-bind="visible: (dataModel().ColleagueSignOff==1) && (dataModel().ManagerSignOff == 0)">
-                        &nbsp;&nbsp;
-                        <input id="Checkbox1" type="checkbox" class="pointable"
-                               data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff==1},
+                        <!-- Manager view: Approval -->
+                        <div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+                            @*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
+                            <div style="display: none" data-bind="visible: (dataModel().ColleagueSignOff==1) && (dataModel().ManagerSignOff == 0)">
+                                &nbsp;&nbsp;
+                                <input id="Checkbox1" type="checkbox" class="pointable"
+                                       data-bind="attr: {NOTBOUNDchecked: dataModel().ManagerSignOff==1},
                                                       value: dataModel().ManagerSignOff,
                                                       enable: !(dataModel().IsColleagueView),
                                                       readonly: (dataModel().IsColleagueView),
                                                       click: $root.approveMeeting" name="CompletedMgr" />
-                        <span>
-                            I accept
-                            <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"> </span>
-                            conversation record.
-                        </span>
-                    </div>
-                </div>
+                                <span>
+                                    I accept
+                                    <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"> </span>
+                                    conversation record.
+                                </span>
+                            </div>
+                        </div>
 
-                <!-- Show signoff dates -->
-                <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
-                    <span data-bind="text: (dataModel().IsColleagueView) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
-                    not yet completed this Link conversation.
-                </div>
-                <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
-                    <span data-bind="text: (dataModel().IsColleagueView) ? 'You' : dataModel().ColleagueName "></span>
-                    completed this Link conversation on
-                    <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
+                        <!-- Show signoff dates -->
+                        <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
+                            <span data-bind="text: (dataModel().IsColleagueView) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
+                            not yet completed this Link conversation.
+                        </div>
+                        <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
+                            <span data-bind="text: (dataModel().IsColleagueView) ? 'You' : dataModel().ColleagueName "></span>
+                            completed this Link conversation on
+                            <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
 
-                    <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
-                        <span data-bind="text: (dataModel().IsColleagueView) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
-                        not yet accepted this Link conversation
-                    </div>
-                    <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
-                        <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'You ' "></span>
-                        accepted this Link conversation on
-                        <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
-                    </div>
+                            <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
+                                <span data-bind="text: (dataModel().IsColleagueView) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
+                                not yet accepted this Link conversation
+                            </div>
+                            <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
+                                <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'You ' "></span>
+                                accepted this Link conversation on
+                                <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
+                            </div>
+                        </div>
+                        @*<a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>*@
+                    </div><br />
                 </div>
-                @*<a data-bind="attr:{'href': dataModel().DownloadUrl}" class="btn btn-default">Download</a>*@
-            </div><br />
-        </div>
-    </div>
+            </div>
 </div><!-- / ko linkpage -->
 
 <script type="text/javascript">
