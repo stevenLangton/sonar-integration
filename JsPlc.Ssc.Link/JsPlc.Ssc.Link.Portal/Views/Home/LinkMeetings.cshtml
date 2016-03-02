@@ -147,7 +147,7 @@
                         @*Not Shared ...*@
                         Conversation not yet shared with manager.<br/>
                         <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 1) -->
+                        <!-- ko if: (ManagerSignOff == 1) && (SharingStatus ==1) -->
                         @*Approved on ...*@
                         <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
                         <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>

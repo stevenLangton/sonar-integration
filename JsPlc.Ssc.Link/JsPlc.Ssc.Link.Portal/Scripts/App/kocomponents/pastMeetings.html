@@ -40,7 +40,7 @@
                         record on
                         <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
                         <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 0) -->
+                        <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
                         You have not accepted
                         <span data-bind="text: $component.ColleagueFirstNameApos"></span>
                         record yet.
@@ -49,10 +49,14 @@
                         <!-- ko if: (ColleagueSignOff ==0) -->
                         <span data-bind="text: $component.ColleagueFirstName"></span> hasn't yet completed this conversation.
                         <!-- /ko -->
+                        <!-- ko if: (SharingStatus ==0) -->
+                        This conversation hasn't been shared by
+                        <span data-bind="text: $component.ColleagueFirstName"></span> yet.
+                        <!-- /ko -->
                     </span>
                 </p>
                 <p>
-                    <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}"
+                    <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}, visible: $data.SharingStatus==1"
                        class="btn btn-sm btn-primary">View Link conversation</a>
                 </p>
             </div>
