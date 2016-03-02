@@ -2,6 +2,8 @@
 @using Microsoft.Ajax.Utilities
 @using System.Configuration;
 @using JsPlc.Ssc.Link.Models
+@using JsPlc.Ssc.Link.Portal.Properties
+
 
 @{
     var CurrentUser = TempData["CurrentUser"] as LinkUserView;
@@ -21,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")">
     <link rel="shortcut icon icon" type="image/ico" href="favicon.ico" />
-    <title>@ViewBag.Title - Link Application</title>
+    <title>@ViewBag.Title - @Resources.AppName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -91,7 +93,7 @@
                         </div>*@
                     <div class="col-md-6">
                         <div class="row">
-                            <h4>Think Link</h4>
+                            <h4>Think @Resources.AppName</h4>
                             <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
                         </div>
                         <div class="row">&copy; @DateTime.Now.Year - J Sainsbury Plc<br />Link v @ViewBag.VersionNumber</div>
