@@ -320,15 +320,7 @@ textarea.form-control.multilinePdp {
 html, body {
     height: 100%;
 }
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -378px; /* the bottom margin is the negative value of the footer's height */
-}
-.footer, .push {
-    height: 378px; /* .push must be the same height as .footer */
-}
+
 
 a:link, a:visited {
     /*color: inherit;*/
@@ -411,9 +403,12 @@ h3 {font-family:maryAnnWebMedium;font-size:22px;margin-top: 0px;}
     border: solid 1px #056792;
 }
 
-.wrapper{ min-height: 1050px;}
+
 
 .linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;}
 .linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding:10px;padding-bottom:0px;background-color:lightblue}
 
 
+footer {
+  margin: 50px 0 0 0; /* or just use:  margin-top: 50px;*/
+}
