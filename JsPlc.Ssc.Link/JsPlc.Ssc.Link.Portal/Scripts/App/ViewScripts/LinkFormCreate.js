@@ -109,14 +109,8 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 //};
 
             });
-
-            //meetingView.LookingBackQuestions = data.Questions.slice(0, 2);
-            //meetingView.LookingFwdQuestions = data.Questions.slice(2, 5);
             // split questions by type (not by index)
 
-            //old values
-           // meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'b'; });
-            //meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'f'; });
             meetingView.LookingBackQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'LOOKING BACK'; });
             meetingView.LookingFwdQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'LOOKING FORWARD'; });
             meetingView.DrivingDevelopmentQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'DRIVING MY DEVELOPMENT'; });
