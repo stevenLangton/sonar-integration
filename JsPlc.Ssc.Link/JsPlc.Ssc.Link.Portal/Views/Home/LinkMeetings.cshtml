@@ -10,13 +10,12 @@
     <!-- ko foreach: $root.dataModel() -->
     <div class="row">
         <div class="col-md-8">
-            <h1 style="margin:0; padding:0">Link conversations</h1>
+            <h1>Link conversations</h1>
         </div>
-        <div class="col-md-4">
-            <div class="col-md-12" style="padding-left: 30px">
-                <a data-bind="attr: {'href': CreateLink}"
-                   class="btn btn-lg btn-primary">Create Link conversation</a>
-            </div>
+        <div class="col-md-4" style="text-align: right;">
+            
+                <a data-bind="attr: {'href': CreateLink}" class="btn btn-lg btn-primary">Create Link conversation</a>
+          
         </div>
     </div>
     <p>
@@ -32,7 +31,7 @@
     <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
     Last conversation: <strong><span data-bind="text: $root.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
     <!-- /ko -->
-    <div class="row" style="padding-bottom: 30px; border-bottom: solid 2px silver">
+       
         <!-- Latest conversation if any -->
         <!-- ko if: (LatestMeeting) -->
         <div data-bind="template: { name: 'current-meeting-template', data: LatestMeeting }"></div>
@@ -40,28 +39,42 @@
         <!-- ko if: (!LatestMeeting) -->
         <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
         <!-- /ko -->
-        <div class="col-md-12">
+            <div>
             <h2>Past Link conversations</h2>
         </div>
-        <past-meetings params="data: $data"></past-meetings>
-    </div>
+        <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
+        <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
+        <!-- /ko -->
+        <!-- ko foreach: PastMeetings -->
+        <div data-bind="template: { name: 'past-meeting-template', data: $data }"></div>
+        <!-- /ko -->
+            @*<div class="linkBox1">
+                <span style="color: red">TODO Continue creating past conversation views here..</span>
+            </div>*@
+
+
     <!-- /ko --><!-- end of root.datamodel -->
-</div>
+
+
+
+
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="col-md-12 linkBox2">
+   
+        <div class="linkBox2">
         <p>You have no upcoming conversations. Click Create Link conversation button to arrange one.</p>
     </div>
+  
 </script>
 <script type="text/html" id="current-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div style="margin: 10px 10px">
-        <div class="col-md-12" style="background-color: silver; color: black; border: solid 1px black; ">
+          
+                <div class="linkBox1">
             <p><span>Current Link conversation</span></p>
         </div>
-        <div class="col-md-12" style="border: solid 1px black; padding-top: 12px;">
+                <div class="row linkBox1">
             <div class="col-md-1">
-                <img src="/Content/Images/calendar_icon.png" style="width: 40px; height: 40px" />
+                        <img src="/Content/Images/calendar_icon.png" />
             </div>
             <div id="u98" class="col-md-10">
                 <p style="font-size:20px;">
@@ -93,7 +106,58 @@
                 </p>
             </div>
         </div>
+    
+</script>
+<script type="text/html" id="nopast-meeting-template">
+    <!-- note: dataType = LinkMeetingView -->
+            <div class="linkBox2">
+        <p>You have no past conversations.</p>
     </div>
+</script>
+<script type="text/html" id="past-meeting-template">
+
+
+    <!-- note: dataType = LinkMeetingView -->
+
+    <div class="col-md-12 linkBox1">
+            <div class="col-md-1">
+                <i class="fa fa-check-circle fa-3x" data-bind="visible: (Status==1)"></i>
+                <i class="fa fa-times-circle fa-3x" data-bind="visible: (Status==0)"></i>
+            </div>
+            <div id="u98" class="col-md-10">
+                
+                <h3 data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></h3>
+                
+                <p>
+                    <span>
+                        <!-- ko if: (ColleagueSignOff == 1) -->
+                        @*You have submitted this conversation for signoff.*@
+                        <!-- ko if: (ManagerSignOff == 0) -->
+                        You submitted this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        <br />
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
+                        <!-- /ko -->
+                        <!-- ko if: (ManagerSignOff == 1) -->
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
+                        <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: (ColleagueSignOff ==0) -->
+                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
+                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
+                        <!-- /ko -->
+                    </span>
+                </p>
+                <p>
+                   
+
+                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
+                   class="btn btn-sm btn-primary">View conversation record</a>
+                </p>
+            </div>
+        </div>
+
+
 </script>
 
 <script type="text/javascript">
