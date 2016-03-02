@@ -87,6 +87,12 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? meeting : null;
         }
 
+        public async Task<MeetingView> ApproveMeeting(int meetingId)
+        {
+            HttpResponseMessage response = await _client.Value.GetAsync("api/ApproveMeeting/" + meetingId.ToString(CultureInfo.InvariantCulture));
+            MeetingView meeting = await response.Content.ReadAsAsync<MeetingView>();
+            return response.IsSuccessStatusCode ? meeting : null;
+        }
         public MeetingView GetNewMeetingView(string colleagueId)
         {
             HttpResponseMessage response = _client.Value.GetAsync("newmeeting/" + colleagueId).Result;

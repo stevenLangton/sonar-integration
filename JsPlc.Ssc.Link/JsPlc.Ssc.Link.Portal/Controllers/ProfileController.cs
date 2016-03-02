@@ -24,6 +24,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             ColleagueView ColleagueDetails = ServiceFacade.GetColleague(ColleagueId);
             LinkMeeting NextMeetingView = ServiceFacade.GetNextMeeting(ColleagueId);
+            ViewBag.Title = ColleagueDetails.FirstName + " " + ColleagueDetails.LastName;
             ViewBag.Colleague = ColleagueDetails;
             ViewBag.NextMeeting = NextMeetingView;
 

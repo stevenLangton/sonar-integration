@@ -10,6 +10,7 @@ using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Security;
 using Microsoft.Ajax.Utilities;
 using Org.BouncyCastle.Asn1.Crmf;
+using JsPlc.Ssc.Link.Portal.Properties;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -177,6 +178,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [LinkAuthorizeManager] // IMPORTANT Check
         public ActionResult MeetingRecords()
         {
+            ViewBag.Title = Resources.ConvTracker;
             TempData["tabName"] = "meetingRecords";
             return View();
         }

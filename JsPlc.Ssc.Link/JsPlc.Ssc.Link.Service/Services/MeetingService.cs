@@ -209,6 +209,27 @@ namespace JsPlc.Ssc.Link.Service.Services
             return meeting.ToMeetingView();
         }
 
+
+        public MeetingView ApproveMeeting(int id)
+        {
+            var meeting = _db.Meeting.FirstOrDefault(m => m.Id == id);
+
+            if (meeting != null 
+                && meeting.SharingStatus == MeetingSharingStatus.Shared
+                && meeting.ManagerSignOff != MeetingStatus.Completed)
+            {
+                meeting.ManagerSignOff = MeetingStatus.Completed;
+                meeting.ManagerSignedOffDate = DateTime.Now;
+                _db.Meeting.AddOrUpdate(meeting);
+                _db.SaveChanges();
+            }
+            else
+            {
+                throw new Elmah.ApplicationException("Cannot approve a meeting if not shared or already approved.");
+            }
+            return meeting.ToMeetingView();
+        }
+
         // save new meeting, returns 0 if not saved.
         public int SaveNewMeeting(MeetingView view)
         {

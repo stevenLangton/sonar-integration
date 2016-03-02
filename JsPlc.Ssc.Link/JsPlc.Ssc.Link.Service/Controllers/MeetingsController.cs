@@ -69,6 +69,18 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(meeting);
         }
 
+        [HttpGet] // GET: api/ApproveMeeting/5
+        [Route("api/ApproveMeeting/{meetingId}")]
+        public IHttpActionResult ApproveMeeting(int meetingId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var meeting = _dbMeeting.ApproveMeeting(meetingId);
+
+            return Ok(meeting);
+        }
+
         [HttpPut] // PUT: api/Meetings/5
         public IHttpActionResult UpdateMeeting( MeetingView meetingView)
         {

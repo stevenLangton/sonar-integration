@@ -1,9 +1,6 @@
-﻿@{
-    ViewBag.Title = "Objective";
-}
-
+﻿
 <div id="ObjectivesListView" style="display:none" data-bind="visible:true">
-    <div>YOUR LINK</div>
+    <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <h1>Objectives</h1>
     <div class="linkBox2 list-group-item">
         <div class="media-body">
@@ -14,19 +11,11 @@
     <a data-bind="attr: { href: 'objective/new' }" class="btn btn-primary btn-lg">Add a new objective</a>
     <br />
     <br />
-    <div class="list-group" id="objectiveList" data-bind="foreach: objectives">
-        <div class="linkBox1 list-group-item">
-            <a data-bind="attr: { href: 'objective/show/'+Id }" class=" btn btn-primary pull-right">View objective</a>
-            <div class="media-body">
-                <h3 data-bind="text: Title"></h3>
-                <p data-bind="text: Objective"></p>
-            </div>
-        </div>
-    </div>
+    <objectives-list params='data: objectives'></objectives-list>
     <hr />
 </div>
 <script type="text/javascript">
-    require(["Objectives"], function (mod) {
+    require(["Objectives", "RegisterKoComponents"], function (mod) {
         $(document).ready(function () {
             mod.init("ObjectivesListView", "@ViewBag.ColleagueId");
         });

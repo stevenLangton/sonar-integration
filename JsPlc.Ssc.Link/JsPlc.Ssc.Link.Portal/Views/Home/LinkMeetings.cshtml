@@ -6,8 +6,7 @@
 }
 <div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>
-    <div>YOUR LINK</div>
-
+    <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <!-- ko foreach: $root.dataModel() -->
     <div class="row">
         <div class="col-md-8">
@@ -17,6 +16,7 @@
             
                 <a data-bind="attr: {'href': CreateLink}" class="btn btn-lg btn-primary">Create Link conversation</a>
           
+            </div>
         </div>
     </div>
     <p>
@@ -162,7 +162,7 @@
 </script>
 
 <script type="text/javascript">
-    require(["LinkMeetings"], function (lm) {
+    require(["LinkMeetings", "RegisterKoComponents"], function (lm) {
         $(document).ready(function () {
             lm.init("@viewType");
         });

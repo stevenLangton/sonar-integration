@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Properties;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -25,6 +26,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: LinkPdp
         public ActionResult Index()
         {
+            ViewBag.Title = Resources.MyPdp;
+
             LinkPdp Pdp;
 
             Pdp = ServiceFacade.GetPdp(CurrentUser.Colleague.ColleagueId);

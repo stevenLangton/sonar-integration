@@ -5,7 +5,7 @@
         var editLink = common.getSiteRoot() + "LinkForm/Edit/" + item.MeetingId;
         var viewLink = common.getSiteRoot() + "LinkForm/ViewMeeting/" + item.MeetingId;
 
-        return (item.Status == 0) ? editLink : viewLink; // 0 = InComplete
+        return (item.Status == 1 || item.SharingStatus == 1) ? viewLink : editLink;
     };
 
     var getCreateLink = function (colleagueId) {

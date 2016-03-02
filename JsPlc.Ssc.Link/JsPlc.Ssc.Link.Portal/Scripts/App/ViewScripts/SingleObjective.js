@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "common", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, common, confirmModal) {
+﻿define(["jquery", "knockout", "komap", "moment", "common", "toastr", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, common, toastr, confirmModal) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -21,7 +21,8 @@
             jsonArgs.LastAmendedDate = getDateStr(jsonArgs.LastAmendedDate);
             jsonArgs.SignOffDate = getDateStr(jsonArgs.SignOffDate);
 
-            var mvcAction = (jsonArgs.Id === 0) ? "objective/create" : "objective/update";
+            var mvcCreateAction = "objective/create";
+            var mvcAction = (jsonArgs.Id === 0) ? mvcCreateAction : "objective/update";
 
             var $promise = $.ajax({
                 data: jsonArgs,
@@ -33,9 +34,16 @@
             $promise.done(function (result) {
                 var result = result;
                 if (result.success) {
-                     window.location.href = common.getSiteRoot() + "Objective";
+                    if (mvcAction === mvcCreateAction) {
+                        toastr.info("You have successfully created a new objective");
+                    }
+                    else {
+                        toastr.info("Your objective has been updated");
+                    }
+
+                    window.location.href = common.getSiteRoot() + "Objective";
                 } else {
-                    alert("We encountered a problem while processing your request.");
+                    toastr.error("We encountered a problem while processing your request.");
                 }
             });
 

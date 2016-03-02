@@ -23,6 +23,7 @@
                 PeriodId: data.PeriodId,
                 ManagerName: data.ManagerName,
                 ColleagueName: data.ColleagueName,
+                Colleague: data.Colleague,
                 MeetingDate: data.MeetingDate,
                 ColleagueSignedOffDate: data.ColleagueSignedOffDate,
                 ManagerSignedOffDate: data.ManagerSignedOffDate,
@@ -41,6 +42,7 @@
                 DownloadUrl: common.getSiteRoot() + 'pdf/DownloadFromDb/?MeetingId=' + data.MeetingId
             };
             $("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
+            $("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff == 1) ? true : false);
 
             ko.utils.arrayForEach(data.Questions, function (ques) {
                 if (!ques.ColleagueComment)
@@ -55,6 +57,7 @@
 
             self.dataModel(meetingView);
         };
+        self.utils = helpers.utils;
 
         self.formatDateMonthDYHM = function (dateObj) {
             if (!dateObj) return '-';
@@ -74,8 +77,6 @@
                         self.dataAvailable(false);
                     }
                     else {
-                        // $('#msgs').html("Fetch success");
-
                         buildViewModels(data);
                         self.dataAvailable(true);
                     }
@@ -88,37 +89,45 @@
                     // if cannot load LinkMeeting for the given period
                 });
         }
-        self.unshareConversation = function () {
+        var doMeetingAction = function(actionUnshareOrApprove) {
+
             var meetingVm = self.dataModel();
+            var postBackUrl = actionUnshareOrApprove == "unshare" ? "LinkForm/Unshare/" : "LinkForm/Approve/";
             var viewUrl = common.getSiteRoot() + "LinkForm/ViewMeeting/" + meetingVm.MeetingId;
             var editUrl = common.getSiteRoot() + "LinkForm/Edit/" + meetingVm.MeetingId;
+            var teamUrl = common.getSiteRoot() + "Team";
 
-            // TODO ajax server side method to unshare meeting.
+            // ajax server side method to unshare meeting.
             $.ajax({
-                url: common.getSiteRoot() + "LinkForm/Unshare/?meetingId=" + meetingVm.MeetingId,
-                method: "GET",
-                dataType: "json"
-            })
-                .done(function (data) {
-                    // If approved in meanwhile, Reload page with toastr notification..
-                    if (data == "Approved") {
-                        toastr.error("Sorry, you can no longer amend this conversation. Conversation has been approved by line manager.");
+                    url: common.getSiteRoot() + postBackUrl + "?meetingId=" + meetingVm.MeetingId,
+                    method: "GET",
+                    dataType: "json"
+                })
+                .done(function(data) {
+                    // If approved or unshared in meanwhile, Reload page with toastr notification..
+                    if (actionUnshareOrApprove == "unshare" && data == "Approved") {
+                        toastr.error("Sorry, you cannot amend this conversation. Conversation has been approved by line manager.");
                         window.setTimeout('window.location.href = "' + viewUrl + '";', 1000);
-                    }
-                    else if (data == "Error") {
+                    } else if (actionUnshareOrApprove == "approve" && data == "Unshared") {
+                        toastr.error("Sorry, you cannot amend this conversation. Conversation has not been shared.");
+                        window.setTimeout('window.location.href = "' + teamUrl + '";', 1000);
+                    } else if (data == "Error") {
                         toastr.error("Sorry, unable to amend this conversation.");
                         window.setTimeout('window.location.href = "' + viewUrl + '";', 1000);
-                    }
-                    else {
+                    } else {
                         window.setTimeout('window.location.href = "' + editUrl + '";', 100);
                     }
                 })
-                .fail(function () {
+                .fail(function() {
                     toastr.error("Sorry, unable to amend this conversation. Please try again.");
                     window.setTimeout('window.location.href = "' + viewUrl + '";', 1000);
                 });
-
-            return true;
+        }
+        self.unshareMeeting = function () {
+            doMeetingAction('unshare');
+        }
+        self.approveMeeting = function () {
+            doMeetingAction('approve');
         }
 
     }
