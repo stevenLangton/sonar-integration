@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "common", "toastr", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, common, toastr, confirmModal) {
+﻿define(["jquery", "knockout", "komap", "moment", "common", "toastr", "confirmModal", "autogrow", "RegisterKoComponents"], function ($, ko, komap, moment, common, toastr, confirmModal, autogrow) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -77,6 +77,7 @@
         };
 
         ko.applyBindings(vm, document.getElementById('ObjectiveView'));
+        $('textarea').autogrow({ onInitialize: true });
     };
 
     return {
