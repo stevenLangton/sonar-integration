@@ -21,10 +21,17 @@
         <form id="myform" method="post" style="display: none;" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
 
             <!-- Manager view: show colleague name banner -->
-            <div class="row meeting-banner hidden" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-                <div class="col-xs-6 col-md-1"><img src="/Content/Images/default_profile_picture.png" alt="..." class="img-circle" width="30"> </div>
-                <div class="col-xs-6 col-md-11 left"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
-                <br style="clear:both;">
+            <div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+                <div class="col-xs-3 col-md-4"><!-- Profile pic if any --></div>
+                <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
+                <div class="col-xs-3 col-md-4"></div>
+            </div>
+
+            <!-- Colleague view: show manager name banner -->
+            <div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
+                <div class="col-xs-3 col-md-4"><!-- Profile pic if any --></div>
+                <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: 'Line manager:' + $root.dataModel().ManagerName"></span></div>
+                <div class="col-xs-3 col-md-4"></div>
             </div>
 
             <!-- Link conversation -->

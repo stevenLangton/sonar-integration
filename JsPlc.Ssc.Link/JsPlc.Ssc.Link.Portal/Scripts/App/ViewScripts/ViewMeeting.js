@@ -24,6 +24,7 @@
                 ManagerName: data.ManagerName,
                 ColleagueName: data.ColleagueName,
                 Colleague: data.Colleague,
+                Manager: data.Manager,
                 MeetingDate: data.MeetingDate,
                 ColleagueSignedOffDate: data.ColleagueSignedOffDate,
                 ManagerSignedOffDate: data.ManagerSignedOffDate,
