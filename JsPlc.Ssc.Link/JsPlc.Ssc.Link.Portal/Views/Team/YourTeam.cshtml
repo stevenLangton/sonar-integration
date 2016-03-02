@@ -40,12 +40,11 @@
                         Next conversation: <span data-bind="text: $root.meetingService.formatDateMonthDYHM(UpcomingMeetings[0].MeetingDate)"></span>
                     </strong>
                 </h4>
-                <br />
                 <!-- View conversation button -->
-                <div data-bind="if: LatestMeeting">
+                <p data-bind="if: LatestMeeting">
                     <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])},
                                     visible: LatestMeeting.SharingStatus==1" class="btn btn-primary">View Link conversation</a>
-                </div>
+                </p>
                 <div data-bind="if: !LatestMeeting && Meetings!== null">
                     <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])},
                                   visible: Meetings[0].SharingStatus==1"
@@ -54,7 +53,7 @@
                 <div data-bind="if:  Meetings === null">
                     <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-primary">Arrange a Link conversation</a>
                 </div>
-                <br />
+                @*<br />*@
             </div>
         </div>
     </div>
