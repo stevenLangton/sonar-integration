@@ -54,9 +54,7 @@ img.logo {
 img.comp-logo {
     height: 60px;
 }
-div, span, h1, h2, h3, h4, h5, h6 {
-    font-family: Arial, sans-serif;
-}
+
 /*div { display: block; float: none;}*/
 .apptitle {
     color: #04ACCF;
@@ -390,10 +388,11 @@ border-color: #00acc9;
     src: url(/fonts/mary_ann_web-regular.woff);
 }
 
-h1 {font-family:maryAnnWeb;font-size:250%;color: #056792;font-weight: bold;}
-h2 {font-family:maryAnnWeb;font-size:200%;color: #056792;}
-h3 {font-family:maryAnnWeb;font-size:180%;margin-top: 0px;}
-h4 {font-family:maryAnnWeb;font-size: 120%;}
+h1 {font-family:maryAnnWeb;font-size:250%;color: #056792; text-transform:capitalize;}
+h2 {font-family:maryAnnWeb;font-size:200%;color: #056792; text-transform:capitalize;}
+h3 {font-family:maryAnnWeb;font-size:150%;color: #333333;margin-top: 0px; text-transform:capitalize;}
+h4 {font-family:maryAnnWeb;font-size: 120%; text-transform:capitalize;}
+.special{margin-top: 0px;}
 
 .lead{font-size:150%;color: #056792;}
 
@@ -405,7 +404,10 @@ h4 {font-family:maryAnnWeb;font-size: 120%;}
 
 .linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;}
 .linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding:10px;padding-bottom:0px;background-color:lightblue}
-
+.linkBox3{border: solid 1px #00acc9;margin-bottom:0px;padding-top:0px;margin-bottom:15px ;}
+.LinkBox1Padding{}
+.linkBoxTitle{ background-color: #00acc9;color: #ffffff;padding:10px;margin:0px;}
+.linkPadding{ padding:10px ;}
 
 footer {
   margin: 50px 0 0 0; /* or just use:  margin-top: 50px;*/
