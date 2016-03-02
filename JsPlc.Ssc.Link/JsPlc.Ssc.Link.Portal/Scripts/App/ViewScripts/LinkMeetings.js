@@ -9,6 +9,7 @@
         self.dataAvailable = ko.observable(false);
 
         self.bind = function () { };
+        self.helpers = helpers;
 
         var listOfColleagueTeamViews = [];
 
@@ -120,7 +121,7 @@
                 var colleague = item.Colleague;
                 // Build the item
                 var memberView = {
-                    Member: colleague,
+                    Colleague: colleague,
                     ColleagueId: colleague.ColleagueId,
                     FullName: self.getColleagueName(colleague),
                     ManagerName: (colleague.HasManager) ? self.getColleagueName(colleague.Manager) : '-',

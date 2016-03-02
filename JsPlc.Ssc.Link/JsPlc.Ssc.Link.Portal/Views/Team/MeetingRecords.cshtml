@@ -50,25 +50,28 @@
                 <p>
 
                     <!-- ko if: (ColleagueSignOff == 1) -->
-                    @*You have submitted this conversation for signoff.*@
-                    <!-- ko if: (ManagerSignOff == 0) -->
+                    @*Completed on...*@
                     <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> completed this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                     <br />
-                    You have not yet accepted
-                    <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
-                    record for this Link conversation.
-                    <!-- /ko -->
                     <!-- ko if: (ManagerSignOff == 1) -->
                     You accepted
                     <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
-                    record for this Link conversation on
+                    record on
                     <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                    <!-- /ko -->
+                    <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
+                    You have not accepted
+                    <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
+                    record yet.
                     <!-- /ko -->
                     <!-- /ko -->
                     <!-- ko if: (ColleagueSignOff == 0) -->
-                    This conversation is not complete yet.
+                    <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> hasn't yet completed this conversation.
                     <!-- /ko -->
-
+                    <!-- ko if: (SharingStatus ==0) -->
+                    This conversation hasn't been shared by
+                    <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> yet.
+                    <!-- /ko -->
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}, visible: $data.SharingStatus == 1"
