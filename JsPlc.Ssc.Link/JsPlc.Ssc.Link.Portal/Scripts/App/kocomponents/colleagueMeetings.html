@@ -59,7 +59,7 @@
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        You completed this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
                         <span data-bind="text: $parent.ManagerFirstName"></span> has not yet accepted your record for this Link meeting.
                         <!-- /ko -->
@@ -105,7 +105,7 @@
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        You completed this meeting on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
                         <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link meeting.
                         <!-- /ko -->
@@ -115,7 +115,7 @@
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
-                        This meeting is not complete yet. Once you complete it, please submit it for signoff by
+                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
                         <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span>
                         <!-- /ko -->
                     </span>

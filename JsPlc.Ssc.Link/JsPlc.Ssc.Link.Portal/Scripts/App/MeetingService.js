@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "moment", "URI", "underscore", "common"], function ($, ko, moment, URI, _, common) {
+﻿define(["jquery", "knockout", "moment", "URI", "underscore", "common", "helpers"], function ($, ko, moment, URI, _, common, helpers) {
     "use strict";
 
     var getEditOrViewLink = function (item) {
@@ -48,6 +48,8 @@
             ColleagueId: colleague.ColleagueId,
             FullName: getColleagueName(colleague),
             ManagerName: (colleague.HasManager) ? getColleagueName(colleague.Manager) : '-',
+            ColleagueFirstName: (colleague.FirstName) ? colleague.FirstName : '-',
+            ColleagueFirstNameApos: helpers.utils.getAposName(colleague.FirstName),
             ManagerFirstName: (colleague.HasManager) ? colleague.Manager.FirstName : '-',
             //HasMeetings: false,
 
