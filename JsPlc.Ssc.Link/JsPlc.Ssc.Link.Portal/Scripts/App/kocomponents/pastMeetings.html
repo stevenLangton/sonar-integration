@@ -30,24 +30,33 @@
                 <p style="font-size:13px;">
                     <span style="font-family:'Arial';font-weight:400;font-size:13px;">
                         <!-- ko if: (ColleagueSignOff == 1) -->
-                        <!-- ko if: (ManagerSignOff == 0) -->
-                        You submitted this conversation on <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                        <!--Completed on...-->
+                        <span data-bind="text: $component.ColleagueFirstName"></span> completed this conversation on
+                        <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
                         <br />
-                        <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
-                        <!-- /ko -->
                         <!-- ko if: (ManagerSignOff == 1) -->
-                        <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
+                        You accepted
+                        <span data-bind="text: $component.ColleagueFirstNameApos"></span>
+                        record on
                         <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                        <!-- /ko -->
+                        <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
+                        You have not accepted
+                        <span data-bind="text: $component.ColleagueFirstNameApos"></span>
+                        record yet.
                         <!-- /ko -->
                         <!-- /ko -->
                         <!-- ko if: (ColleagueSignOff ==0) -->
-                        This conversation is not complete yet. Once you complete it, please submit it for signoff by
-                        <span data-bind="text: $component.meetingService.getColleagueFirstName(ManagerAtTime)"></span>
+                        <span data-bind="text: $component.ColleagueFirstName"></span> hasn't yet completed this conversation.
+                        <!-- /ko -->
+                        <!-- ko if: (SharingStatus ==0) -->
+                        This conversation hasn't been shared by
+                        <span data-bind="text: $component.ColleagueFirstName"></span> yet.
                         <!-- /ko -->
                     </span>
                 </p>
                 <p>
-                    <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}"
+                    <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}, visible: $data.SharingStatus==1"
                        class="btn btn-sm btn-primary">View Link conversation</a>
                 </p>
             </div>

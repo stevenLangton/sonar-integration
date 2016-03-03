@@ -18,6 +18,7 @@ using System.Globalization;
 using Microsoft.Ajax.Utilities;
 using Org.BouncyCastle.Asn1;
 using ApplicationException = Elmah.ApplicationException;
+using JsPlc.Ssc.Link.Portal.Properties;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 {
@@ -103,9 +104,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                 if (CurrentUser.Colleague == null ||
                     CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
                 {
-                    throw new ApplicationException("No such colleague in Link (or lookup failed for):=" + authenticatedEmailAddr);
-                    //CurrentUser.Colleague = new ColleagueView() { FirstName = "Link Guest" };
-                    //throw new ApplicationException("Invalid authentication: ");
+                    throw new ApplicationException("No such colleague in " + Resources.AppName + " (or lookup failed for):=" + authenticatedEmailAddr);
                 }
                 TempData["CurrentUser"] = CurrentUser;
             }

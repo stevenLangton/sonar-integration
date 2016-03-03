@@ -1,6 +1,5 @@
 ﻿@using JsPlc.Ssc.Link.Models
 @using JsPlc.Ssc.Link.Portal.Models
-@*@using Microsoft.AspNet.Identity*@
 @{
     var tab = TempData["tabName"];
 
@@ -18,39 +17,18 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" id="mainTabs" role="navigation">
     <div class="container">
-
-
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-         <!--<a class="navbar-brand" href="~/Home/Welcome"><img src="#" class="logo pull-left" alt="Link logo" title="Link logo" /></a>-->
-            @*@Html.ActionLink("Link", "Welcome", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li role="presentation" class="@(tabName == "Welcome" ? "active" : "") tab-heading tab-headingStart">
                     @Html.ActionLink("Home", "Welcome", "Home")
                 </li>
-                <!--@if (Request.IsAuthenticated)
-                {
-
-                    <li role="presentation" class="@(tabName == "meetings" ? "active" : "") tab-heading ">
-                        @Html.ActionLink("My Link Report", "LinkMeetings", "Home")
-                    </li>
-                    <li role="presentation" class="@(tabName == "objective" ? "active" : "") tab-heading">
-                        @Html.ActionLink("My Objectives", "Index", "Objective")
-                    </li>
-                    if (currentUser != null && currentUser.IsLineManager)
-                    {
-                        <li role="presentation" class="@(tabName == "team" ? "active" : "") tab-heading">
-                            @Html.ActionLink("My Team", "Index", "Team")
-                        </li>
-                    }
-                }-->
                 <li role="presentation" class="@(tabName == "help" ? "active" : "help") tab-heading">
                     @Html.ActionLink("Help", "help", "Home")
                 </li>

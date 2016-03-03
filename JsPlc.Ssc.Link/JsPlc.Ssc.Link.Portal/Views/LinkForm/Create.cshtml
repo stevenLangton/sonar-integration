@@ -202,14 +202,6 @@
                                                       readonly: !(dataModel().IsColleagueView),
                                                       click: $root.unshareConversation" name="CheckboxShared" />
                         <span>Share with manager</span>
-
-                        @*<!-- Shared date: Colleague view -->
-                        <div style="display: none" data-bind="visible: dataModel().SharingStatus==1">
-                            Shared with manager on
-                            <span style="font-family:'Arial Bold', 'Arial';font-weight:500;font-size:15px;"
-                                  data-bind="text: $root.formatDateMonthDYHM($root.dataModel().SharingDate) "></span>
-                            <!-- TODO Unshare checkbox here -->
-                        </div>*@
                     </div>
 
                     <!-- Manager view bottom part -->

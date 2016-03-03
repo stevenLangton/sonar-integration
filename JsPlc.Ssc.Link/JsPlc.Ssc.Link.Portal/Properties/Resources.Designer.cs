@@ -61,7 +61,7 @@ namespace JsPlc.Ssc.Link.Portal.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Link.
+        ///   Looks up a localized string similar to My performance.
         /// </summary>
         public static string AppName {
             get {
