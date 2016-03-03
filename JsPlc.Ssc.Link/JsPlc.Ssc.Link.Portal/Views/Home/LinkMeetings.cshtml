@@ -123,59 +123,52 @@
             <p>You have no past conversations.</p>
         </div>
     </script>
-    <script type="text/html" id="past-meeting-template">
+<script type="text/html" id="past-meeting-template">
 
 
-        <!-- note: dataType = LinkMeetingView -->
+    <!-- note: dataType = LinkMeetingView -->
+    <div id="u98" class="linkBox1 LinkBox1Padding">
+        <h3 data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></h3>
 
-        <div class="col-md-12 linkBox1">
-            <div class="col-md-1">
-                <i class="fa fa-check-circle fa-3x" data-bind="visible: (Status==1)"></i>
-                <i class="fa fa-times-circle fa-3x" data-bind="visible: (Status==0)"></i>
-            </div>
-            <div id="u98" class="col-md-10">
-
-                <h3 data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></h3>
-
-                <p>
-                    <span>
-                        <!-- ko if: (ColleagueSignOff == 1) -->
-                        @*Completed on ...*@
-                        You completed this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
-                        <br />
-                        <!-- ko if: (SharingStatus == 0) -->
-                        @*Not Shared ...*@
-                        Conversation not yet shared with manager.<br/>
-                        <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 1) && (SharingStatus ==1) -->
-                        @*Approved on ...*@
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
-                        <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
-                        <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 0) -->
-                        @*Approved on ...*@
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
-                        <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko if: (ColleagueSignOff ==0) && (SharingStatus ==1) -->
-                        This conversation is not complete yet. You manager can view this conversation.
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
-                        <!-- /ko -->
-                        <!-- ko if: (ColleagueSignOff ==0) && (SharingStatus ==0) -->
-                        This conversation is not complete yet. Once you complete it, please share it for signoff by
-                        <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
-                        <!-- /ko -->
-                    </span>
-                </p>
-                <p>
+        <p>
+            <span>
+                <!-- ko if: (ColleagueSignOff == 1) -->
+                @*Completed on ...*@
+                You completed this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                <br />
+                <!-- ko if: (SharingStatus == 0) -->
+                @*Not Shared ...*@
+                Conversation not yet shared with manager.<br />
+                <!-- /ko -->
+                <!-- ko if: (ManagerSignOff == 1) && (SharingStatus ==1) -->
+                @*Approved on ...*@
+                <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> accepted your record for this Link conversation on
+                <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                <!-- /ko -->
+                <!-- ko if: (ManagerSignOff == 0) -->
+                @*Approved on ...*@
+                <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span> has not yet accepted your record for this Link conversation.
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: (ColleagueSignOff ==0) && (SharingStatus ==1) -->
+                This conversation is not complete yet. You manager can view this conversation.
+                <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
+                <!-- /ko -->
+                <!-- ko if: (ColleagueSignOff ==0) && (SharingStatus ==0) -->
+                This conversation is not complete yet. Once you complete it, please share it for signoff by
+                <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
+                <!-- /ko -->
+            </span>
+        </p>
+        <p>
 
 
-                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-sm btn-primary">View conversation record</a>
-                </p>
-            </div>
-        </div>
+            <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
+               class="btn btn-sm btn-primary">View conversation record</a>
+        </p>
+    </div>
 
+     
 
     </script>
 

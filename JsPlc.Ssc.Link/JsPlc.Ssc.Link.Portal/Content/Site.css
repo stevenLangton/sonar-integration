@@ -411,7 +411,7 @@ h4 {font-family:maryAnnWeb;font-size: 120%; text-transform:capitalize;}
 .linkBox1{border: solid 2px #00acc9;margin-bottom: 10px;padding-top:10px;}
 .linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding:10px;padding-bottom:0px;background-color:lightblue}
 .linkBox3{border: solid 1px #00acc9;margin-bottom:0px;padding-top:0px;margin-bottom:15px ;}
-.LinkBox1Padding{}
+.LinkBox1Padding{ padding-left: 10px;}
 .linkBoxTitle{ background-color: #00acc9;color: #ffffff;padding:10px;margin:0px;}
 .linkPadding{ padding:10px ;}
 
