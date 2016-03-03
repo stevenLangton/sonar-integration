@@ -22,7 +22,7 @@
       </mvcSiteMapNode>
       <mvcSiteMapNode title="LINK CONVERSATIONS" controller="Home" action="LinkMeetings">
         <mvcSiteMapNode title="CREATE CONVERSATION" controller="LinkForm" action="Create"/>
-        <!--<mvcSiteMapNode title="VIEW CONVERSATION" controller="LinkForm" action="Edit" preservedRouteParameters="id"/>-->
+        <mvcSiteMapNode title="VIEW CONVERSATION" controller="LinkForm" action="ViewMeeting" preservedRouteParameters="id"/>
       </mvcSiteMapNode>
       <mvcSiteMapNode title="MY PERSONAL DEVELOPMENT PLAN" controller="Pdp" action="Index"/>
     </mvcSiteMapNode>
