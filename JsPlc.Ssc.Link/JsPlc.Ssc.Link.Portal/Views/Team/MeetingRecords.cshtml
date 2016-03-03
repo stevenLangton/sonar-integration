@@ -7,82 +7,72 @@
     <div id="msgs"></div>
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <h1 style="margin:0; padding:0">Conversation tracker</h1>
-        </div>
-    </div>
+    <h1>Conversation tracker</h1>
+      
 
     <div data-bind="visible: $root.dataModel().length == 0">
         <div data-bind="template: { name: 'nopast-meeting-template', data: $root}"></div>
     </div>
-    <div data-bind="visible: $root.dataModel().length > 0" style="margin-top: 10px">
+    <div data-bind="visible: $root.dataModel().length > 0">
         <!-- ko foreach: $root.dataModel() -->
-        <div class="row" style="padding-bottom: 2px;">
+     
             <!-- ko if: (!Meeting) || (Meeting.ColleagueId != "") -->
             <div data-bind="template: { name: 'past-meeting-template', data: Meeting }"></div>
             <!-- /ko -->
-        </div>
+      
         <!-- /ko --><!-- end of root.datamodel -->
     </div>
 </div>
 
 <script type="text/html" id="nopast-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
+   
         <p>No conversation records found.</p>
-    </div>
+  
 </script>
 
 <script type="text/html" id="past-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div>
-        <div class="col-md-12 linkBox1">
-            <div class="col-md-1">
-                <br />
-                <i class="fa fa-check-circle fa-3x" data-bind="visible: (Status==1)"></i>
-                <i class="fa fa-times-circle fa-3x" data-bind="visible: (Status==0)"></i>
-            </div>
-            <div id="u98" class="col-md-10">
 
-                <h2 data-bind="text: $root.getColleagueName(Colleague) + ' - ' + $root.formatDateMonthDYHM(MeetingDate) "></h2>
+    <div id="u98" class="linkBox1 LinkBox1Padding">
 
-                <p>
 
-                    <!-- ko if: (ColleagueSignOff == 1) -->
-                    @*Completed on...*@
-                    <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> completed this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
-                    <br />
-                    <!-- ko if: (ManagerSignOff == 1) -->
-                    You accepted
-                    <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
-                    record on
-                    <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
-                    <!-- /ko -->
-                    <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
-                    You have not accepted
-                    <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
-                    record yet.
-                    <!-- /ko -->
-                    <!-- /ko -->
-                    <!-- ko if: (ColleagueSignOff == 0) -->
-                    <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> hasn't yet completed this conversation.
-                    <!-- /ko -->
-                    <!-- ko if: (SharingStatus ==0) -->
-                    This conversation hasn't been shared by
-                    <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> yet.
-                    <!-- /ko -->
-                </p>
-                <p>
-                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}, visible: $data.SharingStatus == 1"
-                       class="btn btn-sm btn-primary">
-                        <span data-bind="text: $root.getColleagueName(Colleague)"></span>
-                    </a>
-                    <span class="hidden" style="color: whitesmoke" data-bind="text: $data.MeetingId"></span>
-                </p>
-            </div>
-        </div>
+        <h2 style="margin: 0px;padding-bottom: 10px;" data-bind="text: $root.getColleagueName(Colleague) + ' - ' + $root.formatDateMonthDYHM(MeetingDate) "></h2>
+        <p>
+            <!-- ko if: (ColleagueSignOff == 1) -->
+            @*Completed on...*@
+            <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> completed this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+            <br />
+            <!-- ko if: (ManagerSignOff == 1) -->
+            You accepted
+            <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
+            record on
+            <span data-bind="text: $root.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+            <!-- /ko -->
+            <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
+            You have not accepted
+            <span data-bind="text: $root.getColleagueAposName(Colleague)"></span>
+            record yet.
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: (ColleagueSignOff == 0) -->
+            <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> hasn't yet completed this conversation.
+            <!-- /ko -->
+            <!-- ko if: (SharingStatus ==0) -->
+            This conversation hasn't been shared by
+            <span data-bind="text: $root.getColleagueFirstName(Colleague)"></span> yet.
+            <!-- /ko -->
+        </p>
+        <p>
+            <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}, visible: $data.SharingStatus == 1"
+               class="btn btn-sm btn-primary">
+                <span data-bind="text: $root.getColleagueName(Colleague)"></span>
+            </a>
+            <span class="hidden" data-bind="text: $data.MeetingId"></span>
+        </p>
+
     </div>
+
 </script>
 <script type="text/javascript">
     require(["MeetingRecords"], function (lm) {

@@ -10,24 +10,24 @@
     });
 </script>
 <div id="ObjectiveView">
-    @*TODO: Add real breadcrumbs*@
+   
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
-    <span class="h2">@ViewBag.Title</span>
-    <br/>
+    <h1>@ViewBag.Title</h1>
+  
     <span data-bind="text: 'Created on ' + displayCreateDate"></span>
-    <h3>Objective title</h3>
+    <h4 for="objectiveTitle" >Objective title</h4>
     <div>
-        <textarea data-bind="textInput: Title" disabled="@ReadOnly"></textarea>
+        <textarea id="objectiveTitle" data-bind="textInput: Title" disabled="@ReadOnly"></textarea>
     </div>
-    <h3>What will I do to make a difference this year?</h3>
+    <h4>What will I do to make a difference this year?</h4>
     <div>
         <textarea data-bind="textInput: Objective" disabled="@ReadOnly"></textarea>
     </div>
-    <h3>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h3>
+    <h4>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
     <div>
         <textarea data-bind="textInput: MeasuredBy" disabled="@ReadOnly"></textarea>
     </div>
-    <h3>Which company or divisional priority does this support?</h3>
+    <h4>Which company or divisional priority does this support?</h4>
     <div>
         <textarea data-bind="textInput: RelevantTo" disabled="@ReadOnly"></textarea>
     </div>
@@ -37,8 +37,8 @@
     <div class="container-fluid">
         <div class="pull-right">
             <span>Updated on </span><span data-bind="text: displayUpdateDate"></span>
-            <button class="btn btn-default" data-bind="click: update" disabled="@ReadOnly">Save</button>
-            <button class="btn btn-default" data-bind="click: cancel">Cancel</button>
+            <button class="btn btn-primary" data-bind="click: update" disabled="@ReadOnly">Save</button>
+            <button class="btn btn-primary" data-bind="click: cancel">Cancel</button>
         </div>
     </div>
     <hr />
