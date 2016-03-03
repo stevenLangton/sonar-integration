@@ -28,6 +28,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Objective
         public ActionResult Index()
         {
+            TempData["tabName"] = "objective";
             ViewBag.Title = Resources.MyObjectives;
             ViewBag.ColleagueId = CurrentUser.Colleague.ColleagueId;
             return View();

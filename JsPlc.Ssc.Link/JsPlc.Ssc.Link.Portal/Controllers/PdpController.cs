@@ -26,6 +26,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: LinkPdp
         public ActionResult Index()
         {
+            TempData["tabName"] = "pdp";
             ViewBag.Title = Resources.MyPdp;
 
             LinkPdp Pdp;
