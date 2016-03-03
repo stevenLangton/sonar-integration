@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -13,6 +14,7 @@ namespace JsPlc.Ssc.Link.Portal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        [ExcludeFromCodeCoverage]
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

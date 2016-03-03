@@ -103,7 +103,9 @@
     <Compile Include="Controllers\PdfControllerTests.cs" />
     <Compile Include="Controllers\PdpControllerTests.cs" />
     <Compile Include="Controllers\ProfileControllerTests.cs" />
+    <Compile Include="Controllers\LinkServiceFacadeTest.cs" />
     <Compile Include="Helpers\Extensions\HttpResponseMessageExtensionsTests.cs" />
+    <Compile Include="Helpers\Extensions\ModelStateHelperTests.cs" />
     <Compile Include="Helpers\TestMocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
@@ -121,6 +123,10 @@
     <Content Include="PdfTemplates\MeetingTemplate.pdf" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj">
+      <Project>{5E71294B-3F45-48F1-A37F-737FB5F22F38}</Project>
+      <Name>JsPlc.Ssc.Link.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj">
       <Project>{589e97d6-1d3d-4214-9871-005e7b01e4b5}</Project>
       <Name>JsPlc.Ssc.Link.Models</Name>

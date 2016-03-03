@@ -24,7 +24,7 @@ namespace JsPlc.Ssc.Link.Portal
         ColleagueView GetUserDetails(string Email);
         bool HasColleagueAccess(string colleagueId, string otherColleagueId);
         bool HasMeetingAccess(int meetingId, string colleagueId);
-        bool IsManager(string username);
+        //bool IsManager(string username);
         bool IsManagerByEmail(string email);
         Task<bool> UpdateObjective(LinkObjective modified);
         Task<LinkPdp> UpdatePdp(LinkPdp modified);
