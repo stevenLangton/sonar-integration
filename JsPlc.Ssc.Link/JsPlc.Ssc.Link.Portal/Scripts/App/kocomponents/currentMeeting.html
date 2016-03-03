@@ -11,7 +11,7 @@
     <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
     Last conversation: <strong><span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
     <!-- /ko -->
-    <div class="row">
+
         <!-- Latest conversation if any -->
         <!-- ko if: (LatestMeeting) -->
         <div data-bind="template: { name: 'current-meeting-template', data: LatestMeeting }"></div>
@@ -19,33 +19,31 @@
         <!-- ko if: (!LatestMeeting) -->
         <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
         <!-- /ko -->
-    </div>
+ 
 </div>
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="container-fluid">
-        <div class="col-md-12 linkBox2">
+    <div>
             <!--<p>You have no upcoming conversations. Click Create Link conversation button to arrange one.</p>-->
             <p>Has no upcoming conversations.</p>
-        </div>
     </div>
 </script>
 <script type="text/html" id="current-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div style="margin: 10px 10px">
-        <div class="col-md-12">
-            <p><span>Current Link conversation</span></p>
+    <div>
+        <div>
+            <p>Current Link conversation</p>
         </div>
-        <div class="col-md-12" style="border: solid 1px black; padding-top: 12px;">
+        <div>
             <div class="col-md-1">
-                <img src="/Content/Images/calendar_icon.png" style="width: 40px; height: 40px" />
+                <img src="/Content/Images/calendar_icon.png" width="40" height="40" alt="Calander icon" />
             </div>
             <div id="u98" class="col-md-10">
-                <p style="font-size:20px;">
-                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;" data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
+                <p>
+                    <span data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
-                <p style="font-size:13px;">
-                    <span style="font-family:'Arial';font-weight:400;font-size:13px;">
+                <p>
+                
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!--Completed on...-->
                         <span data-bind="text: $parent.ColleagueFirstName"></span> completed this conversation on
@@ -70,11 +68,11 @@
                         This conversation hasn't been shared by
                         <span data-bind="text: $component.ColleagueFirstName"></span> yet.
                         <!-- /ko -->
-                    </span>
+                  
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}, visible: $data.SharingStatus == 1"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link conversation</a>
+                       class="btn btn-sm btn-primary">View Link conversation</a>
                 </p>
             </div>
         </div>

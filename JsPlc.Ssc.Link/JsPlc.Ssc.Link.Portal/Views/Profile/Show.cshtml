@@ -11,8 +11,8 @@
 
 <div id="ProfileView">
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
-    <div><span class="h1">@(Colleague.FirstName + " " + Colleague.LastName)</span></div>
-    <br />
+    <div><h1>@(Colleague.FirstName + " " + Colleague.LastName)</h1></div>
+    
     <current-meeting params="{data: data}"></current-meeting>
     <div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
     <br />

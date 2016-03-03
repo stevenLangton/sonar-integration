@@ -48,6 +48,14 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
                     EmailAddress="ellen.ripley@domain.com"},
                 new StubColleague{Id=16, FirstName="Malcolm", LastName="Reynolds",  ColleagueId="E0016", ManagerId="E0013", 
                     EmailAddress="malcolm.reynolds@domain.com"},
+
+
+                     new StubColleague{Id=17, FirstName="Simon", LastName="Parsons",  ColleagueId="E0017", ManagerId="E0011", 
+                    EmailAddress="simon.parsons@domain.com"},
+                     new StubColleague{Id=18, FirstName="TR", LastName="Thambi",  ColleagueId="E0018", ManagerId="E0011", 
+                    EmailAddress="tr.thambi@domain.com"},
+                     new StubColleague{Id=19, FirstName="Arkadiusz", LastName="Goral",  ColleagueId="E0019", ManagerId="E0011", 
+                    EmailAddress="Arkadiusz.Goral@domain.com"},
             };
 
             employees.ForEach(c=>context.Colleagues.Add(c));
