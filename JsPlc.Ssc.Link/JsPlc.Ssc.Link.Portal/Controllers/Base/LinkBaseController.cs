@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
@@ -45,10 +46,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             ServiceFacade = new LinkServiceFacade();
         }
 
-        public LinkBaseController(ILinkUserView _CurrentUser, ILinkServiceFacade _Facade)
+        public LinkBaseController(ILinkUserView currentUser, ILinkServiceFacade facade)
         {
-            CurrentUser = _CurrentUser;
-            ServiceFacade = _Facade;
+            CurrentUser = currentUser;
+            ServiceFacade = facade;
         }
 
         //protected override void OnAuthentication(AuthenticationContext filterContext)
@@ -111,6 +112,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             ViewBag.VersionNumber = GetAssemblyVersion();
         }
 
+        [ExcludeFromCodeCoverage]
         protected List<string> GetAllClaims(IIdentity userIdentity)
         {
             var retval = new List<string>();
@@ -197,6 +199,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             return IP4Address;
         }
 
+        [ExcludeFromCodeCoverage]
         public string GetAssemblyVersion()
         {
             // Test version

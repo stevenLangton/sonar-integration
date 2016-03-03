@@ -11,7 +11,6 @@ using JsPlc.Ssc.Link.Portal.Helpers;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using JsPlc.Ssc.Link.Portal.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ModelState = System.Web.Http.ModelBinding.ModelState;
 
 namespace JsPlc.Ssc.Link.Portal.Helpers.Tests
 {
@@ -21,8 +20,10 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Tests
         [TestMethod()]
         public void ModelStateHelperErrorsTest()
         {
-            var modelState = new System.Web.Mvc.ModelState();
-            modelState.Value = new ValueProviderResult("", "", new CultureInfo("en-gb"));
+            var modelState = new System.Web.Mvc.ModelState
+            {
+                Value = new ValueProviderResult("", "", new CultureInfo("en-gb"))
+            };
             modelState.Errors.Add(@"modelStateError");
 
             var dict = new ModelStateDictionary { new KeyValuePair<string, System.Web.Mvc.ModelState>("", modelState) };
@@ -33,6 +34,22 @@ namespace JsPlc.Ssc.Link.Portal.Helpers.Tests
             Assert.IsNotNull(outErrors);
             Assert.IsTrue(keyValuePairs.Any());
             Assert.IsTrue(keyValuePairs.First().Value[0].Equals(@"modelStateError"));
+        }
+
+        [TestMethod()]
+        public void ModelStateHelperErrorsTestNull()
+        {
+            var modelState = new System.Web.Mvc.ModelState
+            {
+                Value = new ValueProviderResult("", "", new CultureInfo("en-gb"))
+            };
+            modelState.Errors.Clear();
+
+            var dict = new ModelStateDictionary { new KeyValuePair<string, System.Web.Mvc.ModelState>("", modelState) };
+
+            var outErrors = dict.Errors();
+
+            Assert.IsNull(outErrors);
         }
     }
 }

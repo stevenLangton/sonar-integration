@@ -8,9 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Helpers;
-using System.Web.Http;
-using System.Web.Http.Dispatcher;
-//using System.Web.Http.Results;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -287,8 +284,149 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             Assert.IsNotNull(result, "GetMyMeetingsView failed, invalid ColleagueTeamView returned");
             Assert.IsInstanceOfType(result, typeof(ColleagueTeamView));
         }
-        
-        
+
+
+        /// <summary>
+        /// CreateObjective - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeCreateObjectiveTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/objectives")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.CreateObjective(new LinkObjective{ColleagueId = "e001"}).Result;
+
+            //Assert
+            Assert.IsNotNull(result, "CreateObjective failed, invalid int returned");
+            Assert.AreEqual(result, 1);
+        }
+
+        /// <summary>
+        /// UpdateObjective - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeUpdateObjectiveTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/objectives/1")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.UpdateObjective(new LinkObjective {ColleagueId = "e001", Id = 1}).Result;
+
+            //Assert
+            Assert.IsTrue(result, "UpdateObjective failed, expected true, actual false");
+        }
+
+        /// <summary>
+        /// GetObjective - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeGetObjectiveTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/objectives/1")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.GetObjective("e001", 1);
+
+            //Assert
+            Assert.IsNotNull(result, "GetObjective failed, invalid Objective returned");
+            Assert.IsInstanceOfType(result, typeof(LinkObjective));
+        }
+
+        /// <summary>
+        /// GetObjectivesList - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeGetObjectivesListTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/objectives")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.GetObjectivesList("e001");
+
+            //Assert
+            Assert.IsNotNull(result, "GetObjectivesList failed, invalid List<LinkObjective> returned");
+            Assert.IsInstanceOfType(result, typeof(List<LinkObjective>));
+        }
+
+        /// <summary>
+        /// GetPdp - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeGetPdpTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/pdp/")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.GetPdp("e001");
+
+            //Assert
+            Assert.IsNotNull(result, "GetPdp failed, invalid LinkPdp returned");
+            Assert.IsInstanceOfType(result, typeof(LinkPdp));
+        }
+
+        /// <summary>
+        /// UpdatePdp - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeUpdatePdpTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/pdp/1")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.UpdatePdp(new LinkPdp{ColleagueId = "e001", Id=1}).Result;
+
+            //Assert
+            Assert.IsNotNull(result, "UpdatePdp failed, Invalid linkPdp returned");
+            Assert.IsInstanceOfType(result, typeof(LinkPdp));
+        }
+
+        /// <summary>
+        /// Dispose - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeDisposeTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("colleagues/e001/pdp/1")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            _serviceFacade.Dispose();
+
+            //Assert
+            Assert.IsTrue(true);
+        }
+
+        /// <summary>
+        /// GetApiServiceKeys - test that it calls the correct route and gets the right value
+        /// </summary>
+        [TestMethod]
+        public void LinkServiceFacadeGetApiServiceKeysTest()
+        {
+            // Arrange
+            var httpClient = new Lazy<HttpClient>(() => new HttpClient(new UnitTestRoutedHttpMsgHandler("api/ShowKeys")));
+            _serviceFacade = new LinkServiceFacade(httpClient, _mockConfigurationDataService.Object);
+
+            // Act
+            var result = _serviceFacade.GetApiServiceKeys();
+
+            //Assert
+            Assert.IsNotNull(result, "GetApiServiceKeys failed, invalid List<string> returned");
+            Assert.IsInstanceOfType(result, typeof(List<string>));
+        }
         /// <summary>
         /// All methods - test that it when not success, we get null return value
         /// </summary>
@@ -314,6 +452,12 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             var result11 = _serviceFacade.GetNextMeeting("");
             var result12 = _serviceFacade.GetTeamView("");
             var result13 = _serviceFacade.GetMyMeetingsView("");
+            var result14 = _serviceFacade.GetObjective("", 0);
+            var result15 = _serviceFacade.GetObjectivesList("");
+            var result16 = _serviceFacade.GetPdp("");
+            var result17 = _serviceFacade.CreateObjective(new LinkObjective{ColleagueId = "e001"}).Result;
+            var result18 = _serviceFacade.UpdateObjective(new LinkObjective { ColleagueId = "e001", Id = 1 }).Result;
+            var result19 = _serviceFacade.UpdatePdp(new LinkPdp { ColleagueId = "e001", Id = 1 }).Result;
 
             //Assert
             Assert.IsNull(result1, "GetColleague should return null when Api NotSuccess");
@@ -329,10 +473,16 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             Assert.IsNull(result11, "GetNextMeeting should return null when Api NotSuccess");
             Assert.IsNull(result12, "GetTeamView should return null when Api NotSuccess");
             Assert.IsNull(result13, "GetMyMeetingsView should return null when Api NotSuccess");
+            Assert.IsNull(result14, "GetObjective should return null when Api NotSuccess");
+            Assert.IsNull(result15, "GetObjectivesList should return null when Api NotSuccess");
+            Assert.IsNull(result16, "GetPdp should return null when Api NotSuccess");
+            Assert.IsTrue(result17==0, "CreateObjective should return 0 when Api NotSuccess");
+            Assert.IsFalse(result18, "UpdateObjective should return false when Api NotSuccess");
+            Assert.IsNull(result19, "UpdatePdp should return null when Api NotSuccess");
         }
 
     }
-
+    [ExcludeFromCodeCoverage]
     internal class UnitTestRoutedHttpMsgHandler : HttpMessageHandler
     {
         private string _apiRoute = "";
@@ -349,9 +499,14 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
                 string c = Json.Encode(GetStubColleague());
                 return Task.FromResult(GetNotSucessResponseMessage(c));
             }
+            var methodOtherThanGet = "";
+            if (request.Method != HttpMethod.Get)
+            {
+                methodOtherThanGet = request.Method.Method.ToUpper();
+            }
 
             // Cases for all LinkServiceFacade routes (NOTE: Lowercase strings)
-            switch (request.RequestUri.PathAndQuery.ToLower())
+            switch (methodOtherThanGet + request.RequestUri.PathAndQuery.ToLower())
             {
                 case "/api/colleague/e001":
                     {
@@ -418,6 +573,43 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
                         string c = Json.Encode(GetStubTeamView().First());
                         return Task.FromResult(GetJsonResponseMessage(c));
                     }
+                case "/colleagues/e001/objectives/1":
+                    {
+                        string c = Json.Encode(GetStubObjective());
+                        return Task.FromResult(GetJsonResponseMessage(c));
+                    }
+                case "/colleagues/e001/objectives":
+                    {
+                        string c = Json.Encode(GetStubListObjectives());
+                        return Task.FromResult(GetJsonResponseMessage(c));
+                    }
+                case "/colleagues/e001/pdp/":
+                    {
+                        string c = Json.Encode(GetStubPdp());
+                        return Task.FromResult(GetJsonResponseMessage(c));
+                    }
+                case "/api/showkeys":
+                    {
+                        string c = Json.Encode(new[] { "string1", "string2" });
+                        return Task.FromResult(GetJsonResponseMessage(c));
+                    }
+                case "POST/colleagues/e001/objectives/":
+                    {
+                        string c = Json.Encode("{}");
+                        var response = GetJsonResponseMessageWithLocationHeader(c,
+                            new Uri("http://somehost/colleagues/e001/objectives/1"));
+                        return Task.FromResult(response);
+                    }
+                case "PUT/colleagues/e001/objectives/1":
+                    {
+                        string c = Json.Encode("{true}");
+                        return Task.FromResult(GetJsonResponseMessage(c));
+                    }
+                case "PUT/colleagues/e001/pdp/":
+                    {
+                        string c = Json.Encode(GetStubPdp());
+                        return Task.FromResult(GetJsonResponseMessage(c));
+                    }
             }
             return null;
         }
@@ -449,6 +641,32 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
                     { FirstName = "Stub Colleague2", EmailAddress = "email2@sainsburys.co.uk" }
                 }
             };
+        }
+
+        private LinkObjective GetStubObjective()
+        {
+            return new LinkObjective { Id = 1, ColleagueId = "e001" };
+        }
+
+        private List<LinkObjective> GetStubListObjectives()
+        {
+            return new List<LinkObjective> { GetStubObjective(), GetStubObjective() };
+        }
+
+        private LinkPdp GetStubPdp()
+        {
+            return new LinkPdp {Id = 1, ColleagueId = "e001"};
+        }
+
+
+        private HttpResponseMessage GetJsonResponseMessageWithLocationHeader(string jsonContent, Uri locationUri)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(jsonContent, Encoding.UTF8, "application/json"),
+            };
+            response.Headers.Location = locationUri;
+            return response;
         }
 
         private HttpResponseMessage GetJsonResponseMessage(string jsonContent)

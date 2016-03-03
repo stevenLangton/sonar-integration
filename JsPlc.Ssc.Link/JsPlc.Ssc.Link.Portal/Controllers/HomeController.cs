@@ -73,6 +73,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             List<string> claims = GetAllClaims(User.Identity);
             return View(claims);
         }
+
+        [System.Web.Mvc.Authorize]
         public ActionResult ShowKeys()
         {
             var keys = ConfigurationManager.AppSettings.AllKeys;

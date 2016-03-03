@@ -17,6 +17,7 @@ namespace JsPlc.Ssc.Link.Import.Tests
     {
 
         [TestMethod]
+        [Ignore]
         public void TestFilestreamRead()
         {
             IImportFactory xxx = new ImportFactory();
