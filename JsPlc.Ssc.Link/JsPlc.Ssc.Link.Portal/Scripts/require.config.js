@@ -62,7 +62,8 @@ require.config({
         "bootstrap-datepickerGB": { deps: ["jquery", "bootstrap-datepicker"] },
         jqueryval: { deps: ["jquery"] },
         knockout: { deps: ["jquery"] },
-        bootstrap: { deps: ["jquery"] }
+        bootstrap: { deps: ["jquery"] },
+        autogrow: { deps: ["jquery"] }
         //"ko-binding-handlers": { deps: ["jquery"] }
         //"tableedit": { deps: ["tabletools"] }
     },
