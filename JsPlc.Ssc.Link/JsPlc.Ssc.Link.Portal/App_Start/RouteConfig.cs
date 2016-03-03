@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -8,6 +9,7 @@ using System.Web.Routing;
 
 namespace JsPlc.Ssc.Link.Portal
 {
+    [ExcludeFromCodeCoverage]
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)

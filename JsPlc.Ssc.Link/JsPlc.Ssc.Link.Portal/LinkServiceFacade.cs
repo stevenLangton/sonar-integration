@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 //using JsPlc.Ssc.Link.Portal.Models;
 using System;
@@ -22,15 +23,20 @@ namespace JsPlc.Ssc.Link.Portal
     {
         private Lazy<HttpClient> _client;
 
-        public LinkServiceFacade()
+        public LinkServiceFacade(Lazy<HttpClient> client = null, IConfigurationDataService configurationDataService = null)
         {
-            _client = new Lazy<HttpClient>();
+            _client = client ?? new Lazy<HttpClient>();
             //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.Service/api/");
-            _client.Value.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"] + ""); // "not needing api/"
+            //_client.Value.BaseAddress = new Uri(ConfigurationManager.AppSettings["ServicesBaseUrl"] + ""); // "not needing api/"
+            var url = (configurationDataService == null)
+                ? ConfigurationManager.AppSettings["ServicesBaseUrl"] + ""
+                : configurationDataService.GetConfigSettingValue("ServicesBaseUrl");
+            _client.Value.BaseAddress = new Uri(url); 
             
             _client.Value.DefaultRequestHeaders.Accept.Clear();
             _client.Value.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
+
         #region "Security api - Check various access types based on use cases"
         public bool HasMeetingAccess(int meetingId, string colleagueId)
         {
@@ -62,12 +68,12 @@ namespace JsPlc.Ssc.Link.Portal
             return response.IsSuccessStatusCode ? item : null;
         }
 
-        public bool IsManager(string username)
-            {
-            HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?UserName=" + username).Result;
+        //public bool IsManager(string username)
+        //    {
+        //    HttpResponseMessage response = _client.Value.GetAsync("api/Employees/?UserName=" + username).Result;
 
-            return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
-            }
+        //    return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
+        //    }
 
         #endregion
 
