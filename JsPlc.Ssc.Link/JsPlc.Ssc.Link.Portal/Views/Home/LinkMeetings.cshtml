@@ -66,16 +66,18 @@
 
     </script>
     <script type="text/html" id="current-meeting-template">
-        <!-- note: dataType = LinkMeetingView -->
+    <!-- note: dataType = LinkMeetingView -->
 
-        <div class="linkBox1">
-            <p><span>Current Link conversation</span></p>
-        </div>
-        <div class="row linkBox1">
+    <div>
+        <h2>Current Link conversation</h2>
+    </div>
+    <div class="container-fluid linkBox1 LinkBox1Padding">
+        <div class="row">
             <div class="col-md-1">
-                <img src="/Content/Images/calendar_icon.png" />
+                <i class="fa fa-clock-o fa-4x"></i>
+                @*<img src="/Content/Images/calendar_icon.png" />*@
             </div>
-            <div id="u98" class="col-md-10">
+            <div id="u98" class="col-md-11">
                 <p style="font-size:20px;">
                     <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;" data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
@@ -111,12 +113,13 @@
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                       class="btn btn-sm" style="background-color: whitesmoke; text-decoration: none; border: solid 1px grey">View Link conversation</a>
+                       class="btn btn-sm btn-primary">View Link conversation</a>
                 </p>
             </div>
         </div>
+    </div>
 
-    </script>
+</script>
     <script type="text/html" id="nopast-meeting-template">
         <!-- note: dataType = LinkMeetingView -->
         <div class="linkBox2">
