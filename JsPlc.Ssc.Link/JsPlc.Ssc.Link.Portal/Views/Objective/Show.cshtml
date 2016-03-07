@@ -14,7 +14,6 @@
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <h1>@ViewBag.Title</h1>
   
-    <span data-bind="text: 'Created on ' + displayCreateDate"></span>
     <h4 for="objectiveTitle" >Objective title</h4>
     <div>
         <textarea id="objectiveTitle" data-bind="textInput: Title" disabled="@ReadOnly"></textarea>
@@ -36,7 +35,6 @@
     <br />
     <div class="container-fluid">
         <div class="pull-right">
-            <span>Updated on </span><span data-bind="text: displayUpdateDate"></span>
             <button class="btn btn-primary" data-bind="click: update" disabled="@ReadOnly">Save</button>
             <button class="btn btn-primary" data-bind="click: cancel">Cancel</button>
         </div>
