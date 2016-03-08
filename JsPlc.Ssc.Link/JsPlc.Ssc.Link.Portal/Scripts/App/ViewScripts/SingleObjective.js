@@ -54,19 +54,32 @@
         };
 
         vm.cancel = function () {
+
             if (vm.dirtyFlag()) {
+                var dialogOptions = {};
 
                 var yesHandler = function () {
                     //window.location.href = common.getSiteRoot() + "Objective";
                     history.go(-1);
                 };
 
-                confirmModal.init("Edit/View Objective", //Title
-                                  "Changes have been made to this Objective. Are you sure you wish to discard them?", //Body text
-                                  "No",// txtNoButton 
-                                  "Yes"); //txtYesButton
+                if (vm.Id() === 0) {
+                    //Create new objective view
+                    dialogOptions = {
+                        yesHandler: yesHandler,
+                        titleText: "Add A New Objective",
+                        bodyText: "Are you sure? This objective has not been saved. Are you sure you want to discard it?"
+                    };
+                } else {
+                    //Update existing objective view
+                    dialogOptions = {
+                        titleText: "Edit/View Objective",
+                        bodyText: "You have modified this objective. Are you sure you want to discard it?",
+                        yesHandler: yesHandler
+                    };
+                }
+                confirmModal.init(dialogOptions);
 
-                confirmModal.setProceedHandler(yesHandler);
                 confirmModal.show();
 
             } else {
