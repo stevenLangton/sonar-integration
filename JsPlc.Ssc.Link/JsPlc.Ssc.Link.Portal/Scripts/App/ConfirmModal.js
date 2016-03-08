@@ -1,63 +1,75 @@
-﻿/// <reference path="_ConfirmModal.js" />
-define(["jquery"], function ($) {
+﻿define(["jquery"], function ($) {
     "use strict";
 
-    var $container = $("#confirmModal"),
-        onCancelHandler = $.noop,
-        onProceedHandler = $.noop;
+    var $container = $("#confirmModal");
+
+    var defaultOptions = {
+        noHandler: $.noop,
+        yesHandler: $.noop,
+        titleText: "Action Confirmation",
+        bodyText: "Changes have been made. Are you sure you wish to discard them?",
+        noButtonText: "No",
+        yesButtonText: "Yes"
+    };
+
+    var optionsUsed = defaultOptions;
 
     var show = function () {
         $container.modal('show');
     };
 
     var setHandler = function (handler) {
-        return (typeof handler === "function") ? handler : $.noop;
+        return (typeof handler === "function")
+            ? handler
+            : $.noop;
     };
 
-    var setProceedHandler = function (clientOnProceedHandler) {
-        onProceedHandler = setHandler(clientOnProceedHandler);
+    var setYesHandler = function (clientYesHandler) {
+        optionsUsed.yesHandler = setHandler(clientYesHandler);
     };
 
-    var setCancelHandler = function (clientOnCancelHandler) {
-        onCancelHandler = setHandler(clientOnCancelHandler);
+    var setNoHandler = function (clientNoHandler) {
+        optionsUsed.noHandler = setHandler(clientNoHandler);
     };
 
-    var init = function (txtTitle, txtBody, txtNoButton, txtYesButton, clientOnCancelHandler, clientOnProceedHandler) {
-        if (txtTitle) {
-            $("#confirmModal .modal-title").text(txtTitle);
+    var init = function (options) {
+        optionsUsed = $.extend({}, defaultOptions, options || {});
+
+        if (optionsUsed.titleText) {
+            $("#confirmModal .modal-title").text(optionsUsed.titleText);
         }
 
-        if (txtBody) {
-            $("#confirmModal .modal-body p").text(txtBody);
+        if (optionsUsed.bodyText) {
+            $("#confirmModal .modal-body p").text(optionsUsed.bodyText);
         }
 
-        if (txtNoButton) {
-            $("#confirmModal #cancel").text(txtNoButton);
+        if (optionsUsed.noButtonText) {
+            $("#confirmModal #cancel").text(optionsUsed.noButtonText);
         }
 
-        if (txtYesButton) {
-            $("#confirmModal #proceed").text(txtYesButton);
+        if (optionsUsed.yesButtonText) {
+            $("#confirmModal #proceed").text(optionsUsed.yesButtonText);
         }
 
-        setProceedHandler(clientOnProceedHandler);
-        setCancelHandler(clientOnCancelHandler);
+        setYesHandler(optionsUsed.yesHandler);
+        setNoHandler(optionsUsed.noHandler);
     };
 
     //Initialisation
     $("#confirmModal button#proceed").on('click', function () {
         $container.modal('hide');
-        onProceedHandler();
+        optionsUsed.yesHandler();
     });
 
     $("#confirmModal button#cancel").on('click', function () {
-        onCancelHandler();
+        optionsUsed.noHandler();
     });
 
     //Public interface
     return {
         show: show,
         init: init,
-        setProceedHandler: setProceedHandler,
-        setCancelHandler: setCancelHandler
+        setYesHandler: setYesHandler,
+        setNoHandler: setNoHandler
     };
 });

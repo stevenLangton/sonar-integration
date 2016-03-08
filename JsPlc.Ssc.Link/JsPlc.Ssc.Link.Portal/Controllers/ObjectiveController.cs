@@ -76,7 +76,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(LinkObjective modifiedObjective)
+        public async Task<ActionResult> Create(LinkObjective modifiedObjective)
         {
             bool Success = false;
 
@@ -86,7 +86,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 modifiedObjective.LastAmendedDate = DateTime.Now;
 
                 //Add new item
-                int NewObjectId = ServiceFacade.CreateObjective(modifiedObjective).Result;
+                int NewObjectId = await ServiceFacade.CreateObjective(modifiedObjective);
                 Success = NewObjectId != 0;
                 if (Success)
                 {

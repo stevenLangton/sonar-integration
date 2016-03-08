@@ -188,7 +188,7 @@ namespace JsPlc.Ssc.Link.Portal
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
             string pathSuffix = "colleagues/" + modified.ColleagueId + "/objectives/";
 
-            HttpResponseMessage response = _client.Value.PostAsync(pathSuffix, httpContent).Result;
+            HttpResponseMessage response = await _client.Value.PostAsync(pathSuffix, httpContent);
 
             //Return new object id if fine else 0
             if (response.IsSuccessStatusCode)
@@ -197,9 +197,9 @@ namespace JsPlc.Ssc.Link.Portal
                 return 0; //Failed to create object.
         }
 
-        public LinkObjective GetObjective(string ColleagueId, int ObjectiveId)
+        public LinkObjective GetObjective(string colleagueId, int objectiveId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives/" + ObjectiveId.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives/" + objectiveId.ToString(CultureInfo.InvariantCulture)).Result;
             var objective = response.Content.ReadAsAsync<LinkObjective>().Result;
             return response.IsSuccessStatusCode ? objective : null;
         }
@@ -218,15 +218,19 @@ namespace JsPlc.Ssc.Link.Portal
         /// <summary>
         /// Get a list of all objectives for a colleague
         /// </summary>
-        /// <param name="ColleagueId">Sainsburys colleague id</param>
+        /// <param name="colleagueId">Sainsburys colleague id</param>
         /// <returns></returns>
-        public List<LinkObjective> GetObjectivesList(string ColleagueId)
+        public List<LinkObjective> GetObjectivesList(string colleagueId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + ColleagueId + "/objectives").Result;
+            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives").Result;
 
-            var ObjectivesList = response.Content.ReadAsAsync<List<LinkObjective>>().Result;
-
-            return ObjectivesList;
+            List<LinkObjective> objectivesList=null;
+            if (response.IsSuccessStatusCode)
+            {
+                objectivesList = response.Content.ReadAsAsync<List<LinkObjective>>().Result;
+            }
+           
+            return objectivesList;
         }
 
         public List<string> GetApiServiceKeys()
@@ -251,8 +255,12 @@ namespace JsPlc.Ssc.Link.Portal
             string pathSuffix = "colleagues/" + modified.ColleagueId + "/pdp/";
 
             HttpResponseMessage response = _client.Value.PutAsync(pathSuffix, httpContent).Result;
-            var pdp = response.Content.ReadAsAsync<LinkPdp>().Result;
-            return response.IsSuccessStatusCode ? pdp : null;
+            LinkPdp pdp = null;
+            if (response.IsSuccessStatusCode)
+            {
+                pdp = response.Content.ReadAsAsync<LinkPdp>().Result;
+            }
+            return pdp;
         }
 
         public LinkPdp GetPdp(string ColleagueId)

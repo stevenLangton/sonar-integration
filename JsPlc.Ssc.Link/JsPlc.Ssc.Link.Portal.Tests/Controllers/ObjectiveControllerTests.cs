@@ -140,13 +140,13 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         }
 
         [TestMethod]
-        public void Create()
+        public async void Create()
         {
             //Arrange
             var controller = new ObjectiveController(TestMocks.AnyCurrentUser(), TestMocks.LinkServiceFacade());
 
             //Act
-            JsonResult actual = controller.Create(Mock.Of<LinkObjective>()) as JsonResult;
+            JsonResult actual = await controller.Create(Mock.Of<LinkObjective>()) as JsonResult;
 
             //Assert
             IDictionary<string, object> data = new RouteValueDictionary(actual.Data);
