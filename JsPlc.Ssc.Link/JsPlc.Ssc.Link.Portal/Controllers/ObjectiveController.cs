@@ -67,10 +67,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [HttpGet]
-        public ActionResult Show(int Id)
+        public async Task<ActionResult> Show(int Id)
         {
             ViewBag.Title = "View objective";
-            LinkObjective item = ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
+            LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
             ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
             return View(item);
         }
