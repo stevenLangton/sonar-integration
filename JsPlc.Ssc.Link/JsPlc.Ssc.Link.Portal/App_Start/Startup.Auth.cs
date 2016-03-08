@@ -67,12 +67,18 @@ namespace JsPlc.Ssc.Link.Portal
                         //
                         AuthorizationCodeReceived = (context) =>
                         {
-                            var code = context.Code;
+                            try
+                            {
+                                var code = context.Code;
 
-                            ClientCredential credential = new ClientCredential(clientId, appKey);
-                            string userObjectID = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-                            AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
-                            //AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+                                ClientCredential credential = new ClientCredential(clientId, appKey);
+                                string userObjectID = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+                                AuthenticationContext authContext = new AuthenticationContext(Authority, new NaiveSessionCache(userObjectID));
+                                //AuthenticationResult result = authContext.AcquireTokenByAuthorizationCode(code, new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path)), credential, graphResourceId);
+                            }
+                            catch (Exception)
+                            {
+                            }
 
                             return Task.FromResult(0);
                         },
