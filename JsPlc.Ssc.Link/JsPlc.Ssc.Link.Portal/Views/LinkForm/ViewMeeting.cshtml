@@ -13,23 +13,25 @@
     </div>
 
     <div style="display:none" data-bind="visible: $root.dataAvailable">
-        <!-- Manager view: show colleague name banner -->
-        <div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-            <div class="col-xs-3 col-md-4"><!-- Profile pic if any --></div>
+       
+        
+       <!-- Manager view: show colleague name banner -->
+       <!--<div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+            <div class="col-xs-3 col-md-4"></div>
             <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
             <div class="col-xs-3 col-md-4"></div>
-        </div>
+        </div>-->
 
         <!-- Colleague view: show manager name banner -->
-        <div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
-            <div class="col-xs-3 col-md-4"><!-- Profile pic if any --></div>
-            <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: 'Line manager:' + $root.dataModel().ManagerName"></span></div>
+        <!--<div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
             <div class="col-xs-3 col-md-4"></div>
-        </div>
+            <div class="col-xs-6 col-md-4"> <span class="colleagueInfo" data-bind="text: 'Line manager:' + $root.dataModel().ManagerName"></span></div>
+            <div class="col-xs-3 col-md-4"></div>
+        </div>-->
 
         <h2>
-            @ViewBag.Title -
-            <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span>
+            @ViewBag.Title <span class="colleagueInfo" data-bind="text: ' with ' + $root.dataModel().ManagerName"></span>
+            <small><span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span></small>
         </h2>
         <h3>@ViewBag.Message</h3>
 
