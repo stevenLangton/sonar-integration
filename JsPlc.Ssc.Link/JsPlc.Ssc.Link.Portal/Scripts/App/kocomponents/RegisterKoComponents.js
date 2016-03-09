@@ -52,5 +52,6 @@
     ko.components.register("colleague-meetings", { require: "App/kocomponents/colleagueMeetings" });
     ko.components.register("past-meetings", { require: "App/kocomponents/pastMeetings" });
     ko.components.register("current-meeting", { require: "App/kocomponents/currentMeeting" });
+    ko.components.register("tab-pdp", { require: "App/kocomponents/tabPdp" });
 
 });//Module end

@@ -352,6 +352,8 @@
     <Content Include="Scripts\App\kocomponents\pdpAccordion.js" />
     <Content Include="Scripts\App\kocomponents\profileTabs.html" />
     <Content Include="Scripts\App\kocomponents\profileTabs.js" />
+    <Content Include="Scripts\App\kocomponents\tabPdp.html" />
+    <Content Include="Scripts\App\kocomponents\tabPdp.js" />
     <Content Include="Scripts\App\MeetingService.js" />
     <Content Include="Scripts\App\Services\LinkService.js" />
     <Content Include="Scripts\App\ViewScripts\MeetingRecords.js" />
