@@ -11,8 +11,8 @@
             <div class="media-body">
                 <div>
                      <h2 style="margin:0px;"><span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span></h2>
-                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-primary pull-right">
-                        <span data-bind ="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
+                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-primary pull-right">View profile
+                    
                     </a>
                 </div>
                 <br />
@@ -23,7 +23,7 @@
                                     (MeetingsInLast12Months == 1) ? '1 conversation ' :
                                     (MeetingsInLast12Months + ' conversations ')"></span>
                     </strong>
-                    with <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span> in the last 12 months.
+                    with <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>.
                 </div>
                 <div data-bind="if: LastMeeting && LastMeeting.MeetingDate">
                     Last conversation: <strong><span data-bind="text: $root.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
