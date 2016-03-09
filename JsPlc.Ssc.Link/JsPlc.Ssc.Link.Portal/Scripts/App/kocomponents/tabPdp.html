@@ -1,0 +1,25 @@
+﻿<div id="idTabPdp">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" data-bind="foreach: sections">
+        <li role="presentation" data-bind="css: { active: $index()==0 }">
+            <a data-bind="attr: {'href': '#'+name.replace(/ /g,''), 'aria-controls': name.replace(/ /g,'')}, text:name"
+               role="tab" data-toggle="tab"></a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" data-bind="foreach: sections">
+        <div role="tabpanel" class="tab-pane" data-bind="attr: {id: name.replace(/ /g,'')}, css: { active: $index()==0 }">
+            <div data-bind="foreach: $data.questions">
+                <h4 data-bind="text: name"></h4>
+                <div class="row">
+                    <div class="col-xs-12 comments-container">
+                        <textarea data-bind="textInput: answer, enable: !$component.readOnly" ,
+                                  placeholder='Enter your comments here'
+                                  rows="4" maxlength="5000"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

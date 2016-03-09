@@ -197,9 +197,9 @@ namespace JsPlc.Ssc.Link.Portal
                 return 0; //Failed to create object.
         }
 
-        public LinkObjective GetObjective(string colleagueId, int objectiveId)
+        public async Task<LinkObjective> GetObjective(string colleagueId, int objectiveId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives/" + objectiveId.ToString(CultureInfo.InvariantCulture)).Result;
+            HttpResponseMessage response = await _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives/" + objectiveId.ToString(CultureInfo.InvariantCulture));
             var objective = response.Content.ReadAsAsync<LinkObjective>().Result;
             return response.IsSuccessStatusCode ? objective : null;
         }
