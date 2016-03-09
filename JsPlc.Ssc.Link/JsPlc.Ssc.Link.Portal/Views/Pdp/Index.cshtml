@@ -89,7 +89,7 @@
 <script type="text/javascript">
     require(["pdp", "knockout", "RegisterKoComponents"], function (pdp, ko) {
         $(document).ready(function () {
-            ko.applyBindings({}, document.getElementById("koDiv"));
+            //ko.applyBindings({}, document.getElementById("koDiv"));
             if (@Html.Raw(Json.Encode(ViewBag.PdpUpdated))) {
                 pdp.init(@Html.Raw(Json.Encode(ViewBag.PdpUpdated)));
             }
