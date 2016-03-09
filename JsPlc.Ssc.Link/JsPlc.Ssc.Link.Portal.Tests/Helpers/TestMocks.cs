@@ -39,7 +39,7 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Helpers
                 .Returns(TestList);
 
             LinkService.Setup(x => x.GetObjective(It.IsAny<string>(), It.IsAny<int>()))
-                .Returns(anObjective);
+                .Returns(Task.FromResult(anObjective));
 
             Random rnd = new Random();
             LinkService.Setup(x => x.CreateObjective(It.IsAny<LinkObjective>()))

@@ -17,7 +17,7 @@ namespace JsPlc.Ssc.Link.Portal
         ColleagueTeamView GetMyMeetingsView(string colleagueId);
         MeetingView GetNewMeetingView(string colleagueId);
         LinkMeeting GetNextMeeting(string colleagueId);
-        LinkObjective GetObjective(string colleagueId, int objectiveId);
+        Task<LinkObjective> GetObjective(string colleagueId, int objectiveId);
         List<LinkObjective> GetObjectivesList(string colleagueId);
         LinkPdp GetPdp(string ColleagueId);
         IEnumerable<ColleagueTeamView> GetTeamView(string managerId);

@@ -127,13 +127,13 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         }
 
         [TestMethod]
-        public void Show()
+        public async void Show()
         {
             //Arrange
             var controller = new ObjectiveController(TestMocks.AnyCurrentUser(), TestMocks.LinkServiceFacade());
 
             //Act
-            var actResult = controller.Show(101) as ViewResult;
+            var actResult = await controller.Show(101) as ViewResult;
 
             //Assert
             Assert.IsNotNull(actResult);
