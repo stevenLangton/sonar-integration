@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +22,17 @@ namespace JsPlc.Ssc.Link.Models.Entities
 
         [Required]
         public DateTime End { get; set; }
-        
+
+        //[DefaultValue(PeriodType.Quarter)]
+        public PeriodType PeriodType { get; set; }
+    }
+
+    public enum PeriodType
+    {
+        Day = 1,
+        Week = 2,
+        Month = 3,
+        Quarter = 4,
+        Year = 5,
     }
 }
