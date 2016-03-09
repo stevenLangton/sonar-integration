@@ -37,18 +37,24 @@ namespace JsPlc.Ssc.Link.Repository
             #endregion "deprecated code"
 
             var periods = new List<Period>{
-                new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
-                new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
-                new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},
-                new Period{Id=4, Description="Q4", Start=new DateTime(2015,01,01),End=new DateTime(2015,03,31), Year = "2014/15"},
-                new Period{Id=5, Description="Q1", Start=new DateTime(2015,04,01),End=new DateTime(2015,06,30), Year = "2015/16"},
-                new Period{Id=6, Description="Q2", Start=new DateTime(2015,07,01),End=new DateTime(2015,09,30), Year = "2015/16"},
-                new Period{Id=7, Description="Q3", Start=new DateTime(2015,10,01),End=new DateTime(2015,12,31), Year = "2015/16"},
-                new Period{Id=8, Description="Q4", Start=new DateTime(2016,01,01),End=new DateTime(2016,03,31), Year = "2015/16"},
-                new Period{Id=9, Description="Q1", Start=new DateTime(2016,04,01),End=new DateTime(2016,06,30), Year = "2016/17"},
-                new Period{Id=10, Description="Q2", Start=new DateTime(2016,07,01),End=new DateTime(2016,09,30), Year = "2016/17"},
-                new Period{Id=11, Description="Q3", Start=new DateTime(2016,10,01),End=new DateTime(2016,12,31), Year = "2016/17"},
-                new Period{Id=12, Description="Q4", Start=new DateTime(2017,01,01),End=new DateTime(2017,03,31), Year = "2016/17"}
+                new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=4, Description="Q4", Start=new DateTime(2015,01,01),End=new DateTime(2015,03,31), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=5, Description="Q1", Start=new DateTime(2015,04,01),End=new DateTime(2015,06,30), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=6, Description="Q2", Start=new DateTime(2015,07,01),End=new DateTime(2015,09,30), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=7, Description="Q3", Start=new DateTime(2015,10,01),End=new DateTime(2015,12,31), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=8, Description="Q4", Start=new DateTime(2016,01,01),End=new DateTime(2016,03,31), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=9, Description="Q1", Start=new DateTime(2016,04,01),End=new DateTime(2016,06,30), Year = "2016/17", PeriodType = PeriodType.Quarter},
+                new Period{Id=10, Description="Q2", Start=new DateTime(2016,07,01),End=new DateTime(2016,09,30), Year = "2016/17", PeriodType = PeriodType.Quarter},
+                new Period{Id=11, Description="Q3", Start=new DateTime(2016,10,01),End=new DateTime(2016,12,31), Year = "2016/17", PeriodType = PeriodType.Quarter},
+                new Period{Id=12, Description="Q4", Start=new DateTime(2017,01,01),End=new DateTime(2017,03,31), Year = "2016/17", PeriodType = PeriodType.Quarter},
+
+                // Financial Years.
+                new Period{Id=100, Description="FY2015-16", Start=new DateTime(2015,04,01),End=new DateTime(2016,03,31, 23,59,59), Year = "2015/16", PeriodType = PeriodType.Year},
+                new Period{Id=101, Description="FY2016-17", Start=new DateTime(2016,04,01),End=new DateTime(2017,03,31, 23,59,59), Year = "2016/17", PeriodType = PeriodType.Year},
+                new Period{Id=102, Description="FY2017-18", Start=new DateTime(2017,04,01),End=new DateTime(2018,03,31, 23,59,59), Year = "2017/18", PeriodType = PeriodType.Year},
+                new Period{Id=103, Description="FY2018-19", Start=new DateTime(2018,04,01),End=new DateTime(2019,03,31, 23,59,59), Year = "2018/19", PeriodType = PeriodType.Year}
             };
 
             periods.ForEach(c => context.Periods.Add(c));
