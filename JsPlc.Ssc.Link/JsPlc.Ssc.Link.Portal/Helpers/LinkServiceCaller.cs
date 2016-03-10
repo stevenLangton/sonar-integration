@@ -39,15 +39,28 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 var response = await client.SendAsync(request)
                     .ContinueWith(responseTask =>
                     {
-                        Console.WriteLine("Response: {0}", responseTask.Result);
-                        return responseTask.Result;
+                        if (responseTask.Result.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine("Response: {0}", responseTask.Result);
+                            return responseTask.Result;
+                        }
+                        responseTask.Result.LogElmahInfo("Response from api/Meetings when:" + method.Method);
+                        return new HttpResponseMessage { StatusCode = HttpStatusCode.NotImplemented, Content = new StringContent("Failure response from api:" + serviceUrl + "##" + JsonConvert.SerializeObject(responseTask.Result)) };
                     });
 
                 response.LogElmahInfo();
 
                 if (!response.IsSuccessStatusCode)
-                    return new HttpResponseMessage {StatusCode = HttpStatusCode.NotImplemented};
-                
+                {
+                    response.LogElmahInfo("Response from api/Meetings when:" + method.Method);
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotImplemented,
+                        Content =
+                            new StringContent("Bad response from api:" + serviceUrl + "##" +
+                                              JsonConvert.SerializeObject(response))
+                    };
+                }
                 return response;
             }
         }
