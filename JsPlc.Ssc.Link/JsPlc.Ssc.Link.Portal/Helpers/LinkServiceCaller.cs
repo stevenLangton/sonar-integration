@@ -24,7 +24,9 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var serviceUrl = String.Format("{0}api/Meetings", ConfigurationManager.AppSettings["ServicesBaseUrl"]);
+                var baseUrl = ConfigurationManager.AppSettings["ServicesBaseUrl"];
+                if (!baseUrl.EndsWith("/")) baseUrl += "/";
+                var serviceUrl = String.Format("{0}api/Meetings", baseUrl);
                 
                 Utils.LogElmahInfo(meetingViewJson);
 

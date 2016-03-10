@@ -51,8 +51,7 @@ namespace JsPlc.Ssc.Link.Portal
                 context.ClearError();
                 var httpException = ex as HttpException;
 
-                ErrorLog.GetDefault(context).Log(new Error(httpException));
-                //Elmah.ErrorSignal.FromContext(context).Raise(httpException);
+                if (ex != null) ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception(ex.Message)));
                 
                 var routeData = new RouteData();
                 routeData.Values["controller"] = "errors";
@@ -60,6 +59,7 @@ namespace JsPlc.Ssc.Link.Portal
                 routeData.Values["action"] = "http500";
                 if (httpException != null)
                 {
+                    ErrorLog.GetDefault(context).Log(new Error(httpException));
                     switch (httpException.GetHttpCode())
                     {
                         case 404:
@@ -84,7 +84,6 @@ namespace JsPlc.Ssc.Link.Portal
                     context = app.Context;
                     ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler FAILED..")));
                     ErrorLog.GetDefault(context).Log(new Error(ex));
-                    //Elmah.ErrorSignal.FromCurrentContext().Raise(ex, context);
                 }
             }
         }
