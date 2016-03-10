@@ -10,7 +10,11 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
+using Elmah;
 using JsPlc.Ssc.Link.Models;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Helpers
 {
@@ -30,5 +34,44 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 });
             }
         }
+
+        public static void LogElmahInfo(this object obj, string objectContextMessage="")
+        {
+            try
+            {
+                if (ConfigurationManager.AppSettings["LogDebugInfo"].ToLower().Equals("true"))
+                {
+                    string jsonValue = JsonConvert.SerializeObject(obj);
+                    string logMsg = jsonValue;
+
+                    if (!objectContextMessage.IsNullOrWhiteSpace())
+                    {
+                        logMsg = "##ObjContext:" + objectContextMessage + "\n" + jsonValue;
+                    }
+                    LogElmahInfo(logMsg);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("LogElmahInfo extension method failed..")));
+                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(ex));
+            }
+        }
+        public static void LogElmahInfo(string stringValue)
+        {
+            try
+            {
+                if (ConfigurationManager.AppSettings["LogDebugInfo"].ToLower().Equals("true"))
+                {
+                    ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception(stringValue)));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("LogElmahInfo failed..")));
+                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(ex));
+            }
+        }
+
     }
 }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using JsPlc.Ssc.Link.Models;
+using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Helpers
 {
@@ -23,7 +24,11 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var serviceUrl = String.Format("{0}api/Meetings", ConfigurationManager.AppSettings["ServicesBaseUrl"]);
+                var baseUrl = ConfigurationManager.AppSettings["ServicesBaseUrl"];
+                if (!baseUrl.EndsWith("/")) baseUrl += "/";
+                var serviceUrl = String.Format("{0}api/Meetings", baseUrl);
+                
+                Utils.LogElmahInfo(meetingViewJson);
 
                 HttpRequestMessage request = new HttpRequestMessage(method, serviceUrl);
 
@@ -34,13 +39,28 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 var response = await client.SendAsync(request)
                     .ContinueWith(responseTask =>
                     {
-                        Console.WriteLine("Response: {0}", responseTask.Result);
-                        return responseTask.Result;
+                        if (responseTask.Result.IsSuccessStatusCode)
+                        {
+                            Console.WriteLine("Response: {0}", responseTask.Result);
+                            return responseTask.Result;
+                        }
+                        responseTask.Result.LogElmahInfo("Response from api/Meetings when:" + method.Method);
+                        return new HttpResponseMessage { StatusCode = HttpStatusCode.NotImplemented, Content = new StringContent("Failure response from api:" + serviceUrl + "##" + JsonConvert.SerializeObject(responseTask.Result)) };
                     });
 
+                response.LogElmahInfo();
+
                 if (!response.IsSuccessStatusCode)
-                    return new HttpResponseMessage {StatusCode = HttpStatusCode.NotImplemented};
-                
+                {
+                    response.LogElmahInfo("Response from api/Meetings when:" + method.Method);
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.NotImplemented,
+                        Content =
+                            new StringContent("Bad response from api:" + serviceUrl + "##" +
+                                              JsonConvert.SerializeObject(response))
+                    };
+                }
                 return response;
             }
         }
