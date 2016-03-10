@@ -14,10 +14,13 @@
     <objectives-list params='data: objectives'></objectives-list>
     <hr />
 </div>
+@Html.Partial("_ConfirmModal")
 <script type="text/javascript">
-    require(["Objectives", "RegisterKoComponents"], function (mod) {
+    require(["Objectives", "autogrow", "RegisterKoComponents"], function (mod, autogrow) {
         $(document).ready(function () {
             mod.init("ObjectivesListView", "@ViewBag.ColleagueId");
+            $('textarea').autogrow({ onInitialize: true });
+
         });
     });
 </script>
