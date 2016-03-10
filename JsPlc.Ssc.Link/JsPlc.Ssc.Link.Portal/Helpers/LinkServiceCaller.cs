@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using JsPlc.Ssc.Link.Models;
+using Newtonsoft.Json;
 
 namespace JsPlc.Ssc.Link.Portal.Helpers
 {
@@ -24,6 +25,8 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var serviceUrl = String.Format("{0}api/Meetings", ConfigurationManager.AppSettings["ServicesBaseUrl"]);
+                
+                Utils.LogElmahInfo(meetingViewJson);
 
                 HttpRequestMessage request = new HttpRequestMessage(method, serviceUrl);
 
@@ -37,6 +40,8 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
                         Console.WriteLine("Response: {0}", responseTask.Result);
                         return responseTask.Result;
                     });
+
+                response.LogElmahInfo();
 
                 if (!response.IsSuccessStatusCode)
                     return new HttpResponseMessage {StatusCode = HttpStatusCode.NotImplemented};
