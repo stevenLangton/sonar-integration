@@ -66,9 +66,16 @@
   <ItemGroup>
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="ColleagueView.cs" />
+    <Compile Include="Entities\ColleaguePdpAnswer.cs" />
+    <Compile Include="Entities\ColleaguePdpSectionInstance.cs" />
+    <Compile Include="Entities\ColleaguePdp.cs" />
     <Compile Include="Entities\LinkUser.cs" />
     <Compile Include="Entities\LinkPdp.cs" />
     <Compile Include="Entities\LinkMeeting.cs" />
+    <Compile Include="Entities\PdpSectionQuestion.cs" />
+    <Compile Include="Entities\Section.cs" />
+    <Compile Include="Entities\PdpVersion.cs" />
+    <Compile Include="Entities\PdpSection.cs" />
     <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="ILinkUserView.cs" />
     <Compile Include="LinkMeetingView.cs" />
