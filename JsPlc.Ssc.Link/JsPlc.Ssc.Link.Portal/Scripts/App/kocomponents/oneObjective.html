@@ -1,5 +1,5 @@
 ﻿<div class="one-objective" style="display: none;" data-bind="visible: true">
-    <div class="pull-right">
+    <div class="pull-right" data-bind="if: enableViewToggle">
         <a href="#" target="_blank" data-bind="click: toggleView"><icon class="fa fa-plus"></icon></a>
     </div>
     <div data-bind="visible: !expandedView()">

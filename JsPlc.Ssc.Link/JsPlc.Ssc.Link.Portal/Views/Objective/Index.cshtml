@@ -8,7 +8,17 @@
         </div>
     </div>
     <br />
-    <a data-bind="attr: { href: 'objective/new' }" class="btn btn-primary btn-lg">Add a new objective</a>
+        @*<a data-bind="attr: { href: 'objective/new' }" class="btn btn-primary btn-lg">Add a new objective</a>*@
+    <a class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#demo" data-bind="click: enterNewObjective" aria-expanded="false">Add a new objective</a>
+        @*<div id="demo" class="collapse">
+            <one-objective params="data: newObjective, readOnly: false, expanded: true, enableViewToggle: false"></one-objective>
+        </div>*@
+    <div id="demo" class="collapse">
+        <div data-bind="stopBinding: true">
+            <div id="objectiveContainer"></div>
+        </div>
+    </div>
+
     <br />
     <br />
     <objectives-list params='data: objectives'></objectives-list>

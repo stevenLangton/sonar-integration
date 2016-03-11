@@ -107,6 +107,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                     modifiedObjective.Id = NewObjectId;
                 }
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                       .Where(y => y.Count > 0)
+                       .ToList();
+            }
 
             return new JsonResult
             {

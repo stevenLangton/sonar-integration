@@ -40,7 +40,13 @@
 
     //Set from server
     var setUserInfo = function (data) {
-        userInfo.colleagueId = data;
+        if (typeof data === "undefined" || $.isEmptyObject(data)) {
+            userInfo.colleagueId = "";
+            userInfo.managerId = "";
+        } else {
+            userInfo.colleagueId = data.Colleague.ColleagueId;
+            userInfo.managerId = data.Colleague.ManagerId;
+        }
     };
 
     var getUserInfo = function () {

@@ -11,9 +11,19 @@
 
     var oneObjectiveModel = function (params) {
         var vm = {};
+        vm.onSave = (typeof params.onSave === "undefined" || !$.isFunction(params.onSave))
+            ? $.noop
+            : params.onSave;
+
+        vm.onCancel = (typeof params.onCancel === "undefined" || !$.isFunction(params.onCancel))
+            ? $.noop
+            : params.onCancel;
+
         vm.data = komap.fromJS(params.data);//params.data is JSON form of a LinkObjective server object
         vm.readOnly = params.readOnly !== undefined ? params.readOnly : true;
-        vm.expandedView = ko.observable(false);
+        vm.expanded = params.expanded !== undefined ? params.expanded : false;
+        vm.enableViewToggle = params.enableViewToggle !== undefined ? params.enableViewToggle : true;
+        vm.expandedView = ko.observable(vm.expanded);
 
         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
         //vm.displayCreateDate = moment(vm.data.CreatedDate()).format('LLLL');
@@ -21,6 +31,11 @@
 
         vm.update = function () {
             var jsonArgs = komap.toJS(vm.data);
+            if ($.isEmptyObject(jsonArgs.Title)) {
+                toastr.info("Please enter the title for the new objective");
+                return;
+            }
+
             jsonArgs.CreatedDate = getDateStr(jsonArgs.CreatedDate);
             jsonArgs.LastAmendedDate = getDateStr(jsonArgs.LastAmendedDate);
             jsonArgs.SignOffDate = getDateStr(jsonArgs.SignOffDate);
@@ -45,7 +60,9 @@
                         toastr.info("Your objective has been updated");
                     }
 
-                    //window.location.href = common.getSiteRoot() + "Objective";
+                    //We've just saved. So refresh the dirty flag
+                    vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
+                    vm.onSave();
                 } else {
                     toastr.error("We encountered a problem while processing your request.");
                 }
@@ -62,21 +79,24 @@
             if (vm.dirtyFlag()) {
                 var dialogOptions = {};
 
-                var yesHandler = function () {
-                    //window.location.href = common.getSiteRoot() + "Objective";
-                    //window.history.go(-1);
+                var yesHandlerForNew = function () {
+                    vm.onCancel();
+                };
+
+                var yesHandlerForUpdates = function () {
                     //Restore the data as user cancels modifications
                     var $promise = dataService.getOneObjective(vm.data.Id());
                     $promise.done(function (data) {
                         komap.fromJS(data, vm.data);
                         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
+                        vm.onCancel();
                     });
                 };
 
                 if (vm.data.Id() === 0) {
                     //Create new objective view
                     dialogOptions = {
-                        yesHandler: yesHandler,
+                        yesHandler: yesHandlerForNew,
                         titleText: "Add A New Objective",
                         bodyText: "Are you sure? This objective has not been saved. Are you sure you want to discard it?"
                     };
@@ -85,16 +105,14 @@
                     dialogOptions = {
                         titleText: "Edit/View Objective",
                         bodyText: "You have modified this objective. Are you sure you want to discard it?",
-                        yesHandler: yesHandler
+                        yesHandler: yesHandlerForUpdates
                     };
                 }
                 confirmModal.init(dialogOptions);
 
                 confirmModal.show();
-
             } else {
-                //window.location.href = common.getSiteRoot() + "Objective";
-                window.history.go(-1);
+                vm.onCancel();
             }
 
         };

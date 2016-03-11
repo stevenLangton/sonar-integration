@@ -36,8 +36,10 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
-            common.setUserInfo("@ColleagueId");
+    require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
+            //common.setUserInfo("@ColleagueId");
+            common.setUserInfo(@Html.Raw(Json.Encode(CurrentUser)));
+
             toastr.options = {
                 "debug": false,
                 "positionClass": "toast-top-center",
@@ -48,7 +50,7 @@
                 "extendedTimeOut": 1000
             };
             LinkService.setServiceBaseUrl("@(ConfigurationManager.AppSettings["ServicesBaseUrl"])");
-        });
+    });
     </script>
     <meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
