@@ -239,6 +239,7 @@
     <Compile Include="Services\ConfigurationDataService.cs" />
     <Compile Include="Services\DomainTranslationService.cs" />
     <Compile Include="Services\ColleagueService.cs" />
+    <Compile Include="Services\ColleaguePdpService.cs" />
     <Compile Include="Services\PdpService.cs" />
     <Compile Include="Services\StubServiceFacade.cs" />
     <Compile Include="Services\MeetingService.cs" />

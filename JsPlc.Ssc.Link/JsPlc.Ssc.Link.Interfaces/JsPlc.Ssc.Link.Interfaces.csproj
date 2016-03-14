@@ -53,6 +53,7 @@
     <Compile Include="Services\IColleagueService.cs" />
     <Compile Include="Services\IMeetingService.cs" />
     <Compile Include="Services\IObjectivesService.cs" />
+    <Compile Include="Services\IColleaguePdpService.cs" />
     <Compile Include="Services\IPdpService.cs" />
     <Compile Include="IRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
