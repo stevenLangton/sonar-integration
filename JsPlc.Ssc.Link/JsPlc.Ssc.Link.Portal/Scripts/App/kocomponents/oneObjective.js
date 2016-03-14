@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "common", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "confirmModal", "autogrow", "RegisterKoComponents"], function ($, ko, komap, moment, common, toastr, htmlTemplate, dataService, confirmModal, autogrow) {
+﻿define(["jquery", "knockout", "komap", "moment", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, toastr, htmlTemplate, dataService, confirmModal) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -57,11 +57,12 @@
 
             $promise.done(function (result) {
                 if (result.success) {
+                    vm.data.LastAmendedDate(result.savedObjective.LastAmendedDate);
+                    vm.data.LastAmendedBy(result.savedObjective.LastAmendedBy);
+
                     if (mvcAction === mvcCreateAction) {
                         toastr.info("You have successfully created a new objective");
-                        vm.data.LastAmendedDate(result.newObjective.LastAmendedDate);
-                        vm.data.LastAmendedBy(result.newObjective.LastAmendedBy);
-                        vm.onCreate(result.newObjective);
+                        vm.onCreate(result.savedObjective);
                     } else {
                         toastr.info("Your objective has been updated");
                     }
@@ -75,8 +76,8 @@
             });
 
 
-            $promise.error(function (request, status, error) {
-                window.alert(request.responseText);
+            $promise.error(function (request) {
+                toastr.error(request.responseText);
             });
         };
 
@@ -147,11 +148,6 @@
     var viewModel = {
         createViewModel: function (params, componentInfo) {
             var vm = oneObjectiveModel(params);
-
-            //$(componentInfo.element).on('show', function (event, tabNo) {
-            //    $("#showTab" + tabNo).trigger("click");
-            //});
-
             return vm;
         }
     };

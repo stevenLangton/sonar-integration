@@ -30,11 +30,6 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
         return left.LastAmendedDate == right.LastAmendedDate ? 0 : (left.LastAmendedDate > right.LastAmendedDate ? -1 : 1);
     }
 
-    //When user successfully created a new objective
-    var onNewObjectiveCreated = function (newObjective) {
-        $('#demo').collapse('hide');
-    };
-
     //When user cancels the "create a new objective" panel, we want to collapse it
     var onNewObjectiveCancelled = function () {
         $('#demo').collapse('hide');
