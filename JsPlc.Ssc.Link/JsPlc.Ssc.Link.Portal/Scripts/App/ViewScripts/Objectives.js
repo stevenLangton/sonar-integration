@@ -1,4 +1,5 @@
-﻿define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common, LinkService) {
+﻿//This module manages the "My objectives" page.
+define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common, LinkService) {
     "use strict";
 
     var makeEmptyObjective = function () {
@@ -25,6 +26,15 @@
         return newObj;
     };
 
+    var orderObjectives = function (left, right) {
+        return left.LastAmendedDate == right.LastAmendedDate ? 0 : (left.LastAmendedDate > right.LastAmendedDate ? -1 : 1);
+    }
+
+    //When user successfully created a new objective
+    var onNewObjectiveCreated = function (newObjective) {
+        $('#demo').collapse('hide');
+    };
+
     //When user cancels the "create a new objective" panel, we want to collapse it
     var onNewObjectiveCancelled = function () {
         $('#demo').collapse('hide');
@@ -40,7 +50,13 @@
 
         vm.newObjective = makeEmptyObjective();
         vm.objectives = ko.observableArray([]);
+        vm.addNewObjective = function (newObjective) {
+            //Add the newly created objective to the vm.objectives array so it is visible on screen
+            vm.objectives.push(newObjective);
+            vm.objectives.sort(orderObjectives);
+        };
 
+        //Display a new empty objective panel so user can create a new objective.
         vm.enterNewObjective = function (data, event) {
             var $newObjButton = $(event.currentTarget);
 
@@ -57,9 +73,10 @@
                 containerViewmodel.data = vm.newObjective;
                 containerViewmodel.onNewObjectiveCancelled = onNewObjectiveCancelled;
                 containerViewmodel.onNewObjectiveSaved = onNewObjectiveSaved;
+                containerViewmodel.onNewObjectiveCreated = vm.addNewObjective;
 
                 $container.html('<one-objective params="data: $root.data, readOnly: false, expanded: true, enableViewToggle: false, \
-                                onCancel: onNewObjectiveCancelled, onSave: onNewObjectiveSaved"></one-objective>');
+                                onCancel: onNewObjectiveCancelled, onSave: onNewObjectiveSaved, onCreate: onNewObjectiveCreated"></one-objective>');
                 ko.applyBindings(containerViewmodel, $container[0]);
             }
         };
@@ -82,7 +99,7 @@
             vm.objectives(result);
 
             //Sort the objectives. Latest amended first
-            vm.objectives.sort(function (left, right) { return left.LastAmendedDate == right.LastAmendedDate ? 0 : (left.LastAmendedDate > right.LastAmendedDate ? -1 : 1) });
+            vm.objectives.sort(orderObjectives);
             ko.applyBindings(vm, document.getElementById(divId));
         });
 

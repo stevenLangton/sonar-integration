@@ -117,7 +117,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success }
+                Data = new { success = Success, newObjective = modifiedObjective }
             };
         }//Create
 

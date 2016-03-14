@@ -9,15 +9,18 @@
         }
     };
 
+    var setHandler = function (clientHandler) {
+        return (typeof clientHandler === "undefined" || !$.isFunction(clientHandler))
+                ? $.noop
+                : clientHandler;
+    };
+
     var oneObjectiveModel = function (params) {
         var vm = {};
-        vm.onSave = (typeof params.onSave === "undefined" || !$.isFunction(params.onSave))
-            ? $.noop
-            : params.onSave;
 
-        vm.onCancel = (typeof params.onCancel === "undefined" || !$.isFunction(params.onCancel))
-            ? $.noop
-            : params.onCancel;
+        vm.onCreate = setHandler(params.onCreate);
+        vm.onSave = setHandler(params.onSave);
+        vm.onCancel = setHandler(params.onCancel);
 
         vm.data = komap.fromJS(params.data);//params.data is JSON form of a LinkObjective server object
         vm.readOnly = params.readOnly !== undefined ? params.readOnly : true;
@@ -56,6 +59,9 @@
                 if (result.success) {
                     if (mvcAction === mvcCreateAction) {
                         toastr.info("You have successfully created a new objective");
+                        vm.data.LastAmendedDate(result.newObjective.LastAmendedDate);
+                        vm.data.LastAmendedBy(result.newObjective.LastAmendedBy);
+                        vm.onCreate(result.newObjective);
                     } else {
                         toastr.info("Your objective has been updated");
                     }
