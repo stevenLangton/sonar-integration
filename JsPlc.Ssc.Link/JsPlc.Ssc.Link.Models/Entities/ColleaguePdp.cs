@@ -18,7 +18,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
         [Required]
         public PdpVersion PdpVersion { get; set; }
 
-        [Required]
+        // Optional - We dont necessarily tie it to a Period.. But we can if we need to.
         public Period Period { get; set; }
 
         [Required]
@@ -29,5 +29,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
 
         [Required]
         public DateTime? LastModified { get; set; }
+
+        public List<ColleaguePdpSectionInstance> PdpSectionInstances { get; set; }
     }
 }

@@ -22,5 +22,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
 
         [Required]
         public DateTime Created { get; set; }
+
+        public List<ColleaguePdpAnswer> ColleaguePdpAnswers { get; set; } 
     }
 }

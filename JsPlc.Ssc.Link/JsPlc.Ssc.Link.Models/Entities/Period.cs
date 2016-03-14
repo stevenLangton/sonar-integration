@@ -32,6 +32,7 @@ namespace JsPlc.Ssc.Link.Models.Entities
         Day = 1,
         Week = 2,
         Month = 3,
+        // Valid definitions for now Quarter, Year
         Quarter = 4,
         Year = 5,
     }

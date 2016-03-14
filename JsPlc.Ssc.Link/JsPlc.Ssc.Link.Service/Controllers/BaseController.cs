@@ -13,6 +13,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         protected readonly IObjectivesService _dbObjectives;
         protected readonly IColleagueService _dbColleagues;
         protected readonly IPdpService _dbPdp;
+        protected readonly IColleaguePdpService _dbColleaguePdp;
         protected readonly IConfigurationDataService _configurationDataService;
         protected readonly IDomainTranslationService _domainTranslationService;
 
@@ -26,13 +27,14 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbObjectives = new ObjectivesService(new RepositoryContext());
             _dbColleagues = new ColleagueService(new StubServiceFacade());
             _dbPdp = new PdpService(new RepositoryContext());
+            _dbColleaguePdp = new ColleaguePdpService(new RepositoryContext(), _configurationDataService);
         }
 
         public BaseController(//ILinkRepository linkRepository=null,
             IMeetingService meetingService = null, IObjectivesService objectivesService = null,
             IColleagueService colleagueService = null, IPdpService pdpService = null,
             IConfigurationDataService configurationDataService = null,
-            IDomainTranslationService domainTranslationService = null)
+            IDomainTranslationService domainTranslationService = null, IColleaguePdpService dbColleaguePdp = null)
         {
             _configurationDataService = configurationDataService;
             _domainTranslationService = domainTranslationService;
@@ -42,6 +44,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbObjectives = objectivesService;
             _dbColleagues = colleagueService;
             _dbPdp = pdpService;
+            _dbColleaguePdp = dbColleaguePdp;
         }
 
         //public BaseController(ILinkRepository repository)
@@ -69,6 +72,11 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             _dbPdp = repoPdp;
         }
 
+        public BaseController(IColleaguePdpService repoColleaguePdp)
+        {
+            _dbColleaguePdp = repoColleaguePdp;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -77,6 +85,7 @@ namespace JsPlc.Ssc.Link.Service.Controllers
                 _dbMeeting.Dispose();
                 _dbObjectives.Dispose();
                 _dbPdp.Dispose();
+                _dbColleaguePdp.Dispose();
             }
             base.Dispose(disposing);
         }
