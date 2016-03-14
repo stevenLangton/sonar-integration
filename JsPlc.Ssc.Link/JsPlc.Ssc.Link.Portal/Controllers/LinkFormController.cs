@@ -180,6 +180,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
+            meetingView.LogElmahInfo("PostLinkForm");
+
             // validate the linkForm MeetingView and then post it back to Service Api
             // Return ModelState errors in json 
             // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json

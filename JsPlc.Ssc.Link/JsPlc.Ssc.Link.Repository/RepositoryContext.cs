@@ -25,6 +25,15 @@ namespace JsPlc.Ssc.Link.Repository
 
         public IDbSet<LinkPdp> Pdp { get; set; }
 
+        public IDbSet<Section> Sections { get; set; }
+        public IDbSet<PdpVersion> PdpVersions { get; set; }
+        public IDbSet<PdpSection> PdpSections { get; set; }
+        public IDbSet<PdpSectionQuestion> PdpSectionQuestions { get; set; }
+
+        public IDbSet<ColleaguePdp> ColleaguePdps { get; set; }
+        public IDbSet<ColleaguePdpSectionInstance> ColleaguePdpSectionInstances { get; set; }
+        public IDbSet<ColleaguePdpAnswer> ColleaguePdpAnswers { get; set; }
+        
         public RepositoryContext() : base("name=LinkRepository") { }
 
         public RepositoryContext(DbConnection connection) : base(connection, true) { }
@@ -32,7 +41,12 @@ namespace JsPlc.Ssc.Link.Repository
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();   
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
+            //modelBuilder.Entity<PdpSection>()
+            //    .HasRequired(p => p.PdpVersion)
+            //    .WithRequiredDependent()
+            //    .Map(m => m.MapKey("PdpVersionId"));
         }
     }
 }

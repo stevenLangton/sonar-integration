@@ -55,6 +55,20 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult> GetOneObjective(int ObjectiveId)
+        {
+            LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, ObjectiveId);
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = item
+            };
+
+            return jsonResult;
+        }
+
+        [HttpGet]
         public ActionResult New()
         {
             ViewBag.Title = "Add a new objective";
@@ -93,11 +107,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                     modifiedObjective.Id = NewObjectId;
                 }
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                       .Where(y => y.Count > 0)
+                       .ToList();
+            }
 
             return new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success }
+                Data = new { success = Success, newObjective = modifiedObjective }
             };
         }//Create
 

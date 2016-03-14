@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JsPlc.Ssc.Link.Models.Entities
 {
+    // Now ColleaguePdp
     public class LinkPdp
     {
         [Key]
