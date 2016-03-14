@@ -5,6 +5,8 @@
     function viewModel(params) {
         var self = {};
         self.objectives = params.data;
+        self.readOnly = params.readOnly !== undefined ? params.readOnly : true;
+
 
         return self;
     }

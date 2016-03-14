@@ -28,7 +28,7 @@
         $promise.done(function (result) {
             var objectivesTabKoVm = {};
             objectivesTabKoVm.objectives = ko.observableArray(result);
-            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives'></objectives-list>");
+            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives, readOnly: true'></objectives-list>");
         });
     };
 

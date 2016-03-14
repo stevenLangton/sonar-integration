@@ -119,24 +119,26 @@
 
                 confirmModal.show();
             } else {
+                vm.toggleView();
                 vm.onCancel();
             }
 
         };
 
-        vm.toggleView = function (data, event) {
-            var $childIcon = $(event.currentTarget).children("icon");
-            if ($childIcon.hasClass("fa-plus")) {
-                //Open expanded view
-                $childIcon.removeClass("fa-plus");
-                $childIcon.addClass("fa-minus");
-                vm.expandedView(true);
-            } else {
-                //Open collapsed view
-                $childIcon.removeClass("fa-minus");
-                $childIcon.addClass("fa-plus");
-                vm.expandedView(false);
-            }
+        vm.toggleView = function () {
+            //var $childIcon = $(event.currentTarget).children("icon");
+            //if ($childIcon.hasClass("fa-plus")) {
+            //    //Open expanded view
+            //    $childIcon.removeClass("fa-plus");
+            //    $childIcon.addClass("fa-minus");
+            //    vm.expandedView(true);
+            //} else {
+            //    //Open collapsed view
+            //    $childIcon.removeClass("fa-minus");
+            //    $childIcon.addClass("fa-plus");
+            //    vm.expandedView(false);
+            //}
+            vm.expandedView(!vm.expandedView());
         };
 
         //ko.applyBindings(vm, document.getElementById('ObjectiveView'));
