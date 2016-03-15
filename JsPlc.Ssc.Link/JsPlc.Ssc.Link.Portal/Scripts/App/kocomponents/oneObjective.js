@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, toastr, htmlTemplate, dataService, confirmModal) {
+﻿define(["jquery", "knockout", "komap", "moment", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "common", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, toastr, htmlTemplate, dataService, common, confirmModal) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -18,7 +18,7 @@
     var getStatusMessage = function (sharedFlag, dateShared) {
         if (sharedFlag) {
             var dateStr = moment(dateShared).format("L"); // we get dd/mm/yyyy
-            return "Shared with manager on " + dateStr;
+            return "Shared with " + common.getUserInfo().managerName + " " + dateStr;
         } else {
             return "";
         }
