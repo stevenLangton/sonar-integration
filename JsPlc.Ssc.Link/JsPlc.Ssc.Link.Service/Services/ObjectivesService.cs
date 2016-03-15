@@ -85,9 +85,9 @@ namespace JsPlc.Ssc.Link.Service.Services
         /// </summary>
         /// <param name="colleagueId"></param>
         /// <returns>A list of objectives</returns>
-        public IEnumerable<LinkObjective> GetAllObjectives(string colleagueId)
+        public async Task<List<LinkObjective>> GetAllObjectives(string colleagueId)
         {
-            return _db.Objectives.Where(e => e.ColleagueId == colleagueId);
+            return await _db.Objectives.Where(e => e.ColleagueId == colleagueId).ToListAsync<LinkObjective>();
         }
 
         public void Dispose()

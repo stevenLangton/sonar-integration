@@ -4,6 +4,9 @@
     </div>
     <div data-bind="visible: !expandedView()">
         <h4 data-bind="text: data.Title"></h4>
+        <p>
+            <span data-bind="text: statusMessage() "></span>
+        </p>
     </div>
     <div data-bind="visible: expandedView">
         <h4 for="objectiveTitle" class="objective-question">Objective title</h4>
@@ -25,6 +28,7 @@
         <br />
         <div class="container-fluid">
             <div class="pull-right">
+                <span><input type="checkbox" data-bind="checked: data.SharedWithManager, click: share" />Share with manager</span>
                 <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
                 <button class="btn btn-primary" data-bind="click: $component.cancel">Cancel</button>
             </div>

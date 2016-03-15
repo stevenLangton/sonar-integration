@@ -15,6 +15,15 @@
                 : clientHandler;
     };
 
+    var getStatusMessage = function (sharedFlag, dateShared) {
+        if (sharedFlag) {
+            var dateStr = moment(dateShared).format("L"); // we get dd/mm/yyyy
+            return "Shared with manager on " + dateStr;
+        } else {
+            return "";
+        }
+    };
+
     var oneObjectiveModel = function (params) {
         var vm = {};
 
@@ -27,10 +36,9 @@
         vm.expanded = params.expanded !== undefined ? params.expanded : false;
         vm.enableViewToggle = params.enableViewToggle !== undefined ? params.enableViewToggle : true;
         vm.expandedView = ko.observable(vm.expanded);
+        vm.statusMessage = ko.observable(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
 
         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
-        //vm.displayCreateDate = moment(vm.data.CreatedDate()).format('LLLL');
-        //vm.displayUpdateDate = moment(vm.data.LastAmendedDate()).format('LLLL');
 
         vm.update = function () {
             var jsonArgs = komap.toJS(vm.data);
@@ -96,6 +104,7 @@
                     $promise.done(function (data) {
                         komap.fromJS(data, vm.data);
                         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
+                        vm.statusMessage(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
                         vm.onCancel();
                     });
                 };
@@ -126,23 +135,20 @@
         };
 
         vm.toggleView = function () {
-            //var $childIcon = $(event.currentTarget).children("icon");
-            //if ($childIcon.hasClass("fa-plus")) {
-            //    //Open expanded view
-            //    $childIcon.removeClass("fa-plus");
-            //    $childIcon.addClass("fa-minus");
-            //    vm.expandedView(true);
-            //} else {
-            //    //Open collapsed view
-            //    $childIcon.removeClass("fa-minus");
-            //    $childIcon.addClass("fa-plus");
-            //    vm.expandedView(false);
-            //}
             vm.expandedView(!vm.expandedView());
         };
 
-        //ko.applyBindings(vm, document.getElementById('ObjectiveView'));
-        //$('textarea').autogrow({ onInitialize: true });
+        vm.share = function (data) {
+            if (data.data.SharedWithManager()) {
+                vm.data.DateShared(moment().toISOString());
+            } else {
+                vm.data.DateShared(null);
+            }
+
+            vm.statusMessage(getStatusMessage(data.data.SharedWithManager(), data.data.DateShared()));
+
+            return true;
+        };
 
         return vm;
     };

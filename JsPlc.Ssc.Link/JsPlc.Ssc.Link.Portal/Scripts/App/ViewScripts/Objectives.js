@@ -16,7 +16,9 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
             Objective: "",
             MeasuredBy: "",
             RelevantTo: "",
-            Title: ""
+            Title: "",
+            SharedWithManager: false,
+            DateShared: null
         };
 
         newObj.ColleagueId = common.getUserInfo().colleagueId;

@@ -15,6 +15,7 @@ using JsPlc.Ssc.Link.Service.Models;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Interfaces;
 using JsPlc.Ssc.Link.Interfaces.Services;
+using System.Threading.Tasks;
 
 namespace JsPlc.Ssc.Link.Service.Controllers
 {
@@ -108,9 +109,9 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         /// <param name="colleagueId">The real life colleague id of a sainsburys employee</param>
         /// <returns>List of Objectives objects</returns>
         [Route("colleagues/{colleagueId}/objectives")]
-        public IHttpActionResult GetAllObjectives(string colleagueId)
+        public async Task<IHttpActionResult> GetAllObjectives(string colleagueId)
         {
-            List<LinkObjective> ObjectivesList = _dbObjectives.GetAllObjectives(colleagueId).ToList<LinkObjective>();
+            List<LinkObjective> ObjectivesList = await _dbObjectives.GetAllObjectives(colleagueId);
 
             return Ok(ObjectivesList);
         }
