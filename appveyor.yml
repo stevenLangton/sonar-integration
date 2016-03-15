@@ -13,6 +13,8 @@ before_build:
 build:
   project: JsPlc.Ssc.Link\Link.sln
   publish_wap: true
+before_test:
+- cmd: copy /y JsPlc.Ssc.Link\JsPlc.Ssc.Link.Service.Tests\bin\release\App-Appveyor.config JsPlc.Ssc.Link\JsPlc.Ssc.Link.Service.Tests\bin\release\App.config
 #deploy:
 #- provider: Environment
 #  name: Link-development
