@@ -7,7 +7,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 before_build:
-- cmd: for /R %%f in (*.sln) do nuget restore "%%f"
+- cmd: nuget restore JsPlc.Ssc.Link\Link.sln
 build:
   project: JsPlc.Ssc.Link\Link.sln
   publish_wap: true
