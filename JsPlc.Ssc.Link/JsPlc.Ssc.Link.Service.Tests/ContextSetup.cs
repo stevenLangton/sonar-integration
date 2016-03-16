@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Repository;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -14,18 +16,24 @@ namespace JsPlc.Ssc.Link.Service.Tests
         {
 
             var periods = new List<Period>{
-                new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15"},
-                new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15"},
-                new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15"},
-                new Period{Id=4, Description="Q4", Start=new DateTime(2015,01,01),End=new DateTime(2015,03,31), Year = "2014/15"},
-                new Period{Id=5, Description="Q1", Start=new DateTime(2015,04,01),End=new DateTime(2015,06,30), Year = "2015/16"},
-                new Period{Id=6, Description="Q2", Start=new DateTime(2015,07,01),End=new DateTime(2015,09,30), Year = "2015/16"},
-                new Period{Id=7, Description="Q3", Start=new DateTime(2015,10,01),End=new DateTime(2015,12,31), Year = "2015/16"},
-                new Period{Id=8, Description="Q4", Start=new DateTime(2016,01,01),End=new DateTime(2016,03,31), Year = "2015/16"},
-                new Period{Id=9, Description="Q1", Start=new DateTime(2016,04,01),End=new DateTime(2016,06,30), Year = "2016/17"},
-                new Period{Id=10, Description="Q2", Start=new DateTime(2016,07,01),End=new DateTime(2016,09,30), Year = "2016/17"},
-                new Period{Id=11, Description="Q3", Start=new DateTime(2016,10,01),End=new DateTime(2016,12,31), Year = "2016/17"},
-                new Period{Id=12, Description="Q4", Start=new DateTime(2017,01,01),End=new DateTime(2017,03,31), Year = "2016/17"}
+                new Period{Id=1, Description="Q1", Start=new DateTime(2014,04,01),End=new DateTime(2014,06,30), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=2, Description="Q2", Start=new DateTime(2014,07,01),End=new DateTime(2014,09,30), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=3, Description="Q3", Start=new DateTime(2014,10,01),End=new DateTime(2014,12,31), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=4, Description="Q4", Start=new DateTime(2015,01,01),End=new DateTime(2015,03,31), Year = "2014/15", PeriodType = PeriodType.Quarter},
+                new Period{Id=5, Description="Q1", Start=new DateTime(2015,04,01),End=new DateTime(2015,06,30), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=6, Description="Q2", Start=new DateTime(2015,07,01),End=new DateTime(2015,09,30), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=7, Description="Q3", Start=new DateTime(2015,10,01),End=new DateTime(2015,12,31), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=8, Description="Q4", Start=new DateTime(2016,01,01),End=new DateTime(2016,03,31), Year = "2015/16", PeriodType = PeriodType.Quarter},
+                new Period{Id=9, Description="Q1", Start=new DateTime(2016,04,01),End=new DateTime(2016,06,30), Year = "2016/17", PeriodType = PeriodType.Quarter},
+                new Period{Id=10, Description="Q2", Start=new DateTime(2016,07,01),End=new DateTime(2016,09,30), Year = "2016/17", PeriodType = PeriodType.Quarter},
+                new Period{Id=11, Description="Q3", Start=new DateTime(2016,10,01),End=new DateTime(2016,12,31), Year = "2016/17", PeriodType = PeriodType.Quarter},
+                new Period{Id=12, Description="Q4", Start=new DateTime(2017,01,01),End=new DateTime(2017,03,31), Year = "2016/17", PeriodType = PeriodType.Quarter},
+
+                // Financial Years.
+                new Period{Id=13, Description="FY2015-16", Start=new DateTime(2015,04,01),End=new DateTime(2016,03,31, 23,59,59), Year = "2015/16", PeriodType = PeriodType.Year},
+                new Period{Id=14, Description="FY2016-17", Start=new DateTime(2016,04,01),End=new DateTime(2017,03,31, 23,59,59), Year = "2016/17", PeriodType = PeriodType.Year},
+                new Period{Id=15, Description="FY2017-18", Start=new DateTime(2017,04,01),End=new DateTime(2018,03,31, 23,59,59), Year = "2017/18", PeriodType = PeriodType.Year},
+                new Period{Id=16, Description="FY2018-19", Start=new DateTime(2018,04,01),End=new DateTime(2019,03,31, 23,59,59), Year = "2018/19", PeriodType = PeriodType.Year}
             };
 
             periods.ForEach(c => context.Periods.Add(c));
@@ -198,6 +206,138 @@ namespace JsPlc.Ssc.Link.Service.Tests
              };
 
             answers.ForEach(c => context.Answers.Add(c));
+            context.SaveChanges();
+
+            // New PDP setup (dynamic data driven)
+            var sections = new List<Section>
+            {
+                new Section {Id = 1, Name = "Achieving My objectives"},
+                new Section {Id = 2, Name = "Key Strengths"},
+                new Section {Id = 3, Name = "Career Aspirations"},
+                new Section {Id = 4, Name = "My new section"}
+            };
+
+            sections.ForEach(s => context.Sections.Add(s));
+            context.SaveChanges();
+
+            var pdpVersions = new List<PdpVersion>
+            {
+                new PdpVersion
+                {
+                    Id = 1, VersionName = "PDPV1", Description = "Pdp - The early years..", 
+                    ValidFrom = new DateTime(2015, 01, 01), ValidTo = new DateTime(2024, 12, 31)
+                },
+                new PdpVersion
+                {
+                    Id = 2, VersionName = "PDPV2", Description = "Pdp - The next generation..", 
+                    ValidFrom = new DateTime(2025, 01, 01), ValidTo = DateTime.MaxValue
+                }
+            };
+
+            pdpVersions.ForEach(v => context.PdpVersions.AddOrUpdate(v));
+            context.SaveChanges();
+
+            var pdpSections = new List<PdpSection>
+            {
+                new PdpSection
+                {
+                    Id=1, PdpVersion = pdpVersions.Single(x => x.Id==1), Section = sections.Single(x => x.Id==1), PresentationOrder = 1
+                },
+                new PdpSection
+                {
+                    Id=2, PdpVersion = pdpVersions.Single(x => x.Id==1), Section = sections.Single(x => x.Id==2), PresentationOrder = 2
+                },
+                new PdpSection
+                {
+                    Id=3, PdpVersion = pdpVersions.Single(x => x.Id==1), Section = sections.Single(x => x.Id==3), PresentationOrder = 3
+                }
+            };
+
+            pdpSections.ForEach(s => context.PdpSections.AddOrUpdate(s));
+            context.SaveChanges();
+
+            var pdpSectionQuestions = new List<PdpSectionQuestion>
+            {
+                // Section 1 questions
+                new PdpSectionQuestion
+                {
+                    Id = 1,
+                    PdpSection = pdpSections.Single(x => x.Id == 1),
+                    PresentationOrder = 1,
+                    QuestionText = "What Areas Do I Need To Develop To Achieve My Objectives?"
+                },
+                new PdpSectionQuestion
+                {
+                    Id = 2,
+                    PdpSection = pdpSections.Single(x => x.Id == 1),
+                    PresentationOrder = 2,
+                    QuestionText = "What Actions Will I Take?"
+                },
+                new PdpSectionQuestion
+                {
+                    Id = 3,
+                    PdpSection = pdpSections.Single(x => x.Id == 1),
+                    PresentationOrder = 3,
+                    QuestionText = "By When?"
+                },
+
+                // Section 2 questions
+                new PdpSectionQuestion
+                {
+                    Id = 4,
+                    PdpSection = pdpSections.Single(x => x.Id == 2),
+                    PresentationOrder = 1,
+                    QuestionText = "What Are My Key Strengths?"
+                },
+                new PdpSectionQuestion
+                {
+                    Id = 5,
+                    PdpSection = pdpSections.Single(x => x.Id == 2),
+                    PresentationOrder = 2,
+                    QuestionText = "What Actions Will I Take To Further Develop These Areas?"
+                },
+                new PdpSectionQuestion
+                {
+                    Id = 6,
+                    PdpSection = pdpSections.Single(x => x.Id == 2),
+                    PresentationOrder = 3,
+                    QuestionText = "By When?"
+                },
+
+                // Section 3 questions
+                new PdpSectionQuestion
+                {
+                    Id = 7,
+                    PdpSection = pdpSections.Single(x => x.Id == 3),
+                    PresentationOrder = 1,
+                    QuestionText = "What Are My Career Aspirations?"
+                },
+                new PdpSectionQuestion
+                {
+                    Id = 8,
+                    PdpSection = pdpSections.Single(x => x.Id == 3),
+                    PresentationOrder = 2,
+                    QuestionText = "What Actions Do I Need To Take To Move Towards These Aspirations?"
+                },
+                new PdpSectionQuestion
+                {
+                    Id = 9,
+                    PdpSection = pdpSections.Single(x => x.Id == 3),
+                    PresentationOrder = 3,
+                    QuestionText = "By When?"
+                }
+            };
+
+            pdpSectionQuestions.ForEach(q => context.PdpSectionQuestions.AddOrUpdate(q));
+            context.SaveChanges();
+
+            var colleaguePdps = new List<ColleaguePdp>
+            {
+                new ColleaguePdp{Id = 1, ColleagueId = "E001", PdpVersion = pdpVersions.Single(x => x.Id==1), 
+                PdpSectionInstances = null, Period = periods.Single(x => x.Id==14), Shared = false, 
+                Created = DateTime.Now, LastModified = DateTime.Now},
+            };
+            colleaguePdps.ForEach(c => context.ColleaguePdps.AddOrUpdate(c));
             context.SaveChanges();
 
             return context;

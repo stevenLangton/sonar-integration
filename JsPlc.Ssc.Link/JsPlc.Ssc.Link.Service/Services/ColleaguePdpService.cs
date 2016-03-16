@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Data.Entity;
-using System.Runtime.Remoting.Lifetime;
 using System.Transactions;
 using System.Web;
 using Elmah;
@@ -32,26 +29,37 @@ namespace JsPlc.Ssc.Link.Service.Services
             _configurationDataService = configurationDataService;
         }
 
-        private PeriodType? GetPdpPeriodicity()
+        /// <summary>
+        /// Returns a Pdp for a given ColleagueId for a selected Period..
+        /// If no SelectedPeriod, use currentDate to select an applicable Period
+        /// </summary>
+        /// <param name="colleagueId"></param>
+        /// <param name="selectedPeriodId"></param>
+        /// <param name="now">To test with a simulated date</param>
+        /// <returns></returns>
+        public ColleaguePdp GetPdp(string colleagueId, int? selectedPeriodId = null, DateTime? now=null)
         {
-            object parsedVal = Enum.Parse(typeof(PeriodType),
-                _configurationDataService.GetConfigSettingValue("PdpDefinedPeriodicity")); // potential values Quarter, Year
-            if (!(parsedVal is PeriodType))
+            ColleaguePdp retval = null;
+
+            if (!now.HasValue) now = DateTime.Now;
+
+            if (selectedPeriodId.HasValue)
             {
-                return null;
+                retval =
+                    _db.ColleaguePdps.FirstOrDefault(
+                        e => e.ColleagueId == colleagueId && e.Period.Id == selectedPeriodId);
             }
-            return (PeriodType) parsedVal;
+
+            if (retval != null) return retval;
+
+            var periodType = GetPdpPeriodicity(); // Quarter or Year Parsed from Config key
+            retval = BuildNewColleaguePdp(colleagueId, periodType, now);
+            return retval;
         }
 
-        //create pdp if one does not already exist.
-        //no manager id as kept in pdp as only one record.
-        public ColleaguePdp GetPdp(string colleagueId)
+        public ColleaguePdp GetPdp(int pdpId)
         {
-            var periodType = GetPdpPeriodicity();
-
-            if (!_db.ColleaguePdps.Any(e => e.ColleagueId == colleagueId)) return BuildNewColleaguePdp(colleagueId, periodType);
-
-            var pdp = _db.ColleaguePdps.First(e => e.ColleagueId == colleagueId);
+            var pdp = _db.ColleaguePdps.FirstOrDefault(e => e.Id == pdpId);
             return pdp;
         }
 
@@ -70,7 +78,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             }
         }
 
-        private void UpdatePdpSectionInstances(IEnumerable<ColleaguePdpSectionInstance> instances)
+        internal void UpdatePdpSectionInstances(IEnumerable<ColleaguePdpSectionInstance> instances)
         {
             foreach (var instance in instances)
             {
@@ -80,7 +88,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             _db.SaveChanges();
         }
 
-        private void UpdatePdpAnswers(IEnumerable<ColleaguePdpAnswer> answers)
+        internal void UpdatePdpAnswers(IEnumerable<ColleaguePdpAnswer> answers)
         {
             foreach (var answer in answers)
             {
@@ -90,44 +98,49 @@ namespace JsPlc.Ssc.Link.Service.Services
         }
 
         // Builds a new ColleaguePdp (in memory) based on the currently applicable PdpVersion
-        private ColleaguePdp BuildNewColleaguePdp(string colleagueId, PeriodType? periodType)
+        internal ColleaguePdp BuildNewColleaguePdp(string colleagueId, PeriodType? periodType, DateTime? now=null)
         {
-            var applicablePdpVersion = GetPdPVersion(periodType);
+            if (!now.HasValue) now = DateTime.Now;
+
+            var applicablePdpVersion = (periodType.HasValue) ? GetPdPVersion(periodType, null, GetCurrentlyApplicablePdpPeriod(periodType, now))
+                : GetPdPVersion(null, now);
 
             var colleaguePdp = new ColleaguePdp
             {
-                Id = 0, ColleagueId = colleagueId, Created = DateTime.Now, 
-                PdpVersion = applicablePdpVersion, Period = GetCurrentlyApplicablePdpPeriod(periodType),
+                Id = 0, ColleagueId = colleagueId, Created = now.Value, 
+                PdpVersion = applicablePdpVersion, Period = GetCurrentlyApplicablePdpPeriod(periodType, now),
                 Shared = false,
                 PdpSectionInstances = new List<ColleaguePdpSectionInstance>()
             };
 
             applicablePdpVersion.Sections.ForEach(x => colleaguePdp.PdpSectionInstances.Add(new ColleaguePdpSectionInstance
             {
-                PdpSection = x, InstanceNumber = 1, ColleaguePdp = colleaguePdp, Created = DateTime.Now
+                PdpSection = x, InstanceNumber = 1, ColleaguePdp = colleaguePdp, Created = now.Value
             }));
             return colleaguePdp;
         }
 
         // TODO - kept for later use 
-        private bool InsertPdp(ColleaguePdp colleaguePdp)
+        internal bool InsertPdp(ColleaguePdp colleaguePdp)
         {
             try
             {
                 using (var scope = new TransactionScope())
                 {
                     // add pdp to DB
-                    var newPdp = _db.ColleaguePdps.Add(colleaguePdp);
+                    var newPdp =_db.ColleaguePdps.Add(colleaguePdp);
                     _db.SaveChanges();
 
                     // add section instances to DB
                     foreach (var instance in colleaguePdp.PdpSectionInstances)
                     {
+                        instance.ColleaguePdp = newPdp;
                         _db.ColleaguePdpSectionInstances.Add(instance);
                         _db.SaveChanges();
                         // add section instance answers to DB
                         foreach (var secAnswer in instance.ColleaguePdpAnswers)
                         {
+                            secAnswer.ColleaguePdpSectionInstance = instance;
                             _db.ColleaguePdpAnswers.Add(secAnswer);
                             _db.SaveChanges();
                         }
@@ -143,56 +156,64 @@ namespace JsPlc.Ssc.Link.Service.Services
             }
         }
 
+        internal PeriodType? GetPdpPeriodicity()
+        {
+            PeriodType parsedVal;
+
+            // potential values Quarter, Year, Null
+
+            if (!Enum.TryParse(_configurationDataService.GetConfigSettingValue("PdpDefinedPeriodicity"), out parsedVal))
+            {
+                return null;
+            }
+            return parsedVal;
+        }
+
         // Given a period (date or FY), build a PdpVersion object..
-        private PdpVersion GetPdPVersion(PeriodType? periodType = PeriodType.Year, DateTime? dateSelected=null, Period selectedPeriod = null)
+        internal PdpVersion GetPdPVersion(PeriodType? periodType = PeriodType.Year, DateTime? dateSelected = null, Period selectedPeriod = null)
         {
             var pdpVersion = (dateSelected != null)
                 ? GetPdpVersionByDate(dateSelected)
                 : GetPdpVersionByPeriod(selectedPeriod, periodType);
 
-            if (pdpVersion != null)
-            {
-                var pdpSections = from sq in _db.PdpSectionQuestions
-                    join s in pdpVersion.Sections on sq.PdpSection.Id equals s.Id
-                    select (new PdpSection
-                    {
-                        Id = s.Id,
-                        PdpVersion = s.PdpVersion,
-                        PresentationOrder = s.PresentationOrder,
-                        Section = s.Section,
-                        Questions = s.Questions
-                    });
-                pdpVersion.Sections = pdpSections.ToList();
-            }
-
-            return new PdpVersion();
-        }
-
-        private PdpVersion GetPdpVersionByDate(DateTime? dateSelected=null)
-        {
-            if (dateSelected == null) dateSelected = DateTime.Now;
-
-            var pdpVersion = _db.PdpVersions.Include(x => x.Sections).FirstOrDefault(x => DbFunctions.DiffSeconds(x.ValidFrom, dateSelected) <= 0 &&
-                                                DbFunctions.DiffSeconds(dateSelected, x.ValidTo) <= 0);
             return pdpVersion;
         }
 
-        private PdpVersion GetPdpVersionByPeriod(Period selectedPeriod = null, PeriodType? periodType=PeriodType.Year)
+        internal PdpVersion GetPdpVersionByDate(DateTime? dateSelected = null)
         {
-            Period currentlyApplicablePdpVersion = selectedPeriod ?? GetCurrentlyApplicablePdpPeriod(periodType);
+            if (dateSelected == null) dateSelected = DateTime.Now;
+
+            var pdpVersion = _db.PdpVersions.Include(x => x.Sections).FirstOrDefault(x => 
+                                                DbFunctions.DiffHours(x.ValidFrom, dateSelected) >= 0 &&
+                                                DbFunctions.DiffHours(dateSelected, x.ValidTo) >= 0);
+
+            return pdpVersion;
+        }
+
+        internal PdpVersion GetPdpVersionByPeriod(Period selectedPeriod = null, PeriodType? periodType = PeriodType.Year)
+        {
+            var currentlyApplicablePdpVersion = selectedPeriod ?? GetCurrentlyApplicablePdpPeriod(periodType);
             var applicablePdpVersion = _db.PdpVersions.FirstOrDefault(
-                x => DbFunctions.DiffSeconds(x.ValidFrom, currentlyApplicablePdpVersion.Start) <= 0 &&
-                     DbFunctions.DiffSeconds(x.ValidTo, currentlyApplicablePdpVersion.End) >= 0);
+                x => DbFunctions.DiffHours(x.ValidFrom, currentlyApplicablePdpVersion.Start) >= 0 &&
+                     DbFunctions.DiffHours(currentlyApplicablePdpVersion.End, x.ValidTo) >= 0);
 
             return applicablePdpVersion;
         }
 
-        // As per configured PeriodType for Pdp (Year = 5), get the period valid within the date
-        private Period GetCurrentlyApplicablePdpPeriod(PeriodType? periodType)
+        /// <summary>
+        /// As per configured PeriodType for Pdp (Year = 5), get the period valid within the date
+        /// May return null on purpose if ColleaguePdps are not tied to a Period..
+        /// </summary>
+        /// <param name="periodType"></param>
+        /// <param name="now"></param>
+        /// <returns></returns>
+        internal Period GetCurrentlyApplicablePdpPeriod(PeriodType? periodType=PeriodType.Year, DateTime? now = null)
         {
-            return _db.Periods.FirstOrDefault(x => x.PeriodType.Equals(periodType) &&
-                                            DbFunctions.DiffSeconds(x.Start, DateTime.Now) <= 0 &&
-                                            DbFunctions.DiffSeconds(x.End, DateTime.Now) >= 0);
+            if (now == null) now = DateTime.Now;
+           
+            return _db.Periods.FirstOrDefault(x => x.PeriodType == periodType.Value &&
+                                            DbFunctions.DiffHours(x.Start, now.Value) >= 0 &&
+                                            DbFunctions.DiffHours(now.Value, x.End) >= 0);
         }
 
         public void Dispose()

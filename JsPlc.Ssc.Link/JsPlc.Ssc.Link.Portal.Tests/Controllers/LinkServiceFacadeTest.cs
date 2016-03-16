@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -335,8 +336,8 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             var result = _serviceFacade.GetObjective("e001", 1);
 
             //Assert
-            Assert.IsNotNull(result, "GetObjective failed, invalid Objective returned");
-            Assert.IsInstanceOfType(result, typeof(LinkObjective));
+            Assert.IsNotNull(result.Result, "GetObjective failed, invalid Objective returned");
+            Assert.IsInstanceOfType(result.Result, typeof(LinkObjective));
         }
 
         /// <summary>
@@ -452,7 +453,7 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             var result11 = _serviceFacade.GetNextMeeting("");
             var result12 = _serviceFacade.GetTeamView("");
             var result13 = _serviceFacade.GetMyMeetingsView("");
-            var result14 = _serviceFacade.GetObjective("", 0);
+            var result14 = _serviceFacade.GetObjective("", 0).Result;
             var result15 = _serviceFacade.GetObjectivesList("");
             var result16 = _serviceFacade.GetPdp("");
             var result17 = _serviceFacade.CreateObjective(new LinkObjective{ColleagueId = "e001"}).Result;

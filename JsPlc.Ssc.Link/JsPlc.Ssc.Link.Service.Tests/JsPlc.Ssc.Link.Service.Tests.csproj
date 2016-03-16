@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextSetup.cs" />
+    <Compile Include="Controllers\ColleaguePdpServiceTest.cs" />
     <Compile Include="Controllers\ConfigurationDataServiceTest.cs" />
     <Compile Include="Controllers\StubServiceFacadeTest.cs" />
     <Compile Include="Controllers\ColleagueServiceTest.cs" />
