@@ -36,7 +36,7 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Helpers
             var anObjective = Mock.Of<LinkObjective>();
 
             LinkService.Setup(x => x.GetObjectivesList(It.IsAny<string>()))
-                .Returns(TestList);
+                .Returns(Task.FromResult(TestList));
 
             LinkService.Setup(x => x.GetObjective(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(Task.FromResult(anObjective));

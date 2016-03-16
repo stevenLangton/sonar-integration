@@ -220,9 +220,9 @@ namespace JsPlc.Ssc.Link.Portal
         /// </summary>
         /// <param name="colleagueId">Sainsburys colleague id</param>
         /// <returns></returns>
-        public List<LinkObjective> GetObjectivesList(string colleagueId)
+        public async Task<List<LinkObjective>> GetObjectivesList(string colleagueId)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives").Result;
+            HttpResponseMessage response = await _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives");
 
             List<LinkObjective> objectivesList=null;
             if (response.IsSuccessStatusCode)

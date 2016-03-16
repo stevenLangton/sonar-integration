@@ -97,17 +97,31 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         //}
 
         [TestMethod]
-        public void GetObjectives()
+        public async Task GetObjectives()
         {
             //Arrange
             var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
 
             //Act 
-            JsonResult response = controller.GetObjectives("Any string") as JsonResult;
+            JsonResult response = await controller.GetObjectives("Any string") as JsonResult;
             List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
 
             //Assert
             TestMocks.IsSameAsMockObjectivesList(ObjectivesList);
+        }
+
+        [TestMethod]
+        public async Task GetSharedObjectives()
+        {
+            //Arrange
+            var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
+
+            //Act 
+            JsonResult response = await controller.GetSharedObjectives("Any string") as JsonResult;
+            List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
+
+            //Assert
+            Assert.IsNull(ObjectivesList);
         }
 
         /// <summary>

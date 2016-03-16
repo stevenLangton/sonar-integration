@@ -41,9 +41,9 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         //}
 
         [HttpGet]
-        public ActionResult GetObjectives(string ColleagueId)
+        public async Task<ActionResult> GetObjectives(string ColleagueId)
         {
-            var ObjectivesList = ServiceFacade.GetObjectivesList(ColleagueId);
+            var ObjectivesList = await ServiceFacade.GetObjectivesList(ColleagueId);
 
             var jsonResult = new JsonResult
             {
