@@ -19,8 +19,9 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
         IEnumerable<LinkObjective> GetListOfObjectives(string userId, DateTime year);
 
         Task<List<LinkObjective>> GetAllObjectives(string userId);
+
+        Task<List<LinkObjective>> GetSharedObjectives(string userId);
         
         void Dispose();
-        
     }
 }

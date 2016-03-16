@@ -82,19 +82,19 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void GetAllColleagueObjectives()
-        {
-            //Arrange
-            var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
+        //[TestMethod]
+        //public void GetAllColleagueObjectives()
+        //{
+        //    //Arrange
+        //    var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
 
-            //Act 
-            JsonResult response = controller.GetAllColleagueObjectives("Any string") as JsonResult;
-            List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
+        //    //Act 
+        //    JsonResult response = controller.GetAllColleagueObjectives("Any string") as JsonResult;
+        //    List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
 
-            //Assert
-            TestMocks.IsSameAsMockObjectivesList(ObjectivesList);
-        }
+        //    //Assert
+        //    TestMocks.IsSameAsMockObjectivesList(ObjectivesList);
+        //}
 
         [TestMethod]
         public void GetObjectives()

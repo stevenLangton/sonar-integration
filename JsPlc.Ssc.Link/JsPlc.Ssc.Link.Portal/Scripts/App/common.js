@@ -62,7 +62,6 @@
         randomString: randomString,
         uiDateFormat: uiDateFormat,
         serverDateFormat: serverDateFormat,
-        callService: callService,
         callServerAction: callService,
         setUserInfo: setUserInfo,
         getUserInfo: getUserInfo

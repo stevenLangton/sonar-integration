@@ -34,16 +34,30 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
-        public ActionResult GetAllColleagueObjectives(string ColleagueId)
-        {
-            //return GetObjectives(CurrentUser.Colleague.ColleagueId);
-            return GetObjectives(ColleagueId);
-        }
+        //public ActionResult GetAllColleagueObjectives(string ColleagueId)
+        //{
+        //    //return GetObjectives(CurrentUser.Colleague.ColleagueId);
+        //    return GetObjectives(ColleagueId);
+        //}
 
         [HttpGet]
         public ActionResult GetObjectives(string ColleagueId)
         {
             var ObjectivesList = ServiceFacade.GetObjectivesList(ColleagueId);
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = ObjectivesList
+            };
+
+            return jsonResult;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetSharedObjectives(string ColleagueId)
+        {
+            var ObjectivesList = await ServiceFacade.GetSharedObjectives(ColleagueId);
 
             var jsonResult = new JsonResult
             {

@@ -90,6 +90,16 @@ namespace JsPlc.Ssc.Link.Service.Services
             return await _db.Objectives.Where(e => e.ColleagueId == colleagueId).ToListAsync<LinkObjective>();
         }
 
+        /// <summary>
+        /// Get objectives which a colleague have shared with her manager
+        /// </summary>
+        /// <param name="colleagueId"></param>
+        /// <returns>A list of shared objectives</returns>
+        public async Task<List<LinkObjective>> GetSharedObjectives(string colleagueId)
+        {
+            return await _db.Objectives.Where(e => (e.ColleagueId == colleagueId) && e.SharedWithManager).ToListAsync<LinkObjective>();
+        }
+
         public void Dispose()
         {
             _db.Dispose();

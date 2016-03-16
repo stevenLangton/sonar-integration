@@ -233,6 +233,24 @@ namespace JsPlc.Ssc.Link.Portal
             return objectivesList;
         }
 
+        /// <summary>
+        /// Get objectives which a colleague has shared
+        /// </summary>
+        /// <param name="colleagueId"></param>
+        /// <returns>A list of shared objectives</returns>
+        public async Task<List<LinkObjective>> GetSharedObjectives(string colleagueId)
+        {
+            HttpResponseMessage response = await _client.Value.GetAsync("colleagues/" + colleagueId + "/objectives/shared");
+
+            List<LinkObjective> objectivesList = null;
+            if (response.IsSuccessStatusCode)
+            {
+                objectivesList = response.Content.ReadAsAsync<List<LinkObjective>>().Result;
+            }
+
+            return objectivesList;
+        }
+
         public List<string> GetApiServiceKeys()
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/ShowKeys").Result;

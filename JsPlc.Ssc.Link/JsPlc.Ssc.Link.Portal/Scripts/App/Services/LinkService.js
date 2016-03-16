@@ -29,11 +29,6 @@
         return callService("get", "/myteam/"+managerId, {}); //Not ideal REST resource naming
     };
 
-    //var getAllColleagueObjectives = function (colleagueId) {
-    //    var jsonArgs = { ColleagueId: colleagueId };
-    //    return callService("get", "objective/GetAllColleagueObjectives", jsonArgs); 
-    //};
-
     return {
         setServiceBaseUrl: setServiceBaseUrl,
         getServiceBaseUrl: getServiceBaseUrl,

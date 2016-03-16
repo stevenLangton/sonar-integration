@@ -56,18 +56,10 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         /// </summary>
         /// <param name="newObjective"></param>
         /// <param name="colleagueId"></param>
-        /// <returns></returns>
+        /// <returns>The url to the successfully created objective or error if not so.</returns>
         [Route("colleagues/{colleagueId}/objectives", Name="NewObjective")]
         public IHttpActionResult PostObjective(LinkObjective newObjective, string colleagueId)
         {
-            //LinkObjective newObjective = new LinkObjective();
-
-            //newObjective.ColleagueId = colleagueId;
-            //newObjective.Objective = objective.Objective;
-            //newObjective.CreatedDate = DateTime.Now.Date;
-            //newObjective.LastAmendedDate = DateTime.Now.Date;
-            //newObjective.LastAmendedBy = objective.LastAmendedByColleagueId;
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -116,6 +108,14 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(ObjectivesList);
         }
 
+        [Route("colleagues/{colleagueId}/objectives/shared")]
+        public async Task<IHttpActionResult> GetSharedObjectives(string colleagueId)
+        {
+            List<LinkObjective> ObjectivesList = await _dbObjectives.GetSharedObjectives(colleagueId);
+
+            return Ok(ObjectivesList);
+        }
+
         // GET: api/GetListOfObjectives
         [HttpGet]
         public IHttpActionResult GetListOfObjectives(string colleagueId, DateTime year)
@@ -124,22 +124,12 @@ namespace JsPlc.Ssc.Link.Service.Controllers
             return Ok(objectivesList);
         }
 
-        //[Route("colleagues/{colleagueId}/objectives/{objectiveId}")]
-        //public HttpResponseMessage GetObjective(string colleagueId, int objectiveId)
-        //{
-        //    LinkObjective item = _dbObjectives.GetObjective(objectiveId);
-
-        //    if (item == null)
-        //    {
-        //        var message = string.Format("No objective with id = {0} found", objectiveId);
-        //        return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
-        //    }
-        //    else
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.OK, item);
-        //    }
-        //}
-
+        /// <summary>
+        /// Get a particular objective (objectiveId) belonging to a particular colleague (colleagueId)
+        /// </summary>
+        /// <param name="colleagueId"></param>
+        /// <param name="objectiveId"></param>
+        /// <returns>an object of type LinkObjective</returns>
         [Route("colleagues/{colleagueId}/objectives/{objectiveId}")]
         public IHttpActionResult GetObjective(string colleagueId, int objectiveId)
         {

@@ -84,7 +84,7 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
     //var init = $.noop;
     var init = function (divId, colleagueId) {
         var $promise = $.ajax({
-            url: "objective/GetAllColleagueObjectives",
+            url: "objective/GetObjectives",
             type: "get",
             dataType: "json",
             data: { ColleagueId: colleagueId }
