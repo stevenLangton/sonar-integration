@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JsPlc.Ssc.Link.Models.Entities
 {
-    // Now ColleaguePdp
+    // Now ColleaguePdp in Sprint8Stuff branch
     public class LinkPdp
     {
         [Key]
@@ -15,8 +15,8 @@ namespace JsPlc.Ssc.Link.Models.Entities
         [Required]
         public string ColleagueId { get; set; } 
 
-        [Required]
-        public bool signOff { get; set; }
+        //[Required]
+        //public bool signOff { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string achieveObjectives { get; set; }
@@ -42,5 +42,26 @@ namespace JsPlc.Ssc.Link.Models.Entities
 
         public string careerAspirationsWhen{ get; set; }
 
+        // Defaults to 0
+        public PdpStatus ColleagueSignOff { get; set; } // Colleague completed 
+        public DateTime? ColleagueSignOffDate { get; set; } 
+
+        public PdpStatus ManagerSignOff { get; set; } // Manager Approved
+        public DateTime? ManagerSignOffDate { get; set; } 
+
+        public PdpSharingStatus SharingStatus { get; set; } // Shared tickbox
+        public DateTime? SharingDate { get; set; }
+
+    }
+    public enum PdpStatus
+    {
+        Completed = 1,
+        InComplete = 0
+    }
+
+    public enum PdpSharingStatus
+    {
+        NotShared = 0,
+        Shared = 1
     }
 }
