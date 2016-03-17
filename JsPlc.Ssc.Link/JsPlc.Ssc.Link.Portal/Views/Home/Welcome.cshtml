@@ -2,81 +2,60 @@
 @{
     ViewBag.Title = "Welcome to " + Resources.AppName;
 }
+<div class="row">
+    <div id="background1">
+        <div class="col-md-8">
+            <h1>Welcome to <br /> <strong>@Resources.AppName</strong></h1>
 
-
-    <div class="col-md-8">
-        <h1>@Resources.AppName<small style="font-size: 60%"> Our new approach to performance</small></h1>
-
-        <p>
-            All around our business, we’re constantly looking for new and better ways to operate, so we can achieve even more as a team.
-            <br /><br />
-            You’ve told us that PDRs don’t always work well for you. So we’ve been looking at different approaches
-            to performance reviews. Evidence from the latest research and what other leading businesses are
-            doing shows that there are more positive and useful ways to discuss your performance than the
-            way we do it at the moment.<br /><br />
-            That’s why we’re launching @Resources.AppName. @Resources.AppName are regular, individual discussions with your manager
-            – but instead of following a tick list and sticking to a formal rating structure, they’re all about
-            identifying and acknowledging the difference you make every day.
-        </p>
-
-        <div class="col-xs-12 section-heading">
-            <h2 style="padding:5px 4px 8px 8px; margin: 0; color:#ffffff;">So what does <strong>the difference I make </strong>really mean?</h2>
         </div>
-        <div class="col-xs-12 panel-default">
-            <div class="row">
-                <div class="col-sm-1 hidden-xs" style="background-color: #20a9cb; height: 320px; width: 70px"></div>
-                <div class="col-sm-9 col-xs-12">
-                    <ul style="padding:0; margin: 0; margin-top: 20px; margin-left: -85px">
-                        <li class="liWelcome">
-                            <div class="hidden-xs liIcon liIcon1"></div>
-                            <div style="padding-left: 90px">
-                                <strong>It’s what you do</strong>
-                                <p>Your key personal achievements that contribute to your team, the business or our customers</p>
-                            </div>
-                        </li>
-                        <li class="liWelcome">
-                            <div class="hidden-xs liIcon liIcon2"></div>
-                            <div style="padding-left: 90px">
-                                <strong>It’s how you do it</strong><p>
-                                                                       The way you go about delivering those achievements, aligned to our values
-                                                                   </p>
-                            </div>
-                        </li>
-                        <li class="liWelcome">
-                            <div class="hidden-xs liIcon liIcon3"></div>
-                            <div style="padding-left: 90px">
-                                <strong>It’s collaboration, how we work better together</strong>
-                                <p>The difference you make to and through others – sharing knowledge, contributing to their growth and success and building on their ideas. It means making the broadest difference, as this is when you have the greatest impact</p>
-                            </div>
-                        </li>
 
-                    </ul>
+
+        <div class="col-md-4">
+            <div style="background-color:#00acc9;color:#ffffff;border-radius: 15px;padding:15px;">
+
+                <h3 style="color:#ffffff;text-transform:none;margin-bottom:15px;">Thinking about performance at Sainsbury’s is thinking about ‘the difference
+you make’</h3>
+          
+
+
+                <div class="liIcon liIconTick"></div>
+                <div>
+                    <strong>It’s what you do</strong>
+                    <p>It’s what you do: your key achievements that contribute to your team, the business and our customers.</p>
                 </div>
+                <br style="clear:left;" />
+
+                <div class="liIcon liIconHeart"></div>
+                <div>
+                    <strong>It’s how you do it</strong><p>
+                        The way you go about delivering those achievements in line with our values.
+                    </p>
+                </div>
+                <br style="clear:left;" />
+                <div class="liIcon liIconPeople"></div>
+                <div>
+                    <strong>It’s how we work better together</strong>
+                    <p>The difference you make to and through others; sharing knowledge, building on ideas and contributing to their growth and success. </p>
+                </div>
+
+
+
             </div>
-            <br />
         </div>
+        <br style="clear:both;" />
     </div>
+</div>
 
-    <p style="text-align:right;"><a href="~/Content/Static/LinksLeaflet.pdf" target="_blank">Read More</a></p>
-    <div class="col-md-4">
-        <div id="welcome">
-
-            <div class="speechBubble">
-                <h3 class="subtitleText">Think @Resources.AppName</h3>
-                <p style="font-size:80%;">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
-            </div>
-        </div>
-    </div>
+  
 
 
 
 
 
-
-<script type="text/javascript">
-    require(["jquery", "knockout"], function ($, ko) {
-        $(document).ready(function () {
-            //window.alert("jquery loaded");
+    <script type="text/javascript">
+        require(["jquery", "knockout"], function ($, ko) {
+            $(document).ready(function () {
+                //window.alert("jquery loaded");
+            });
         });
-    });
-</script>
+    </script>

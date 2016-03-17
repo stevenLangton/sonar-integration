@@ -19,7 +19,7 @@
 }
 
 
-<div class="col-md-3" id="linkSecondaryNav">
+
 @if (User.Identity.IsAuthenticated) {
     <br/>
     if ((currentUser != null && currentUser.IsLineManager))
@@ -37,7 +37,7 @@
         <a href="/Pdp" class="list-group-item @(tabName == "pdp" ? "active" : "")">My personal development plan</a>
     </div>
 }
-</div>
+
 
 
 
