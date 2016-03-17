@@ -44,10 +44,15 @@ namespace JsPlc.Ssc.Link.Models.Entities
         public bool SharedWithManager { get; set; }
         public DateTime? DateShared { get; set; }
 
+        //Approved by manager
+        public bool Approved { get; set; }
+        public DateTime? DateApproved { get; set; }
+
         public LinkObjective()
         {
+            //Defaults
             SharedWithManager = false;
-            //DateShared = DateTime.Now;
+            Approved = false;
         }
     }
 

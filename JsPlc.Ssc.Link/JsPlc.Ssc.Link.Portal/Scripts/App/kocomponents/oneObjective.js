@@ -15,14 +15,14 @@
                 : clientHandler;
     };
 
-    var getStatusMessage = function (sharedFlag, dateShared) {
-        if (sharedFlag) {
-            var dateStr = moment(dateShared).format("L"); // we get dd/mm/yyyy
-            return "Shared with " + common.getUserInfo().managerName + " " + dateStr;
-        } else {
-            return "";
-        }
-    };
+    //var getStatusMessage = function (sharedFlag, dateShared) {
+    //    if (sharedFlag) {
+    //        var dateStr = moment(dateShared).format("L"); // we get dd/mm/yyyy
+    //        return "Shared with " + common.getUserInfo().managerName + " " + dateStr;
+    //    } else {
+    //        return "";
+    //    }
+    //};
 
     var oneObjectiveModel = function (params) {
         var vm = {};
@@ -33,10 +33,47 @@
 
         vm.data = komap.fromJS(params.data);//params.data is JSON form of a LinkObjective server object
         vm.readOnly = params.readOnly !== undefined ? params.readOnly : true;
+        vm.managerView = params.managerView !== undefined ? params.managerView : false;
+
+        //Show expanded view initially. We default to collapsed view normally.
         vm.expanded = params.expanded !== undefined ? params.expanded : false;
+
+        //Show/hide the +/- top right view toggle control
         vm.enableViewToggle = params.enableViewToggle !== undefined ? params.enableViewToggle : true;
+
+        vm.getStatusMessage = function () {
+            var shared = vm.data.SharedWithManager(),
+                approved = vm.data.Approved(),
+                dateStr = "",
+                mgrName = common.getUserInfo().managerName,
+                statusMsg = "";
+
+            if (vm.managerView) {
+                if (common.getUserInfo().colleagueId === vm.data.ManagerId()) {
+                    mgrName = "you";
+                }
+                else {
+                    mgrName = "another manager";
+                }
+            } else {
+                mgrName = mgrName !== "" ? mgrName : "manager";
+            }
+
+            if (shared) {
+                if (approved) {
+                    dateStr = moment(vm.data.DateApproved()).format("L"); // dd/mm/yyyy
+                    statusMsg = "Approved by " + mgrName + " on " + dateStr;
+                } else {
+                    dateStr = moment(vm.data.DateShared()).format("L"); // dd/mm/yyyy
+                    statusMsg = "Shared with " + mgrName + " on " + dateStr;
+                }
+            }
+
+            return statusMsg;
+        };
+
         vm.expandedView = ko.observable(vm.expanded);
-        vm.statusMessage = ko.observable(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
+        vm.statusMessage = ko.observable(vm.getStatusMessage());
 
         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
 
@@ -50,6 +87,8 @@
             jsonArgs.CreatedDate = getDateStr(jsonArgs.CreatedDate);
             jsonArgs.LastAmendedDate = getDateStr(jsonArgs.LastAmendedDate);
             jsonArgs.SignOffDate = getDateStr(jsonArgs.SignOffDate);
+            jsonArgs.DateShared = getDateStr(jsonArgs.DateShared);
+            jsonArgs.DateApproved = getDateStr(jsonArgs.DateApproved);
 
             var mvcCreateAction = "objective/create";
             var mvcAction = (jsonArgs.Id === 0)
@@ -104,7 +143,8 @@
                     $promise.done(function (data) {
                         komap.fromJS(data, vm.data);
                         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
-                        vm.statusMessage(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
+                        //vm.statusMessage(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
+                        vm.statusMessage(vm.getStatusMessage());
                         vm.onCancel();
                     });
                 };
@@ -140,13 +180,32 @@
 
         vm.share = function (data) {
             if (data.data.SharedWithManager()) {
-                vm.data.DateShared(moment().toISOString());
+                //vm.data.DateShared(moment().toISOString());
+                vm.data.DateShared(new Date());
             } else {
                 vm.data.DateShared(null);
             }
 
-            vm.statusMessage(getStatusMessage(data.data.SharedWithManager(), data.data.DateShared()));
+            //vm.statusMessage(getStatusMessage(data.data.SharedWithManager(), data.data.DateShared()));
+            vm.statusMessage(vm.getStatusMessage());
 
+            return true;
+        };
+
+        vm.approve = function (data) {
+            if (data.data.Approved()) {
+                vm.data.DateApproved(new Date());
+                //vm.data.DateApproved(moment().toISOString());
+            } else {
+                vm.data.DateApproved(null);
+            }
+
+            //vm.statusMessage(getStatusMessage(data.data.Approved(), data.data.DateApproved()));
+            vm.statusMessage(vm.getStatusMessage());
+
+            //When associated checkbox is ticked it disappear and data is saved (as per UX doc LINK-247)
+            vm.update();
+            vm.toggleView();
             return true;
         };
 

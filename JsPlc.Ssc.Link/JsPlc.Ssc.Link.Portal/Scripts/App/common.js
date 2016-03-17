@@ -40,14 +40,16 @@
 
     //Set from server
     var setUserInfo = function (data) {
-        if (typeof data === "undefined" || $.isEmptyObject(data)) {
-            userInfo.colleagueId = "";
-            userInfo.managerId = "";
-            userInfo.managerName = "";
-        } else {
+        userInfo.colleagueId = "";
+        userInfo.managerId = "";
+        userInfo.managerName = "";
+
+        if (typeof data !== "undefined" && !$.isEmptyObject(data)) {
             userInfo.colleagueId = data.Colleague.ColleagueId;
             userInfo.managerId = data.Colleague.ManagerId;
-            userInfo.managerName = data.Colleague.Manager.FirstName + " " + data.Colleague.Manager.LastName;
+            if (data.Colleague.Manager) {
+                userInfo.managerName = data.Colleague.Manager.FirstName + " " + data.Colleague.Manager.LastName;
+            } 
         }
     };
 

@@ -27,7 +27,10 @@
         </div>
         <br />
         <div class="container-fluid">
-            <div class="pull-right">
+            <div class="pull-right" data-bind="visible: managerView">
+                <span><input type="checkbox" data-bind="checked: data.Approved, click: approve," />I approve this objective</span>
+            </div>
+            <div class="pull-right" data-bind="visible: !managerView">
                 <span><input type="checkbox" data-bind="checked: data.SharedWithManager, click: share, disable: readOnly" />Share with manager</span>
                 <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
                 <button class="btn btn-primary" data-bind="click: $component.cancel">Cancel</button>
