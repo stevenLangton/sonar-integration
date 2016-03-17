@@ -38,7 +38,22 @@ namespace JsPlc.Ssc.Link.Models.Entities
         public string RelevantTo { get; set; }
 
         [Required]
-        public string Title { get; set; } 
+        public string Title { get; set; }
+
+        //Sharing with manager
+        public bool SharedWithManager { get; set; }
+        public DateTime? DateShared { get; set; }
+
+        //Approved by manager
+        public bool Approved { get; set; }
+        public DateTime? DateApproved { get; set; }
+
+        public LinkObjective()
+        {
+            //Defaults
+            SharedWithManager = false;
+            Approved = false;
+        }
     }
 
     public enum ObjectiveStatus

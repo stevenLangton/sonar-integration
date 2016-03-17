@@ -82,14 +82,28 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
+        //[TestMethod]
+        //public void GetAllColleagueObjectives()
+        //{
+        //    //Arrange
+        //    var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
+
+        //    //Act 
+        //    JsonResult response = controller.GetAllColleagueObjectives("Any string") as JsonResult;
+        //    List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
+
+        //    //Assert
+        //    TestMocks.IsSameAsMockObjectivesList(ObjectivesList);
+        //}
+
         [TestMethod]
-        public void GetAllColleagueObjectives()
+        public async Task GetObjectives()
         {
             //Arrange
             var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
 
             //Act 
-            JsonResult response = controller.GetAllColleagueObjectives("Any string") as JsonResult;
+            JsonResult response = await controller.GetObjectives("Any string") as JsonResult;
             List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
 
             //Assert
@@ -97,17 +111,17 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetObjectives()
+        public async Task GetSharedObjectives()
         {
             //Arrange
             var controller = new ObjectiveController(new LinkUserView(), TestMocks.LinkServiceFacade());
 
             //Act 
-            JsonResult response = controller.GetObjectives("Any string") as JsonResult;
+            JsonResult response = await controller.GetSharedObjectives("Any string") as JsonResult;
             List<LinkObjective> ObjectivesList = response.Data as List<LinkObjective>;
 
             //Assert
-            TestMocks.IsSameAsMockObjectivesList(ObjectivesList);
+            Assert.IsNull(ObjectivesList);
         }
 
         /// <summary>
@@ -154,13 +168,13 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
         }
 
         [TestMethod]
-        public void Update()
+        public async void Update()
         {
             //Arrange
             var controller = new ObjectiveController(TestMocks.AnyCurrentUser(), TestMocks.LinkServiceFacade());
 
             //Act
-            JsonResult actual = controller.Update(Mock.Of<LinkObjective>()) as JsonResult;
+            JsonResult actual = await controller.Update(Mock.Of<LinkObjective>()) as JsonResult;
 
             //Assert
             IDictionary<string, object> data = new RouteValueDictionary(actual.Data);

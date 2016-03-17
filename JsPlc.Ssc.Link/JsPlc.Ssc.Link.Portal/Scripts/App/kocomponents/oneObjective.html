@@ -1,0 +1,42 @@
+﻿<div class="one-objective" style="display: none;" data-bind="visible: true">
+    <div class="pull-right" data-bind="if: enableViewToggle">
+        <a href="#" target="_blank" data-bind="click: toggleView"><icon class="fa" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon></a>
+    </div>
+    <div data-bind="visible: !expandedView()">
+        <h3 data-bind="text: data.Title()?data.Title().replace(/^(.{60}[^\s]*).*/,'$1'):''"></h3>
+        <p>
+            <span data-bind="text: statusMessage() "></span>
+        </p>
+    </div>
+    <div data-bind="visible: expandedView">
+        <h4 for="objectiveTitle" class="objective-question">Objective title</h4>
+        <div>
+            <textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
+        </div>
+        <h4 class="objective-question">What will I do to make a difference this year?</h4>
+        <div>
+            <textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
+        </div>
+        <h4 class="objective-question">How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
+        <div>
+            <textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
+        </div>
+        <h4 class="objective-question">Which company or divisional priority does this support?</h4>
+        <div>
+            <textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>
+        </div>
+        <br />
+        <div class="container-fluid">
+            <div class="pull-right" data-bind="visible: managerView && !data.Approved()">
+                <span><input type="checkbox" data-bind="checked: data.Approved, click: approve" />I approve this objective</span>
+            </div>
+            <div class="pull-right" data-bind="visible: !managerView && !data.Approved()">
+                <span><input type="checkbox" data-bind="checked: data.SharedWithManager, click: share, disable: readOnly" />Share with manager</span>
+                <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
+                <button class="btn btn-primary" data-bind="click: $component.cancel">Cancel</button>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+

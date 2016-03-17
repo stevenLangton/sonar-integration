@@ -1,0 +1,36 @@
+﻿#linkSecondaryNav {visibility:hidden;
+}
+
+
+.tab-content > .tab-pane {
+  display: block;
+}
+
+.fade {
+  opacity: 1;
+  -webkit-transition: opacity .15s linear;
+  -o-transition: opacity .15s linear;
+  transition: opacity .15s linear;
+}
+
+.pdpTab {
+}
+
+.pdpTab .active {
+}
+
+.printSectionTitle {visibility:visible;}
+
+.nav-tabs {visibility:hidden;margin:0px;padding:0px;margin-top:-60px;}
+.tab-pane {margin-top:50px;margin:0px;padding:0px;}
+.linkBox2 {
+    visibility: hidden;
+    margin: 0px;
+    padding: 0px;
+    
+}
+
+.form-horizontal {margin:0px;padding:0px;}
+
+.container {margin-top:-200px;
+}

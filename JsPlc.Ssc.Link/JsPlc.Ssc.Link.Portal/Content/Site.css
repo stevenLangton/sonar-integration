@@ -116,13 +116,13 @@ img.comp-logo {
 
 
  /*needed for accordian menu*/
-    .panel-group .panel-heading a:after {
+.pdp-accordion .panel-group .panel-heading a:after {
   content: '-';
   float:right;
   right: 20px;
   top:5px;
 }
-.panel-group .panel-heading a.collapsed:after {
+.pdp-accordion .panel-group .panel-heading a.collapsed:after {
   content: '+';
 }
 
@@ -447,4 +447,9 @@ footer {
 
 }
 
+.objective-question {
+    font-weight: bold;
+}
 
+
+.printSectionTitle {visibility:hidden;}

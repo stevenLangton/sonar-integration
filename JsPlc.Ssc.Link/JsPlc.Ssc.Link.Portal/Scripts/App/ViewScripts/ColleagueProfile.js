@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "dataService", "meetingService", "RegisterKoComponents"], function ($, ko, dataService, meetingService) {
+﻿define(["jquery", "knockout", "dataService", "meetingService", "toastr", "RegisterKoComponents"], function ($, ko, dataService, meetingService, toastr) {
     "use strict";
 
     var refreshTabContent = function (koViewModel, htmlString) {
@@ -21,14 +21,20 @@
             var pdpTabKoVm = result;
             refreshTabContent(pdpTabKoVm, "<pdp-accordion  params='data: $root'></pdp-accordion>");
         });
+        $promise.error(function (request, status, error) {
+            toastr.error(request.responseText);
+        });
     };
 
     var showObjectives = function (colleagueId) {
-        var $promise = dataService.getObjectives(colleagueId);
+        var $promise = dataService.getSharedObjectives(colleagueId);
         $promise.done(function (result) {
             var objectivesTabKoVm = {};
             objectivesTabKoVm.objectives = ko.observableArray(result);
-            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives'></objectives-list>");
+            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives, readOnly: true, managerView: true'></objectives-list>");
+        });
+        $promise.error(function (request, status, error) {
+            toastr.error(request.responseText);
         });
     };
 

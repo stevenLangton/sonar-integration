@@ -35,12 +35,12 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
                     EmailAddress="Amardip.Shoker@domain.com"},
                 new StubColleague{Id=10, FirstName="Sandip", LastName="Vaidya", ColleagueId="E0010", ManagerId="E0011", 
                     EmailAddress="Sandip.Vaidya@domain.com"},
-                new StubColleague{Id=11, FirstName="Mike", LastName="Gwyer",  ColleagueId="E0011", ManagerId=string.Empty, 
+                new StubColleague{Id=11, FirstName="Mike", LastName="Gwyer",  ColleagueId="E0011", ManagerId="E0017", 
                     EmailAddress="Mike.Gwyer@domain.com"},
 
-                new StubColleague{Id=12, FirstName="Ridley", LastName="Scott",  ColleagueId="E0012", ManagerId=string.Empty, 
+                new StubColleague{Id=12, FirstName="Ridley", LastName="Scott",  ColleagueId="E0012", ManagerId="E0017", 
                     EmailAddress="ridley.scott@domain.com"},
-                new StubColleague{Id=13, FirstName="Joss", LastName="Whedon",  ColleagueId="E0013", ManagerId=string.Empty, 
+                new StubColleague{Id=13, FirstName="Joss", LastName="Whedon",  ColleagueId="E0013", ManagerId="E0017", 
                     EmailAddress="joss.whedon@domain.com"},
                 new StubColleague{Id=14, FirstName="Rick", LastName="Deckard",  ColleagueId="E0014", ManagerId="E0012", 
                     EmailAddress="rick.deckard@domain.com"},
@@ -56,6 +56,21 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
                     EmailAddress="tr.thambi@domain.com"},
                      new StubColleague{Id=19, FirstName="Arkadiusz", LastName="Goral",  ColleagueId="E0019", ManagerId="E0011", 
                     EmailAddress="Arkadiusz.Goral@domain.com"},
+
+                    //PEN test users
+                    new StubColleague{Id=24, FirstName="PenTest", LastName="Consultant1",  ColleagueId="E0400", ManagerId="E0011", 
+                    EmailAddress="PenTest.Consultant1@domain.com"},
+
+                    new StubColleague{Id=20, FirstName="PenTest", LastName="Consultant2",  ColleagueId="E0100", ManagerId="E0400", 
+                    EmailAddress="PenTest.Consultant2@domain.com"},
+
+                    new StubColleague{Id=21, FirstName="PenTest", LastName="Consultant3",  ColleagueId="E0200", ManagerId="E0300", 
+                    EmailAddress="PenTest.Consultant3@domain.com"},
+
+                     new StubColleague{Id=23, FirstName="PenTest", LastName="Consultant4",  ColleagueId="E0300", ManagerId="E0011", 
+                    EmailAddress="PenTest.Consultant4@domain.com"},
+
+                    
             };
 
             employees.ForEach(c=>context.Colleagues.Add(c));

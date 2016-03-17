@@ -9,6 +9,7 @@ using Moq;
 using Moq.Language.Flow;
 
 using JsPlc.Ssc.Link.Interfaces.Services;
+using System.Threading.Tasks;
 
 namespace JsPlc.Ssc.Link.Service.Tests.Controllers
 {
@@ -26,7 +27,7 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         private Mock<IObjectivesService> MockService()
         {
             var _mockService = new Mock<IObjectivesService>();
-            _mockService.Setup(x => x.GetAllObjectives(It.IsAny<string>())).Returns(MockObjectives);
+            _mockService.Setup(x => x.GetAllObjectives(It.IsAny<string>())).Returns(Task.FromResult(MockObjectives));
 
             _mockService.Setup(x => x.DeleteObjective(It.IsAny<int>())).Returns(true);
 
@@ -42,9 +43,9 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         }
 
         [TestMethod]
-        public void TestGetAllObjectives()
+        public async void TestGetAllObjectives()
         {
-            var response = _controller.GetAllObjectives("Any string") as OkNegotiatedContentResult<List<LinkObjective>>;
+            var response = await _controller.GetAllObjectives("Any string") as OkNegotiatedContentResult<List<LinkObjective>>;
             List<LinkObjective> ObjectivesList = response.Content as List<LinkObjective>;
             Assert.IsTrue(ObjectivesList.Count==MockObjectives.Count, @"Unexpected number of Objectives found");
         }

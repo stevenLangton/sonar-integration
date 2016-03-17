@@ -77,8 +77,3 @@ require.config({
 
     }
 });
-
-//To load essential modules first
-//require(["RegisterKoComponents"]);
-//require(['jquery', 'knockout', 'ko-binding-handlers', 'text'], function ($, ko) { });//Module end
-//require(['jquery', 'knockout'], function ($, ko) { });//Module end

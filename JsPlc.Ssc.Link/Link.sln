@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal", "JsPlc.Ssc.Link.Portal\JsPlc.Ssc.Link.Portal.csproj", "{A5A6F815-7A8D-463F-9F01-E2610E533A4B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -53,6 +53,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.ImportRoutin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Import.Tests", "JsPlc.Ssc.Link.Import.Tests\JsPlc.Ssc.Link.Import.Tests.csproj", "{52A6FD20-58C0-4828-9024-3C4A4E31D727}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JS.Plc.Ssc.Link.Portal.SpecFlowDemo.Specs", "JS.Plc.Ssc.Link.Portal.SpecFlowDemo.Specs\JS.Plc.Ssc.Link.Portal.SpecFlowDemo.Specs.csproj", "{C0F8E538-657F-4365-9CE1-12FEFFC9E369}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Js.Plc.Ssc.Link.Portal.BDD.Tests", "Js.Plc.Ssc.Link.Portal.BDD.Tests\Js.Plc.Ssc.Link.Portal.BDD.Tests.csproj", "{EDABF2A5-6B75-4C69-85A5-550D48BEF741}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +103,14 @@ Global
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0F8E538-657F-4365-9CE1-12FEFFC9E369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0F8E538-657F-4365-9CE1-12FEFFC9E369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0F8E538-657F-4365-9CE1-12FEFFC9E369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F8E538-657F-4365-9CE1-12FEFFC9E369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDABF2A5-6B75-4C69-85A5-550D48BEF741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDABF2A5-6B75-4C69-85A5-550D48BEF741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDABF2A5-6B75-4C69-85A5-550D48BEF741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDABF2A5-6B75-4C69-85A5-550D48BEF741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +126,8 @@ Global
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
 		{44CA1FA3-91B4-405E-BC7C-9FF7AEE7F60A} = {61EACC95-90EB-48DC-A131-85EA0FD0DAAE}
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
+		{C0F8E538-657F-4365-9CE1-12FEFFC9E369} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
+		{EDABF2A5-6B75-4C69-85A5-550D48BEF741} = {7CDEA3D2-A5AD-4284-BD94-9511621E566E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45

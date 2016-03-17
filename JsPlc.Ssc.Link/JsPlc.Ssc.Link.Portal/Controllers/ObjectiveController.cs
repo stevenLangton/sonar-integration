@@ -34,21 +34,49 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
-        public ActionResult GetAllColleagueObjectives(string ColleagueId)
-        {
-            //return GetObjectives(CurrentUser.Colleague.ColleagueId);
-            return GetObjectives(ColleagueId);
-        }
+        //public ActionResult GetAllColleagueObjectives(string ColleagueId)
+        //{
+        //    //return GetObjectives(CurrentUser.Colleague.ColleagueId);
+        //    return GetObjectives(ColleagueId);
+        //}
 
         [HttpGet]
-        public ActionResult GetObjectives(string ColleagueId)
+        public async Task<ActionResult> GetObjectives(string ColleagueId)
         {
-            var ObjectivesList = ServiceFacade.GetObjectivesList(ColleagueId);
+            var ObjectivesList = await ServiceFacade.GetObjectivesList(ColleagueId);
 
             var jsonResult = new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = ObjectivesList
+            };
+
+            return jsonResult;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetSharedObjectives(string ColleagueId)
+        {
+            var ObjectivesList = await ServiceFacade.GetSharedObjectives(ColleagueId);
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = ObjectivesList
+            };
+
+            return jsonResult;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetOneObjective(int ObjectiveId)
+        {
+            LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, ObjectiveId);
+
+            var jsonResult = new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = item
             };
 
             return jsonResult;
@@ -93,16 +121,22 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                     modifiedObjective.Id = NewObjectId;
                 }
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                       .Where(y => y.Count > 0)
+                       .ToList();
+            }
 
             return new JsonResult
             {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success }
+                Data = new { success = Success, savedObjective = modifiedObjective }
             };
         }//Create
 
         [HttpPost]
-        public ActionResult Update(LinkObjective modifiedObjective)
+        public async Task<ActionResult> Update(LinkObjective modifiedObjective)
         {
             bool Success = false;
 
@@ -110,12 +144,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             {
                 modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
                 modifiedObjective.LastAmendedDate = DateTime.Now;
-                Success = ServiceFacade.UpdateObjective(modifiedObjective).Result;
+                Success = await ServiceFacade.UpdateObjective(modifiedObjective);
             }
 
             return new JsonResult {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success }
+                Data = new { success = Success, savedObjective = modifiedObjective }
             };
         }//Update
     }

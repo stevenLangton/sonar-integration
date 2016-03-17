@@ -1,9 +1,5 @@
-﻿<div class="list-group" id="objectivesList" data-bind="foreach: objectives">
-    <div class="media linkBox1 list-group-item">
-        <a data-bind="attr: { href: 'objective/show/'+Id }" class=" btn btn-primary pull-right">View objective</a>
-        <div class="media-body">
-            <h3 data-bind="text: Title?Title.substring(0,60):''"></h3>
-            <p data-bind="text: Objective?Objective.substring(0,200):''"></p>
-        </div>
+﻿<div class="list-group" id="objectivesList" data-bind="foreach: objectives, visible: true" style="display: none">
+    <div class="container-fluid linkBox1 linkPadding" style="display: none;" data-bind="visible: true">
+        <one-objective params="data: $data, readOnly: $component.readOnly, managerView: $component.managerView"></one-objective>
     </div>
 </div>

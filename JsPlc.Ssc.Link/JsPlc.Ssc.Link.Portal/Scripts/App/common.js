@@ -40,7 +40,17 @@
 
     //Set from server
     var setUserInfo = function (data) {
-        userInfo.colleagueId = data;
+        userInfo.colleagueId = "";
+        userInfo.managerId = "";
+        userInfo.managerName = "";
+
+        if (typeof data !== "undefined" && !$.isEmptyObject(data)) {
+            userInfo.colleagueId = data.Colleague.ColleagueId;
+            userInfo.managerId = data.Colleague.ManagerId;
+            if (data.Colleague.Manager) {
+                userInfo.managerName = data.Colleague.Manager.FirstName + " " + data.Colleague.Manager.LastName;
+            } 
+        }
     };
 
     var getUserInfo = function () {
@@ -54,7 +64,6 @@
         randomString: randomString,
         uiDateFormat: uiDateFormat,
         serverDateFormat: serverDateFormat,
-        callService: callService,
         callServerAction: callService,
         setUserInfo: setUserInfo,
         getUserInfo: getUserInfo

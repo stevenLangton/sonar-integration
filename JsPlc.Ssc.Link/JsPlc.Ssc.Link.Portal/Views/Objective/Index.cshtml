@@ -8,16 +8,32 @@
         </div>
     </div>
     <br />
-    <a data-bind="attr: { href: 'objective/new' }" class="btn btn-primary btn-lg">Add a new objective</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="pull-right">
+                <a class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#demo" data-bind="click: enterNewObjective" aria-expanded="false">Add objective</a>
+            </div>
+        </div>
+        <div class="">
+            <div id="demo" class="collapse">
+                <div data-bind="stopBinding: true">
+                    <div id="objectiveContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <br />
     <br />
-    <objectives-list params='data: objectives'></objectives-list>
+    <objectives-list params='data: objectives, readOnly: false'></objectives-list>
     <hr />
 </div>
+@Html.Partial("_ConfirmModal")
 <script type="text/javascript">
-    require(["Objectives", "RegisterKoComponents"], function (mod) {
+    require(["Objectives", "autogrow", "RegisterKoComponents"], function (mod, autogrow) {
         $(document).ready(function () {
             mod.init("ObjectivesListView", "@ViewBag.ColleagueId");
+            $('textarea').autogrow({ onInitialize: true });
+
         });
     });
 </script>
