@@ -61,7 +61,9 @@
                     statusMsg = "Approved by " + mgrName + " on " + dateStr;
                 } else {
                     dateStr = moment(vm.data.DateShared()).format("L"); // dd/mm/yyyy
-                    statusMsg = "Shared with " + mgrName + " on " + dateStr;
+                    statusMsg = vm.managerView
+                        ? "Shared for your approval on " + dateStr
+                        : "Shared with " + mgrName + " on " + dateStr;
                 }
             }
 

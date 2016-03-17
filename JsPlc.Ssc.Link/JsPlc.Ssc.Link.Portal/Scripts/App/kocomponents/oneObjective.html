@@ -27,6 +27,7 @@
         </div>
         <br />
         <div class="container-fluid">
+            <span data-bind="text: statusMessage(), visible: data.Approved()"></span>
             <div class="pull-right" data-bind="visible: managerView && !data.Approved()">
                 <span><input type="checkbox" data-bind="checked: data.Approved, click: approve" />I approve this objective</span>
             </div>
