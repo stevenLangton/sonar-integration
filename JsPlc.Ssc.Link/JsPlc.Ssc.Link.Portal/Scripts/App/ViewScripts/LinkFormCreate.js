@@ -292,7 +292,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 var empId = pageQueryParams["colleagueId"];
                 var jsonArgs = { colleagueId: empId };
 
-                var $promise = common.callService("get", url, jsonArgs);
+                var $promise = common.callServerAction("get", url, jsonArgs);
                 self.loadPageData($promise);
 
             }

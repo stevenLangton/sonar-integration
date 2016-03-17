@@ -16,7 +16,9 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
             Objective: "",
             MeasuredBy: "",
             RelevantTo: "",
-            Title: ""
+            Title: "",
+            SharedWithManager: false,
+            DateShared: null
         };
 
         newObj.ColleagueId = common.getUserInfo().colleagueId;
@@ -29,11 +31,6 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
     var orderObjectives = function (left, right) {
         return left.LastAmendedDate == right.LastAmendedDate ? 0 : (left.LastAmendedDate > right.LastAmendedDate ? -1 : 1);
     }
-
-    //When user successfully created a new objective
-    var onNewObjectiveCreated = function (newObjective) {
-        $('#demo').collapse('hide');
-    };
 
     //When user cancels the "create a new objective" panel, we want to collapse it
     var onNewObjectiveCancelled = function () {
@@ -87,7 +84,7 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
     //var init = $.noop;
     var init = function (divId, colleagueId) {
         var $promise = $.ajax({
-            url: "objective/GetAllColleagueObjectives",
+            url: "objective/GetObjectives",
             type: "get",
             dataType: "json",
             data: { ColleagueId: colleagueId }

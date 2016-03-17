@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "common", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "confirmModal", "autogrow", "RegisterKoComponents"], function ($, ko, komap, moment, common, toastr, htmlTemplate, dataService, confirmModal, autogrow) {
+﻿define(["jquery", "knockout", "komap", "moment", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "common", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, toastr, htmlTemplate, dataService, common, confirmModal) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -15,6 +15,15 @@
                 : clientHandler;
     };
 
+    var getStatusMessage = function (sharedFlag, dateShared) {
+        if (sharedFlag) {
+            var dateStr = moment(dateShared).format("L"); // we get dd/mm/yyyy
+            return "Shared with " + common.getUserInfo().managerName + " " + dateStr;
+        } else {
+            return "";
+        }
+    };
+
     var oneObjectiveModel = function (params) {
         var vm = {};
 
@@ -27,10 +36,9 @@
         vm.expanded = params.expanded !== undefined ? params.expanded : false;
         vm.enableViewToggle = params.enableViewToggle !== undefined ? params.enableViewToggle : true;
         vm.expandedView = ko.observable(vm.expanded);
+        vm.statusMessage = ko.observable(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
 
         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
-        //vm.displayCreateDate = moment(vm.data.CreatedDate()).format('LLLL');
-        //vm.displayUpdateDate = moment(vm.data.LastAmendedDate()).format('LLLL');
 
         vm.update = function () {
             var jsonArgs = komap.toJS(vm.data);
@@ -57,11 +65,12 @@
 
             $promise.done(function (result) {
                 if (result.success) {
+                    vm.data.LastAmendedDate(result.savedObjective.LastAmendedDate);
+                    vm.data.LastAmendedBy(result.savedObjective.LastAmendedBy);
+
                     if (mvcAction === mvcCreateAction) {
                         toastr.info("You have successfully created a new objective");
-                        vm.data.LastAmendedDate(result.newObjective.LastAmendedDate);
-                        vm.data.LastAmendedBy(result.newObjective.LastAmendedBy);
-                        vm.onCreate(result.newObjective);
+                        vm.onCreate(result.savedObjective);
                     } else {
                         toastr.info("Your objective has been updated");
                     }
@@ -75,8 +84,8 @@
             });
 
 
-            $promise.error(function (request, status, error) {
-                window.alert(request.responseText);
+            $promise.error(function (request) {
+                toastr.error(request.responseText);
             });
         };
 
@@ -95,6 +104,7 @@
                     $promise.done(function (data) {
                         komap.fromJS(data, vm.data);
                         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
+                        vm.statusMessage(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
                         vm.onCancel();
                     });
                 };
@@ -118,28 +128,27 @@
 
                 confirmModal.show();
             } else {
+                vm.toggleView();
                 vm.onCancel();
             }
 
         };
 
-        vm.toggleView = function (data, event) {
-            var $childIcon = $(event.currentTarget).children("icon");
-            if ($childIcon.hasClass("fa-plus")) {
-                //Open expanded view
-                $childIcon.removeClass("fa-plus");
-                $childIcon.addClass("fa-minus");
-                vm.expandedView(true);
-            } else {
-                //Open collapsed view
-                $childIcon.removeClass("fa-minus");
-                $childIcon.addClass("fa-plus");
-                vm.expandedView(false);
-            }
+        vm.toggleView = function () {
+            vm.expandedView(!vm.expandedView());
         };
 
-        //ko.applyBindings(vm, document.getElementById('ObjectiveView'));
-        //$('textarea').autogrow({ onInitialize: true });
+        vm.share = function (data) {
+            if (data.data.SharedWithManager()) {
+                vm.data.DateShared(moment().toISOString());
+            } else {
+                vm.data.DateShared(null);
+            }
+
+            vm.statusMessage(getStatusMessage(data.data.SharedWithManager(), data.data.DateShared()));
+
+            return true;
+        };
 
         return vm;
     };
@@ -147,11 +156,6 @@
     var viewModel = {
         createViewModel: function (params, componentInfo) {
             var vm = oneObjectiveModel(params);
-
-            //$(componentInfo.element).on('show', function (event, tabNo) {
-            //    $("#showTab" + tabNo).trigger("click");
-            //});
-
             return vm;
         }
     };

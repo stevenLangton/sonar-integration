@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
+using System.Threading.Tasks;
 
 namespace JsPlc.Ssc.Link.Interfaces.Services
 {
@@ -17,9 +18,10 @@ namespace JsPlc.Ssc.Link.Interfaces.Services
 
         IEnumerable<LinkObjective> GetListOfObjectives(string userId, DateTime year);
 
-        IEnumerable<LinkObjective> GetAllObjectives(string userId);
+        Task<List<LinkObjective>> GetAllObjectives(string userId);
+
+        Task<List<LinkObjective>> GetSharedObjectives(string userId);
         
         void Dispose();
-        
     }
 }

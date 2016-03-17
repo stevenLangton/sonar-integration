@@ -12,18 +12,23 @@
         return $promise;
     };
 
+    var getSharedObjectives = function (colleagueId) {
+        var $promise = common.callServerAction("get", "objective/GetSharedObjectives", { ColleagueId: colleagueId });
+        return $promise;
+    };
+
     var getOneObjective = function (objectiveId) {
-        var $promise = common.callService("get", "objective/GetOneObjective", { ObjectiveId: objectiveId });
+        var $promise = common.callServerAction("get", "objective/GetOneObjective", { ObjectiveId: objectiveId });
         return $promise;
     };
 
     var getPdp = function (colleagueId) {
-        var $promise = common.callService("get", "pdp/getPdp", { ColleagueId: colleagueId });
+        var $promise = common.callServerAction("get", "pdp/getPdp", { ColleagueId: colleagueId });
         return $promise;
     };
 
     var getColleagueMeetings = function (colleagueId) {
-        var $promise = common.callService("get", "Team/GetColleagueMeetings", { ColleagueId: colleagueId });
+        var $promise = common.callServerAction("get", "Team/GetColleagueMeetings", { ColleagueId: colleagueId });
         return $promise;
     };
 
@@ -31,6 +36,7 @@
         getColleagueMeetings: getColleagueMeetings,
         getPdp: getPdp,
         getObjectives: getObjectives,
+        getSharedObjectives: getSharedObjectives,
         getOneObjective: getOneObjective
     };
 });
