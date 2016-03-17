@@ -11,6 +11,9 @@ namespace JsPlc.Ssc.Link.Interfaces
 
         LinkPdp UpdatePdp(LinkPdp linkPdp);
 
+        //LinkPdp UnsharePdp(string colleagueId);
+        //LinkPdp ApprovePdp(string colleagueId, string managerId);
+
         void Dispose();
     }
 }
