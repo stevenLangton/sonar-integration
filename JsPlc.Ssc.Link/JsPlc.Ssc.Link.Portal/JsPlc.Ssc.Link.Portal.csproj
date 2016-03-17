@@ -283,6 +283,7 @@
     <Content Include="Content\Images\round_black_tick.png" />
     <Content Include="Content\Images\speach_bubble_blue_ncs.PNG" />
     <Content Include="Content\Images\Tick_icon.PNG" />
+    <Content Include="Content\print.css" />
     <Content Include="Content\timePicker\bootstrap-timepicker.css" />
     <Content Include="Content\ProfilePics\Default.jpg" />
     <Content Include="Content\ProfilePics\E001.jpg" />

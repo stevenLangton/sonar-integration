@@ -58,7 +58,10 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
                     EmailAddress="Arkadiusz.Goral@domain.com"},
 
                     //PEN test users
-                    new StubColleague{Id=20, FirstName="PenTest", LastName="Consultant2",  ColleagueId="E0100", ManagerId="E0300", 
+                    new StubColleague{Id=24, FirstName="PenTest", LastName="Consultant1",  ColleagueId="E0400", ManagerId="E0011", 
+                    EmailAddress="PenTest.Consultant1@domain.com"},
+
+                    new StubColleague{Id=20, FirstName="PenTest", LastName="Consultant2",  ColleagueId="E0100", ManagerId="E0400", 
                     EmailAddress="PenTest.Consultant2@domain.com"},
 
                     new StubColleague{Id=21, FirstName="PenTest", LastName="Consultant3",  ColleagueId="E0200", ManagerId="E0300", 
@@ -66,6 +69,8 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
 
                      new StubColleague{Id=23, FirstName="PenTest", LastName="Consultant4",  ColleagueId="E0300", ManagerId="E0011", 
                     EmailAddress="PenTest.Consultant4@domain.com"},
+
+                    
             };
 
             employees.ForEach(c=>context.Colleagues.Add(c));
