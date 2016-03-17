@@ -7,16 +7,14 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                     success: "Conversation successfully created",
                     failure: "Conversation creation failed"
                 };
-                break;
             case "Edit":
                 return {
                     success: "Conversation successfully updated",
                     failure: "Conversation update failed"
                 };
-                break;
             default:
                 return undefined;
-        };
+        }
     };
 
     var adjustBreadcrumbs = function (meetingOwnerColleagueId) {
@@ -204,7 +202,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             var messages = getMessages(self.crudMode);
 
             $.ajax({
-                url: common.getSiteRoot() + "LinkForm/PostLinkForm",
+                url: common.siteUrls.postLink,
                 method: "POST",
                 data: data,
                 contentType: 'application/x-www-form-urlencoded; charset=utf-8', // 'application/json'
@@ -213,12 +211,11 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
                     if (response.JsonStatusCode.CustomStatusCode == "ApiSuccess") {
                         toastr.info(messages.success);
-
                         // Redirect for colleagues initiated create meeting success.. (my Link Report page)
                         if (data.IsColleagueView) {
-                            window.location.href = common.getSiteRoot() + "Home/LinkMeetings";
+                            helpers.utils.redirectWithDelay(common.siteUrls.meetingsPage);
                         } else {
-                            window.location.href = common.getSiteRoot() + "Team";
+                            helpers.utils.redirectWithDelay(common.siteUrls.teamPage);
                         }
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
@@ -280,31 +277,34 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         self.getDataForMeeting = function () {
             //Check CRUD mode
             //debugger;
-            if (window.location.href.search("LinkForm/ViewMeeting") > 0) {
+            var url;
+            var jsonArgs;
+            var $promise;
+            if (window.location.href.search(common.linkUrls.viewMeeting) > 0) {
                 self.crudMode = "View";
             }
-            else if (window.location.href.search("LinkForm/Create") > 0) {
+            else if (window.location.href.search(common.linkUrls.createMeeting) > 0) {
                 self.crudMode = "Create";
 
-                var url = "LinkForm/GetLinkForm";
+                url = common.linkUrls.getLinkForm;
 
                 var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
                 var empId = pageQueryParams["colleagueId"];
-                var jsonArgs = { colleagueId: empId };
+                jsonArgs = { colleagueId: empId };
 
-                var $promise = common.callServerAction("get", url, jsonArgs);
+                $promise = common.callServerAction("get", url, jsonArgs);
                 self.loadPageData($promise);
 
             }
-            else if (window.location.href.search("LinkForm/Edit") > 0) {
+            else if (window.location.href.search(common.linkUrls.editMeeting) > 0) {
                 self.crudMode = "Edit";
 
-                var url = "LinkForm/GetMeetingForEdit";
+                url = common.linkUrls.getMeeting; //"LinkForm/GetMeetingForEdit";
 
                 var meetingId = new URI(window.location.href).filename(); // using URI library
-                var jsonArgs = { meetingId: meetingId };
+                jsonArgs = { meetingId: meetingId };
 
-                var $promise = common.callServerAction("get", url, jsonArgs);
+                $promise = common.callServerAction("get", url, jsonArgs);
                 self.loadPageData($promise);
             }
         };
@@ -352,7 +352,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             try {
                 $('.datepicker').datepicker({ language: "en-GB", dateFormat: 'dd/mm/yyyy' });
                 $('#timepicker1').timepicker();
-            } catch (e) {
+            } catch (ex) {
 
             }
         };

@@ -32,16 +32,16 @@
             });
 
             $promise.done(function (result) {
-                var result = result;
-                if (result.success) {
+                var result1 = result;
+                if (result1.success) {
                     if (mvcAction === mvcCreateAction) {
                         toastr.info("You have successfully created a new objective");
                     }
                     else {
                         toastr.info("Your objective has been updated");
                     }
-
-                    window.location.href = common.getSiteRoot() + "Objective";
+                    helpers.utils.redirectWithDelay(common.siteUrls.getObjectives);
+                    //window.location.href = common.getSiteRoot() + "Objective";
                 } else {
                     toastr.error("We encountered a problem while processing your request.");
                 }
