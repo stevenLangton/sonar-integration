@@ -15,15 +15,6 @@
                 : clientHandler;
     };
 
-    //var getStatusMessage = function (sharedFlag, dateShared) {
-    //    if (sharedFlag) {
-    //        var dateStr = moment(dateShared).format("L"); // we get dd/mm/yyyy
-    //        return "Shared with " + common.getUserInfo().managerName + " " + dateStr;
-    //    } else {
-    //        return "";
-    //    }
-    //};
-
     var oneObjectiveModel = function (params) {
         var vm = {};
 
@@ -33,6 +24,11 @@
 
         vm.data = komap.fromJS(params.data);//params.data is JSON form of a LinkObjective server object
         vm.readOnly = params.readOnly !== undefined ? params.readOnly : true;
+
+        //Once approved it's read only.
+        if (vm.data.Approved()) {
+            vm.readOnly = true;
+        }
         vm.managerView = params.managerView !== undefined ? params.managerView : false;
 
         //Show expanded view initially. We default to collapsed view normally.
@@ -180,13 +176,11 @@
 
         vm.share = function (data) {
             if (data.data.SharedWithManager()) {
-                //vm.data.DateShared(moment().toISOString());
                 vm.data.DateShared(new Date());
             } else {
                 vm.data.DateShared(null);
             }
 
-            //vm.statusMessage(getStatusMessage(data.data.SharedWithManager(), data.data.DateShared()));
             vm.statusMessage(vm.getStatusMessage());
 
             return true;
@@ -195,12 +189,11 @@
         vm.approve = function (data) {
             if (data.data.Approved()) {
                 vm.data.DateApproved(new Date());
-                //vm.data.DateApproved(moment().toISOString());
+                vm.readOnly = true;
             } else {
                 vm.data.DateApproved(null);
             }
 
-            //vm.statusMessage(getStatusMessage(data.data.Approved(), data.data.DateApproved()));
             vm.statusMessage(vm.getStatusMessage());
 
             //When associated checkbox is ticked it disappear and data is saved (as per UX doc LINK-247)
