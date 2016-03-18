@@ -126,54 +126,68 @@
             });
         };
 
-        vm.cancel = function () {
+        vm.confirmDiscard = function (calledByToggle) {
+            //Can be called from the "Cancel" button or the +/- toggle
+            var dialogOptions = {};
 
-            if (vm.dirtyFlag()) {
-                var dialogOptions = {};
-
-                var yesHandlerForNew = function () {
-                    vm.onCancel();
-                };
-
-                var yesHandlerForUpdates = function () {
-                    //Restore the data as user cancels modifications
-                    var $promise = dataService.getOneObjective(vm.data.Id());
-                    $promise.done(function (data) {
-                        komap.fromJS(data, vm.data);
-                        vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
-                        //vm.statusMessage(getStatusMessage(vm.data.SharedWithManager(), vm.data.DateShared()));
-                        vm.statusMessage(vm.getStatusMessage());
-                        vm.onCancel();
-                    });
-                };
-
-                if (vm.data.Id() === 0) {
-                    //Create new objective view
-                    dialogOptions = {
-                        yesHandler: yesHandlerForNew,
-                        titleText: "Add A New Objective",
-                        bodyText: "Are you sure? This objective has not been saved. Are you sure you want to discard it?"
-                    };
-                } else {
-                    //Update existing objective view
-                    dialogOptions = {
-                        titleText: "Edit/View Objective",
-                        bodyText: "You have modified this objective. Are you sure you want to discard it?",
-                        yesHandler: yesHandlerForUpdates
-                    };
+            var yesHandlerForNew = function () {
+                if (calledByToggle) {
+                    vm.expandedView(false);
                 }
-                confirmModal.init(dialogOptions);
+                vm.onCancel();
+            };
 
-                confirmModal.show();
+            var yesHandlerForUpdates = function () {
+                //Restore the data as user cancels modifications
+                var $promise = dataService.getOneObjective(vm.data.Id());
+                $promise.done(function (data) {
+                    komap.fromJS(data, vm.data);
+                    vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
+                    vm.statusMessage(vm.getStatusMessage());
+                    if (calledByToggle) {
+                        vm.expandedView(false);
+                    }
+                    vm.onCancel();
+                });
+            };
+
+            if (vm.data.Id() === 0) {
+                //Create new objective view
+                dialogOptions = {
+                    titleText: "Add A New Objective",
+                    bodyText: "Are you sure? This objective has not been saved. Are you sure you want to discard it?",
+                    yesHandler: yesHandlerForNew
+                };
+            } else {
+                //Update existing objective view
+                dialogOptions = {
+                    titleText: "Edit/View Objective",
+                    bodyText: "You have modified this objective. Are you sure you want to discard it?",
+                    yesHandler: yesHandlerForUpdates
+                };
+            }
+            confirmModal.init(dialogOptions);
+
+            confirmModal.show();
+        };//confirmDiscard
+
+        vm.cancel = function () {
+            if (vm.dirtyFlag()) {
+                vm.confirmDiscard(false);
             } else {
                 vm.toggleView();
                 vm.onCancel();
             }
-
         };
 
         vm.toggleView = function () {
-            vm.expandedView(!vm.expandedView());
+            if (vm.dirtyFlag()) {
+                if (vm.expandedView()) {
+                    vm.confirmDiscard(true);
+                }
+            } else {
+                vm.expandedView(!vm.expandedView());
+            }
         };
 
         vm.share = function (data) {
