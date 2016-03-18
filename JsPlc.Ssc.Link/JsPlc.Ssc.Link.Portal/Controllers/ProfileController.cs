@@ -22,6 +22,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         // GET: Profile
         public ActionResult Show([Bind(Prefix = "id")] string ColleagueId)
         {
+            //Only a direct manager has access to the profile page of his direct reports
+            if (!IsLineManager() || !HasColleagueAccess(CurrentUser.Colleague.ColleagueId, ColleagueId))
+            {
+                return RedirectToAction("Unauthorized", "Home");
+            }
             ColleagueView ColleagueDetails = ServiceFacade.GetColleague(ColleagueId);
             LinkMeeting NextMeetingView = ServiceFacade.GetNextMeeting(ColleagueId);
             ViewBag.Title = ColleagueDetails.FirstName + " " + ColleagueDetails.LastName;
