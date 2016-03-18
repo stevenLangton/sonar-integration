@@ -1,18 +1,32 @@
 ﻿
 <div id="ObjectivesListView" style="display:none" data-bind="visible:true">
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
-    <h1>Objectives</h1>
-    <div class="linkBox2 list-group-item">
-        <div class="media-body">
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="~/Content/Images/my-performance-icon.png" width="106" height="101" style="margin-top:30px;">
+        </div>
+
+        <div class="col-md-6">
+            <h1>My objectives</h1>
+            <hr />
             <p>Personal objectives ensure we are clear on our how we can each make a difference to our team, the business and our customers.</p>
+            <hr />
+        </div>
+
+        <div class="col-md-4">
+            <div class="pull-right">
+                <br/>
+                <a class="btn btn-primary" data-toggle="collapse" data-target="#demo" data-bind="click: enterNewObjective" aria-expanded="false">Add objective</a>
+            </div>
+            
         </div>
     </div>
-    <br />
+
     <div class="container-fluid">
         <div class="row">
-            <div class="pull-right">
-                <a class="btn btn-primary btn-lg" data-toggle="collapse" data-target="#demo" data-bind="click: enterNewObjective" aria-expanded="false">Add objective</a>
-            </div>
+           
         </div>
         <div class="">
             <div id="demo" class="collapse">

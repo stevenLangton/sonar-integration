@@ -3,11 +3,21 @@
 <div>@Html.MvcSiteMap().SiteMapPath()</div>
 <form action="pdp" method="post">
     <div class="form-horizontal">
-        <h1>My personal development plan</h1>
+        
         <div>
-            <div class="container-fluid linkBox2">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="~/Content/Images/my-performance-icon.png" width="106" height="101" style="margin-top:30px;">
+                </div>
+
+                <div class="col-md-8">
+                    <h1>My personal development plan</h1>
+                    <hr/>
                     <p>A clear development plan helps you turn your ideas about your personal development into a tangible and action-focused plan</p>
+                    <hr/>
+                </div>
             </div>
+            <hr/>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active pdpTab"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Achieving my objectives</a></li>
