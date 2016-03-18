@@ -61,18 +61,33 @@
 
     <div class="wrapper">
         <div class="container">
-            <div class="row">
 
-                @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
+            <div  class="row @(Request.IsAuthenticated ? "" : "background1")">
 
 
+
+
+                <div class="col-md-3" id="linkSecondaryNav">
+                    @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
+                </div>
                 <div class="col-md-9">
-
                     @RenderBody()
                 </div>
+            </div>
+
+                @if (@ViewBag.Title == "Welcome to My performance")
+                {
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
+                            @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
+
+                        </div>
+                    </div>
+                }
+
 
             </div>
-        </div>
+
         <div class="push"></div>
     </div>
 
@@ -82,24 +97,17 @@
         <div class="navbar navbar-default link-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
-                        <h4>Useful Pages</h4>
-                        <ul class="footerlinks">
-                            <li>@Html.ActionLink("Help", "help", "Home")</li>
-                            <li>@Html.ActionLink("Contact us", "Contact", "Home")</li>
-                            <li>@Html.Partial("_LoginPartialFooter")</li>
-                        </ul>
-                    </div>
-                    @*<div class="col-md-4">
-                            <h4>Link Help</h4>
-                        </div>*@
-                    <div class="col-md-6">
-                        <div class="row">
-                            <h4>Think @Resources.AppName</h4>
-                            <p class="footerP">We’ve called our new performance discussions Links because they’re all about making connections between business success and individual performance. Constructive discussions, they focus on each person’s impact in the team, because it’s our vital linking relationships that give colleagues powerful collective purpose.</p>
-                        </div>
-                        <div class="row">&copy; @DateTime.Now.Year - J Sainsbury Plc<br />Link v @ViewBag.VersionNumber</div>
-                    </div>
+                    <div class="col-md-12" style="text-align:center;">
+                        <br/>
+
+                        <a href="/home/help">Help</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="/home/contact">Contact Us</a>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;<a href="#">Log out</a>
+
+                        <br/><br /><br />
+
+
+
+    <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>v@ViewBag.VersionNumber</small> </div>
+</div>
                 </div>
             </div>
 
@@ -137,3 +145,15 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
