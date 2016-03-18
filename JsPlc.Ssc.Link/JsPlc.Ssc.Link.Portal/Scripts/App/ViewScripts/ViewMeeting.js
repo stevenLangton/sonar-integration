@@ -93,14 +93,14 @@
         var doMeetingAction = function(actionUnshareOrApprove) {
 
             var meetingVm = self.dataModel();
-            var postBackUrl = actionUnshareOrApprove == "unshare" ? "LinkForm/Unshare/" : "LinkForm/Approve/";
-            var viewUrl = common.getSiteRoot() + "LinkForm/ViewMeeting/" + meetingVm.MeetingId;
-            var editUrl = common.getSiteRoot() + "LinkForm/Edit/" + meetingVm.MeetingId;
-            var teamUrl = common.getSiteRoot() + "Team";
+            var postBackUrl = actionUnshareOrApprove == "unshare" ? common.linkUrls.unshareMeeting : common.linkUrls.approveMeeting;
+            var viewUrl = common.siteUrls.viewMeeting + "/" + meetingVm.MeetingId;
+            var editUrl = common.siteUrls.editMeeting + "/" + meetingVm.MeetingId;
+            var teamUrl = common.siteUrls.teamPage;
 
             // ajax server side method to unshare meeting.
             $.ajax({
-                    url: common.getSiteRoot() + postBackUrl + "?meetingId=" + meetingVm.MeetingId,
+                    url: common.getSiteRoot() + postBackUrl + "/?meetingId=" + meetingVm.MeetingId,
                     method: "GET",
                     dataType: "json"
                 })
@@ -108,20 +108,20 @@
                     // If approved or unshared in meanwhile, Reload page with toastr notification..
                     if (actionUnshareOrApprove == "unshare" && data == "Approved") {
                         toastr.error("Sorry, you cannot amend this conversation. Conversation has been approved by line manager.");
-                        window.setTimeout('window.location.href = "' + viewUrl + '";', 1000);
+                        helpers.utils.redirectWithDelay(viewUrl);
                     } else if (actionUnshareOrApprove == "approve" && data == "Unshared") {
                         toastr.error("Sorry, you cannot amend this conversation. Conversation has not been shared.");
-                        window.setTimeout('window.location.href = "' + teamUrl + '";', 1000);
+                        helpers.utils.redirectWithDelay(teamUrl);
                     } else if (data == "Error") {
                         toastr.error("Sorry, unable to amend this conversation.");
-                        window.setTimeout('window.location.href = "' + viewUrl + '";', 1000);
+                        helpers.utils.redirectWithDelay(viewUrl);
                     } else {
-                        window.setTimeout('window.location.href = "' + editUrl + '";', 100);
+                        helpers.utils.redirectWithDelay(editUrl);
                     }
                 })
                 .fail(function() {
                     toastr.error("Sorry, unable to amend this conversation. Please try again.");
-                    window.setTimeout('window.location.href = "' + viewUrl + '";', 1000);
+                    helpers.utils.redirectWithDelay(viewUrl);
                 });
         }
         self.unshareMeeting = function () {

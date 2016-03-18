@@ -3,7 +3,7 @@
         <a href="#" target="_blank" data-bind="click: toggleView"><icon class="fa" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon></a>
     </div>
     <div data-bind="visible: !expandedView()">
-        <h4 data-bind="text: data.Title"></h4>
+        <h3 data-bind="text: data.Title()?data.Title().replace(/^(.{60}[^\s]*).*/,'$1'):''"></h3>
         <p>
             <span data-bind="text: statusMessage() "></span>
         </p>
@@ -27,7 +27,11 @@
         </div>
         <br />
         <div class="container-fluid">
-            <div class="pull-right">
+            <span data-bind="text: statusMessage(), visible: data.Approved()"></span>
+            <div class="pull-right" data-bind="visible: managerView && !data.Approved()">
+                <span><input type="checkbox" data-bind="checked: data.Approved, click: approve" />I approve this objective</span>
+            </div>
+            <div class="pull-right" data-bind="visible: !managerView && !data.Approved()">
                 <span><input type="checkbox" data-bind="checked: data.SharedWithManager, click: share, disable: readOnly" />Share with manager</span>
                 <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
                 <button class="btn btn-primary" data-bind="click: $component.cancel">Cancel</button>
