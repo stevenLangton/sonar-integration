@@ -3,7 +3,11 @@
     ViewBag.Title = "Welcome to " + Resources.AppName;
 }
 <div class="row">
-    <div id="background1">
+
+   <!-- <div class="background1">-->
+
+    <div class="@(Request.IsAuthenticated ? "background1" : "")">
+
         <div class="col-md-8">
             <h1>Welcome to <br /> <strong>@Resources.AppName</strong></h1>
 
@@ -13,9 +17,11 @@
         <div class="col-md-4">
             <div style="background-color:#00acc9;color:#ffffff;border-radius: 15px;padding:15px;">
 
-                <h3 style="color:#ffffff;text-transform:none;margin-bottom:15px;">Thinking about performance at Sainsbury’s is thinking about ‘the difference
-you make’</h3>
-          
+                <h3 style="color:#ffffff;text-transform:none;margin-bottom:15px;">
+                    Thinking about performance at Sainsbury’s is thinking about ‘the difference
+                    you make’
+                </h3>
+
 
 
                 <div class="liIcon liIconTick"></div>

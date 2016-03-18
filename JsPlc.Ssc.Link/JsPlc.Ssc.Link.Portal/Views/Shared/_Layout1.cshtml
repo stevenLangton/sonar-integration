@@ -62,27 +62,32 @@
     <div class="wrapper">
         <div class="container">
 
-                <div class="row">
-                    <div class="col-md-3" id="linkSecondaryNav">
+            <div  class="row @(Request.IsAuthenticated ? "" : "background1")">
+
+
+
+
+                <div class="col-md-3" id="linkSecondaryNav">
                     @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
-                    </div>
-                    <div class="col-md-9">
-                        @RenderBody()
-                    </div>
                 </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
 
-                   @if (@ViewBag.Title == "Welcome to My performance")
-                    {
-                        <div class="row">
-                            <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
-                                @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
+                @if (@ViewBag.Title == "Welcome to My performance")
+                {
+                    <div class="row">
+                        <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
+                            @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
 
-                            </div>
                         </div>
-                   }
-                  
+                    </div>
+                }
 
-        </div>
+
+            </div>
+
         <div class="push"></div>
     </div>
 
@@ -101,7 +106,7 @@
 
 
 
-    <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br />Link v @ViewBag.VersionNumber</div>
+    <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>v@ViewBag.VersionNumber</small> </div>
 </div>
                 </div>
             </div>
