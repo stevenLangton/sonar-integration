@@ -39,8 +39,7 @@
                 LookingFwdQuestions: [],
                 DrivingDevelopmentQuestions: [],
                 InANutShellQuestions: [],
-                Questions: [],
-                DownloadUrl: common.getSiteRoot() + 'pdf/DownloadFromDb/?MeetingId=' + data.MeetingId
+                Questions: []
             };
             $("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
             $("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff == 1) ? true : false);
