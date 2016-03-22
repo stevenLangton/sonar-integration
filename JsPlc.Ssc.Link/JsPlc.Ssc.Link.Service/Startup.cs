@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartup(typeof(JsPlc.Ssc.Link.Service.Startup))]
-
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Web.config", Watch = true)]
 namespace JsPlc.Ssc.Link.Service
 {
     public partial class Startup
