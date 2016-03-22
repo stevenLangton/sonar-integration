@@ -56,8 +56,6 @@ namespace JsPlc.Ssc.Link.Portal.Security
                 return facade.GetColleagueByUsername(EmailAddress);
             }
         }
-                //        CurrentUser.IsLineManager = ServiceFacade.IsManagerByEmail(authenticatedEmailAddr);
-                //CurrentUser.Colleague = ServiceFacade.GetColleagueByUsername(authenticatedEmailAddr);
 
         /// <summary>
         /// Team access means you can access your own data or that of your direct reports.

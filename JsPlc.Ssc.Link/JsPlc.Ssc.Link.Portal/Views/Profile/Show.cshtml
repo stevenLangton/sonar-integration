@@ -12,12 +12,7 @@
 <div id="ProfileView">
     <div>@Html.MvcSiteMap().SiteMapPath()</div>
     <div class="row">
-        <div class="col-md-6"> <h1>@(Colleague.FirstName + " " + Colleague.LastName)</h1></div>
-        <div class="col-md-6">
-            <div class="right">
-                @Html.ActionLink("Arrange a new conversation", "Create", "LinkForm", new { colleagueId = Colleague.ColleagueId }, new { @class = "btn btn-primary" })
-            </div>
-        </div>
+        <h1>@(Colleague.FirstName + " " + Colleague.LastName)</h1>
     </div>
     
     <current-meeting params="{data: data}"></current-meeting>

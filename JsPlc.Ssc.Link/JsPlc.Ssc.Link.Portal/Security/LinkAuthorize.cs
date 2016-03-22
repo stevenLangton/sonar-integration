@@ -55,13 +55,6 @@ namespace JsPlc.Ssc.Link.Portal.Security
             {
                 return facade.IsManagerByEmail(userName);
             }
-            //if (userName.ToLower().Contains("sandip"))
-            //{
-            //    // Query LinkRepo to see if any direct reports
-            //    // call API to get HasDirectReports (dont use DB directly)
-            //    return true;
-            //}
-            //return false;
         }
     }
 
