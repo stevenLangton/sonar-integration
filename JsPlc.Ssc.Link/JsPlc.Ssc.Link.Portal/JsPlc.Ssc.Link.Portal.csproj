@@ -47,15 +47,16 @@
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah">
-      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WolfeReiter.iTextSharp.BC.4.1.6.0\lib\net40\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Kentor.OwinCookieSaver, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Kentor.OwinCookieSaver.1.1.0\lib\net45\Kentor.OwinCookieSaver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -255,7 +256,7 @@
   <ItemGroup>
     <Content Include="404.html" />
     <Content Include="500.html" />
-    <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="App_Data\Logs\placeholder.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -319,7 +320,6 @@
     <Content Include="Content\ProfilePics\E009.jpg" />
     <Content Include="Content\Sidebar.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="ElmahErrorLogs\Elmaherrors.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -534,7 +534,6 @@
     <Content Include="Views\Shared\_HomeContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Playpit\" />
   </ItemGroup>
   <ItemGroup>
