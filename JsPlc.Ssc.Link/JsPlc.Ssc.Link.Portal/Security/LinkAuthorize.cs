@@ -1,10 +1,46 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using JsPlc.Ssc.Link.Portal.Security;
+using JsPlc.Ssc.Link.Models;
 
 namespace JsPlc.Ssc.Link.Portal.Security
 {
+    public class TeamAccessAttribute : LinkAuthorizeBaseAttribute
+    {
+        //You have team access when you can access your own data and that of your direct reports
+        public override bool IsAuthorized(HttpContextBase httpContext)
+        {
+            //ClaimsPrincipal currentPrincipal = HttpContext.Current.User as ClaimsPrincipal;
+            return HasAccess(httpContext);
+        }
+
+        //Check if the logged in user has TeamAccess privileage
+        private bool HasAccess(HttpContextBase httpContext)
+        {
+            string EmailAddress = AuthorizationService.GetEmailAddress();
+
+            using (var facade = new LinkServiceFacade())
+            {
+                ColleagueView Colleague = facade.GetColleagueByUsername(EmailAddress);
+
+                if (Colleague != null)
+                {
+                    return AuthorizationService.HasTeamAccess(Colleague.ColleagueId, httpContext.Request.QueryString["colleagueid"]);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+    }
+    //End of class TeamAccessAttribute
+
     public class LinkAuthorizeManagerAttribute: LinkAuthorizeBaseAttribute
     {
         public override bool IsAuthorized(HttpContextBase httpContext)
@@ -37,18 +73,35 @@ namespace JsPlc.Ssc.Link.Portal.Security
         public abstract bool IsAuthorized(HttpContextBase httpContext);
 
         //Called when access is denied
-        protected override void HandleUnauthorizedRequest( AuthorizationContext filterContext ) {
+        protected override void HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext filterContext ) {
             //User isn't logged in
             if ( !filterContext.HttpContext.User.Identity.IsAuthenticated ) {
-                filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary( new { controller = "Account", action = "Login", reason = "Login with correct access"  } )
-                );
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    filterContext.Result = new JsonResult {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = new { success = false, message = "You are not authenticated", data = String.Empty }
+                    };
+                }
+                else
+                {
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Account", action = "Login", reason = "Login with correct access" }));
+                }
             }
             //User is logged in but has no access
             else {
-                filterContext.Result = new RedirectToRouteResult(
-                        new RouteValueDictionary(new { controller = "Account", action = "Login", reason = "This login is unauthorized." })
-                );
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    filterContext.Result = new JsonResult
+                    {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = new { success = false, message = "You are not authorized", data = String.Empty }
+                    };
+                }
+                else
+                {
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Account", action = "Login", reason = "This login is unauthorized." }));
+                }
             }
         }
  
@@ -61,4 +114,5 @@ namespace JsPlc.Ssc.Link.Portal.Security
             //Returns true or false, meaning allow or deny. False will call HandleUnauthorizedRequest above
         }
     }
+
 }

@@ -249,6 +249,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Security\AuthorizationService.cs" />
     <Compile Include="Security\LinkAuthorize.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

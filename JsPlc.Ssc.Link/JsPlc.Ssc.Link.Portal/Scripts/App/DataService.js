@@ -1,14 +1,19 @@
 ﻿define(["jquery", "common"], function ($, common) {
     "use strict";
 
-    var getObjectives = function (colleagueId) {
-        var $promise = $.ajax({
-            data: {ColleagueId: colleagueId},
-            url: "objective/GetObjectives",
-            type: "get",
-            dataType: "json"
-        });
+    //var getObjectives = function (colleagueId) {
+    //    var $promise = $.ajax({
+    //        data: {ColleagueId: colleagueId},
+    //        url: "objective/GetObjectives",
+    //        type: "get",
+    //        dataType: "json"
+    //    });
 
+    //    return $promise;
+    //};
+
+    var getObjectives = function (colleagueId) {
+        var $promise = common.callServerAction("get", "objective/GetObjectives", { ColleagueId: colleagueId });
         return $promise;
     };
 
