@@ -488,3 +488,7 @@ background-image:url(/Content/Images/triangle-background-17.png);
  padding-top:10px;
  padding-bottom:20px;
 }
+
+.expanded-objective .fa {
+    color: white;
+}
