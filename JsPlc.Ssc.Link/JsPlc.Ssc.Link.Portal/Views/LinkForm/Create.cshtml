@@ -21,24 +21,24 @@
         <form id="myform" method="post" style="display: none;" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
 
             <!-- Manager view: show colleague name banner -->
-            <div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-                <div class="col-xs-3 col-md-4"><!-- Profile pic if any --></div>
+            <!--<div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+                <div class="col-xs-3 col-md-4"></div>
                 <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
                 <div class="col-xs-3 col-md-4"></div>
-            </div>
+            </div>-->
 
             <!-- Colleague view: show manager name banner -->
-            <div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
-                <div class="col-xs-3 col-md-4"><!-- Profile pic if any --></div>
+            <!--<div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
+                <div class="col-xs-3 col-md-4"></div>
                 <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: 'Line manager:' + $root.dataModel().ManagerName"></span></div>
                 <div class="col-xs-3 col-md-4"></div>
-            </div>
+            </div>-->
 
             <!-- Link conversation -->
             <div class="row">
                 <div class="col-md-10">
                     <div class="heading-withdatepicker">
-                        <h2>@ViewBag.Title</h2>
+                        <h2>@ViewBag.Title<small><span class="colleagueInfo" data-bind="text: ' with ' + $root.dataModel().ManagerName"></span></small></h2>
                     </div>
                 </div>
                 <!-- Save button (top) -->
