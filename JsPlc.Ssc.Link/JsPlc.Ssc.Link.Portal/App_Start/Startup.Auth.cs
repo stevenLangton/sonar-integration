@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.WebPages;
-using Elmah;
 using JsPlc.Ssc.Link.Portal.Models;
 using JsPlc.Ssc.Link.Portal.Helpers;
 using Microsoft.Owin;
@@ -86,8 +85,6 @@ namespace JsPlc.Ssc.Link.Portal
                         AuthenticationFailed = context =>
                         {
                             context.HandleResponse();
-                            Elmah.ErrorSignal.FromCurrentContext().Raise(context.Exception);
-                            //context.Response.Redirect("/Home/Error?message=" + context.Exception.Message);
                             context.Response.Redirect("/");
                             return Task.FromResult(0);
                         }

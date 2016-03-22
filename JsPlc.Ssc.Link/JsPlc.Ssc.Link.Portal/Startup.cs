@@ -3,7 +3,7 @@ using Owin;
 using System.Web.Http;
 using Microsoft.Owin;
 
-//[assembly: OwinStartupAttribute(typeof(JsPlc.Ssc.Link.Portal.Startup))]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Web.config", Watch = true)]
 namespace JsPlc.Ssc.Link.Portal
 {
     // We might have 2 startup classes (One for Dev one for Production and so on...)

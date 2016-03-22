@@ -11,15 +11,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
-using Elmah;
 using JsPlc.Ssc.Link.Models;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Portal.Helpers
 {
     public static class Utils
     {
+		private static readonly ILog _logger = LogManager.GetLogger("LogElmahInfo");
+
         public static void ClearAllCookies(this HttpContextBase httpContext)
         {
             if (httpContext.Session != null)
@@ -53,23 +55,21 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
             }
             catch (Exception ex)
             {
-                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("LogElmahInfo extension method failed..")));
-                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(ex));
+				_logger.Error(ex);
             }
         }
         public static void LogElmahInfo(string stringValue)
         {
-            try
+			try
             {
                 if (ConfigurationManager.AppSettings["LogDebugInfo"].ToLower().Equals("true"))
                 {
-                    ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception(stringValue)));
+					_logger.Error(stringValue);
                 }
             }
             catch (Exception ex)
             {
-                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("LogElmahInfo failed..")));
-                ErrorLog.GetDefault(HttpContext.Current).Log(new Error(ex));
+				_logger.Error(ex);
             }
         }
 
