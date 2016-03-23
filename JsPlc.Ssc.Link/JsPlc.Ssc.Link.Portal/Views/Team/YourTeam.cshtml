@@ -45,11 +45,11 @@
                     <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])},
                                     visible: LatestMeeting.SharingStatus==1" class="btn btn-primary">View Link conversation</a>
                 </p>
-                <div data-bind="if: !LatestMeeting && Meetings!== null">
+                <!--<div data-bind="if: !LatestMeeting && Meetings!== null">
                     <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])},
                                   visible: Meetings[0].SharingStatus==1"
                        class="btn btn-default">View record</a>
-                </div>
+                </div>-->
                 @*<div data-bind="if:  Meetings === null">
                     <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-primary">Arrange a Link conversation</a>
                 </div>*@

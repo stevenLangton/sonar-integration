@@ -496,10 +496,15 @@ background-image:url(/Content/Images/triangle-background-17.png);
  margin-left:0px;
 }
 
-.btn {
+.btn-primary {
     border-radius: 20px;
     font-family:maryAnnWeb;
     background-color:#056792;
+}
+
+.btn-default {
+    border-radius: 20px;
+    font-family:maryAnnWeb;
 }
 
 .expanded-objective .fa {
