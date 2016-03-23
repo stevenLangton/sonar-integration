@@ -2,6 +2,7 @@
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Properties;
+using JsPlc.Ssc.Link.Portal.Security;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
@@ -34,27 +35,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View();
         }
 
-        //public ActionResult GetAllColleagueObjectives(string ColleagueId)
-        //{
-        //    //return GetObjectives(CurrentUser.Colleague.ColleagueId);
-        //    return GetObjectives(ColleagueId);
-        //}
-
         [HttpGet]
+        [TeamAccess]
         public async Task<ActionResult> GetObjectives(string ColleagueId)
         {
             var ObjectivesList = await ServiceFacade.GetObjectivesList(ColleagueId);
 
-            var jsonResult = new JsonResult
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = ObjectivesList
-            };
-
-            return jsonResult;
+            return MakeJsonObject(ObjectivesList);
         }
 
         [HttpGet]
+        [TeamAccess]
         public async Task<ActionResult> GetSharedObjectives(string ColleagueId)
         {
             var ObjectivesList = await ServiceFacade.GetSharedObjectives(ColleagueId);
@@ -69,6 +60,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [HttpGet]
+        [TeamAccess]
         public async Task<ActionResult> GetOneObjective(int ObjectiveId)
         {
             LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, ObjectiveId);
@@ -94,14 +86,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("Show", item);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Show(int Id)
-        {
-            ViewBag.Title = "View objective";
-            LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
-            ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
-            return View(item);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult> Show(int Id)
+        //{
+        //    ViewBag.Title = "View objective";
+        //    LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
+        //    ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
+        //    return View(item);
+        //}
 
         [HttpPost]
         public async Task<ActionResult> Create(LinkObjective modifiedObjective)
@@ -123,9 +115,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             }
             else
             {
+
                 var errors = ModelState.Select(x => x.Value.Errors)
                        .Where(y => y.Count > 0)
                        .ToList();
+
+                return MakeJsonObject(errors, false, @"Validation errors found");
             }
 
             return new JsonResult
@@ -151,6 +146,20 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                 Data = new { success = Success, savedObjective = modifiedObjective }
             };
-        }//Update
+        }
+        //Update
+
+        #region Private methods
+
+        private JsonResult MakeJsonObject(dynamic DataObject, bool Success=true, string Message="")
+        {
+            return new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { success = Success, message = Message, data = DataObject }
+            };
+        }
+
+        #endregion
     }
 }

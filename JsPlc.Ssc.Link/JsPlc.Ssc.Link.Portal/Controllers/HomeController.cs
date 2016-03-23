@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Properties;
+using System;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -12,7 +13,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
     {
         public ActionResult Index()
         {
-            TempData["IPAddress"] = GetIPAddress();
+			TempData["IPAddress"] = GetIPAddress();
             return View("Welcome");
         }
 

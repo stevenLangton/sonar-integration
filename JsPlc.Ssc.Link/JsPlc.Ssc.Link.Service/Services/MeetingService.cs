@@ -4,7 +4,6 @@ using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Linq;
 using System.Data.Entity;
-using Elmah;
 using JsPlc.Ssc.Link.Interfaces.Services;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
@@ -204,7 +203,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             }
             else
             {
-                throw new Elmah.ApplicationException("Cannot unshare a meeting which has been approved.");
+                throw new ApplicationException("Cannot unshare a meeting which has been approved.");
             }
             return meeting.ToMeetingView();
         }
@@ -225,7 +224,7 @@ namespace JsPlc.Ssc.Link.Service.Services
             }
             else
             {
-                throw new Elmah.ApplicationException("Cannot approve a meeting if not shared or already approved.");
+                throw new ApplicationException("Cannot approve a meeting if not shared or already approved.");
             }
             return meeting.ToMeetingView();
         }

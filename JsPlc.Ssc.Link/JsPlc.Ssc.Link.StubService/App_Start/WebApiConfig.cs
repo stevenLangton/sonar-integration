@@ -28,7 +28,6 @@ namespace JsPlc.Ssc.Link.StubService
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Filters.Add(new ElmahHandleWebApiErrorAttribute());
         }
     }
 }

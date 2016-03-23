@@ -80,14 +80,14 @@ namespace JsPlc.Ssc.Link.Service.Services
             return _db.Objectives.Where(e => e.ColleagueId == colleagueId && e.CreatedDate.Year == year.Year);
         }
 
-        /// <summary>
+		/// <summary>
         /// Get all objectives for a colleague
         /// </summary>
         /// <param name="colleagueId"></param>
         /// <returns>A list of objectives</returns>
         public async Task<List<LinkObjective>> GetAllObjectives(string colleagueId)
         {
-            return await _db.Objectives.Where(e => e.ColleagueId == colleagueId).ToListAsync<LinkObjective>();
+			return await _db.Objectives.Where(e => e.ColleagueId == colleagueId).ToListAsync<LinkObjective>();
         }
 
         /// <summary>

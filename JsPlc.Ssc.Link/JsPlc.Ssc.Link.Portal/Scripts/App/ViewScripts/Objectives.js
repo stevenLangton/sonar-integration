@@ -1,5 +1,5 @@
 ﻿//This module manages the "My objectives" page.
-define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common, LinkService) {
+define(["jquery", "knockout", "common", "LinkService", "toastr"], function ($, ko, common, LinkService, toastr) {
     "use strict";
 
     var makeEmptyObjective = function () {
@@ -93,17 +93,20 @@ define(["jquery", "knockout", "common", "LinkService"], function ($, ko, common,
         });
 
         $promise.done(function (result) {
-            var result = result;
-            var vm = ObjectivesListVm();
-            vm.objectives(result);
+            if (result.success) {
+                var vm = ObjectivesListVm();
+                vm.objectives(result.data);
 
-            //Sort the objectives. Latest amended first
-            vm.objectives.sort(orderObjectives);
-            ko.applyBindings(vm, document.getElementById(divId));
+                //Sort the objectives. Latest amended first
+                vm.objectives.sort(orderObjectives);
+                ko.applyBindings(vm, document.getElementById(divId));
+            } else {
+                toastr.error(result.message);
+            }
         });
 
         $promise.error(function (request, status, error) {
-            alert(request.responseText);
+            toastr.error(error);
         });
     };
 
