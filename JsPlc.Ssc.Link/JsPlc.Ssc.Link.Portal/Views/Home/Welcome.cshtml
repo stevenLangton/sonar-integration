@@ -8,10 +8,20 @@
 
     <div class="@(Request.IsAuthenticated ? "background1" : "")">
 
+        @if (Request.IsAuthenticated)
+        {
         <div class="col-md-8">
-            <h1>Welcome to <br /> <strong>@Resources.AppName</strong></h1>
+            <h1>Welcome to <strong>@Resources.AppName</strong></h1>
 
         </div>
+        }
+        else
+        {
+            <div class="col-md-8" style="margin-left:-270px;margin-right:270px;">
+                <h1>Welcome to <strong>@Resources.AppName</strong></h1>
+
+            </div>
+        }
 
 
         <div class="col-md-4">
