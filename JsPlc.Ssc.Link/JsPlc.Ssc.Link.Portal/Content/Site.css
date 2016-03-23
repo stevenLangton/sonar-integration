@@ -182,16 +182,19 @@ img.comp-logo {
     background-repeat: no-repeat;
     background-image: url(Images/tick-icon.png);
     background-size: 40px 40px;
+     margin-top:25px;margin-bottom:-25px;
 }
 .liIconHeart{  
     background-repeat: no-repeat;
     background-image: url(Images/heart-icon.png);
      background-size: 40px 40px;
+     margin-top:25px;margin-bottom:-25px;
 }
 .liIconPeople{  
     background-repeat: no-repeat;
     background-image: url(Images/people-icon.png);
      background-size: 40px 40px;
+      margin-top:25px;margin-bottom:-25px;
 }
 
 

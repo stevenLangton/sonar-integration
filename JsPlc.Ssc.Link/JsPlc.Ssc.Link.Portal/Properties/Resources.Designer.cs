@@ -70,7 +70,7 @@ namespace JsPlc.Ssc.Link.Portal.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My development.
+        ///   Looks up a localized string similar to My Development.
         /// </summary>
         public static string ColleagueSectionHeader {
             get {
@@ -115,7 +115,7 @@ namespace JsPlc.Ssc.Link.Portal.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My team.
+        ///   Looks up a localized string similar to My Team.
         /// </summary>
         public static string TeamSectionHeader {
             get {

@@ -122,7 +122,7 @@
     <comment>Name of application</comment>
   </data>
   <data name="ColleagueSectionHeader" xml:space="preserve">
-    <value>My development</value>
+    <value>My Development</value>
     <comment>Colleague section heading</comment>
   </data>
   <data name="ConvTracker" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>A page title</comment>
   </data>
   <data name="TeamSectionHeader" xml:space="preserve">
-    <value>My team</value>
+    <value>My Team</value>
     <comment>Team section heading</comment>
   </data>
 </root>
