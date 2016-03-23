@@ -231,6 +231,7 @@
     <Compile Include="Controllers\ObjectivesController.cs" />
     <Compile Include="Controllers\PdpController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Filters\GlobalActionExecutedExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

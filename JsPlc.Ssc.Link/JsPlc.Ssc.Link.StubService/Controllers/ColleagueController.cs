@@ -4,6 +4,7 @@ using System.Web.Http;
 using JsPlc.Ssc.Link.StubService.StubModels;
 using JsPlc.Ssc.Link.StubService.StubInterfaces;
 using Microsoft.Owin.Security.Provider;
+using System;
 
 namespace JsPlc.Ssc.Link.StubService.Controllers
 {
@@ -23,7 +24,7 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
         [Route("api/Colleague/{id}")]
         public IHttpActionResult GetColleague([FromUri] string id)
         {
-            ColleagueDto colleague = ColleagueServices.GetColleague(id);
+			ColleagueDto colleague = ColleagueServices.GetColleague(id);
 
             if (colleague == null)
                 return NotFound();

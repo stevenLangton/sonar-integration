@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Web.Http.Filters;
 using log4net;
+using JsPlc.Ssc.Link.Service.Filters;
 
 namespace JsPlc.Ssc.Link.Service
 {
@@ -18,8 +19,7 @@ namespace JsPlc.Ssc.Link.Service
         {
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-			GlobalConfiguration.Configuration.Filters.Add(new GlobalActionExecutedExceptionFilterAttribute());
-
+			GlobalConfiguration.Configuration.Filters.Add(new GlobalActionExecutedExceptionFilter());
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -32,14 +32,4 @@ namespace JsPlc.Ssc.Link.Service
 			log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
     }
-
-	public class GlobalActionExecutedExceptionFilterAttribute : ExceptionFilterAttribute
-	{
-		private static readonly ILog log = LogManager.GetLogger("GlobalActionExecutedEx");
-
-		public override void OnException(HttpActionExecutedContext context)
-		{
-			log.Error(context.Exception);
-		}
-	}
 }
