@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "My team members";
+    ViewBag.Title = "Team members";
 }
 
 <div id="linkpage" style="display: none;" data-bind="visible: true">
@@ -7,54 +7,83 @@
     <h1>@ViewBag.Title</h1>
     <br />
     <div class="list-group" data-bind="foreach: teamMembers">
-        <div class="linkBox1 list-group-item">
-            <div class="media-body">
-                <div>
-                     <h2 style="margin:0px;"><span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span></h2>
-                    <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-primary pull-right">View profile
-                    
-                    </a>
+        <div class="linkBox3">
+           
+
+                <div class="linkBoxTitle">
+                    <h3 style="color:#ffffff;"><span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span></h3>
+                  
                 </div>
-                <br />
-                <div>
+
+            <div class="LinkBox1Padding">
+                <div class="row">
+
+
+                    <div class="col-md-10">
                     You've had
                     <strong>
                         <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
-                                    (MeetingsInLast12Months == 1) ? '1 conversation ' :
-                                    (MeetingsInLast12Months + ' conversations ')"></span>
+                                        (MeetingsInLast12Months == 1) ? '1 conversation ' :
+                                        (MeetingsInLast12Months + ' conversations ')"></span>
                     </strong>
                     with <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>.
+
+                    <p data-bind="if: LastMeeting && LastMeeting.MeetingDate">
+                        Last conversation: <strong><span data-bind="text: $root.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+                    </p>
+                    <p data-bind="if: !LatestMeeting">
+                        <strong>
+                            You do not have any conversations scheduled with
+                            <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
+                        </strong>
+                    </p>
+                    <!-- Next conversation date -->
+                    <p data-bind="if: LatestMeeting">
+                        <strong>
+                            Next conversation: <span data-bind="text: $root.meetingService.formatDateMonthDYHM(UpcomingMeetings[0].MeetingDate)"></span>
+                        </strong>
+                    </p>
+                    <!-- View conversation button -->
+                    <p data-bind="if: LatestMeeting">
+                        <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])},
+                                        visible: LatestMeeting.SharingStatus==1" class="btn btn-primary">View Link conversation</a>
+                    </p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a data-bind="attr: {'href': 'Profile/Show/'+Colleague.ColleagueId}" class="btn btn-primary">
+                            View profile
+                        </a>
+                    </div>
+
                 </div>
-                <div data-bind="if: LastMeeting && LastMeeting.MeetingDate">
-                    Last conversation: <strong><span data-bind="text: $root.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
-                </div>
-                <h4 data-bind="if: !LatestMeeting">
-                    <strong>
-                        You do not have any conversations scheduled with
-                        <span data-bind="text: Colleague.FirstName + ' ' + Colleague.LastName"></span>
-                    </strong>
-                </h4>
-                <!-- Next conversation date -->
-                <h4 data-bind="if: LatestMeeting">
-                    <strong>
-                        Next conversation: <span data-bind="text: $root.meetingService.formatDateMonthDYHM(UpcomingMeetings[0].MeetingDate)"></span>
-                    </strong>
-                </h4>
-                <!-- View conversation button -->
-                <p data-bind="if: LatestMeeting">
-                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(UpcomingMeetings[0])},
-                                    visible: LatestMeeting.SharingStatus==1" class="btn btn-primary">View Link conversation</a>
-                </p>
-                <!--<div data-bind="if: !LatestMeeting && Meetings!== null">
-                    <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])},
-                                  visible: Meetings[0].SharingStatus==1"
-                       class="btn btn-default">View record</a>
-                </div>-->
-                @*<div data-bind="if:  Meetings === null">
-                    <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-primary">Arrange a Link conversation</a>
-                </div>*@
-                @*<br />*@
+
+               
             </div>
+            </div>
+                <!--<div data-bind="if: !LatestMeeting && Meetings!== null">
+            <a data-bind="attr: {'href': $root.meetingService.getEditOrViewLink(Meetings[0])},
+                          visible: Meetings[0].SharingStatus==1"
+               class="btn btn-default">View record</a>
+        </div>-->
+                @*<div data-bind="if:  Meetings === null">
+                <a data-bind="attr: {'href': 'LinkForm/Create/?colleagueId='+Colleague.ColleagueId}" class="btn btn-primary">Arrange a Link conversation</a>
+            </div>*@
+                @*<br />*@
+
+
+                   
+
+
+                
+                   
+               
+
+            </div>
+
+            </div>
+            <span style="clear:both;"></span>
+
         </div>
     </div>
     <hr />
