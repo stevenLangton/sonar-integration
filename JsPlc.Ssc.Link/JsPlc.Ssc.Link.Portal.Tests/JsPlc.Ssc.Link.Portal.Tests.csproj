@@ -100,7 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ObjectiveControllerTests.cs" />
-    <Compile Include="Controllers\PdfControllerTests.cs" />
     <Compile Include="Controllers\PdpControllerTests.cs" />
     <Compile Include="Controllers\ProfileControllerTests.cs" />
     <Compile Include="Controllers\LinkServiceFacadeTest.cs" />
@@ -120,7 +119,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="PdfTemplates\MeetingTemplate.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj">

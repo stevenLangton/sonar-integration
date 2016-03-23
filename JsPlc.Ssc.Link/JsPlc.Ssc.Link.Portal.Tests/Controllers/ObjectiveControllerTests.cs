@@ -140,18 +140,18 @@ namespace JsPlc.Ssc.Link.Portal.Tests.Controllers
             Assert.AreEqual(actResult.ViewName, "Show");
         }
 
-        [TestMethod]
-        public async void Show()
-        {
-            //Arrange
-            var controller = new ObjectiveController(TestMocks.AnyCurrentUser(), TestMocks.LinkServiceFacade());
+        //[TestMethod]
+        //public async void Show()
+        //{
+        //    //Arrange
+        //    var controller = new ObjectiveController(TestMocks.AnyCurrentUser(), TestMocks.LinkServiceFacade());
 
-            //Act
-            var actResult = await controller.Show(101) as ViewResult;
+        //    //Act
+        //    var actResult = await controller.Show(101) as ViewResult;
 
-            //Assert
-            Assert.IsNotNull(actResult);
-        }
+        //    //Assert
+        //    Assert.IsNotNull(actResult);
+        //}
 
         [TestMethod]
         public async void Create()

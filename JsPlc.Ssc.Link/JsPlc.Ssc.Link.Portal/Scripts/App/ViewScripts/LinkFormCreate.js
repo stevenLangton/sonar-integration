@@ -238,24 +238,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                 });
         }
 
-        ///
-        self.downloadLinkFormAsPdf = function () {
-            var MeetingView = self.dataModel();//Not quite the same
-            var param = { MeetingData: MeetingView };
-            //var $promise = common.callService("post", "Pdf/MakeFromJson", param);
-            $.ajax({
-                url: common.getSiteRoot() + "Pdf/MakeFromJson",
-                method: "POST",
-                data: param
-            })
-                .done(function (data) {
-                    if (data.success) {
-                        //window.location.href = "http://localhost/Pdf/DownloadPdf/" + "?fName=" + data.fName;
-                        window.location.href = common.getSiteRoot() + "Pdf/DownloadPdf/" + "?fName=" + data.fName;
-                    }
-                });
-        };
-
         // Parses response.ModelErrors dictionary
         var displayErrors = function (errors) {
             var errorsList = "";
@@ -264,10 +246,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             }
             $("#msgs").html("<ul class='linkErrorMsg'>" + errorsList + "</ul>");
             toastr.error("VALIDATION ERRORS, please see top of screen for remedial action.");
-        }
-
-        self.getMeetingView = function () {
-            return self.dataModel();
         }
 
         self.utils = helpers.utils;
@@ -358,16 +336,10 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         };
         vm.bind = binder;
 
-        //var pageQueryParams = helpers.queryStringHelpers.getQueryParams(window.location.search);
-        //var empId = pageQueryParams["colleagueId"];
-        ////var periodId = pageQueryParams["periodId"];
-        ////console.log("EmpID=" + empId + ", Full QueryString as json: " + JSON.stringify(pageQueryParams, null, 2));
-
         //// Show meeting data once loaded from GET
         //vm.loadPageData(empId);
         vm.getDataForMeeting();
 
-        var MeetingViewJsonForPdf = vm.getMeetingView();
         if (!jQuery || jQuery == undefined) window.jQuery = $;
     });
 });

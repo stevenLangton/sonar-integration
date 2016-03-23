@@ -28,15 +28,11 @@ require.config({
         helpers: "Utils/helpers",
         linkDatePickers: "utils/linkDatePickers",
         text: "text.min",
-        //komoment: 'path/to/komoment', // KoMoment potentially useful
-        //"datatables": "DataTables/jquery.dataTables",
 
         //App modules
         common: "App/common",
         confirmModal: "App/ConfirmModal",
 
-
-        //"ko-binding-handlers": "App/ko-binding-handlers",
 
         RegisterKoComponents: "App/kocomponents/RegisterKoComponents",
 
@@ -58,17 +54,15 @@ require.config({
 
     },
     shim: {
+        datetimepicker: { deps: ["jquery"] },
         "bootstrap-datepicker": { deps: ["jquery"] },
         "bootstrap-datepickerGB": { deps: ["jquery", "bootstrap-datepicker"] },
         jqueryval: { deps: ["jquery"] },
         knockout: { deps: ["jquery"] },
         bootstrap: { deps: ["jquery"] },
         autogrow: { deps: ["jquery"] }
-        //"ko-binding-handlers": { deps: ["jquery"] }
-        //"tableedit": { deps: ["tabletools"] }
     },
     map: {
-        //typeahead: "typeahead-helper!typeahead.bundle"
         URI: {
             IPv6: "URIjs/punycode",
             punycode: "URIjs/punycode",

@@ -47,21 +47,39 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("api/HasColleagueAccess/{colleagueId}/{otherColleagueId}")]
         public IHttpActionResult HasColleagueAccess(string colleagueId, string otherColleagueId)
         {
+            //Mandatory
             var colleague = _dbColleagues.GetColleague(colleagueId);
-            var otherColleague = _dbColleagues.GetColleague(otherColleagueId);
-            var directReports = _dbColleagues.GetDirectReports(colleagueId);
-            if (colleague == null || otherColleague == null)
-                return NotFound();
+            if (colleague == null)
+                return Ok(false);
 
             // Either you are otherColleague 
             // OR the otherColleague is of your directReports, you have access..
-            if ((colleagueId.Equals(otherColleagueId))
-                || (directReports != null && directReports.Any(x => x.ColleagueId.Equals(otherColleagueId))))
+            var directReports = _dbColleagues.GetDirectReports(colleagueId);
+            if ((colleagueId.Equals(otherColleagueId, System.StringComparison.InvariantCultureIgnoreCase)) //Access own data
+                || (directReports != null && directReports.Any(x => x.ColleagueId.Equals(otherColleagueId, System.StringComparison.InvariantCultureIgnoreCase)))) //Access direct reports data
             {
                 return Ok(true);
             }
 
             return Ok(false);
+
+            //ORIGINAL
+            //var colleague = _dbColleagues.GetColleague(colleagueId);
+            //var otherColleague = _dbColleagues.GetColleague(otherColleagueId);
+            //var directReports = _dbColleagues.GetDirectReports(colleagueId);
+            //if (colleague == null || otherColleague == null)
+            //    return NotFound();
+
+            //// Either you are otherColleague 
+            //// OR the otherColleague is of your directReports, you have access..
+            //if ((colleagueId.Equals(otherColleagueId))
+            //    || (directReports != null && directReports.Any(x => x.ColleagueId.Equals(otherColleagueId))))
+            //{
+            //    return Ok(true);
+            //}
+
+            //return Ok(false);
+            //END ORIGINAL
         }
 
         [HttpGet]

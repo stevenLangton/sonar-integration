@@ -8,7 +8,6 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
-using Elmah;
 using iTextSharp.text;
 using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
@@ -18,7 +17,6 @@ using System;
 using System.Globalization;
 using Microsoft.Ajax.Utilities;
 using Org.BouncyCastle.Asn1;
-using ApplicationException = Elmah.ApplicationException;
 using JsPlc.Ssc.Link.Portal.Properties;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers.Base
