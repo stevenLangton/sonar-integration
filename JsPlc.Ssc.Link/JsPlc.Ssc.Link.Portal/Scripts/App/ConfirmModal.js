@@ -1,5 +1,28 @@
 ﻿define(["jquery"], function ($) {
     "use strict";
+    var dialogHtml = "<div id='confirmModal' class='modal fade'>\
+    <div class='modal-dialog'>\
+        <div class='modal-content'>\
+            <div class='modal-header'>\
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>\
+                <h4 class='modal-title'>Confirmation</h4>\
+            </div>\
+            <div class='modal-body'>\
+                <p>This action cannot be undone and can potentially update many records. Are you very sure you want to proceed?</p>\
+            </div>\
+            <div class='modal-footer'>\
+                <button id='cancel' type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>\
+                <button id='proceed' type='button' class='btn btn-primary'>Proceed</button>\
+            </div>\
+        </div>\
+    </div>\
+</div>";
+
+    if (!$("#confirmModal").length) {
+        var divElement = document.createElement('div');
+        divElement.innerHTML = dialogHtml;
+        document.body.appendChild(divElement);
+    }
 
     var $container = $("#confirmModal");
 

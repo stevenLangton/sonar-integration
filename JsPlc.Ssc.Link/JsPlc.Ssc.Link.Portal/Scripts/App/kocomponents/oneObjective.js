@@ -116,7 +116,7 @@
                     vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
                     vm.onSave();
                 } else {
-                    toastr.error("We encountered a problem while processing your request.");
+                    toastr.error(result.message);
                 }
             });
 
@@ -228,5 +228,5 @@
         }
     };
 
-    return {viewModel: viewModel, template: htmlTemplate};
+    return { viewModel: viewModel, template: htmlTemplate };
 });

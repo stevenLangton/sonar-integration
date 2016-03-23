@@ -1,27 +1,40 @@
 ﻿<div class="one-objective" style="display: none;" data-bind="visible: true">
-    <div class="pull-right" data-bind="if: enableViewToggle">
-        <a href="#" target="_blank" data-bind="click: toggleView"><icon class="fa" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon></a>
-    </div>
     <div data-bind="visible: !expandedView()">
-        <h3 data-bind="text: data.Title()?data.Title().replace(/^(.{60}[^\s]*).*/,'$1'):''"></h3>
+        <div class="row">
+            <div class="col-sm-11">
+                <h3 data-bind="text: data.Title()?data.Title().replace(/^(.{60}[^\s]*).*/,'$1'):''"></h3>
+            </div>
+            <div class="col-sm-1 pull-right" data-bind="if: enableViewToggle">
+                <a href="#" target="_blank" data-bind="click: toggleView" class="pull-right"><icon class="fa" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon></a>
+            </div>
+        </div>
         <p>
             <span data-bind="text: statusMessage() "></span>
         </p>
     </div>
     <div data-bind="visible: expandedView">
-        <h4 for="objectiveTitle" class="objective-question">Objective title</h4>
+        <div class="row objective-question">
+            <div class="col-sm-11">
+                <h4 for="objectiveTitle" class="objective-question">Objective title</h4>
+            </div>
+            <div class="col-sm-1 pull-right linkBoxTitle expanded-objective" data-bind="if: enableViewToggle">
+                <a href="#" target="_blank" data-bind="click: toggleView" class="pull-right">
+                    <icon class="fa fa-minus" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon>
+                </a>
+            </div>
+        </div>
         <div>
             <textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
         </div>
-        <h4 class="objective-question">What will I do to make a difference this year?</h4>
+        <h4 class="objective-question ">What will I do to make a difference this year?</h4>
         <div>
             <textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
         </div>
-        <h4 class="objective-question">How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
+        <h4 class="objective-question ">How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
         <div>
             <textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
         </div>
-        <h4 class="objective-question">Which company or divisional priority does this support?</h4>
+        <h4 class="objective-question ">Which company or divisional priority does this support?</h4>
         <div>
             <textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>
         </div>

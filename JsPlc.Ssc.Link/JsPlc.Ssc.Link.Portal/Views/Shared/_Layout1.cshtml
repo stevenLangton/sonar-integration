@@ -12,15 +12,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!-- Cache disabling headers -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <!-- End Cache disabling headers -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")">
     <link rel="shortcut icon icon" type="image/ico" href="favicon.ico" />
     <title>@ViewBag.Title - @Resources.AppName</title>
@@ -36,7 +37,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-    require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
+        require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
             //common.setUserInfo("@ColleagueId");
             common.setUserInfo(@Html.Raw(Json.Encode(CurrentUser)));
 
@@ -50,7 +51,7 @@
                 "extendedTimeOut": 1000
             };
             LinkService.setServiceBaseUrl("@(ConfigurationManager.AppSettings["ServicesBaseUrl"])");
-    });
+        });
     </script>
     <meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
@@ -62,7 +63,7 @@
     <div class="wrapper">
         <div class="container">
 
-            <div  class="row @(Request.IsAuthenticated ? "" : "background1")">
+            <div class="row @(Request.IsAuthenticated ? "" : "background1")">
 
 
 
@@ -75,18 +76,18 @@
                 </div>
             </div>
 
-                @if (@ViewBag.Title == "Welcome to My performance")
-                {
-                    <div class="row">
-                        <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
-                            @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
+            @if (@ViewBag.Title == "Welcome to My performance")
+            {
+                <div class="row">
+                    <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
+                        @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
 
-                        </div>
                     </div>
-                }
+                </div>
+            }
 
 
-            </div>
+        </div>
 
         <div class="push"></div>
     </div>
@@ -98,16 +99,16 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12" style="text-align:center;">
-                        <br/>
+                        <br />
 
                         <a href="/home/help">Help</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="/home/contact">Contact Us</a>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;<a href="#">Log out</a>
 
-                        <br/><br /><br />
+                        <br /><br /><br />
 
 
 
-    <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>v@ViewBag.VersionNumber</small> </div>
-</div>
+                        <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small> </div>
+                    </div>
                 </div>
             </div>
 
