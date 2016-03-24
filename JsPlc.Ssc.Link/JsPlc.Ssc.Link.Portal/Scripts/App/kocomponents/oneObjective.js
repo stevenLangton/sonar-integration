@@ -65,6 +65,8 @@
                         ? "Shared for your approval on " + dateStr
                         : "Shared with " + mgrName + " on " + dateStr;
                 }
+            } else {
+                statusMsg = "Share this with " + mgrName;
             }
 
             return statusMsg;
@@ -191,6 +193,8 @@
         };
 
         vm.share = function (data) {
+            data.data.SharedWithManager(!data.data.SharedWithManager());//Toggle manually
+
             if (data.data.SharedWithManager()) {
                 vm.data.DateShared(new Date());
             } else {
@@ -198,11 +202,13 @@
             }
 
             vm.statusMessage(vm.getStatusMessage());
-
-            return true;
+            vm.update();
+            //return true;
         };
 
         vm.approve = function (data) {
+            data.data.Approved(!data.data.Approved());//Toggle manually
+
             if (data.data.Approved()) {
                 vm.data.DateApproved(new Date());
                 vm.readOnly = true;
@@ -214,8 +220,8 @@
 
             //When associated checkbox is ticked it disappear and data is saved (as per UX doc LINK-247)
             vm.update();
-            vm.toggleView();
-            return true;
+            //vm.toggleView();
+            //return true;
         };
 
         return vm;

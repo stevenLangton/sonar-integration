@@ -40,14 +40,18 @@
         </div>
         <br />
         <div class="container-fluid">
-            <span data-bind="text: statusMessage(), visible: data.Approved()"></span>
+            <div class="pull-right" data-bind="visible: !managerView && !data.Approved()">
+                <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="container-fluid">
+            <span data-bind="text: statusMessage "></span>
             <div class="pull-right" data-bind="visible: managerView && !data.Approved()">
-                <span><input type="checkbox" data-bind="checked: data.Approved, click: approve" />I approve this objective</span>
+                <button class="btn btn-primary" data-bind="click: approve">I approve this objective</button>
             </div>
             <div class="pull-right" data-bind="visible: !managerView && !data.Approved()">
-                <span><input type="checkbox" data-bind="checked: data.SharedWithManager, click: share, disable: readOnly" />Share with manager</span>
-                <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
-                <!--<button class="btn btn-primary" data-bind="click: $component.cancel">Cancel</button>-->
+                <button class="btn btn-primary" data-bind="click: share, disable: readOnly">Share record</button>
             </div>
         </div>
         <br />
