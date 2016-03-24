@@ -526,6 +526,11 @@ background-size:contain;
     background-color:#056792;
 }
 
+.btn-primary:active {
+    border:none;
+
+}
+
 .btn-default {
     border-radius: 20px;
     font-family:maryAnnWeb;
