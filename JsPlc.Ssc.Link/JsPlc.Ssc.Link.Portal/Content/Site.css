@@ -132,6 +132,10 @@ img.comp-logo {
     background-color: #056792;
 }
 
+/*main Pdp tabs*/
+.pdp-heading{ background-color: #056792;color: #ffffff;padding:10px;margin:0px;}
+
+
 /*.panel-default > .panel-heading {
     color: #fff;
     background-color: #ffffff;
@@ -254,7 +258,9 @@ textarea {
 }
 
 textarea.form-control.multilinePdp {
-    height:150px; width:100%;
+    height:150px; 
+    width:100%;
+    border-radius: 0px;
 }
 
 .navbar {
