@@ -361,7 +361,6 @@
     <Content Include="Scripts\App\kocomponents\meeting-history.js" />
     <Content Include="Scripts\App\kocomponents\objectivesList.html" />
     <Content Include="Scripts\App\kocomponents\objectivesList.js" />
-    <Content Include="Scripts\App\kocomponents\objectivesListV1.html" />
     <Content Include="Scripts\App\kocomponents\oneObjective.html" />
     <Content Include="Scripts\App\kocomponents\oneObjective.js" />
     <Content Include="Scripts\App\kocomponents\pastMeetings.html" />

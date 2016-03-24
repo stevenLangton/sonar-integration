@@ -196,3 +196,6 @@ FakesAssemblies/
 *.opt
 /JsPlc.Ssc.Link/JsPlc.Ssc.Link.Service/App_Data/ASPNETDB.MDF
 /JsPlc.Ssc.Link/JsPlc.Ssc.Link.Service/App_Data/aspnetdb_log.ldf
+/JsPlc.Ssc.Link/JsPlc.Ssc.Link.Portal/App_Data/Logs
+/JsPlc.Ssc.Link/JsPlc.Ssc.Link.Service/App_Data/Logs
+/JsPlc.Ssc.Link/JsPlc.Ssc.Link.StubService/App_Data/Logs

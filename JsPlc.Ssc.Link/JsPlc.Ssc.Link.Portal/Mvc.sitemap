@@ -18,7 +18,6 @@
     <mvcSiteMapNode title="MY DEVELOPMENT" controller="Home" action="Index">
       <mvcSiteMapNode title="OBJECTIVES" controller="Objective" action="Index">
         <mvcSiteMapNode title="ADD A NEW OBJECTIVE" controller="Objective" action="New"/>
-        <mvcSiteMapNode title="VIEW OBJECTIVE" controller="Objective" action="Show" preservedRouteParameters="id"/>
       </mvcSiteMapNode>
       <mvcSiteMapNode title="LINK CONVERSATIONS" controller="Home" action="LinkMeetings">
         <mvcSiteMapNode title="CREATE CONVERSATION" controller="LinkForm" action="Create"/>

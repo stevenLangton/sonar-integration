@@ -23,7 +23,7 @@
         <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
         <!-- /ko -->
         <div class="col-md-12">
-            <h2>Past Link conversations</h2>
+            <h2>Previous Link conversations</h2>
         </div>
         <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
         <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
@@ -85,7 +85,7 @@
 <script type="text/html" id="nopast-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
-        <p>You have no past meetings.</p>
+        <p>You have no previous meetings.</p>
     </div>
 </script>
 <script type="text/html" id="past-meeting-template">

@@ -20,20 +20,6 @@
         </div>
         <form id="myform" method="post" style="display: none;" data-bind="submit: saveLinkForm, visible: $root.dataAvailable">
 
-            <!-- Manager view: show colleague name banner -->
-            <!--<div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-                <div class="col-xs-3 col-md-4"></div>
-                <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
-                <div class="col-xs-3 col-md-4"></div>
-            </div>-->
-
-            <!-- Colleague view: show manager name banner -->
-            <!--<div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
-                <div class="col-xs-3 col-md-4"></div>
-                <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: 'Line manager:' + $root.dataModel().ManagerName"></span></div>
-                <div class="col-xs-3 col-md-4"></div>
-            </div>-->
-
             <!-- Link conversation -->
             <div class="row">
                 <div class="col-md-10">
@@ -41,11 +27,12 @@
                         <h2>@ViewBag.Title<small><span class="colleagueInfo" data-bind="text: ' with ' + $root.dataModel().ManagerName"></span></small></h2>
                     </div>
                 </div>
-                <!-- Save button (top) -->
+                <!-- Save button (top) 
                 <div class="col-md-2" data-bind="visible: (dataModel().SharingStatus==0)">
                     <br />
                     <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Save</button>
                 </div>
+                -->
             </div>
 
             <!-- Meeting date/time picker, readonly when Shared or Completed -->
@@ -101,11 +88,11 @@
 
             <hr />
 
-            <!-- Conversation record -->
+            <!-- 
             <div class="row">
                 <h3 class="col-md-12 conversation-record-heading">Link conversation record</h3>
             </div>
-
+            -->
             <!-- Columns are always 50% wide, on mobile and desktop -->
             <div data-bind="with: dataModel">
                 <!--Looking Back -->
@@ -114,74 +101,41 @@
                 <!-- LinkForm data items here -->
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: LookingBackQuestions">
-
-                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-                    @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
-
-                    <!-- no collapse/expansion - always visible -->
-                    <div class="row">
-                        <div class="col-xs-12 comments-container">
-                            @*<span>Comment:</span><br />*@
-                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'"
-                                      rows="2" id="ques1text" placeholder="Enter comments here (max 5000 chars)" maxlength="5000"></textarea><br />
-                            <!-- xevent: {keyup: UpdCharCount('#ques1text', '#ques1chars'), keypress: UpdCharCount('#ques1text', '#ques1chars'), paste: UpdCharCount('#ques1text', '#ques1chars')} -->
-                            @*<span id="ques1chars"></span>*@
-                        </div>
-                    </div>
+                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'"
+                              rows="2" id="ques1text" placeholder="Enter comments here (max 5000 chars)" maxlength="5000"></textarea>
+                    <br />
                 </div>
-
 
                 <!-- Looking Forward -->
                 <h3 class="linksection-heading">LOOKING FORWARD</h3>
 
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: LookingFwdQuestions">
-
-                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-
-                    <div class="row">
-                        <div class="col-xs-12 comments-container">
-                            @*<span>Colleague Comment:</span><br />*@
-                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
-                                      rows="2" maxlength="5000"></textarea>
-                        </div>
-                    </div>
+                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
+                              rows="2" maxlength="5000"></textarea>
                 </div>
-
 
                 <!--  DRIVING MY DEVELOPMENT -->
                 <h3 class="linksection-heading">DRIVING MY DEVELOPMENT</h3>
 
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: DrivingDevelopmentQuestions">
-
-                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-
-                    <div class="row">
-                        <div class="col-xs-12 comments-container">
-                            @*<span>Colleague Comment:</span><br />*@
-                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter colleague here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
-                                      rows="2" maxlength="5000"></textarea>
-                        </div>
-                    </div>
+                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter colleague here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
+                              rows="2" maxlength="5000"></textarea>
                 </div>
-
 
                 <!--  IN A IN A NUTSHELL -->
                 <h3 class="linksection-heading">IN A NUTSHELL</h3>
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: InANutShellQuestions">
+                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
+                                rows="2" maxlength="5000">
 
-                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-                    @*<div style="text-align:right;margin-top:-20px;">Discussed? <input type="checkbox" data-bind="checked: Discussed" /></div>*@
-
-                    <div class="row">
-                        <div class="col-xs-12 comments-container">
-                            @*<span>Colleague Comment:</span><br />*@
-                            <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
-                                      rows="2" maxlength="5000"></textarea>
-                        </div>
-                    </div>
+                    </textarea>
                 </div>
             </div>
 
@@ -217,7 +171,7 @@
                                                       click: $root.approveConversation" name="CompletedMgr" />
                             <span>
                                 I accept
-                                    <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"> </span>
+                                <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"> </span>
                                 conversation record.
                             </span>
                         </div>
