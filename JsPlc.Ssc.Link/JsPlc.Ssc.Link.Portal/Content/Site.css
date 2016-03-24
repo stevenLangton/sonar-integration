@@ -489,11 +489,23 @@ footer {
 
 .background1 
 {
-background-image:url(/Content/Images/triangle-background-17.png);
+background-image:url(/Content/Images/LinkColleague.jpg);
  margin-top:-10px;
  padding-top:10px;
  padding-bottom:20px;
  margin-left:0px;
+}
+
+
+.background2
+{
+background-image:url(/Content/Images/LinkColleague.jpg);
+ margin-top:-10px;
+ padding-top:10px;
+ padding-bottom:20px;
+ margin-left:0px;
+background-size:contain;
+
 }
 
 .btn-primary {
