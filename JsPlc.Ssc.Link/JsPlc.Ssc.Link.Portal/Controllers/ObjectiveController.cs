@@ -3,6 +3,7 @@ using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Properties;
 using JsPlc.Ssc.Link.Portal.Security;
+using log4net;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Newtonsoft.Json;
 using System;
@@ -16,150 +17,157 @@ using System.Web.Mvc;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
-    [Authorize]
-    public class ObjectiveController : LinkBaseController
-    {
-        public ObjectiveController() { }
-        public ObjectiveController(ILinkUserView CurrentUser, ILinkServiceFacade Facade)
-            : base(CurrentUser, Facade)
-        {
-            
-        }
+	[Authorize]
+	public class ObjectiveController : LinkBaseController
+	{
+		public ObjectiveController() { }
+		public ObjectiveController(ILinkUserView CurrentUser, ILinkServiceFacade Facade)
+			: base(CurrentUser, Facade)
+		{
 
-        // GET: Objective
-        public ActionResult Index()
-        {
-            TempData["tabName"] = "objective";
-            ViewBag.Title = Resources.MyObjectives;
-            ViewBag.ColleagueId = CurrentUser.Colleague.ColleagueId;
-            return View();
-        }
+		}
 
-        [HttpGet]
-        [TeamAccess]
-        public async Task<ActionResult> GetObjectives(string ColleagueId)
-        {
-            var ObjectivesList = await ServiceFacade.GetObjectivesList(ColleagueId);
+		// GET: Objective
+		public ActionResult Index()
+		{
+			TempData["tabName"] = "objective";
+			ViewBag.Title = Resources.MyObjectives;
+			ViewBag.ColleagueId = CurrentUser.Colleague.ColleagueId;
+			return View();
+		}
 
-            return MakeJsonObject(ObjectivesList);
-        }
+		[HttpGet]
+		[TeamAccess]
+		public async Task<ActionResult> GetObjectives(string ColleagueId)
+		{
+			var ObjectivesList = await ServiceFacade.GetObjectivesList(ColleagueId);
 
-        [HttpGet]
-        [TeamAccess]
-        public async Task<ActionResult> GetSharedObjectives(string ColleagueId)
-        {
-            var ObjectivesList = await ServiceFacade.GetSharedObjectives(ColleagueId);
+			return MakeJsonObject(ObjectivesList);
+		}
 
-            var jsonResult = new JsonResult
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = ObjectivesList
-            };
+		[HttpGet]
+		[TeamAccess]
+		public async Task<ActionResult> GetSharedObjectives(string ColleagueId)
+		{
+			var ObjectivesList = await ServiceFacade.GetSharedObjectives(ColleagueId);
 
-            return jsonResult;
-        }
+			var jsonResult = new JsonResult
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = ObjectivesList
+			};
 
-        [HttpGet]
-        [TeamAccess]
-        public async Task<ActionResult> GetOneObjective(int ObjectiveId)
-        {
-            LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, ObjectiveId);
+			return jsonResult;
+		}
 
-            var jsonResult = new JsonResult
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = item
-            };
+		[HttpGet]
+		[TeamAccess]
+		public async Task<ActionResult> GetOneObjective(int ObjectiveId)
+		{
+			LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, ObjectiveId);
 
-            return jsonResult;
-        }
+			var jsonResult = new JsonResult
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = item
+			};
 
-        [HttpGet]
-        public ActionResult New()
-        {
-            ViewBag.Title = "Add a new objective";
-            LinkObjective item = new LinkObjective();
-            item.LastAmendedBy = item.ColleagueId = CurrentUser.Colleague.ColleagueId;
-            item.LastAmendedDate = item.CreatedDate = DateTime.Now;
-            item.ManagerId = CurrentUser.Colleague.ManagerId;
+			return jsonResult;
+		}
 
-            return View("Show", item);
-        }
+		[HttpGet]
+		public ActionResult New()
+		{
+			ViewBag.Title = "Add a new objective";
+			LinkObjective item = new LinkObjective();
+			item.LastAmendedBy = item.ColleagueId = CurrentUser.Colleague.ColleagueId;
+			item.LastAmendedDate = item.CreatedDate = DateTime.Now;
+			item.ManagerId = CurrentUser.Colleague.ManagerId;
 
-        //[HttpGet]
-        //public async Task<ActionResult> Show(int Id)
-        //{
-        //    ViewBag.Title = "View objective";
-        //    LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
-        //    ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
-        //    return View(item);
-        //}
+			return View("Show", item);
+		}
 
-        [HttpPost]
-        public async Task<ActionResult> Create(LinkObjective modifiedObjective)
-        {
-            bool Success = false;
+		[HttpGet]
+		public async Task<ActionResult> Show(int Id)
+		{
+			//temporary solution to find out where this action has been requested from
+			ILog _logger = LogManager.GetLogger("GlobalActionExecutedEx");
+			_logger.Info(Request.RawUrl);
+			_logger.Info(Request.UrlReferrer);
+			_logger.Info(Request.UserHostAddress);
 
-            if (ModelState.IsValid)
-            {
-                modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
-                modifiedObjective.LastAmendedDate = DateTime.Now;
+			ViewBag.Title = "View objective";
+			LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
+			ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
+			return View(item);
+		}
 
-                //Add new item
-                int NewObjectId = await ServiceFacade.CreateObjective(modifiedObjective);
-                Success = NewObjectId != 0;
-                if (Success)
-                {
-                    modifiedObjective.Id = NewObjectId;
-                }
-            }
-            else
-            {
+		[HttpPost]
+		public async Task<ActionResult> Create(LinkObjective modifiedObjective)
+		{
+			bool Success = false;
 
-                var errors = ModelState.Select(x => x.Value.Errors)
-                       .Where(y => y.Count > 0)
-                       .ToList();
+			if (ModelState.IsValid)
+			{
+				modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
+				modifiedObjective.LastAmendedDate = DateTime.Now;
 
-                return MakeJsonObject(errors, false, @"Validation errors found");
-            }
+				//Add new item
+				int NewObjectId = await ServiceFacade.CreateObjective(modifiedObjective);
+				Success = NewObjectId != 0;
+				if (Success)
+				{
+					modifiedObjective.Id = NewObjectId;
+				}
+			}
+			else
+			{
 
-            return new JsonResult
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success, savedObjective = modifiedObjective }
-            };
-        }//Create
+				var errors = ModelState.Select(x => x.Value.Errors)
+					   .Where(y => y.Count > 0)
+					   .ToList();
 
-        [HttpPost]
-        public async Task<ActionResult> Update(LinkObjective modifiedObjective)
-        {
-            bool Success = false;
+				return MakeJsonObject(errors, false, @"Validation errors found");
+			}
 
-            if (ModelState.IsValid)
-            {
-                modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
-                modifiedObjective.LastAmendedDate = DateTime.Now;
-                Success = await ServiceFacade.UpdateObjective(modifiedObjective);
-            }
+			return new JsonResult
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = new { success = Success, savedObjective = modifiedObjective }
+			};
+		}//Create
 
-            return new JsonResult {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success, savedObjective = modifiedObjective }
-            };
-        }
-        //Update
+		[HttpPost]
+		public async Task<ActionResult> Update(LinkObjective modifiedObjective)
+		{
+			bool Success = false;
 
-        #region Private methods
+			if (ModelState.IsValid)
+			{
+				modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
+				modifiedObjective.LastAmendedDate = DateTime.Now;
+				Success = await ServiceFacade.UpdateObjective(modifiedObjective);
+			}
 
-        private JsonResult MakeJsonObject(dynamic DataObject, bool Success=true, string Message="")
-        {
-            return new JsonResult
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = new { success = Success, message = Message, data = DataObject }
-            };
-        }
+			return new JsonResult
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = new { success = Success, savedObjective = modifiedObjective }
+			};
+		}
+		//Update
 
-        #endregion
-    }
+		#region Private methods
+
+		private JsonResult MakeJsonObject(dynamic DataObject, bool Success = true, string Message = "")
+		{
+			return new JsonResult
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = new { success = Success, message = Message, data = DataObject }
+			};
+		}
+
+		#endregion
+	}
 }

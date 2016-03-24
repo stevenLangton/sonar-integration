@@ -64,7 +64,7 @@ namespace JsPlc.Ssc.Link.Portal.Helpers
             {
                 if (ConfigurationManager.AppSettings["LogDebugInfo"].ToLower().Equals("true"))
                 {
-					_logger.Error(stringValue);
+					_logger.Info(stringValue);
                 }
             }
             catch (Exception ex)

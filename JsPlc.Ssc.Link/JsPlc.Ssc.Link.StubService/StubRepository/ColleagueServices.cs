@@ -31,12 +31,12 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
         {
             var colleague = _db.Colleagues.FirstOrDefault(e => e.EmailAddress.ToLower().Equals(emailAddress.ToLower()));
             StubColleague mgr = null;
-            if (colleague != null)
+			ColleagueDto retval = null;
+			if (colleague != null)
             {
                 mgr = _db.Colleagues.FirstOrDefault(x => x.ColleagueId.Equals(colleague.ManagerId));
+				retval = colleague.ToColleagueDto(mgr);
             }
-            var retval = colleague.ToColleagueDto(mgr);
-            //retval.Manager = mgr.ToColleagueDto();
             return retval;
         }
 

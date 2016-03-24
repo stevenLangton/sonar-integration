@@ -24,8 +24,15 @@ namespace JsPlc.Ssc.Link.Service.Controllers
         [Route("colleagues/{colleagueId}/pdp", Name = "PdpUrl")]
         public IHttpActionResult PutPdp(LinkPdp Pdp)
         {
-            LinkPdp pdp = _dbPdp.UpdatePdp(Pdp);
-            return Ok(pdp);
+			if (Pdp != null && Pdp.Id > 0)
+			{
+				LinkPdp pdp = _dbPdp.UpdatePdp(Pdp);
+				return Ok(pdp);
+			}
+			else
+			{
+				return NotFound();
+			}
               
         }
 

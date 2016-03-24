@@ -65,7 +65,6 @@ namespace JsPlc.Ssc.Link.Service.Tests.Controllers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Elmah.ApplicationException))]
         public void DomainTranslationTestInvalidEmail()
         {
             // Arrange
