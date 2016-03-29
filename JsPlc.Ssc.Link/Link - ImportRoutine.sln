@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.ImportRoutin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Import.Tests", "JsPlc.Ssc.Link.Import.Tests\JsPlc.Ssc.Link.Import.Tests.csproj", "{52A6FD20-58C0-4828-9024-3C4A4E31D727}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Core", "JsPlc.Ssc.Link.Core\JsPlc.Ssc.Link.Core.csproj", "{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.IoC", "JsPlc.Ssc.Link.IoC\JsPlc.Ssc.Link.IoC.csproj", "{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52A6FD20-58C0-4828-9024-3C4A4E31D727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Service.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Interfaces", "JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj", "{5E71294B-3F45-48F1-A37F-737FB5F22F38}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{ED69D773-C580-4AAD-A153-5D9BBA5023AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Core", "JsPlc.Ssc.Link.Core\JsPlc.Ssc.Link.Core.csproj", "{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.IoC", "JsPlc.Ssc.Link.IoC\JsPlc.Ssc.Link.IoC.csproj", "{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +45,20 @@ Global
 		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E71294B-3F45-48F1-A37F-737FB5F22F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3} = {ED69D773-C580-4AAD-A153-5D9BBA5023AB}
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5} = {ED69D773-C580-4AAD-A153-5D9BBA5023AB}
 	EndGlobalSection
 EndGlobal
