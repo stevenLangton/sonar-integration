@@ -220,7 +220,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                     }
                     else if (response.JsonStatusCode.CustomStatusCode == "ApiFail") {
                         toastr.error(messages.failure);
-                        $('#msgs').html("<strong>" + messages.failure + " : " + response + "</strong>");
+                        $('#msgs').html("<strong>" + messages.failure + " : " + response.JsonStatusCode.CustomStatusCode + "</strong>");
                     }
                     else { // UI validation errors
                         displayErrors(response.ModelErrors);

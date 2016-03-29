@@ -14,7 +14,7 @@
     <div id="linkpage" style="display: none;" data-bind="visible: true">
         <div id="breadcrumbs">@Html.MvcSiteMap().SiteMapPath()</div>
         <!-- knockout binding to this -->
-        <div id="msgs"></div>
+        <div id="msgs" class="linkErrorMsg"></div>
         <div style="display: none;" data-bind="visible: !$root.dataAvailable()">
             <h2 style="color: red">Cannot retrieve conversation. Cannot edit completed conversations.</h2>
         </div>

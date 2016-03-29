@@ -23,35 +23,45 @@
                 </a>
             </div>
         </div>
-        <div>
-            <textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
+        <div class="row">
+            <div class="col-sm-12">
+                <textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
+            </div>
         </div>
         <h4 class="objective-question ">What will I do to make a difference this year?</h4>
-        <div>
-            <textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
+        <div class="row">
+            <div class="col-sm-12">
+                <textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
+            </div>
         </div>
         <h4 class="objective-question ">How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
-        <div>
-            <textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
+        <div class="row">
+            <div class="col-sm-12">
+                <textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
+            </div>
         </div>
         <h4 class="objective-question ">Which company or divisional priority does this support?</h4>
-        <div>
-            <textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>
+        <div class="row">
+            <div class="col-sm-12">
+                <textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>
+            </div>
         </div>
         <br />
-        <div class="container-fluid">
-            <div class="pull-right" data-bind="visible: !managerView && !data.Approved()">
-                <button class="btn btn-primary" data-bind="click: update, disable: readOnly">Save</button>
+        <div class="row">
+            <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
+                <button class="btn btn-primary btn-block" data-bind="click: update, disable: readOnly">Save</button>
             </div>
         </div>
         <hr/>
-        <div class="container-fluid">
-            <span data-bind="text: statusMessage "></span>
-            <div class="pull-right" data-bind="visible: managerView && !data.Approved()">
-                <button class="btn btn-primary" data-bind="click: approve">I approve this objective</button>
+        <div class="row">
+            <div class="col-sm-9">
+                <span class="h4" data-bind="text: statusMessage "></span>
             </div>
-            <div class="pull-right" data-bind="visible: !managerView && !data.Approved()">
-                <button class="btn btn-primary" data-bind="click: share, disable: readOnly">Share record</button>
+            <div class="col-sm-3" data-bind="visible: managerView && !data.Approved()">
+                <button class="btn btn-primary pull-right" data-bind="click: approve">I approve this objective</button>
+            </div>
+            <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
+                <button class="btn btn-primary btn-block" data-bind="click: share, disable: readOnly">Share record</button>
             </div>
         </div>
         <br />
