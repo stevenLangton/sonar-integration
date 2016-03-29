@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using JsPlc.Ssc.Link.Core.Interfaces;
+using JsPlc.Ssc.Link.ImportRoutine.Interfaces;
+using JsPlc.Ssc.Link.IoC;
+using System;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
-using JsPlc.Ssc.Link.ImportRoutine;
 
 namespace JsPlc.Ssc.Link.ImportRoutine.Service
 {
+	
     static class Program
     {
-        /// <summary>
+		/// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+		static void Main(string[] args)
         {
+			//setup unity configuration
+			UnityConfig.RegisterComponents(DependencyFactory.Container);
 
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-            { 
-                new ImportService() 
-            };
-            ServiceBase.Run(ServicesToRun);
+			ILogger logger = DependencyFactory.Resolve<ILogger>();
+
+			IDataLoader dataLoader = DependencyFactory.Resolve<IDataLoader>();
+			IDataTransformer dataTransformer = DependencyFactory.Resolve<IDataTransformer>();
+			IFileProcessor fileProcessor = DependencyFactory.Resolve<IFileProcessor>();
+
+			var service = new ImportService(logger, dataLoader, dataTransformer, fileProcessor);
+
+			if (Environment.UserInteractive)
+			{
+				service.RunOnStart(args);
+				Console.WriteLine("Press any key to stop program");
+				Console.Read();
+				service.RunOnStop();
+			}
+			else
+			{
+				ServiceBase.Run(service);
+			}
         }
     }
 }

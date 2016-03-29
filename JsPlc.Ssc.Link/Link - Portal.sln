@@ -18,6 +18,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Portal.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Models", "JsPlc.Ssc.Link.Models\JsPlc.Ssc.Link.Models.csproj", "{589E97D6-1D3D-4214-9871-005E7B01E4B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C87E57DC-E405-493C-BAA1-D3D36A4361A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.Core", "JsPlc.Ssc.Link.Core\JsPlc.Ssc.Link.Core.csproj", "{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsPlc.Ssc.Link.IoC", "JsPlc.Ssc.Link.IoC\JsPlc.Ssc.Link.IoC.csproj", "{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +42,14 @@ Global
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{589E97D6-1D3D-4214-9871-005E7B01E4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +57,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A5A6F815-7A8D-463F-9F01-E2610E533A4B} = {BE94DAAE-F62A-471A-A2E9-4548E716D8DD}
 		{5812E2AD-BFAC-44A6-A3D4-C5082A248C70} = {BE94DAAE-F62A-471A-A2E9-4548E716D8DD}
+		{5A1CD72B-9A5F-41EE-9B0E-B36663B723E3} = {C87E57DC-E405-493C-BAA1-D3D36A4361A4}
+		{A927FB04-A7BC-4B67-91FB-AFE7E4FFE7D5} = {C87E57DC-E405-493C-BAA1-D3D36A4361A4}
 	EndGlobalSection
 EndGlobal
