@@ -1,25 +1,27 @@
 ﻿<div id="idCurrentMeeting" style="display: none;" data-bind="visible: true">
-    <p>
-        Had
-        <strong>
-            <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
+    <div class="row">
+        <div class="col-sm-8">
+            <hr />
+            <p class="h4">
+                You've had
+                    <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
          (MeetingsInLast12Months == 1) ? '1 conversation ' :
          (MeetingsInLast12Months + ' conversations ')"></span>
-        </strong>
-        with line manager in the last 12 months.
-    </p>
-    <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
-    Last conversation: <strong><span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
+                with line manager in the last 12 months.
+            </p>
+            <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
+            <p class="h4">Last conversation <span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></></p>
+            <!-- /ko -->
+            <hr />
+        </div>
+    </div>
+    <!-- Latest conversation if any -->
+    <!-- ko if: (LatestMeeting) -->
+    <div data-bind="template: { name: 'current-meeting-template', data: LatestMeeting }"></div>
     <!-- /ko -->
-
-        <!-- Latest conversation if any -->
-        <!-- ko if: (LatestMeeting) -->
-        <div data-bind="template: { name: 'current-meeting-template', data: LatestMeeting }"></div>
-        <!-- /ko -->
-        <!-- ko if: (!LatestMeeting) -->
-        <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
-        <!-- /ko -->
- 
+    <!-- ko if: (!LatestMeeting) -->
+    <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
+    <!-- /ko -->
 </div>
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
@@ -30,44 +32,45 @@
 <script type="text/html" id="current-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
     <div>
-        <div>
-            <p>Current Link conversation</p>
+        <div class="h3 pdp-heading">
+            Current Link conversation
         </div>
-        <div>
-            <div class="col-md-1">
+        <div >
+            <!--<div class="col-md-1">
                 <img src="/Content/Images/calendar_icon.png" width="40" height="40" alt="Calander icon" />
             </div>
-            <div id="u98" class="col-md-10">
+            -->
+            <div class="linkBox1 linkPadding">
                 <p>
-                    <span data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
+                    <span class="h4" data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
                 </p>
                 <p>
-                
-                        <!-- ko if: (ColleagueSignOff == 1) -->
-                        <!--Completed on...-->
-                        <span data-bind="text: $parent.ColleagueFirstName"></span> completed this conversation on
-                        <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
-                        <br />
-                        <!-- ko if: (ManagerSignOff == 1) -->
-                        You accepted
-                        <span data-bind="text: $parent.ColleagueFirstNameApos"></span>
-                        record on
-                        <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
-                        <!-- /ko -->
-                        <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
-                        You have not accepted
-                        <span data-bind="text: $parent.ColleagueFirstNameApos"></span>
-                        record yet.
-                        <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko if: (ColleagueSignOff ==0) -->
-                        <span data-bind="text: $parent.ColleagueFirstName"></span> hasn't yet completed this conversation.
-                        <!-- /ko -->
-                        <!-- ko if: (SharingStatus ==0) -->
-                        This conversation hasn't been shared by
-                        <span data-bind="text: $component.ColleagueFirstName"></span> yet.
-                        <!-- /ko -->
-                  
+
+                    <!-- ko if: (ColleagueSignOff == 1) -->
+                    <!--Completed on...-->
+                    <span data-bind="text: $parent.ColleagueFirstName"></span> completed this conversation on
+                    <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
+                    <br />
+                    <!-- ko if: (ManagerSignOff == 1) -->
+                    You accepted
+                    <span data-bind="text: $parent.ColleagueFirstNameApos"></span>
+                    record on
+                    <span data-bind="text: $component.meetingService.formatDateMonthDYHM(ManagerSignedOffDate) "></span>
+                    <!-- /ko -->
+                    <!-- ko if: (ManagerSignOff == 0) && (SharingStatus ==1)  -->
+                    You have not accepted
+                    <span data-bind="text: $parent.ColleagueFirstNameApos"></span>
+                    record yet.
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: (ColleagueSignOff ==0) -->
+                    <span data-bind="text: $parent.ColleagueFirstName"></span> hasn't yet completed this conversation.
+                    <!-- /ko -->
+                    <!-- ko if: (SharingStatus ==0) -->
+                    This conversation hasn't been shared by
+                    <span data-bind="text: $component.ColleagueFirstName"></span> yet.
+                    <!-- /ko -->
+
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}, visible: $data.SharingStatus == 1"
