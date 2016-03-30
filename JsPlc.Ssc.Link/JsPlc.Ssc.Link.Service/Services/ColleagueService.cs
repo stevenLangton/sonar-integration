@@ -12,7 +12,7 @@ namespace JsPlc.Ssc.Link.Service.Services
     {
         private readonly IStubServiceFacade _svc;
         private readonly IDomainTranslationService _domainTranslationService;
-
+		
         public ColleagueService() { }
 
         public ColleagueService(IStubServiceFacade svc)

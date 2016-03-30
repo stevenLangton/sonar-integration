@@ -103,7 +103,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                 if (CurrentUser.Colleague == null ||
                     CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
                 {
-                    throw new ApplicationException("No such colleague in " + Resources.AppName + " (or lookup failed for):=" + authenticatedEmailAddr);
+					var exceptionMessage = string.Format("Colleague not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
+					throw new ApplicationException(exceptionMessage);
                 }
                 TempData["CurrentUser"] = CurrentUser;
             }
