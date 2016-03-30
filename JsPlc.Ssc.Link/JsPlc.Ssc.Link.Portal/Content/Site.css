@@ -546,3 +546,7 @@ background-size:contain;
 .footerLinks a:hover,
 .footerLinks a:focus {color:#ffffff;
 }
+
+.one-objective textarea {
+    overflow-y: hidden;
+}
