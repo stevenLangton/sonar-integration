@@ -41,7 +41,7 @@ namespace JsPlc.Ssc.Link.Portal
         /// <param name="e"></param>
         protected void Application_Error(object sender, EventArgs e)
         {
-			_logger.Error(((MvcApplication)sender).Server.GetLastError());
+			_logger.Error(Server.GetLastError());
 			//HttpContext context;
 			//try
 			//{

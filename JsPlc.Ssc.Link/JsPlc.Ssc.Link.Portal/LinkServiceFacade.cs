@@ -129,7 +129,7 @@ namespace JsPlc.Ssc.Link.Portal
         /// <returns></returns>
         public bool IsManagerByEmail(string email)
         {
-            HttpResponseMessage response = _client.Value.GetAsync("api/IsManagerByEmail/" + email).Result;
+			HttpResponseMessage response = _client.Value.GetAsync("api/IsManagerByEmail/" + email).Result;
 
             return response.IsSuccessStatusCode && response.Content.ReadAsAsync<bool>().Result;
         }
