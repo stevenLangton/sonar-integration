@@ -1,5 +1,5 @@
-﻿require(["jquery", "knockout", "moment", "bootstrap-datepicker", "bootstrap-datepickerGB", "URI", "underscore", "common", "helpers", "toastr", "autogrow"],
-    function ($, ko, moment, datepicker, datePickerGb, URI, _, common, helpers, toastr, autogrow) {
+﻿define(["jquery", "knockout", "moment", "URI", "underscore", "common", "helpers", "toastr", "confirmModal", "autogrow"], function ($, ko, moment, URI, _, common, helpers, toastr, confirmModal) {
+    "use strict";
 
     function PageViewModel() {
 
@@ -15,7 +15,6 @@
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
             // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?employeeId=E001
             //var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
-            debugger;
             meetingView = {
                 EmployeeId: data.EmployeeId,
                 ColleagueId: data.ColleagueId,
@@ -60,10 +59,12 @@
         self.utils = helpers.utils;
 
         self.formatDateMonthDYHM = function (dateObj) {
-            if (!dateObj) return '-';
+            if (!dateObj) {
+                return '-';
+            }
             var formattedString = moment(dateObj, "").format('dddd, MMMM Do YYYY [at] HH:mma');
             return formattedString;
-        }
+        };
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (meetingId) {
@@ -88,7 +89,7 @@
                     self.bind();
                     // if cannot load LinkMeeting for the given period
                 });
-        }
+        };
         var doMeetingAction = function(actionUnshareOrApprove) {
 
             var meetingVm = self.dataModel();
@@ -125,17 +126,33 @@
         }
         self.unshareMeeting = function () {
             doMeetingAction('unshare');
-        }
+        };
         self.approveMeeting = function () {
             doMeetingAction('approve');
-        }
+        };
+
+        self.confirmApprove = function () {
+            var dialogOptions = {};
+
+            var yesHandler = function () {
+                self.approveMeeting();
+            };
+
+            dialogOptions = {
+                titleText: "Approve Link conversation",
+                bodyText: "Are you sure you want to approve this Link conversation?",
+                yesHandler: yesHandler
+            };
+
+            confirmModal.init(dialogOptions);
+
+            confirmModal.show();
+        };
 
     }
 
     $(document).ready(function () {
         moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-        // knockout locale based date formatting - ko.observable(dateFormat(date, "dd/mm/yyyy"));
-        // bootstrap datepicker formatting =  $("#meetingDatePicker").datepicker({dateFormat: 'dd/mm/yy'});
 
         var vm = new PageViewModel();
 
