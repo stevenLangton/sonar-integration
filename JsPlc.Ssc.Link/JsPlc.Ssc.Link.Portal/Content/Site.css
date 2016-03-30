@@ -546,3 +546,9 @@ background-size:contain;
 .footerLinks a:hover,
 .footerLinks a:focus {color:#ffffff;
 }
+
+
+.sainsLogo{background-image:url(/Content/Images/sainsburys.png);background-repeat:no-repeat; width:161px;height:46px;margin-top:15px;margin-bottom:15px;}
+
+
+
