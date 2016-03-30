@@ -41,7 +41,7 @@
                 Questions: []
             };
             $("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
-            $("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff == 1) ? true : false);
+            //$("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff == 1) ? true : false);
 
             ko.utils.arrayForEach(data.Questions, function (ques) {
                 if (!ques.ColleagueComment)
@@ -63,6 +63,14 @@
                 return '-';
             }
             var formattedString = moment(dateObj, "").format('dddd, MMMM Do YYYY [at] HH:mma');
+            return formattedString;
+        };
+
+        self.formatDateShort = function (dateObj) {
+            if (!dateObj) {
+                return '-';
+            }
+            var formattedString = moment(dateObj, "").format('Do MMMM YYYY');
             return formattedString;
         };
 
@@ -128,6 +136,8 @@
             doMeetingAction('unshare');
         };
         self.approveMeeting = function () {
+            self.dataModel().ManagerSignOff = 1;
+
             doMeetingAction('approve');
         };
 
