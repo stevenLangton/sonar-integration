@@ -2,8 +2,21 @@
 
 @{
     ViewBag.Title = "Error";
+	log4net.ILog _logger = log4net.LogManager.GetLogger("GlobalActionExecutedEx");
 }
 
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
+@if (Model != null)
+{
+	_logger.Error(Model.Exception);
+	
+	<h3>@Model.Exception.GetType().Name</h3>
+	<pre>
+        @Model.Exception.ToString()
+    </pre>
+	<p>
+		thrown in @Model.ControllerName @Model.ActionName
+	</p>
+}
