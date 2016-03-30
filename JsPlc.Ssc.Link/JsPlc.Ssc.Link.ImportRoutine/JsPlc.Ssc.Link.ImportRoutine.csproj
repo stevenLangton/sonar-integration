@@ -65,12 +65,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="SampleFiles\Link_AbInitio_DDMMYYYY_HHMMSS.ddat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="SampleFiles\Link_FIM_DDMMYYYY_HHMMSS.ddat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="SampleFiles\Link_AbInitio_DDMMYYYY_HHMMSS.ddat" />
+    <None Include="SampleFiles\Link_FIM_DDMMYYYY_HHMMSS.ddat" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Core\JsPlc.Ssc.Link.Core.csproj">
@@ -83,6 +79,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ProcessedFiles\placeholder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleFiles\placeholder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

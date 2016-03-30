@@ -7,12 +7,14 @@ using JsPlc.Ssc.Link.Models;
 using System.Web.Configuration;
 using Microsoft.Ajax.Utilities;
 using System;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Service.Services
 {
     public class DomainTranslationService : IDomainTranslationService
     {
         private readonly IConfigurationDataService _configurationDataService;
+		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
 
         public DomainTranslationService() { }
 
@@ -26,7 +28,8 @@ namespace JsPlc.Ssc.Link.Service.Services
         /// <returns></returns>
         private static string _AdDomainToDbDomain(string colleagueEmail, IConfigurationDataService configurationDataService)
         {
-            //domain to use
+			_log.WarnFormat("AD Input Email: {0}", colleagueEmail);
+			//domain to use
             string azureAdEmailDomain = configurationDataService.GetConfigSettingValue("AzureLinkDomain"); //WebConfigurationManager.AppSettings["AzureLinkDomain"];
             string dbLinkDomain = configurationDataService.GetConfigSettingValue("DbLinkDomain"); //WebConfigurationManager.AppSettings["DbLinkDomain"];
             if (dbLinkDomain.IsNullOrWhiteSpace()) dbLinkDomain = "@domain.com"; // use stubbed values
@@ -48,6 +51,9 @@ namespace JsPlc.Ssc.Link.Service.Services
             {
                 colleagueEmail = string.Format("{0}{1}", name, dbLinkDomain);
             }
+
+			_log.WarnFormat("DB Output Email: {0}", colleagueEmail);
+
             return colleagueEmail;
         }
 
