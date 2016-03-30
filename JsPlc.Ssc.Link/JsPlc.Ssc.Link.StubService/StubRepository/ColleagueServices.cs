@@ -50,17 +50,25 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
             return GetDirectReportsByManagerEmail(managerEmail);
         }
 
-        bool IColleagueServices.IsManager(string colleagueId)
-        {
-            var dr = GetDirectReports(colleagueId);
-            return dr.Any();
-        }
+        //bool IColleagueServices.IsManager(string colleagueId)
+        //{
+        //    var dr = GetDirectReports(colleagueId);
+        //    return dr.Any();
+        //}
 
-        bool IColleagueServices.IsManagerByEmail(string email)
-        {
-            var dr = GetDirectReportsByManagerEmail(email);
-            return dr != null && dr.Any();
-        }
+        //bool IColleagueServices.IsManagerByEmail(string email)
+        //{
+        //    //var dr = GetDirectReportsByManagerEmail(email);
+        //    //return dr != null && dr.Any();
+
+        //    //Colleague with this email exists?
+        //    var mgr = _db.Colleagues.FirstOrDefault(x => x.EmailAddress.Equals(email));
+        //    if (mgr == null) 
+        //        return false;
+
+        //    //Does she have any direct reports? If so she's a manager.
+        //    return _db.Colleagues.Any(x => x.ManagerId.Equals(mgr.ColleagueId));
+        //}
 
         private List<ColleagueDto> GetDirectReports(string managerId)
         {

@@ -11,8 +11,8 @@ namespace JsPlc.Ssc.Link.StubService.StubInterfaces
         List<ColleagueDto> GetDirectReports(string managerId);
         List<ColleagueDto> GetDirectReportsByManagerEmail(string managerId);
 
-        bool IsManager(string colleagueId);
-        bool IsManagerByEmail(string email);
+        //bool IsManager(string colleagueId);
+        //bool IsManagerByEmail(string email);
 
         void Dispose();
     }

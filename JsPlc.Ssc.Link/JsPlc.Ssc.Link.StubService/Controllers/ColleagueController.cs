@@ -97,20 +97,20 @@ namespace JsPlc.Ssc.Link.StubService.Controllers
             return Ok(directReports);
         }
 
-        [HttpGet]
-        [Route("api/IsManager/{colleagueId}")] // api/IsManager/E0010
-        public IHttpActionResult IsManager(string colleagueId)
-        {
-            var isMgr = ColleagueServices.IsManager(colleagueId);
-            return Ok(isMgr);
-        }
+        //[HttpGet]
+        //[Route("api/IsManager/{colleagueId}")] // api/IsManager/E0010
+        //public IHttpActionResult IsManager(string colleagueId)
+        //{
+        //    var isMgr = ColleagueServices.IsManager(colleagueId);
+        //    return Ok(isMgr);
+        //}
 
-        [HttpGet]
-        [Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@sainsburys.co.uk
-        public IHttpActionResult IsManagerByEmail(string email)
-        {
-            var isMgr = ColleagueServices.IsManagerByEmail(email);
-            return Ok(isMgr);
-        }
+        //[HttpGet]
+        //[Route("api/IsManagerByEmail/{email}")] // api/IsManagerByEmail/Luan.Au@sainsburys.co.uk
+        //public IHttpActionResult IsManagerByEmail(string email)
+        //{
+        //    var isMgr = ColleagueServices.IsManagerByEmail(email);
+        //    return Ok(isMgr);
+        //}
     }
 }
