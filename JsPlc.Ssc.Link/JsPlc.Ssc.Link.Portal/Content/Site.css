@@ -558,3 +558,7 @@ background-size:contain;
 
 
 
+
+.one-objective textarea {
+    overflow-y: hidden;
+}

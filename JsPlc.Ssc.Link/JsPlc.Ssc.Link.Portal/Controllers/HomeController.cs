@@ -6,11 +6,14 @@ using System.Web.Mvc;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Properties;
 using System;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     public class HomeController : LinkBaseController
     {
+		private static readonly ILog _logger = LogManager.GetLogger("GlobalActionExecutedEx");
+
         public ActionResult Index()
         {
 			TempData["IPAddress"] = GetIPAddress();
@@ -60,6 +63,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public ActionResult Error()
         {
+			_logger.Error(Server.GetLastError());
             return View();
         }
 
