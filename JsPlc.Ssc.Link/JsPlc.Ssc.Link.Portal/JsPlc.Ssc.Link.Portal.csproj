@@ -281,6 +281,7 @@
     <Content Include="Content\Images\heart-icon%403x.png" />
     <Content Include="Content\Images\heart-icon.png" />
     <Content Include="Content\Images\Link guide pic 3 line manager and colleague.jpg" />
+    <Content Include="Content\Images\LinkColleague.jpg" />
     <Content Include="Content\Images\LinkLogo.png" />
     <Content Include="Content\Images\LinkSheetLogo.png" />
     <Content Include="Content\Images\Logo.gif" />
@@ -345,6 +346,9 @@
     <Content Include="Content\Static\Link Guide Feb 2016.pdf" />
     <Content Include="Content\Static\Link PDP Form Feb 2016.pdf" />
     <Content Include="Content\Static\Link SMART objectives form Feb 2016.pdf" />
+    <Content Include="fonts\mary_ann_web-bold.woff" />
+    <Content Include="fonts\mary_ann_web-medium.woff" />
+    <Content Include="fonts\mary_ann_web-regular.woff" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
