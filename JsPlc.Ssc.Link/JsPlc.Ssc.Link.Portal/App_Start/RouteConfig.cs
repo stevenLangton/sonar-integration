@@ -16,6 +16,10 @@ namespace JsPlc.Ssc.Link.Portal
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.IgnoreRoute("favicon.ico");
+
+			routes.IgnoreRoute("browserconfig.xml");
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
