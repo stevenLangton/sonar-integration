@@ -1,30 +1,29 @@
 ﻿<div id="linkpage" style="display: none;" data-bind="visible: true">
-    <div class="row">
+   
         <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
         <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
         <!-- /ko -->
         <!-- ko foreach: PastMeetings -->
         <div data-bind="template: { name: 'past-meeting-template', data: $data }"></div>
         <!-- /ko -->
-    </div>
+    
 </div>
 <script type="text/html" id="nopast-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="col-md-12" style="border: solid 1px black; width: 700px; margin: 10px 10px">
+    <div class="col-md-12">
         <p>You have no previous conversations.</p>
     </div>
 </script>
 <script type="text/html" id="past-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div style="margin: 10px 10px;">
-        <div class="col-md-12 linkBox1">
-            <div id="u98" class="col-md-10">
-                <p style="font-size:20px;">
-                    <span style="font-family:'Arial Bold', 'Arial';font-weight:700;font-size:20px;"
-                          data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
-                </p>
-                <p style="font-size:13px;">
-                    <span style="font-family:'Arial';font-weight:400;font-size:13px;">
+  
+        <div class="linkBox3 linkPadding">
+            <div id="u98">
+                <h3 style="color:#333333;">
+                    <span data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
+                </h3>
+                <p>
+                  
                         <!-- ko if: (ColleagueSignOff == 1) -->
                         <!--Completed on...-->
                         <span data-bind="text: $component.ColleagueFirstName"></span> completed this conversation on
@@ -49,13 +48,13 @@
                         This conversation hasn't been shared by
                         <span data-bind="text: $component.ColleagueFirstName"></span> yet.
                         <!-- /ko -->
-                    </span>
+                  
                 </p>
                 <p>
                     <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}, visible: $data.SharingStatus==1"
-                       class="btn btn-sm btn-primary">View Link conversation</a>
+                       class="btn btn-sm btn-default">View record</a>
                 </p>
             </div>
         </div>
-    </div>
+    
 </script>
