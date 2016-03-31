@@ -144,7 +144,9 @@ img.comp-logo {
 }*/
 .linksection-heading {
     color: #0C5B94;
-    font-size:120%;
+    font-size:143%;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 .linkmeeting-question {
     margin-bottom: 0;
