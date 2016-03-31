@@ -16,7 +16,7 @@ namespace JsPlc.Ssc.Link.Portal
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-			routes.IgnoreRoute("favicon.ico");
+			routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
 			routes.IgnoreRoute("browserconfig.xml");
 

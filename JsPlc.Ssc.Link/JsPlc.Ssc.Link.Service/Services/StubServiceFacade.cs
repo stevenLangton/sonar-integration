@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Service.Services
 {
@@ -16,7 +17,9 @@ namespace JsPlc.Ssc.Link.Service.Services
     {
         private Lazy<HttpClient> _client;
 
-        public StubServiceFacade(Lazy<HttpClient> client=null, IConfigurationDataService configurationDataService=null)
+		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
+
+		public StubServiceFacade(Lazy<HttpClient> client=null, IConfigurationDataService configurationDataService=null)
         {
             _client = client ?? new Lazy<HttpClient>();
             //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.StubService/api/");
@@ -45,12 +48,24 @@ namespace JsPlc.Ssc.Link.Service.Services
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/colleagueByEmail/" + email.ToString(CultureInfo.InvariantCulture)).Result;
 
+			ColleagueView result = null;
+
+			_log.WarnFormat("StubServiceFacade Content. Email: {0}. Response contet: {1}",
+						email,
+						response.Content.ReadAsStringAsync().Result);
+
+			_log.WarnFormat("StubServiceFacade Everything Else. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}",
+						email,
+						response.StatusCode,
+						response.ReasonPhrase,
+						response.ToString());
+
             if (response.IsSuccessStatusCode)
             {
-                var result = response.Content.ReadAsAsync<ColleagueView>().Result;
-                return result;
+                result = response.Content.ReadAsAsync<ColleagueView>().Result;
             }
-            return null;
+
+			return result;
         }
 
         public IEnumerable<ColleagueView> GetDirectReports(string managerId)

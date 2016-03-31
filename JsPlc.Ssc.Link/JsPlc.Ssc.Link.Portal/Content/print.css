@@ -34,3 +34,8 @@
 
 .container {margin-top:-200px;
 }
+
+.collapse {
+    display: block !important;
+    height: auto !important;
+}

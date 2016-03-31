@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-8">
             <hr />
-            <p class="h4">
+            <p>
                 You've had
                     <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
          (MeetingsInLast12Months == 1) ? '1 conversation ' :
@@ -10,7 +10,7 @@
                 with line manager in the last 12 months.
             </p>
             <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
-            <p class="h4">Last conversation <span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></></p>
+            <p>Last conversation <span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></p>
             <!-- /ko -->
             <hr />
         </div>
@@ -25,7 +25,8 @@
 </div>
 <script type="text/html" id="nocurrent-meeting-template">
     <!-- note: dataType = LinkMeetingView -->
-    <div class="linkBox2">
+    <div class="linkBox3 linkPadding">
+        <h3>Upcoming conversations.</h3>
         <p>Has no upcoming conversations.</p>
     </div>
 </script>

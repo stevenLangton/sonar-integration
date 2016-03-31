@@ -429,9 +429,9 @@ border-color: #00acc9;
     src: url(/fonts/mary_ann_web-regular.woff);
 }
 
-h1 {font-family:maryAnnWeb;font-size:250%;color: #056792; text-transform:capitalize;}
-h2 {font-family:maryAnnWeb;font-size:180%;color: #056792; text-transform:capitalize;}
-h3 {font-family:maryAnnWeb;font-size:143%;color: #006791;margin-top: 0px; text-transform:capitalize;}
+h1 {font-family:maryAnnWeb;font-size:250%;color: #056792; text-transform:none;}
+h2 {font-family:maryAnnWeb;font-size:180%;color: #056792; text-transform:none;}
+h3 {font-family:maryAnnWeb;font-size:143%;color: #006791;margin-top: 0px; text-transform:none;}
 h4 {font-family:maryAnnWeb;font-size: 120%; text-transform:capitalize;}
 .special{margin-top: 0px;}
 
@@ -450,10 +450,11 @@ hr { display: block;
 
 .linkBox1{border: solid 1px #056792;margin-bottom: 10px;padding-top:10px;}
 .linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding:10px;padding-bottom:0px;background-color:lightblue}
-
-
 .linkBox3{border: solid 1px #056792;margin-bottom:0px;padding-top:0px;margin-bottom:15px;}
-.LinkBox1Padding{ padding-left: 10px;}
+.linkBox4{border: solid 1px #056792;margin-bottom:10px;padding-top:0px;padding-bottom:10px;padding-right:10px;}
+
+
+.LinkBox1Padding{ padding-left: 10px;padding-right: 10px;}
 
 
 .linkBoxTitle1{ background-color: #ffffff;padding:10px;margin:0px;margin-bottom:10px;border-bottom:solid 1px #056792}
@@ -484,7 +485,7 @@ footer {
 
 .nav-tabs > li > a
 {
-      background-color: lightblue;
+      background-color:#e6f0f4;
       color: #056792;
     font-size: 110%;
     font-family:maryAnnWeb;
@@ -542,6 +543,15 @@ background-size:contain;
     font-family:maryAnnWeb;
 }
 
+.btn-default {
+  color: #006791;
+  background-color: #fff;
+  border-color: #006791;
+}
+
+
+
+
 .expanded-objective .fa {
     color: white;
 }
@@ -562,3 +572,18 @@ background-size:contain;
 .one-objective textarea {
     overflow-y: hidden;
 }
+
+
+
+.panel-default > .panel-heading {
+
+  background-color: #ffffff;
+ border-top-color:none;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color:none;
+}
+
+.linkPanel {border-bottom:solid 1px #056792;}
+.linkPanelS {border-top:solid 1px #056792;border-bottom:solid 1px #056792;}

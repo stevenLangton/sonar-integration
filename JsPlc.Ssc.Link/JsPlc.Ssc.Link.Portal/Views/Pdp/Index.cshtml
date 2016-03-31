@@ -3,118 +3,191 @@
 <div>@Html.MvcSiteMap().SiteMapPath()</div>
 <form action="pdp" method="post">
     <div class="form-horizontal">
-        
-        <div>
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="~/Content/Images/my-performance-icon.png" width="106" height="101" style="margin-top:30px;">
-                </div>
-
-                <div class="col-md-8">
-                    <h1>Personal development plan</h1>
-                    <hr/>
-                    <p>A clear development plan helps you turn your ideas about your personal development into a tangible and action-focused plan</p>
-                    <hr/>
-                </div>
-            </div>
-            <hr/>
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active pdpTab"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Achieving My Objectives</a></li>
-                <li role="presentation" class="pdpTab"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Key Strengths</a></li>
-                <li role="presentation" class="pdpTab"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Career Aspirations</a></li>
-
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="home">
-                    <h3 class="printSectionTitle">Achieving my objectives</h3>
-                    <h4 class="pdp-heading">What areas do I need to develop to achieve my objectives?</h4>@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
-
-                    @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
-
-                    <h4 class="pdp-heading">What actions will I take?</h4>
-
-                    @Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
-
-                    <h4 class="pdp-heading">
-                        By when?
-                    </h4>
-
-                    @Html.EditorFor(model => model.achieveObjectivesWhen, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="profile">
-                    <h3 class="printSectionTitle">Key Strengths</h3>
-                    <h4 class="pdp-heading">
-                        What are my key strengths?
-                    </h4>
-
-                    @Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
-
-                    <h4 class="pdp-heading">
-                        What actions will I take to further develop these areas?
-                    </h4>
-
-                    @Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
-
-                    <h4 class="pdp-heading">
-                        By when?
-                    </h4>
-
-                    @Html.EditorFor(model => model.keyStrengthsWhen, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="messages">
-                    <h3 class="printSectionTitle">Career aspirations</h3>
-                    <h4 class="pdp-heading">
-                        What are my career aspirations?
-                    </h4>
-
-                    @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
 
 
-                    <h4 class="pdp-heading">
-                        What actions do I need to take to move towards these aspirations?
-                    </h4>
-
-                    @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
 
 
-                    <h4 class="pdp-heading">
-                        By when?
-                    </h4>
 
-                    @Html.EditorFor(model => model.careerAspirationsWhen, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-
+        <div class="row">
+            <div class="col-md-2">
+                <img src="~/Content/Images/PDP wheel unlabelled.png" width="106" height="101" style="margin-top:30px;">
             </div>
 
+            <div class="col-md-8">
+                <h1>Personal development plan</h1>
+                <hr />
+                <p>A clear development plan helps you turn your ideas about your personal development into a tangible and action-focused plan</p>
+                <hr />
+            </div>
         </div>
 
-        @*<div id="koDiv">
-            <tab-pdp></tab-pdp>
-        </div>*@
-        <br/>
-        <input type="submit" value="Save" class="btn btn-primary pull-right" />
 
 
-       
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="linkPanelS panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h3>
+                        <a role="button" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Achieving my objectives 
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="LinkBox1Padding">
 
+
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3>What areas do I need to develop to achieve my objectives?</h3>@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+                            </div>
+                        </div>
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3>What actions will I take?</h3>
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+                            </div>
+                        </div>
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3>
+                                    By when?
+                                </h3>
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.achieveObjectivesWhen, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="linkPanel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h3>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Key Strengths 
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="LinkBox1Padding">
+
+
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3>What are my key strengths?</h3>
+                            </div>
+                            <div class="LinkBox1Padding">
+                               @Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+                            </div>
+                        </div>
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3>What actions will I take to further develop these areas?</h3>
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+                            </div>
+                        </div>
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3>By when?</h3>
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.keyStrengthsWhen, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+           
+                    </div>
+                
+            </div>
+
+            <div class="linkPanel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h3>
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Career aspirations 
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="LinkBox1Padding">
+
+
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                <h3> What are my career aspirations?</h3>
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+                            </div>
+                        </div>
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                What actions do I need to take to move towards these aspirations?
+                            </div>
+                            <div class="LinkBox1Padding">
+                                @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+                            </div>
+                        </div>
+
+                        <div class="linkBox4">
+                            <div class="linkBoxTitle">
+                                By when?
+                            </div>
+                            <div class="LinkBox1Padding">
+                               @Html.EditorFor(model => model.careerAspirationsWhen, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
 
+        <div>
+
+            <br />
+            <input type="submit" value="Save" class="btn btn-primary pull-right" />
+
+        </div>
+
+
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="window.print()" data-target="#myModal">
-        Print all
-    </button>
+    <a href="/Pdp" onclick="window.print()">
+        <i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
+    </a>
 
     <!-- Modal -->
 
 
 
+
 </form>
+
+
+
+
 <script type="text/javascript">
     require(["pdp", "knockout", "RegisterKoComponents"], function (pdp, ko) {
         $(document).ready(function () {

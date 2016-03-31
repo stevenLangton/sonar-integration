@@ -16,12 +16,15 @@ using JsPlc.Ssc.Link.Models.Entities;
 using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Portal
 {
     public class LinkServiceFacade : IDisposable, ILinkServiceFacade
     {
         private Lazy<HttpClient> _client;
+
+		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
 
         public LinkServiceFacade(Lazy<HttpClient> client = null, IConfigurationDataService configurationDataService = null)
         {
@@ -155,9 +158,20 @@ namespace JsPlc.Ssc.Link.Portal
         public ColleagueView GetColleagueByUsername(string email)
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/ColleagueByEmail/" + email).Result;
-            var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
 
-            return response.IsSuccessStatusCode ? colleague : null;
+			_log.WarnFormat("LinkServiceFacade Content. Email: {0}. Response contet: {1}",
+						email,
+						response.Content.ReadAsStringAsync().Result);
+
+			_log.WarnFormat("LinkServiceFacade Everything Else. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}",
+					email,
+					response.StatusCode,
+					response.ReasonPhrase,
+					response.ToString());
+
+			var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
+
+			return response.IsSuccessStatusCode ? colleague : null;
         }
 
         public IEnumerable<ColleagueTeamView> GetTeamView(string managerId)
