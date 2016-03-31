@@ -16,12 +16,15 @@ using JsPlc.Ssc.Link.Models.Entities;
 using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Portal
 {
     public class LinkServiceFacade : IDisposable, ILinkServiceFacade
     {
         private Lazy<HttpClient> _client;
+
+		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
 
         public LinkServiceFacade(Lazy<HttpClient> client = null, IConfigurationDataService configurationDataService = null)
         {
@@ -156,6 +159,15 @@ namespace JsPlc.Ssc.Link.Portal
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/ColleagueByEmail/" + email).Result;
             var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
+
+			if (response.IsSuccessStatusCode == false)
+			{
+				_log.WarnFormat("LinkServiceFacade. Colleague not found. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}", 
+					email, 
+					response.StatusCode,
+					response.ReasonPhrase,
+					response.ToString());
+			}
 
             return response.IsSuccessStatusCode ? colleague : null;
         }

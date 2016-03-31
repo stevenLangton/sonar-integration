@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using log4net;
 
 namespace JsPlc.Ssc.Link.Service.Services
 {
@@ -16,7 +17,9 @@ namespace JsPlc.Ssc.Link.Service.Services
     {
         private Lazy<HttpClient> _client;
 
-        public StubServiceFacade(Lazy<HttpClient> client=null, IConfigurationDataService configurationDataService=null)
+		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
+
+		public StubServiceFacade(Lazy<HttpClient> client=null, IConfigurationDataService configurationDataService=null)
         {
             _client = client ?? new Lazy<HttpClient>();
             //_client.Value.BaseAddress = new Uri("http://localhost/JsPlc.Ssc.Link.StubService/api/");
@@ -50,6 +53,14 @@ namespace JsPlc.Ssc.Link.Service.Services
                 var result = response.Content.ReadAsAsync<ColleagueView>().Result;
                 return result;
             }
+			else
+			{
+				_log.WarnFormat("StubServiceFacade. Colleague not found. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}",
+					email,
+					response.StatusCode,
+					response.ReasonPhrase,
+					response.ToString());
+			}
             return null;
         }
 
