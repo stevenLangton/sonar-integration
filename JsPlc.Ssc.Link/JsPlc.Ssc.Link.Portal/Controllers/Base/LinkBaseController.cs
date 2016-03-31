@@ -100,12 +100,16 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
                 CurrentUser.IsLineManager = ServiceFacade.IsManagerByEmail(authenticatedEmailAddr);
                 CurrentUser.Colleague = ServiceFacade.GetColleagueByUsername(authenticatedEmailAddr);
 
-                if (CurrentUser.Colleague == null ||
-                    CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
+                if (CurrentUser.Colleague == null)
                 {
 					var exceptionMessage = string.Format("Colleague not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
 					throw new ApplicationException(exceptionMessage);
-                }
+				}
+				else if (CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
+				{
+					var exceptionMessage = string.Format("Colleague's Email not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
+					throw new ApplicationException(exceptionMessage);
+				}
                 TempData["CurrentUser"] = CurrentUser;
             }
             ViewBag.VersionNumber = GetAssemblyVersion();

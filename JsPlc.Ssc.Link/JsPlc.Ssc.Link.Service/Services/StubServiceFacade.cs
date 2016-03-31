@@ -9,15 +9,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
-using log4net;
 
 namespace JsPlc.Ssc.Link.Service.Services
 {
     public class StubServiceFacade : IStubServiceFacade
     {
         private Lazy<HttpClient> _client;
-
-		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
 
 		public StubServiceFacade(Lazy<HttpClient> client=null, IConfigurationDataService configurationDataService=null)
         {
@@ -50,17 +47,7 @@ namespace JsPlc.Ssc.Link.Service.Services
 
 			ColleagueView result = null;
 
-			_log.WarnFormat("StubServiceFacade Content. Email: {0}. Response contet: {1}",
-						email,
-						response.Content.ReadAsStringAsync().Result);
-
-			_log.WarnFormat("StubServiceFacade Everything Else. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}",
-						email,
-						response.StatusCode,
-						response.ReasonPhrase,
-						response.ToString());
-
-            if (response.IsSuccessStatusCode)
+			if (response.IsSuccessStatusCode)
             {
                 result = response.Content.ReadAsAsync<ColleagueView>().Result;
             }
