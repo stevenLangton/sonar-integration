@@ -171,17 +171,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View("YourTeam");
         }
 
-        // GET: /Team/MeetingRecords
-        // ## Meeting records view
-        [HttpGet]
-        [Authorize]
-        [LinkAuthorizeManager] // IMPORTANT Check
-        public ActionResult MeetingRecords()
-        {
-            ViewBag.Title = Resources.ConvTracker;
-            TempData["tabName"] = "meetingRecords";
-            return View();
-        }
+        //*** HIDE THIS FOR NOW ***
+        //// GET: /Team/MeetingRecords
+        //// ## Meeting records view
+        //[HttpGet]
+        //[Authorize]
+        //[LinkAuthorizeManager] // IMPORTANT Check
+        //public ActionResult MeetingRecords()
+        //{
+        //    ViewBag.Title = Resources.ConvTracker;
+        //    TempData["tabName"] = "meetingRecords";
+        //    return View();
+        //}
 
         // GET: /Team  // Calls LinkMeetings method
         [HttpGet]

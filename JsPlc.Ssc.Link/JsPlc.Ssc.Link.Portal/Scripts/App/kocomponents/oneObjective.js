@@ -1,4 +1,4 @@
-﻿define(["jquery", "knockout", "komap", "moment", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "common", "confirmModal", "RegisterKoComponents"], function ($, ko, komap, moment, toastr, htmlTemplate, dataService, common, confirmModal) {
+﻿define(["jquery", "knockout", "komap", "moment", "toastr", "text!App/kocomponents/oneObjective.html", "dataService", "common", "confirmModal", "meetingService", "RegisterKoComponents"], function ($, ko, komap, moment, toastr, htmlTemplate, dataService, common, confirmModal, meetingService) {
     "use strict";
     var getDateStr = function (jsonDate) {
         var moDate = moment(jsonDate);
@@ -17,6 +17,9 @@
 
     var oneObjectiveModel = function (params) {
         var vm = {};
+
+        //Reference common module
+        vm.meetingService = meetingService;
 
         vm.onCreate = setHandler(params.onCreate);
         vm.onSave = setHandler(params.onSave);

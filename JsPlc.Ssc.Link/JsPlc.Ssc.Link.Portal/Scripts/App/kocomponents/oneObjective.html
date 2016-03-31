@@ -48,23 +48,30 @@
         </div>
         <br />
         <div class="row">
+            <div class="col-sm-10" data-bind="visible: data.Id()!=0">
+                <span data-bind="text: 'Created on ' + meetingService.formatDateMonthDYHM(data.CreatedDate())"></span>
+                <br />
+                <span data-bind="text: 'Last updated on ' + meetingService.formatDateMonthDYHM(data.LastAmendedDate())"></span>
+            </div>
             <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
                 <button class="btn btn-primary btn-block" data-bind="click: update, disable: readOnly">Save</button>
             </div>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="col-sm-9">
-                <span class="h4" data-bind="text: statusMessage "></span>
+        <div data-bind="visible: data.Id()!=0">
+            <hr />
+            <div class="row">
+                <div class="col-sm-9">
+                    <span class="" data-bind="text: statusMessage "></span>
+                </div>
+                <div class="col-sm-3" data-bind="visible: managerView && !data.Approved()">
+                    <button class="btn btn-primary pull-right" data-bind="click: approve">I approve this objective</button>
+                </div>
+                <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
+                    <button class="btn btn-primary btn-block" data-bind="click: share, disable: readOnly">Share record</button>
+                </div>
             </div>
-            <div class="col-sm-3" data-bind="visible: managerView && !data.Approved()">
-                <button class="btn btn-primary pull-right" data-bind="click: approve">I approve this objective</button>
-            </div>
-            <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
-                <button class="btn btn-primary btn-block" data-bind="click: share, disable: readOnly">Share record</button>
-            </div>
+            <br />
         </div>
-        <br />
     </div>
 </div>
 
