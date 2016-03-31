@@ -10,7 +10,6 @@
     
 
     var loadPageData = function (vm) {
-        //debugger;
         $.ajax({
             url: common.getSiteRoot() + "Team/GetMeetings/?myOrTeams=TeamMeetings", // "MyMeetings" or "TeamMeetings"
             method: "GET"

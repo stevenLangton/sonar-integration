@@ -47,8 +47,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         var buildViewModels = function (data) {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
 
-            debugger;
-
             // Refer to Model values http://localhost/JsPlc.Ssc.Link.Service/api/Meetings/?colleagueId=E001
             var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
             var meetingTime = moment(data.MeetingDate).format("HH:mm a"); // we get HH:mm
@@ -57,7 +55,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
 
             // Init the calendar to the data.MeetingDate
             $('.datepicker').datepicker("setDate", initDate);
-            debugger;
 
             meetingView = {
                 EmployeeId: data.colleagueId,
@@ -146,7 +143,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         }
 
         self.IsDataAvailable = function () {
-            debugger;
             var retval = self.dataAvailable() ? 1 : 0;
             return retval;
         }
@@ -171,7 +167,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             //var yyyymmdd = ukDate.toISOString();
             //console.log("Proposed postback meetingDate (yyyy-mm-ddThh:mm:ss.xxxZ):" + yyyymmdd);
             //data.MeetingDate = yyyymmdd;
-            debugger;
             if (moment(data.MeetingDate, common.uiDateFormat).isValid()) {
                 data.MeetingDate = moment(data.MeetingDate, common.uiDateFormat).format("YYYY-MM-DD")
                     + ' ' + moment(data.MeetingTime, "HH:mm a").format("HH:mm a");
@@ -254,7 +249,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         self.crudMode = "";
         self.getDataForMeeting = function () {
             //Check CRUD mode
-            //debugger;
             var url;
             var jsonArgs;
             var $promise;
@@ -288,7 +282,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         };
 
         self.confirmCheckbox = function (data, event) {
-            //debugger;
             //if (event.currentTarget.checked === true) {
             //    var box = confirm("Are you sure you want to complete this form?");
             //    if (box == true)

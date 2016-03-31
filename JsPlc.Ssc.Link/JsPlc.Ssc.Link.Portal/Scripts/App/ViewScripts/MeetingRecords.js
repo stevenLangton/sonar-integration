@@ -59,8 +59,6 @@
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
             //var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
-            debugger;
-
             // each ColleagueTeamView item
             _.each(data, function (meetingItem) {
 
@@ -91,13 +89,11 @@
 
         // ### GET PastMeetings Data (assume there is data, it will show up)
         self.loadPageData = function () {
-            //debugger;
             $.ajax({
                 url: common.getSiteRoot() + "Team/GetTeamsMeetingRecords",
                 method: "GET"
             })
                 .done(function (data) {
-                    //debugger;
                     if (data == "Error" || data == "AccessDenied") { // We can bind diff views based on this value
                         $('#msgs').html("No data");
                         self.dataAvailable(false);
