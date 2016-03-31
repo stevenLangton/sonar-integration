@@ -158,18 +158,20 @@ namespace JsPlc.Ssc.Link.Portal
         public ColleagueView GetColleagueByUsername(string email)
         {
             HttpResponseMessage response = _client.Value.GetAsync("api/ColleagueByEmail/" + email).Result;
-            var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
 
-			if (response.IsSuccessStatusCode == false)
-			{
-				_log.WarnFormat("LinkServiceFacade. Colleague not found. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}", 
-					email, 
+			_log.WarnFormat("LinkServiceFacade Content. Email: {0}. Response contet: {1}",
+						email,
+						response.Content.ReadAsStringAsync().Result);
+
+			_log.WarnFormat("LinkServiceFacade Everything Else. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}",
+					email,
 					response.StatusCode,
 					response.ReasonPhrase,
 					response.ToString());
-			}
 
-            return response.IsSuccessStatusCode ? colleague : null;
+			var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
+
+			return response.IsSuccessStatusCode ? colleague : null;
         }
 
         public IEnumerable<ColleagueTeamView> GetTeamView(string managerId)
