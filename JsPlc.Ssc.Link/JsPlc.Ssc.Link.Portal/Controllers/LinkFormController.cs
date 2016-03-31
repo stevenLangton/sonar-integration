@@ -17,10 +17,12 @@ using JsPlc.Ssc.Link.Portal.Helpers.Extensions;
 using Newtonsoft.Json;
 using WebGrease.Css.Extensions;
 using MvcSiteMapProvider;
+using JsPlc.Ssc.Link.Portal.Security;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
+    [System.Web.Mvc.Authorize]
     public class LinkFormController : LinkBaseController
     {
         [ScriptMethod(UseHttpGet = true)]
