@@ -117,7 +117,6 @@
                 // pre process each item
                 item.MeetingDate = moment(item.MeetingDate).format("L");
 
-                debugger;
                 var colleague = item.Colleague;
                 // Build the item
                 var memberView = {
@@ -158,13 +157,11 @@
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (myOrTeams) {
-            //debugger;
             $.ajax({
                 url: common.getSiteRoot() + "Team/GetMeetings/?myOrTeams=" + myOrTeams, // "MyMeetings" or "TeamMeetings"
                 method: "GET"
             })
                 .done(function (data) {
-                    //debugger;
                     if (data == "Error") {
                         $('#msgs').html("No data");
                         self.dataAvailable(false);

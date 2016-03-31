@@ -227,7 +227,13 @@ textarea {
 
 /* Main Menu */
 
-#mainTabs{border:0;width:100%;background-color:#056792;padding:0;border-bottom:2px solid #3d3d3d;}
+#mainTabs {
+    border: 0;
+    width: 100%;
+    background-color: #056792;
+    padding: 0;
+    /*border-bottom: 2px solid #3d3d3d;*/
+}
 
 
 .tab-heading {
