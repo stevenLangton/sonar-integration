@@ -555,6 +555,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JsPlc.Ssc.Link.Core\JsPlc.Ssc.Link.Core.csproj">
+      <Project>{5a1cd72b-9a5f-41ee-9b0e-b36663b723e3}</Project>
+      <Name>JsPlc.Ssc.Link.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsPlc.Ssc.Link.Interfaces\JsPlc.Ssc.Link.Interfaces.csproj">
       <Project>{5E71294B-3F45-48F1-A37F-737FB5F22F38}</Project>
       <Name>JsPlc.Ssc.Link.Interfaces</Name>
