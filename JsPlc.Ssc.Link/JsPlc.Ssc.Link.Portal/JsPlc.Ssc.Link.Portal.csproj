@@ -350,6 +350,7 @@
     <Content Include="fonts\mary_ann_web-bold.woff" />
     <Content Include="fonts\mary_ann_web-medium.woff" />
     <Content Include="fonts\mary_ann_web-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

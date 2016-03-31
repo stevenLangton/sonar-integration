@@ -450,10 +450,11 @@ hr { display: block;
 
 .linkBox1{border: solid 1px #056792;margin-bottom: 10px;padding-top:10px;}
 .linkBox2{border: solid 2px lightblue;margin-bottom: 10px;padding:10px;padding-bottom:0px;background-color:lightblue}
-
-
 .linkBox3{border: solid 1px #056792;margin-bottom:0px;padding-top:0px;margin-bottom:15px;}
-.LinkBox1Padding{ padding-left: 10px;}
+.linkBox4{border: solid 1px #056792;margin-bottom:10px;padding-top:0px;padding-bottom:10px;padding-right:10px;}
+
+
+.LinkBox1Padding{ padding-left: 10px;padding-right: 10px;}
 
 
 .linkBoxTitle1{ background-color: #ffffff;padding:10px;margin:0px;margin-bottom:10px;border-bottom:solid 1px #056792}
@@ -562,3 +563,18 @@ background-size:contain;
 .one-objective textarea {
     overflow-y: hidden;
 }
+
+
+
+.panel-default > .panel-heading {
+
+  background-color: #ffffff;
+ border-top-color:none;
+}
+
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color:none;
+}
+
+.linkPanel {border-bottom:solid 1px #056792;}
+.linkPanelS {border-top:solid 1px #056792;border-bottom:solid 1px #056792;}
