@@ -7,7 +7,8 @@
                     <span data-bind="text: (MeetingsInLast12Months == 0) ? 'no conversations ' :
          (MeetingsInLast12Months == 1) ? '1 conversation ' :
          (MeetingsInLast12Months + ' conversations ')"></span>
-                with line manager in the last 12 months.
+       
+
             </p>
             <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
             <p>Last conversation <span data-bind="text: $component.meetingService.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></p>

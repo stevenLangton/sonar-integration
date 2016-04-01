@@ -14,8 +14,7 @@ namespace JsPlc.Ssc.Link.Service.Services
     public class DomainTranslationService : IDomainTranslationService
     {
         private readonly IConfigurationDataService _configurationDataService;
-		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
-
+		
         public DomainTranslationService() { }
 
         public DomainTranslationService(IConfigurationDataService configurationDataService) { _configurationDataService = configurationDataService; }
@@ -28,7 +27,6 @@ namespace JsPlc.Ssc.Link.Service.Services
         /// <returns></returns>
         private static string _AdDomainToDbDomain(string colleagueEmail, IConfigurationDataService configurationDataService)
         {
-			_log.WarnFormat("AD Input Email: {0}", colleagueEmail);
 			//domain to use
             string azureAdEmailDomain = configurationDataService.GetConfigSettingValue("AzureLinkDomain"); //WebConfigurationManager.AppSettings["AzureLinkDomain"];
             string dbLinkDomain = configurationDataService.GetConfigSettingValue("DbLinkDomain"); //WebConfigurationManager.AppSettings["DbLinkDomain"];
@@ -52,9 +50,7 @@ namespace JsPlc.Ssc.Link.Service.Services
                 colleagueEmail = string.Format("{0}{1}", name, dbLinkDomain);
             }
 
-			_log.WarnFormat("DB Output Email: {0}", colleagueEmail);
-
-            return colleagueEmail;
+			return colleagueEmail;
         }
 
         string IDomainTranslationService.AdDomainToDbDomain(string colleagueEmail)

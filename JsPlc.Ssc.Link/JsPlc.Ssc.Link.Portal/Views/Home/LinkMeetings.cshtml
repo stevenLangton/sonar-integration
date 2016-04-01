@@ -29,7 +29,7 @@
                                     (MeetingsInLast12Months == 1) ? '1 conversation ' :
                                     (MeetingsInLast12Months + ' conversations ')"></span>
     </strong>
-    with your line manager in the last 12 months.
+    with your line manager.<br/>
 
                 <!-- ko if: (LastMeeting && LastMeeting.MeetingDate) -->
                 Last conversation: <strong><span data-bind="text: $root.formatDateMonthDYHM(LastMeeting.MeetingDate)"></span></strong>
@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-2" style="text-align: right;">
        <br/>
-            <a data-bind="attr: {'href': CreateLink}" class="btn btn-primary">Create conversation</a>
+            <a data-bind="attr: {'href': CreateLink}" class="btn btn-primary">Create Link</a>
          
         </div>
     </div>
@@ -122,14 +122,14 @@
                     <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
                     <!-- /ko -->
                     <!-- ko if: (ColleagueSignOff ==0) && (SharingStatus ==0) -->
-                    This conversation is not complete yet. Once you complete it, please share it for signoff by
-                    <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
+                    <!--This conversation is not complete yet. Once you complete it, please share it for signoff by
+                    <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>-->
                     <!-- /ko -->
                 </span>
             </p>
             <p>
                 <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                   class="btn btn-sm btn-primary">View conversation</a>
+                   class="btn btn-sm btn-primary">View record</a>
             </p>
         </div>
     </div>
@@ -187,7 +187,7 @@
 
 
                 <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                   class="btn btn-sm btn-primary">View conversation</a>
+                   class="btn btn-sm btn-primary">View record</a>
             </p>
         </div>
     </div>
