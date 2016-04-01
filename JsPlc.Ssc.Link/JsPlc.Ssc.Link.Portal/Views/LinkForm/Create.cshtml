@@ -114,10 +114,12 @@
                 <!-- LinkForm data items here -->
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: LookingBackQuestions">
-                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+
+                    <div class="linkBox3 linkPadding">
+                    <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
                     <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'"
                               rows="2" id="ques1text" placeholder="Enter comments here (max 5000 chars)" maxlength="5000"></textarea>
-                    <br />
+                    </div>
                 </div>
 
                 <!-- Looking Forward -->
@@ -125,31 +127,41 @@
 
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: LookingFwdQuestions">
-                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
-                              rows="2" maxlength="5000"></textarea>
-                </div>
+                    <div class="linkBox3 linkPadding">
+                        <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                        <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
+                                  rows="2" maxlength="5000"></textarea>
+                        </div>
+                    </div>
 
                 <!--  DRIVING MY DEVELOPMENT -->
                 <h3 class="linksection-heading">Driving my development</h3>
 
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: DrivingDevelopmentQuestions">
-                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter colleague here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
-                              rows="2" maxlength="5000"></textarea>
-                </div>
+
+                    <div class="linkBox3 linkPadding">
+
+                        <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                        <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter colleague here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
+                                  rows="2" maxlength="5000"></textarea>
+
+                        </div>
+                    </div>
 
                 <!--  IN A IN A NUTSHELL -->
                 <h3 class="linksection-heading">In a nutshell</h3>
                 <!-- QUESTIONS Loop around this -->
                 <div data-bind="foreach: InANutShellQuestions">
-                    <h4 class="pdp-heading" data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
-                    <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
-                                rows="2" maxlength="5000">
 
-                    </textarea>
-                </div>
+                    <div class="linkBox3 linkPadding">
+
+                        <h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+                        <textarea data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
+                                  rows="2" maxlength="5000"></textarea>
+
+                        </div>
+                    </div>
             </div>
 
             <br />
