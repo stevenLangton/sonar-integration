@@ -13,11 +13,11 @@
         </p>
     </div>
     <div data-bind="visible: expandedView">
-        <div class="row objective-question">
-            <div class="col-sm-11">
-                <h4 for="objectiveTitle" class="objective-question">Objective title</h4>
+        <div class="row">
+            <div class="col-sm-10">
+                <h4 for="objectiveTitle">Objective title</h4>
             </div>
-            <div class="pull-right linkBoxTitle expanded-objective" data-bind="if: enableViewToggle">
+            <div class="col-sm-1 pull-right linkBoxTitle expanded-objective" data-bind="if: enableViewToggle">
                 <a href="#" target="_blank" data-bind="click: toggleView" class="pull-right">
                     <icon class="fa fa-minus" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon>
                 </a>
@@ -28,19 +28,19 @@
                 <textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
             </div>
         </div>
-        <h4 class="objective-question ">What will I do to make a difference this year?</h4>
+        <h4>What will I do to make a difference this year?</h4>
         <div class="row">
             <div class="col-sm-12">
                 <textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
             </div>
         </div>
-        <h4 class="objective-question ">How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
+        <h4>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)?</h4>
         <div class="row">
             <div class="col-sm-12">
                 <textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
             </div>
         </div>
-        <h4 class="objective-question ">Which company or divisional priority does this support?</h4>
+        <h4>Which company or divisional priority does this support?</h4>
         <div class="row">
             <div class="col-sm-12">
                 <textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>

@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using JsPlc.Ssc.Link.Core.Cache;
+using System.IO;
 
 namespace JsPlc.Ssc.Link.Portal
 {
@@ -171,8 +172,19 @@ namespace JsPlc.Ssc.Link.Portal
 		{
 			return _cacheService.GetOrSet("GetColleagueByUsername" + email, DateTime.Now.AddMinutes(10), () =>
 			{
+				ColleagueView result = null;
 
 				HttpResponseMessage response = _client.Value.GetAsync("api/ColleagueByEmail/" + email).Result;
+
+				if(response.IsSuccessStatusCode)
+				{
+					var contentAsString = response.Content.ReadAsStringAsync().Result;
+
+					result = JsonConvert.DeserializeObject<ColleagueView>(contentAsString);
+					
+					//replaced with sync deserialisation above
+					//result = response.Content.ReadAsAsync<ColleagueView>().Result;
+				}
 
 				_log.WarnFormat("LinkServiceFacade Content. Email: {0}. Response contet: {1}",
 							email,
@@ -184,9 +196,7 @@ namespace JsPlc.Ssc.Link.Portal
 						response.ReasonPhrase,
 						response.ToString());
 
-				var colleague = response.Content.ReadAsAsync<ColleagueView>().Result;
-
-				return response.IsSuccessStatusCode ? colleague : null;
+				return result;
 
 			});
 		}
