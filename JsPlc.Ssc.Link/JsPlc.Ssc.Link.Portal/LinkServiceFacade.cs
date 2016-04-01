@@ -26,8 +26,6 @@ namespace JsPlc.Ssc.Link.Portal
 	{
 		private Lazy<HttpClient> _client;
 
-		private static readonly ILog _log = LogManager.GetLogger("GlobalActionExecutedEx");
-
 		private ICacheService _cacheService = null;
 
 		public LinkServiceFacade(Lazy<HttpClient> client = null, IConfigurationDataService configurationDataService = null)
@@ -185,16 +183,6 @@ namespace JsPlc.Ssc.Link.Portal
 					//replaced with sync deserialisation above
 					//result = response.Content.ReadAsAsync<ColleagueView>().Result;
 				}
-
-				_log.WarnFormat("LinkServiceFacade Content. Email: {0}. Response contet: {1}",
-							email,
-							response.Content.ReadAsStringAsync().Result);
-
-				_log.WarnFormat("LinkServiceFacade Everything Else. Email: {0}. Response status code: {1}. Reason phrase: {2}. All {3}",
-						email,
-						response.StatusCode,
-						response.ReasonPhrase,
-						response.ToString());
 
 				return result;
 
