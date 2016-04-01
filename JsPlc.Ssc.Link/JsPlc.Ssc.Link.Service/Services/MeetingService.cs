@@ -58,58 +58,58 @@ namespace JsPlc.Ssc.Link.Service.Services
         // meetings history of an employee
         public ColleagueTeamView GetColleagueAndMeetings(string colleagueId)
         {
-            ColleagueView colleague = _colleagueService.GetColleague(colleagueId);
-            ColleagueTeamView myReport;
+            var colleague = _colleagueService.GetColleague(colleagueId);
+	        var report = new ColleagueTeamView
+	        {
+		        Colleague = colleague,
+		        Meetings = _db.Meeting
+			        .Where(m => m.ColleagueId == colleagueId &&
+								// Ensure that past meetings are limited to within 12 months
+								// and no restrictions placed on future meetings
+			                    (DbFunctions.DiffMonths(m.MeetingDate, DateTime.Now) <= 12 ||
+			                     DbFunctions.DiffDays(DateTime.Now, m.MeetingDate) >= 1))
+			        .Select(m => new LinkMeetingView
+			        {
+				        MeetingId = m.Id,
+				        MeetingDate = m.MeetingDate,
+				        ColleagueSignOff = m.ColleagueSignOff,
+				        ManagerSignOff = m.ManagerSignOff,
+				        ColleagueId = m.ColleagueId,
+				        ManagerAtTimeId = m.ManagerId,
+				        ColleagueSignedOffDate = m.ColleagueSignedOffDate,
+				        ManagerSignedOffDate = m.ManagerSignedOffDate,
+				        SharingStatus = m.SharingStatus,
+				        SharingDate = m.SharingDate
+			        })
+			        .ToList()
+	        };
 
-            // TODO Ideally limit past meetings to last 12 months, but no limit on future meetings (not many expected in future)
-            myReport = (from m in _db.Meeting
-                            .Where(m => m.ColleagueId.Equals(colleagueId))
-                            select new ColleagueTeamView
-                            {
-                                //Colleague = new ColleagueView{ColleagueId = cv},
-                                Meetings = (from m1 in _db.Meeting
-                                            orderby m1.MeetingDate descending
-                                            where m1.ColleagueId == colleague.ColleagueId 
-                                            && (
-                                                DbFunctions.DiffMonths(m1.MeetingDate, DateTime.Now) <= 12 // Only Past ones within last 12 months
-                                                ||
-                                                DbFunctions.DiffDays(DateTime.Now, m1.MeetingDate) >= 1 // All Future meetings
-                                                )
-                                            select new LinkMeetingView
-                                            {
-                                                MeetingId = m1.Id,
-                                                MeetingDate = m1.MeetingDate,
-                                                ColleagueSignOff = m1.ColleagueSignOff,
-                                                ManagerSignOff = m1.ManagerSignOff,
-                                                ColleagueId = m1.ColleagueId,
-                                                ManagerAtTimeId = m1.ManagerId,
-                                                ColleagueSignedOffDate = m1.ColleagueSignedOffDate,
-                                                ManagerSignedOffDate = m1.ManagerSignedOffDate,
-                                                SharingStatus = m1.SharingStatus,
-                                                SharingDate = m1.SharingDate
-                                            }).ToList(),
-                            }).FirstOrDefault();
+			// Get all periods to improve performance
+	        var periods = _db.Periods
+		        .Select(period => new
+		        {
+					period.Start,
+					period.End,
+					period.Description,
+					period.Year
+		        });
 
-            if (myReport == null)
-            {
-                return new ColleagueTeamView() {Colleague = colleague};
-            }
-            myReport.Colleague = colleague;
-            foreach (var meeting in myReport.Meetings)
-            {
-                var mDate = meeting.MeetingDate;
+			report.Meetings
+				.ForEach(meeting =>
+				{
+					var period = periods
+						.FirstOrDefault(p => meeting.MeetingDate >= p.Start && meeting.MeetingDate <= p.End);
 
-                var period = (from p in _db.Periods
-                    where mDate >= p.Start && mDate <= p.End
-                    select p).FirstOrDefault();
+					if (period != null)
+					{
+						meeting.Colleague = _colleagueService.GetColleague(meeting.ColleagueId);
+						meeting.ManagerAtTime = _colleagueService.GetColleague(meeting.ManagerAtTimeId);
+						meeting.Period = period.Description;
+						meeting.Year = period.Year;
+					}
+				});
 
-                if (period == null) continue; // should not occur since each meeting should fall within a period
-                meeting.Colleague = _colleagueService.GetColleague(meeting.ColleagueId);
-                meeting.ManagerAtTime = _colleagueService.GetColleague(meeting.ManagerAtTimeId);
-                meeting.Period = period.Description;
-                meeting.Year = period.Year;
-            }
-            return myReport;
+            return report;
         }
 
         // view particular meeting
