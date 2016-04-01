@@ -8,9 +8,9 @@
     <mvcSiteMapNode title="Contact" controller="Home" action="Contact"/>-->
 
     <mvcSiteMapNode title="MY TEAM" controller="Home" action="Index">
-      <mvcSiteMapNode title="MY TEAM MEMBERS" controller="Team" action="Index">
+      <mvcSiteMapNode title="TEAM MEMBERS" controller="Team" action="Index">
         <mvcSiteMapNode title="VIEW CONVERSATION" controller="LinkForm" action="Edit" preservedRouteParameters="id"/>
-        <mvcSiteMapNode title="TEAM MEMBER" controller="Profile" action="Show" preservedRouteParameters="id"/>
+        <mvcSiteMapNode title="VIEW PROFILE" controller="Profile" action="Show" preservedRouteParameters="id"/>
       </mvcSiteMapNode>
       <mvcSiteMapNode title="CONVERSATION TRACKER" controller="Team" action="MeetingRecords"/>
     </mvcSiteMapNode>
