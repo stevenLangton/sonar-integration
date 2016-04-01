@@ -541,6 +541,7 @@
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\Shared\_.cshtml" />
     <Content Include="Views\Shared\_HomeContent.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />
