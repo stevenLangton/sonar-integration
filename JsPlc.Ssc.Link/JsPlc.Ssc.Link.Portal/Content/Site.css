@@ -271,6 +271,12 @@ textarea.form-control.multilinePdp {
     border-radius: 0px;
 }
 
+
+.singleLinePdp {  height:50px; 
+    width:100%;
+    border-radius: 0px;
+}
+
 .navbar {
     border-radius: 0;
     position: relative;

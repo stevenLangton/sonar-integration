@@ -1,8 +1,6 @@
 ﻿@using JsPlc.Ssc.Link.Models
 @{
     var viewType = TempData["ViewType"];
-    // This view still used for Link conversations (i.e My conversations.)
-    // This view is NOT used for Team view, refer to Team/YourTeam
 }
 <div id="linkpage" style="display: none;" data-bind="visible: true">
     <div id="msgs"></div>
@@ -58,7 +56,7 @@
     <div data-bind="template: { name: 'nocurrent-meeting-template', data: LatestMeeting }"></div>
     <!-- /ko -->
     <div>
-        <h2>Previous conversations</h2>
+        <h2>Past conversations</h2>
     </div>
     <!-- ko if: (!PastMeetings) || (PastMeetings.length == 0) -->
     <div data-bind="template: { name: 'nopast-meeting-template', data: PastMeetings}"></div>
@@ -131,11 +129,13 @@
                     <!-- /ko -->
                 </span>
             </p>
-            <p>
+            <div style="text-align:right;">
+                <p>
                 <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
                    class="btn btn-sm btn-primary">View record</a>
-            </p>
-        </div>
+                    </p>
+                </div>
+            </div>
     </div>
 
 
@@ -157,8 +157,8 @@
             <h3 data-bind="text: $root.formatDateMonthDYHM(MeetingDate) "></h3>
         </div>
         <div class="LinkBox1Padding">
+
             <p>
-                <span>
                     <!-- ko if: (ColleagueSignOff == 1) -->
                     @*Completed on ...*@
                     You completed this conversation on <span data-bind="text: $root.formatDateMonthDYHM(ColleagueSignedOffDate) "></span>
@@ -185,13 +185,13 @@
                     This conversation is not complete yet. Once you complete it, please share it for signoff by
                     <span data-bind="text: $root.getColleagueFirstName(ManagerAtTime)"></span>
                     <!-- /ko -->
-                </span>
             </p>
             <p>
 
-
-                <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
-                   class="btn btn-sm btn-primary">View record</a>
+                <div style ="text-align:right;">
+                    <a data-bind="attr: {'href': $root.getEditOrViewLink($data)}"
+                       class="btn btn-sm btn-primary">View record</a>
+                </div>
             </p>
         </div>
     </div>
