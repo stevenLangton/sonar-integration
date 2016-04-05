@@ -76,6 +76,7 @@
         };
 
         vm.expandedView = ko.observable(vm.expanded);
+        vm.expandedAll = params.expandedAll;
         vm.statusMessage = ko.observable(vm.getStatusMessage());
 
         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);

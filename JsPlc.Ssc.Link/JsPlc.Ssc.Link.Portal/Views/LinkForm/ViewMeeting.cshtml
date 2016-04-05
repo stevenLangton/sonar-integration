@@ -1,181 +1,150 @@
 ﻿@{
-    ViewBag.Title = "Link conversation";
+	ViewBag.Title = "Link conversation";
 }
 
 <div id="linkpage">
-    <!-- knockout binding to this -->
-    <div class="row">
-        <div>@Html.MvcSiteMap().SiteMapPath()</div>
-    </div>
-    <div id="msgs"></div>
-    <div style="display: none" data-bind="visible: !$root.dataAvailable()">
-        <h2 style="color:red">Error - No such conversation or access denied.</h2>
-    </div>
+	<!-- knockout binding to this -->
+	<div class="row">
+		<div>@Html.MvcSiteMap().SiteMapPath()</div>
+	</div>
+	<div id="msgs"></div>
+	<div style="display: none" data-bind="visible: !$root.dataAvailable()">
+		<h2 style="color:red">Error - No such conversation or access denied.</h2>
+	</div>
 
-    <div style="display:none" data-bind="visible: $root.dataAvailable">
+	<div style="display:none" data-bind="visible: $root.dataAvailable">
+		<h2>
+			@ViewBag.Title <span class="colleagueInfo" data-bind="text: ' with ' + $root.dataModel().ManagerName"></span>
+			<small><span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span></small>
+		</h2>
+		<h3>@ViewBag.Message</h3>
 
+		<!-- Columns are always 50% wide, on mobile and desktop -->
+		<div data-bind="with: dataModel">
+			<!--Looking Back -->
+			<h3 class="linksection-heading">Looking back</h3>
+			<!-- LinkForm data items here -->
+			<!-- QUESTIONS Loop around this -->
+			<div data-bind="foreach: LookingBackQuestions">
+				<div class="linkBox3">
+					<div class="linkBoxTitle"> <h4 class="special"><span data-bind="text: Question"></span></h4> </div>
 
-        <!-- Manager view: show colleague name banner -->
-        <!--<div class="row meeting-banner" style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-             <div class="col-xs-3 col-md-4"></div>
-             <div class="col-xs-6 col-md-4"><span class="colleagueInfo" data-bind="text: $root.dataModel().ColleagueName"></span></div>
-             <div class="col-xs-3 col-md-4"></div>
-         </div>-->
-        <!-- Colleague view: show manager name banner -->
-        <!--<div class="row meeting-banner" style="display: none" data-bind="visible: dataModel().IsColleagueView">
-            <div class="col-xs-3 col-md-4"></div>
-            <div class="col-xs-6 col-md-4"> <span class="colleagueInfo" data-bind="text: 'Line manager:' + $root.dataModel().ManagerName"></span></div>
-            <div class="col-xs-3 col-md-4"></div>
-        </div>-->
+					<div class="linkPadding">
+						<textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea>
+					</div>
+				</div>
+			</div>
+			<!-- Looking Forward -->
+			<h3 class="linksection-heading">Looking forward</h3>
+			<!-- LinkForm data items here -->
+			<!-- QUESTIONS Loop around this -->
+			<div data-bind="foreach: LookingFwdQuestions">
+				<div class="linkBox3">
+					<div class="linkBoxTitle"><h4 class="special"><span data-bind="text: Question"></span></h4></div>
+					<div class="linkPadding">
+						<textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
+					</div>
+				</div>
+			</div>
+			<!-- DRIVING MY DEVELOPMENT -->
+			<h3 class="linksection-heading">Driving my development</h3>
+			<!-- LinkForm data items here -->
+			<!-- QUESTIONS Loop around this -->
+			<div data-bind="foreach: DrivingDevelopmentQuestions">
 
-        <h2>
-            @ViewBag.Title <span class="colleagueInfo" data-bind="text: ' with ' + $root.dataModel().ManagerName"></span>
-            <small><span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().MeetingDate) "></span></small>
-        </h2>
-        <h3>@ViewBag.Message</h3>
+				<div class="linkBox3">
+					<div class="linkBoxTitle">
+						<h4 class="special"><span data-bind="text: Question"></span></h4>
+					</div>
 
-        <!-- Columns are always 50% wide, on mobile and desktop -->
-        <div data-bind="with: dataModel">
+					<div class="linkPadding">
+						<textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
+					</div>
+				</div>
 
-            <!--Looking Back -->
-
-
-
-            <h3 class="linksection-heading">Looking back</h3>
-
-
-
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: LookingBackQuestions">
-                <div class="linkBox3">
-                    <div class="linkBoxTitle"> <h4 class="special"><span data-bind="text: Question"></span></h4> </div>
-
-                    <div class="linkPadding">
-                        <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Looking Forward -->
-            <h3 class="linksection-heading">Looking forward</h3>
-
-
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: LookingFwdQuestions">
-                <div class="linkBox3">
-                    <div class="linkBoxTitle"><h4 class="special"><span data-bind="text: Question"></span></h4></div>
-
-                    <div class="linkPadding">
-                        <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
-                    </div>
-                </div>
-            </div>
+			</div>
 
 
-            <!-- DRIVING MY DEVELOPMENT -->
-            <h3 class="linksection-heading">Driving my development</h3>
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: DrivingDevelopmentQuestions">
+			<!-- IN A NUTSHELL -->
+			<h3 class="linksection-heading">In a nutshell</h3>
+			<!-- LinkForm data items here -->
+			<!-- QUESTIONS Loop around this -->
+			<div data-bind="foreach: InANutShellQuestions">
 
-                <div class="linkBox3">
-                    <div class="linkBoxTitle">
-                        <h4 class="special"><span data-bind="text: Question"></span></h4>
-                    </div>
+				<div class="linkBox3">
+					<div class="linkBoxTitle">
+						<h4 class="special"><span data-bind="text: Question"></span></h4>
+					</div>
 
-                    <div class="linkPadding">
-                        <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
-                    </div>
-                </div>
+					<div class="linkPadding">
+						<textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
+					</div>
+				</div>
 
-            </div>
-
-
-            <!-- IN A NUTSHELL -->
-            <h3 class="linksection-heading">In a nutshell</h3>
-            <!-- LinkForm data items here -->
-            <!-- QUESTIONS Loop around this -->
-            <div data-bind="foreach: InANutShellQuestions">
-
-                <div class="linkBox3">
-                    <div class="linkBoxTitle">
-                        <h4 class="special"><span data-bind="text: Question"></span></h4>
-                    </div>
-
-                    <div class="linkPadding">
-                        <textarea disabled data-bind="text: ColleagueComment, value:ColleagueComment" xrows="4"></textarea><br />
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <br />
-        <div>
-            <!-- Colleague view bottom part -->
-            <div style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
-                &nbsp;&nbsp;
-                <input id="Checkbox3" type="checkbox" class="pointable"
-                       data-bind="attr: {NOTBOUNDchecked: dataModel().SharingStatus==1},
+			</div>
+		</div>
+		<br />
+		<div>
+			<!-- Colleague view bottom part -->
+			<div style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
+				&nbsp;&nbsp;
+				<input id="Checkbox3" type="checkbox" class="pointable"
+					   data-bind="attr: {NOTBOUNDchecked: dataModel().SharingStatus==1},
                                                     value: dataModel().SharingStatus,
                                                     enable: (dataModel().IsColleagueView),
                                                     readonly: !(dataModel().IsColleagueView),
                                                     click: $root.unshareMeeting" name="CheckboxShared" />
-                <span>Share with manager</span>
-            </div>
+				<span>Share with manager</span>
+			</div>
 
-            <!-- Manager view: Approval -->
-            <div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
-                @*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
-                <div style="display: none" data-bind="visible: (dataModel().ColleagueSignOff==1) && (dataModel().ManagerSignOff == 0)">
-                    <div class="row">
-                        <div class="col-sm-10 h4">
-                            <span>
-                                I accept
-                                <span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"></span>
-                                record of our conversation on
-                                <span data-bind="text: $root.formatDateShort($root.dataModel().ColleagueSignedOffDate) "></span>
-                            </span>
-                        </div>
-                        <div class="col-sm-2">
-                            <input id="Checkbox1" type="button" class="pointable btn btn-primary btn-block pull-right"
-                                   data-bind="value: (dataModel().ManagerSignOff==1)?'Unapprove':'Approve',
+			<!-- Manager view: Approval -->
+			<div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
+				@*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
+				<div style="display: none" data-bind="visible: (dataModel().ColleagueSignOff==1) && (dataModel().ManagerSignOff == 0)">
+					<div class="row">
+						<div class="col-sm-10 h4">
+							<span>
+								I accept
+								<span data-bind="text: $root.utils.getAposName(dataModel().Colleague.FirstName)"></span>
+								record of our conversation on
+								<span data-bind="text: $root.formatDateShort($root.dataModel().ColleagueSignedOffDate) "></span>
+							</span>
+						</div>
+						<div class="col-sm-2">
+							<input id="Checkbox1" type="button" class="pointable btn btn-primary btn-block pull-right"
+								   data-bind="value: (dataModel().ManagerSignOff==1)?'Unapprove':'Approve',
                                                     enable: !(dataModel().IsColleagueView),
                                                     readonly: (dataModel().IsColleagueView),
                                                     click: $root.confirmApprove" name="CompletedMgr" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <!-- Show signoff dates -->
-            <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
-                <span data-bind="text: (dataModel().IsColleagueView) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
-                not yet completed this Link conversation.
-            </div>
-            <div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
-                <span data-bind="text: (dataModel().IsColleagueView) ? 'You' : dataModel().ColleagueName "></span>
-                completed this Link conversation on
-                <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
-                <!--
-                <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==0)">
-                    <span data-bind="text: (dataModel().IsColleagueView) ? (dataModel().ManagerName + ' has ') : 'You have ' "></span>
-                    not yet accepted this Link conversation
-                </div>
-                -->
-                <div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
-                    <span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'You ' "></span>
-                    accepted this Link conversation on
-                    <span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
-                </div>
-            </div>
-        </div>
-        <br />
-    </div>
+			<!-- Show signoff dates -->
+			<div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==0)">
+				<span data-bind="text: (dataModel().IsColleagueView) ? 'You have ' : (dataModel().ColleagueName + ' has ')"></span>
+				not yet completed this Link conversation.
+			</div>
+			<div style="display:none" data-bind="visible: (dataModel().ColleagueSignOff==1)">
+				<span data-bind="text: (dataModel().IsColleagueView) ? 'You' : dataModel().ColleagueName "></span>
+				completed this Link conversation on
+				<span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ColleagueSignedOffDate) "></span>
+				<div style="display:none" data-bind="visible: (dataModel().ManagerSignOff ==1)">
+					<span data-bind="text: (dataModel().IsColleagueView) ? dataModel().ManagerName : 'You ' "></span>
+					accepted this Link conversation on
+					<span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
 </div><!-- / ko linkpage -->
 
+<a href="javascript:void(0)" onclick="window.print()">
+	<i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
+</a>
+
 <script type="text/javascript">
-    require(["ViewMeeting"]);
+	require(["ViewMeeting"]);
 </script>
