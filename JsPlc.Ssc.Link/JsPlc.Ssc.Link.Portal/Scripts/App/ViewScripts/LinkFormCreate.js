@@ -85,7 +85,7 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             // Oh the IE pain
             $("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff ==1) ? true: false);
             $("input[name='CompletedColleague']").prop('checked', (data.ColleagueSignOff == 1) ? true : false);
-            $("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
+            //$("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
 
             //if (data.ManagerSignOff == 1 || data.ManagerSignOff == true) meetingView.ManagerSignOff = true;
             //else meetingView.ManagerSignOff = false;
@@ -112,15 +112,24 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             meetingView.InANutShellQuestions = _.select(data.Questions, function (ques) { return ques.QuestionType == 'IN A NUTSHELL'; });
             meetingView.Questions = data.Questions;
 
-            self.dataModel(meetingView);
-            adjustBreadcrumbs(self.dataModel().ColleagueId);
+            return meetingView;
+            //self.dataModel(meetingView);
+            //adjustBreadcrumbs(self.dataModel().ColleagueId);
         };
 
         self.formatDateMonthDYHM = function (dateObj) {
             if (!dateObj) return '-';
             var formattedString = moment(dateObj, "").format('dddd, MMMM Do YYYY [at] HH:mma');
             return formattedString;
-        }
+        };
+
+        self.formatDateShort = function (dateObj) {
+            if (!dateObj) {
+                return '-';
+            }
+            var formattedString = moment(dateObj, "").format('Do MMMM YYYY');
+            return formattedString;
+        };
 
         // ### GET LinkForm Data (assume there is data, it will show up), we may have to build a Get method which returns a blank Link Meeting template
         self.loadPageData = function (promise) {
@@ -130,7 +139,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                     self.dataAvailable(false);
                 }
                 else {
-                    buildViewModels(data);
+                    self.dataModel(buildViewModels(data));
+                    self.dataModel().SharingStatus = ko.observable(self.dataModel().SharingStatus);//Make observable
+                    adjustBreadcrumbs(self.dataModel().ColleagueId);
                     self.dataAvailable(true);
                 }
                 self.bind();
@@ -160,8 +171,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             data.ManagerSignOff = $("input[name='CompletedMgr']").prop('checked');
             data.ManagerSignOff = data.ManagerSignOff && (data.ManagerSignOff == 1 || data.ManagerSignOff == true) ? "Completed" : "InComplete";
 
-            data.SharingStatus = $("input[name='CheckboxShared']").prop('checked');
-            data.SharingStatus = data.SharingStatus && (data.SharingStatus == 1 || data.SharingStatus == true) ? "Shared" : "NotShared";
+            //data.SharingStatus = $("input[name='CheckboxShared']").prop('checked');
+            //data.SharingStatus = data.SharingStatus && (data.SharingStatus == 1 || data.SharingStatus == true) ? "Shared" : "NotShared";
+            data.SharingStatus = data.SharingStatus(); //Get observable value
 
             //var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
             //var yyyymmdd = ukDate.toISOString();
@@ -282,19 +294,12 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         };
 
         self.confirmCheckbox = function (data, event) {
-            //if (event.currentTarget.checked === true) {
-            //    var box = confirm("Are you sure you want to complete this form?");
-            //    if (box == true)
-            //        return true;
-            //    else
-            //        event.currentTarget.checked = false;
-            //        return true;
-            //} else {
-            //    event.currentTarget.checked = false;
-            //}
             return true;
-        }
-        //End Luan
+        };
+
+        self.shareConversation = function () {
+            self.dataModel().SharingStatus(self.dataModel().SharingStatus() ? 0 : 1);
+        };
     };
 
 
