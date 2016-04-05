@@ -28,8 +28,8 @@
             <div class="linkPanelS panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h3>
-                        <a role="button" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Achieving my objectives 
+                        <a role="button" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Achieving my objectives <span class="glyphicon glyphicon-minus" style="float:right;"></span>
                         </a>
                     </h3>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h3>
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Key Strengths 
+                            Key Strengths <span class="glyphicon glyphicon-plus" style="float:right;"></span>
                         </a>
                     </h3>
                 </div>
@@ -121,7 +121,7 @@
                 <div class="panel-heading" role="tab" id="headingThree">
                     <h3>
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Career aspirations 
+                            Career aspirations <span class="glyphicon glyphicon-plus" style="float:right;"></span>
                         </a>
                     </h3>
                 </div>
@@ -185,7 +185,22 @@
 
 </form>
 
+<script data-cfasync="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script data-cfasync="false" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
+<script type='text/javascript'>
+
+    $(document).ready(function() {
+
+        $('.collapse').on('shown.bs.collapse', function(){
+            $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+        }).on('hidden.bs.collapse', function(){
+            $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+        });
+
+    });
+
+</script>
 
 
 <script type="text/javascript">
