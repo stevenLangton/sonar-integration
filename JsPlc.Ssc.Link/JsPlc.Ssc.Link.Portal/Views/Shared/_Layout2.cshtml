@@ -8,12 +8,6 @@
 @{
     var CurrentUser = TempData["CurrentUser"] as LinkUserView;
     string ColleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId;
-    var userInfoForUi = new
-    {
-        colleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId,
-        managerId = CurrentUser == null ? "" : CurrentUser.Colleague.ManagerId,
-        managerName = (CurrentUser != null && CurrentUser.Colleague.Manager != null) ? CurrentUser.Colleague.Manager.FirstName + " " + CurrentUser.Colleague.Manager.LastName : ""
-    };
 }
 <!DOCTYPE html>
 <html>
@@ -22,7 +16,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <!-- Cache disabling headers -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -37,8 +30,6 @@
     <link rel="stylesheet" type="text/css" media="print" href="~/Content/print.css">
     <script type="text/javascript" src="~/Scripts/require.js"></script>
     <script type="text/javascript" src="~/Scripts/require.config.js"></script>
-
-    <script data-cfasync="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,7 +39,7 @@
     <script type="text/javascript">
     require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
             //common.setUserInfo("@ColleagueId");
-            common.setUserInfo(@Html.Raw(Json.Encode(userInfoForUi)));
+            common.setUserInfo(@Html.Raw(Json.Encode(CurrentUser)));
 
             toastr.options = {
                 "debug": false,
@@ -63,7 +54,7 @@
     });
     </script>
 
- 
+
     <meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
 <body>
@@ -75,14 +66,14 @@
                 <div class="col-md-5 ">
                     <div class="sainsLogo">
                     </div>
-               
+
                 </div>
-                    <div class="col-md-3" stye="text-align:right;">
-                        <h1 style="margin-top:15px;">My Performance</h1>
-                    </div>
+                <div class="col-md-3" stye="text-align:right;">
+                    <h1 style="margin-top:15px;">My Performance</h1>
                 </div>
-                  
             </div>
+
+        </div>
 
     </header>
     <div class="row">
@@ -92,7 +83,7 @@
     <div class="wrapper">
         <div class="container">
 
-            <div class="row @(Request.IsAuthenticated ? "" : "background1")">
+            <div class="row">
 
 
 
@@ -105,18 +96,18 @@
                 </div>
             </div>
 
-                @if (@ViewBag.Title == "Welcome to Link")
-                {
-                    <div class="row">
-                        <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
-                            @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
+            @if (@ViewBag.Title == "Welcome to Link")
+            {
+                <div class="row">
+                    <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
+                        @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
 
-                        </div>
                     </div>
-                }
+                </div>
+            }
 
 
-            </div>
+        </div>
 
         <div class="push"></div>
     </div>
@@ -137,7 +128,7 @@
 
 
                         <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small> </div>
-</div>
+                    </div>
                 </div>
             </div>
 
@@ -171,21 +162,6 @@
     <script type="text/javascript">
         require(['bootstrap'], function () {
         });
-    </script>
-
-
-    <script type='text/javascript'>
-
-        $(document).ready(function () {
-
-            $('.collapse').on('shown.bs.collapse', function () {
-                $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-            }).on('hidden.bs.collapse', function () {
-                $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-            });
-
-        });
-
     </script>
 
 </body>

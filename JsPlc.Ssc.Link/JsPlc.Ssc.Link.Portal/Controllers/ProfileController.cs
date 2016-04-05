@@ -25,7 +25,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public ActionResult Show([Bind(Prefix = "id")] string ColleagueId)
         {
             //Only a direct manager has access to the profile page of his direct reports
-            if (!IsLineManager() || !HasColleagueAccess(CurrentUser.Colleague.ColleagueId, ColleagueId))
+            if (!IsLineManager() || !HasColleagueAccess(ColleagueId))
             {
                 return RedirectToAction("Unauthorized", "Home");
             }

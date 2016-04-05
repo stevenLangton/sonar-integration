@@ -31,14 +31,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             object jsonData;
             var newMeeting = ServiceFacade.GetNewMeetingView(colleagueId);
 
-            if (newMeeting != null)
+			if (newMeeting != null && CurrentUser != null)
             {
                 newMeeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == colleagueId;
                 newMeeting.ManagerSignOff = MeetingStatus.InComplete;
                 newMeeting.ColleagueSignOff = MeetingStatus.InComplete;
                 newMeeting.SharingStatus = MeetingSharingStatus.NotShared;
                 jsonData = newMeeting;
-                if (!HasColleagueAccess(CurrentUser.Colleague.ColleagueId, colleagueId))
+                if (!HasColleagueAccess(colleagueId))
                 {
                     jsonData = "Error";
                 }
@@ -68,7 +68,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             object jsonData;
             var meeting = ServiceFacade.GetMeeting(meetingId);
 
-            if (meeting != null)
+			if (meeting != null && CurrentUser != null)
             {
                 // Is colleague View?
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
@@ -78,7 +78,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
                 // Trying to Edit a completed meeting
                 // You dont have access to meeting (not your meeting or user is not your manager)
                 // Manager trying to access unshared meeting
-                if (!HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId)
+                if (!HasMeetingAccess(meetingId)
                     ||
                     (mode.Equals("edit") && meeting.ManagerSignOff == MeetingStatus.Completed)
                     || 
@@ -108,11 +108,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             var meeting = ServiceFacade.GetMeeting(meetingId);
 
-            if (meeting == null || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
+            if (meeting == null || !HasMeetingAccess(meetingId))
             {
                 jsonData = "Error";
             }
-            if (meeting != null)
+			if (meeting != null && CurrentUser != null)
             {
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 if (meeting.ManagerSignOff == MeetingStatus.Completed)
@@ -140,11 +140,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             var meeting = ServiceFacade.GetMeeting(meetingId);
 
-            if (meeting == null || !HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId))
+            if (meeting == null || !HasMeetingAccess(meetingId))
             {
                 jsonData = "Error";
             }
-            if (meeting != null)
+			if (meeting != null && CurrentUser != null)
             {
                 meeting.ColleagueInitiated = CurrentUser.Colleague.ColleagueId == meeting.ColleagueId;
                 if (!meeting.ColleagueInitiated && meeting.SharingStatus == MeetingSharingStatus.NotShared)
@@ -169,16 +169,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [ScriptMethod(UseHttpGet = false)]
         public async Task<JsonResult> PostLinkForm([FromBody] MeetingView meetingView)
         {
-            #region 'Old approach = Receiving FormCollection' 
-
-            // Get Json data in FormCollection formdata
-            //var jsonData = formData["linkForm"];
-
-            // Convert Json to LinkForm object
-            // var newform = JsonConvert.DeserializeObject(jsonData, Type.GetType("JsPlc.Ssc.Link.Portal.Models.LinkForm")); // key set in .ajax POST on Create
-
-            #endregion
-
             // POSTING Data further to ServiceApi
             // http://www.asp.net/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
@@ -256,7 +246,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         {
             ViewBag.Title = "My Team";
 
-            if (id != null)
+			if (id != null && CurrentUser != null)
             {
                 var meeting = ServiceFacade.GetMeeting(id.Value);
 
@@ -276,7 +266,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.Title = "Edit conversation";
-            if (id != null)
+			if (id != null && CurrentUser != null)
             {
                 var meeting = ServiceFacade.GetMeeting(id.Value);
 

@@ -34,9 +34,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
         protected static readonly string Authority = String.Format(CultureInfo.InvariantCulture, aadInstance, tenant);
 
-        //public static LinkUserView CurrentUser { get; private set; } // careful as this maybe null when not logged in
-
-        public static ILinkUserView CurrentUser { get; private set; }
+		ILinkUserView _currentUser = null;
+		public ILinkUserView CurrentUser
+		{
+			get
+			{
+				if (_currentUser == null)
+				{
+					initCurrentUser();
+				}
+				return _currentUser;
+			}
+		}
         protected ILinkServiceFacade ServiceFacade { get; set; }
 
         public LinkBaseController()
@@ -46,7 +55,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
         public LinkBaseController(ILinkUserView currentUser, ILinkServiceFacade facade)
         {
-            CurrentUser = currentUser;
+			_currentUser = currentUser;
             ServiceFacade = facade;
         }
 
@@ -64,54 +73,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
         {
             base.OnActionExecuting(filterContext);
 
-            if (Request.IsAuthenticated && !Request.RawUrl.ToLower().Contains("/account/signout"))
-            {
-                CurrentUser = new LinkUserView();
+			initCurrentUser();
 
-                //var authenticatedEmailAddr = User.Identity.Name;
-                var emailClaim =
-                    ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
-                var authenticatedEmailAddr = "";
-                if (emailClaim != null)
-                {
-                    authenticatedEmailAddr = emailClaim.Value;
-                }
-
-                if (authenticatedEmailAddr.IsNullOrWhiteSpace())
-                {
-                    authenticatedEmailAddr = User.Identity.Name;
-                }
-                // Last ditch check
-                if (authenticatedEmailAddr.IsNullOrWhiteSpace())
-                {
-                    var exceptionMsg = "";
-                    if (emailClaim == null || emailClaim.Value.IsNullOrWhiteSpace())
-                    {
-                        exceptionMsg += "Error: Missing claim = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
-                    }
-                    if (User.Identity.Name.IsNullOrWhiteSpace())
-                    {
-                        exceptionMsg += "\n --- Error: Username/Email expected on authentication, Found blank email address claim value";
-                    }
-                    var ex = new ApplicationException(exceptionMsg);
-                    throw ex; 
-                }
-
-                CurrentUser.IsLineManager = ServiceFacade.IsManagerByEmail(authenticatedEmailAddr);
-                CurrentUser.Colleague = ServiceFacade.GetColleagueByUsername(authenticatedEmailAddr);
-
-                if (CurrentUser.Colleague == null)
-                {
-					var exceptionMessage = string.Format("Colleague not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
-					throw new ApplicationException(exceptionMessage);
-				}
-				else if (CurrentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
-				{
-					var exceptionMessage = string.Format("Colleague's Email not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
-					throw new ApplicationException(exceptionMessage);
-				}
-                TempData["CurrentUser"] = CurrentUser;
-            }
             ViewBag.VersionNumber = GetAssemblyVersion();
         }
 
@@ -141,22 +104,22 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             return CurrentUser != null && CurrentUser.IsLineManager; // for controllers
         }
 
-        public bool HasMeetingAccess(int meetingId, string colleagueId)
+		public bool HasMeetingAccess(int meetingId)
         {
-            if (CurrentUser == null || CurrentUser.Colleague == null) return false;
+			if (CurrentUser == null
+				|| CurrentUser.Colleague == null
+				|| CurrentUser.Colleague.ColleagueId.IsNullOrWhiteSpace()) return false;
 
-            if (colleagueId.IsNullOrWhiteSpace()) colleagueId = CurrentUser.Colleague.ColleagueId;
-
-            return ServiceFacade.HasMeetingAccess(meetingId, colleagueId);
+			return ServiceFacade.HasMeetingAccess(meetingId, CurrentUser.Colleague.ColleagueId);
         }
 
-        public bool HasColleagueAccess(string colleagueId, string otherColleagueId)
+		public bool HasColleagueAccess(string otherColleagueId)
         {
-            if (CurrentUser == null || CurrentUser.Colleague == null) return false;
+			if (CurrentUser == null
+				|| CurrentUser.Colleague == null
+				|| CurrentUser.Colleague.ColleagueId.IsNullOrWhiteSpace()) return false;
 
-            if (colleagueId.IsNullOrWhiteSpace()) colleagueId = CurrentUser.Colleague.ColleagueId;
-
-            return ServiceFacade.HasColleagueAccess(colleagueId, otherColleagueId);
+			return ServiceFacade.HasColleagueAccess(CurrentUser.Colleague.ColleagueId, otherColleagueId);
         }
 
         public static string GetIPAddress()
@@ -210,6 +173,62 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             string versionNumber = currentAssembly.GetName().Version.ToString();
             return versionNumber;
         }
+
+		#region Private Methods
+		private void initCurrentUser()
+		{
+			if (Request.IsAuthenticated && !Request.RawUrl.ToLower().Contains("/account/signout"))
+			{
+				_currentUser = new LinkUserView();
+
+				//var authenticatedEmailAddr = User.Identity.Name;
+				var emailClaim =
+					ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+				var authenticatedEmailAddr = "";
+				if (emailClaim != null)
+				{
+					authenticatedEmailAddr = emailClaim.Value;
+				}
+
+				if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+				{
+					authenticatedEmailAddr = User.Identity.Name;
+				}
+				// Last ditch check
+				if (authenticatedEmailAddr.IsNullOrWhiteSpace())
+				{
+					var exceptionMsg = "";
+					if (emailClaim == null || emailClaim.Value.IsNullOrWhiteSpace())
+					{
+						exceptionMsg += "Error: Missing claim = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+					}
+					if (User.Identity.Name.IsNullOrWhiteSpace())
+					{
+						exceptionMsg += "\n --- Error: Username/Email expected on authentication, Found blank email address claim value";
+					}
+					var ex = new ApplicationException(exceptionMsg);
+					throw ex;
+				}
+
+				_currentUser.IsLineManager = ServiceFacade.IsManagerByEmail(authenticatedEmailAddr);
+				_currentUser.Colleague = ServiceFacade.GetColleagueByUsername(authenticatedEmailAddr);
+
+				if (_currentUser.Colleague == null)
+				{
+					var exceptionMessage = string.Format("Colleague not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
+					throw new ApplicationException(exceptionMessage);
+				}
+				else if (_currentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
+				{
+					var exceptionMessage = string.Format("Colleague's Email not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
+					throw new ApplicationException(exceptionMessage);
+				}
+				TempData["CurrentUser"] = _currentUser;
+			}
+		}
+
+
+		#endregion
 
         protected JsonResult MakeJsonObject(dynamic DataObject, bool Success = true, string Message = "")
         {

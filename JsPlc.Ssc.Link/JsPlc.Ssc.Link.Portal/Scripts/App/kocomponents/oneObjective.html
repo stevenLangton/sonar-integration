@@ -1,77 +1,77 @@
 ﻿<div class="one-objective" style="display: none;" data-bind="visible: true">
-    <div data-bind="visible: !expandedView()">
-        <div class="row">
-            <div class="col-sm-11">
-                <h3 data-bind="text: data.Title()?data.Title().replace(/^(.{60}[^\s]*).*/,'$1'):''"></h3>
-            </div>
-            <div class="col-sm-1 pull-right" data-bind="if: enableViewToggle">
-                <a href="#" target="_blank" data-bind="click: toggleView" class="pull-right"><icon class="fa" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon></a>
-            </div>
-        </div>
-        <p>
-            <span data-bind="text: statusMessage() "></span>
-        </p>
-    </div>
-    <div data-bind="visible: expandedView">
-        <div class="row">
-            <div class="col-sm-10">
-                <h4 for="objectiveTitle">Objective title</h4>
-            </div>
-            <div class="col-sm-1 pull-right linkBoxTitle expanded-objective" data-bind="if: enableViewToggle">
-                <a href="#" target="_blank" data-bind="click: toggleView" class="pull-right">
-                    <icon class="fa fa-minus" data-bind="css: { 'fa-minus': expandedView(), 'fa-plus': !expandedView() }"></icon>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
-            </div>
-        </div>
-        <h4>What will I do to make a difference this year? (SPECIFIC and check it's ACHIEVABLE) </h4>
-        <div class="row">
-            <div class="col-sm-12">
-                <textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
-            </div>
-        </div>
-        <h4>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)? (MEASURABLE &amp; TIMEBOUND)</h4>
-        <div class="row">
-            <div class="col-sm-12">
-                <textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
-            </div>
-        </div>
-        <h4>Which company, divisional, zone, regional, team or store priority does this support? (RELEVANT)</h4>
-        <div class="row">
-            <div class="col-sm-12">
-                <textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>
-            </div>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-sm-10" data-bind="visible: data.Id()!=0">
-                <span data-bind="text: 'Created on ' + meetingService.formatDateMonthDYHM(data.CreatedDate())"></span>
-                <br />
-                <span data-bind="text: 'Last updated on ' + meetingService.formatDateMonthDYHM(data.LastAmendedDate())"></span>
-            </div>
-            <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
-                <button class="btn btn-primary btn-block" data-bind="click: update, disable: readOnly">Save</button>
-            </div>
-        </div>
-        <div data-bind="visible: data.Id()!=0">
-            <hr />
-            <div class="row">
-                <div class="col-sm-9">
-                    <span class="" data-bind="text: statusMessage "></span>
-                </div>
-                <div class="col-sm-3" data-bind="visible: managerView && !data.Approved()">
-                    <button class="btn btn-primary pull-right" data-bind="click: approve">I approve this objective</button>
-                </div>
-                <div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
-                    <button class="btn btn-primary btn-block" data-bind="click: share, disable: readOnly">Share record</button>
-                </div>
-            </div>
-            <br />
-        </div>
-    </div>
+	<div data-bind="visible: !expandedView() && !expandedAll()">
+		<div class="row">
+			<div class="col-sm-11">
+				<h3 data-bind="text: data.Title()?data.Title().replace(/^(.{60}[^\s]*).*/,'$1'):''"></h3>
+			</div>
+			<div class="col-sm-1 pull-right" data-bind="if: enableViewToggle">
+				<a href="#" target="_blank" data-bind="click: toggleView" class="pull-right"><icon class="fa" data-bind="css: { 'fa-minus': expandedView() || expandedAll(), 'fa-plus': !expandedView() && !expandedAll() }"></icon></a>
+			</div>
+		</div>
+		<p>
+			<span data-bind="text: statusMessage() "></span>
+		</p>
+	</div>
+	<div data-bind="visible: expandedView() || expandedAll()">
+		<div class="row">
+			<div class="col-sm-10">
+				<h4 for="objectiveTitle">Objective title</h4>
+			</div>
+			<div class="col-sm-1 pull-right linkBoxTitle expanded-objective" data-bind="if: enableViewToggle">
+				<a href="#" target="_blank" data-bind="click: toggleView" class="pull-right">
+					<icon class="fa fa-minus" data-bind="css: { 'fa-minus': expandedView() || expandedAll(), 'fa-plus': !expandedView() && !expandedAll() }"></icon>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<textarea id="objectiveTitle" data-bind="textInput: data.Title, disable: readOnly"></textarea>
+			</div>
+		</div>
+		<h4>What will I do to make a difference this year? (SPECIFIC and check it's ACHIEVABLE) </h4>
+		<div class="row">
+			<div class="col-sm-12">
+				<textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
+			</div>
+		</div>
+		<h4>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)? (MEASURABLE &amp; TIMEBOUND)</h4>
+		<div class="row">
+			<div class="col-sm-12">
+				<textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
+			</div>
+		</div>
+		<h4>Which company, divisional, zone, regional, team or store priority does this support? (RELEVANT)</h4>
+		<div class="row">
+			<div class="col-sm-12">
+				<textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-sm-10" data-bind="visible: data.Id()!=0">
+				<span data-bind="text: 'Created on ' + meetingService.formatDateMonthDYHM(data.CreatedDate())"></span>
+				<br />
+				<span data-bind="text: 'Last updated on ' + meetingService.formatDateMonthDYHM(data.LastAmendedDate())"></span>
+			</div>
+			<div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
+				<button class="btn btn-primary btn-block" data-bind="click: update, disable: readOnly">Save</button>
+			</div>
+		</div>
+		<div data-bind="visible: data.Id()!=0">
+			<hr />
+			<div class="row">
+				<div class="col-sm-9">
+					<span class="" data-bind="text: statusMessage "></span>
+				</div>
+				<div class="col-sm-3" data-bind="visible: managerView && !data.Approved()">
+					<button class="btn btn-primary pull-right" data-bind="click: approve">I approve this objective</button>
+				</div>
+				<div class="col-sm-2 pull-right" data-bind="visible: !managerView && !data.Approved()">
+					<button class="btn btn-primary btn-block" data-bind="click: share, disable: readOnly">Share record</button>
+				</div>
+			</div>
+			<br />
+		</div>
+	</div>
 </div>
 

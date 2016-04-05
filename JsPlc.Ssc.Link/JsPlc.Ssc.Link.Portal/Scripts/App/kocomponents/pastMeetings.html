@@ -19,7 +19,7 @@
   
         <div class="linkBox3 linkPadding">
             <div id="u98">
-                <h3 style="color:#333333;">
+                <h3>
                     <span data-bind="text: $component.meetingService.formatDateMonthDYHM(MeetingDate) "></span>
                 </h3>
                 <p>
@@ -50,10 +50,12 @@
                         <!-- /ko -->
                   
                 </p>
+                <div style="text-align:right;">
                 <p>
                     <a data-bind="attr: {'href': $component.meetingService.getEditOrViewLink($data)}, visible: $data.SharingStatus==1"
                        class="btn btn-sm btn-default">View record</a>
                 </p>
+                    </div>
             </div>
         </div>
     

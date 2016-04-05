@@ -1,5 +1,8 @@
 ﻿<div class="list-group" id="objectivesList" data-bind="foreach: objectives, visible: true" style="display: none">
     <div class="container-fluid linkBox1 linkPadding" style="display: none;" data-bind="visible: true">
-        <one-objective params="data: $data, readOnly: $component.readOnly, managerView: $component.managerView"></one-objective>
+		<one-objective params="data: $data, readOnly: $component.readOnly, managerView: $component.managerView, expandedAll: $component.expandedAll"></one-objective>
     </div>
 </div>
+<a href="javascript:void(0)" data-bind="click: expandCollapseAll">
+	<i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
+</a>

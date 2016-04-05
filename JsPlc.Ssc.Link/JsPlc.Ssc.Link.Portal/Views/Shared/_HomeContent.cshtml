@@ -10,7 +10,7 @@
 
         <p>
             For further information on our new approach to performance management,
-            please go to the <a href="/Home/help">self-teach guide</a>
+            please go to the <a href="/Home/help">self-teach guide</a>.
 </p>
     </div>
     <div class="col-md-3" style="">
@@ -18,6 +18,8 @@
     </div>
 </div>
 
+@if (Request.IsAuthenticated)
+{
 <div class="row">
     <div class="col-md-12" style="text-align:center;">
         <hr/>
@@ -35,3 +37,4 @@
         <a href="/Home/LinkMeetings" class="btn btn-default">Link Coversations</a>
     </div>
 </div>
+}

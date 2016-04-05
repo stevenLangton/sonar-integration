@@ -59,17 +59,14 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
                     EmailAddress="Arkadiusz.Goral@domain.com"},
 
                     //PEN test users
-                    new StubColleague{Id=24, FirstName="PenTest", LastName="Consultant1",  ColleagueId="E0400", ManagerId="E0011", 
-                    EmailAddress="PenTest.Consultant1@domain.com"},
+                    new StubColleague{Id=24, FirstName="PenTest", LastName="Consultant13",  ColleagueId="E0400", ManagerId="E0011", 
+                    EmailAddress="PenTest.Consultant13@domain.com"},
 
-                    new StubColleague{Id=20, FirstName="PenTest", LastName="Consultant2",  ColleagueId="E0100", ManagerId="E0400", 
-                    EmailAddress="PenTest.Consultant2@domain.com"},
+                    new StubColleague{Id=20, FirstName="PenTest", LastName="Consultant14",  ColleagueId="E0100", ManagerId="E0400", 
+                    EmailAddress="PenTest.Consultant14@domain.com"},
 
-                    new StubColleague{Id=21, FirstName="PenTest", LastName="Consultant3",  ColleagueId="E0200", ManagerId="E0300", 
-                    EmailAddress="PenTest.Consultant3@domain.com"},
-
-                     new StubColleague{Id=23, FirstName="PenTest", LastName="Consultant4",  ColleagueId="E0300", ManagerId="E0011", 
-                    EmailAddress="PenTest.Consultant4@domain.com"},
+                     new StubColleague{Id=23, FirstName="PenTest", LastName="Consultant15",  ColleagueId="E0300", ManagerId="E0011", 
+                    EmailAddress="PenTest.Consultant15@domain.com"},
 
                     //UX Test Users
                     new StubColleague{Id=24, FirstName="colleague", LastName="1",  ColleagueId="U0001", ManagerId="U0013", 
