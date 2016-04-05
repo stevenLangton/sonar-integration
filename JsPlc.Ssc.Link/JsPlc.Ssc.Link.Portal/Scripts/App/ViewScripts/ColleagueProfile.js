@@ -66,14 +66,20 @@
         return vm;
     };
 
-    //Module init function
-    //var init = function (koBoundDivId, colleagueId) {
-    var init = function (koBoundDivId, colleagueMeetings) {
+    var gotMeetingsData = function (colleagueMeetings, koBoundDivId) {
         var vm = viewModel();
         vm.data = meetingService.buildColleagueMeetingsViewModel(colleagueMeetings);
         vm.colleagueId = vm.data.ColleagueId;
         ko.applyBindings(vm, document.getElementById(koBoundDivId));
         vm.tabChanged(1);
+    };
+
+    var init = function (koBoundDivId, colleagueId) {
+        var $promise = dataService.getColleagueMeetings(colleagueId);
+
+        $promise.done(function (result) { gotMeetingsData(result.data, koBoundDivId) });//result.data is ColleagueTeamView
+
+        $promise.fail(function () { toastr.error("We encountered a problem while retrieving data")})
     };
 
     return {

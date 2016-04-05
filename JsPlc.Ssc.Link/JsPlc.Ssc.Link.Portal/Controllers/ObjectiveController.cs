@@ -87,20 +87,20 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 			return View("Show", item);
 		}
 
-		[HttpGet]
-		public async Task<ActionResult> Show(int Id)
-		{
-			//temporary solution to find out where this action has been requested from
-			ILog _logger = LogManager.GetLogger("GlobalActionExecutedEx");
-			_logger.Info(Request.RawUrl);
-			_logger.Info(Request.UrlReferrer);
-			_logger.Info(Request.UserHostAddress);
+        //[HttpGet]
+        //public async Task<ActionResult> Show(int Id)
+        //{
+        //    //temporary solution to find out where this action has been requested from
+        //    ILog _logger = LogManager.GetLogger("GlobalActionExecutedEx");
+        //    _logger.Info(Request.RawUrl);
+        //    _logger.Info(Request.UrlReferrer);
+        //    _logger.Info(Request.UserHostAddress);
 
-			ViewBag.Title = "View objective";
-			LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
-			ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
-			return View(item);
-		}
+        //    ViewBag.Title = "View objective";
+        //    LinkObjective item = await ServiceFacade.GetObjective(CurrentUser.Colleague.ColleagueId, Id);
+        //    ViewBag.ReadOnly = item.ColleagueId != CurrentUser.Colleague.ColleagueId;
+        //    return View(item);
+        //}
 
 		[HttpPost]
 		public async Task<ActionResult> Create(LinkObjective modifiedObjective)
@@ -156,18 +156,5 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 			};
 		}
 		//Update
-
-		#region Private methods
-
-		private JsonResult MakeJsonObject(dynamic DataObject, bool Success = true, string Message = "")
-		{
-			return new JsonResult
-			{
-				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-				Data = new { success = Success, message = Message, data = DataObject }
-			};
-		}
-
-		#endregion
 	}
 }

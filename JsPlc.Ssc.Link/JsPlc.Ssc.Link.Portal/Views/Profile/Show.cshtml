@@ -25,6 +25,6 @@
 </div>
 <script type="text/javascript">
     require(["ColleagueProfile", "RegisterKoComponents"], function (cp) {
-        cp.init("ProfileView", @Html.Raw(Json.Encode(ColleagueMeetings)));
+        cp.init("ProfileView", "@Colleague.ColleagueId");
     });
 </script>

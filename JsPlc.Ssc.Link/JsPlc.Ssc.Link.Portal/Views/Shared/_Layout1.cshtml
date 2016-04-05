@@ -8,6 +8,12 @@
 @{
     var CurrentUser = TempData["CurrentUser"] as LinkUserView;
     string ColleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId;
+    var userInfoForUi = new
+    {
+        colleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId,
+        managerId = CurrentUser == null ? "" : CurrentUser.Colleague.ManagerId,
+        managerName = (CurrentUser != null && CurrentUser.Colleague.Manager != null) ? CurrentUser.Colleague.Manager.FirstName + " " + CurrentUser.Colleague.Manager.LastName : ""
+    };
 }
 <!DOCTYPE html>
 <html>
@@ -40,7 +46,7 @@
     <script type="text/javascript">
     require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
             //common.setUserInfo("@ColleagueId");
-            common.setUserInfo(@Html.Raw(Json.Encode(CurrentUser)));
+            common.setUserInfo(@Html.Raw(Json.Encode(userInfoForUi)));
 
             toastr.options = {
                 "debug": false,

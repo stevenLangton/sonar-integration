@@ -71,11 +71,9 @@
         userInfo.managerName = "";
 
         if (typeof data !== "undefined" && !$.isEmptyObject(data)) {
-            userInfo.colleagueId = data.Colleague.ColleagueId;
-            userInfo.managerId = data.Colleague.ManagerId;
-            if (data.Colleague.Manager) {
-                userInfo.managerName = data.Colleague.Manager.FirstName + " " + data.Colleague.Manager.LastName;
-            } 
+            userInfo.colleagueId = data.colleagueId;
+            userInfo.managerId = data.managerId;
+            userInfo.managerName = data.managerName;
         }
     };
 

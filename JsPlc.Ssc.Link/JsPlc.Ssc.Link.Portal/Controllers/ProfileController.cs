@@ -1,9 +1,11 @@
 ﻿using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
+using JsPlc.Ssc.Link.Portal.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -33,10 +35,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             ViewBag.Colleague = ColleagueDetails;
             ViewBag.NextMeeting = NextMeetingView;
 
-            ColleagueTeamView ColleagueMeetings = ServiceFacade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
-            ColleagueMeetings = TeamController.AssignMeetingsByDate(ColleagueMeetings);
+            //ColleagueTeamView ColleagueMeetings = ServiceFacade.GetMyMeetingsView(ColleagueId) ?? new ColleagueTeamView();
+            //ColleagueMeetings = TeamController.AssignMeetingsByDate(ColleagueMeetings);
 
-            ViewBag.ColleagueMeetings = ColleagueMeetings;
+            //ViewBag.ColleagueMeetings = ColleagueMeetings;
 
             return View();
         }

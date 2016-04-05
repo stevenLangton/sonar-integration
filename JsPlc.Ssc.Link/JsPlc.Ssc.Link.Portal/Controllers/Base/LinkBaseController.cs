@@ -210,5 +210,14 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             string versionNumber = currentAssembly.GetName().Version.ToString();
             return versionNumber;
         }
+
+        protected JsonResult MakeJsonObject(dynamic DataObject, bool Success = true, string Message = "")
+        {
+            return new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { success = Success, message = Message, data = DataObject }
+            };
+        }
     }
 }
