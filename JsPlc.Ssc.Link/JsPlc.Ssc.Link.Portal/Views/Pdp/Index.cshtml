@@ -183,14 +183,156 @@
 
 
 
+	<div class="form-horizontal">
+		<div class="row">
+			<div class="col-md-2">
+				<img src="~/Content/Images/PDP wheel unlabelled.png" width="106" height="101" style="margin-top:30px;">
+			</div>
+			<div class="col-md-8">
+				<h1>Personal development plan</h1>
+				<hr />
+				<p>A clear development plan helps you turn your ideas about your personal development into a tangible and action-focused plan</p>
+				<hr />
+			</div>
+		</div>
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="linkPanelS panel-default">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h3>
+						<a role="button" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							Achieving my objectives
+						</a>
+					</h3>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+					<div class="LinkBox1Padding">
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>What areas do I need to develop to achieve my objectives?</h3>@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+							</div>
+						</div>
+
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>What actions will I take?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+							</div>
+						</div>
+
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>
+									By when?
+								</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.achieveObjectivesWhen, new { htmlAttributes = new { @class = "form-control" } })
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+			<div class="linkPanel panel-default">
+				<div class="panel-heading" role="tab" id="headingTwo">
+					<h3>
+						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Key Strengths
+						</a>
+					</h3>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+					<div class="LinkBox1Padding">
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>What are my key strengths?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+							</div>
+						</div>
+
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>What actions will I take to further develop these areas?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+							</div>
+						</div>
+
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>By when?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.keyStrengthsWhen, new { htmlAttributes = new { @class = "form-control" } })
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="linkPanel panel-default">
+				<div class="panel-heading" role="tab" id="headingThree">
+					<h3>
+						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							Career aspirations
+						</a>
+					</h3>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					<div class="LinkBox1Padding">
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3> What are my career aspirations?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+							</div>
+						</div>
+
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3> What actions do I need to take to move towards these aspirations?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control multilinePdp" } })
+							</div>
+						</div>
+
+						<div class="linkBox4">
+							<div class="linkBoxTitle">
+								<h3>By when?</h3>
+							</div>
+							<div class="LinkBox1Padding">
+								@Html.EditorFor(model => model.careerAspirationsWhen, new { htmlAttributes = new { @class = "form-control" } })
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<br />
+		<input type="submit" value="Save" class="btn btn-primary pull-right" />
+	</div>
+	<a href="/Pdp" onclick="window.print()">
+		<i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
+	</a>
 </form>
-
-
 
 <script type="text/javascript">
     require(["pdp", "knockout", "RegisterKoComponents"], function (pdp, ko) {
         $(document).ready(function () {
-            //ko.applyBindings({}, document.getElementById("koDiv"));
             if (@Html.Raw(Json.Encode(ViewBag.PdpUpdated))) {
                 pdp.init(@Html.Raw(Json.Encode(ViewBag.PdpUpdated)));
             }

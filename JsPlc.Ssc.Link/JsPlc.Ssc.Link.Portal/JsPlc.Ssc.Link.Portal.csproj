@@ -517,7 +517,6 @@
     <Content Include="Views\Home\LinkMeetings.cshtml" />
     <Content Include="Views\Objective\Index.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
-    <Content Include="Views\Objective\Show.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Team\YourTeam.cshtml" />
