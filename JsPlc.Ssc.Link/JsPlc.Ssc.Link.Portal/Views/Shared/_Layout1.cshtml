@@ -31,6 +31,8 @@
     <link rel="stylesheet" type="text/css" media="print" href="~/Content/print.css">
     <script type="text/javascript" src="~/Scripts/require.js"></script>
     <script type="text/javascript" src="~/Scripts/require.config.js"></script>
+
+    <script data-cfasync="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -163,6 +165,21 @@
     <script type="text/javascript">
         require(['bootstrap'], function () {
         });
+    </script>
+
+
+    <script type='text/javascript'>
+
+        $(document).ready(function () {
+
+            $('.collapse').on('shown.bs.collapse', function () {
+                $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+            }).on('hidden.bs.collapse', function () {
+                $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+            });
+
+        });
+
     </script>
 
 </body>
