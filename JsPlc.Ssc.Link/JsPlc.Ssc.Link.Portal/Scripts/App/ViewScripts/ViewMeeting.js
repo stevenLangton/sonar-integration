@@ -40,7 +40,7 @@
                 InANutShellQuestions: [],
                 Questions: []
             };
-            $("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
+            //$("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
             //$("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff == 1) ? true : false);
 
             ko.utils.arrayForEach(data.Questions, function (ques) {
