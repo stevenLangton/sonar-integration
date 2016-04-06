@@ -107,7 +107,7 @@
             @if (@ViewBag.Title == "Welcome to Link")
             {
                 <div class="row">
-                    <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
+                    <div class="col-md-12 homeContent">
                         @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
 
                     </div>
@@ -129,8 +129,12 @@
                     <div class="col-md-12 footerLinks">
 
                         <div id="footerContent">
-                            <a href="/home/help">Help</a> | <a href="/home/contact">Contact Us</a> | <a href="#">Log out</a>
-                        </div>
+
+                            <a class="btn" href="home/help">Help</a>
+                            <a class="btn" href="/home/contact">Contact Us</a>
+                            <a class="btn" href="#">Log out</a>
+
+</div>
                         <div id="footerCopy">
                             &copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small>
                         </div>

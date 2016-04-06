@@ -663,6 +663,10 @@ footer {
 
 .background1 {
     background-image: url(/Content/Images/LinkColleague.jpg);
+
+    background-size: cover;
+    background-repeat:no-repeat;
+
     margin-top: -10px;
     padding-top: 10px;
     padding-bottom: 20px;
@@ -672,11 +676,14 @@ footer {
 
 .background2 {
     background-image: url(/Content/Images/LinkColleague.jpg);
+   
+    background-size: cover;
+    background-repeat:no-repeat;
+
     margin-top: -10px;
     padding-top: 10px;
     padding-bottom: 20px;
     margin-left: 0px;
-    background-size: contain;
 }
 
 .btn-primary {
@@ -759,7 +766,6 @@ footer {
     .footerLinks a {
         margin-right: 30px;
         margin-left: 30px;
-        margin-top: 30px;
     }
 
 
@@ -768,4 +774,14 @@ footer {
 }
 #footerCopy {
         margin-top:60px;
+}
+
+#ThinkingAboutPerformance {background-color:#00acc9;color:#ffffff;border-radius: 15px;padding:15px;}
+
+.getStarted {
+    text-align:center;
+}
+
+.homeContent {
+padding-left:50px;padding-right:50px;padding-top:30px;
 }

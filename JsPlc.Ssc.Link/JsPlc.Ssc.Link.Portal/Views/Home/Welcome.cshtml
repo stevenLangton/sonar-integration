@@ -4,8 +4,6 @@
 }
 <div class="row">
 
-    <!-- <div class="background1">-->
-
     <div class="@(Request.IsAuthenticated ? "background2" : "")">
 
         @if (Request.IsAuthenticated)
@@ -25,9 +23,9 @@
 
 
         <div class="col-md-4">
-            <div style="background-color:#00acc9;color:#ffffff;border-radius: 15px;padding:15px;">
+            <div id="ThinkingAboutPerformance">
 
-                <h3 style="color:#ffffff;text-transform:none;margin-bottom:15px;">
+                <h3 style="color:#ffffff;margin-bottom:15px;">
                     Thinking about performance at Sainsbury’s is thinking about <strong>
                         ‘ the difference
                         you make ’
