@@ -36,15 +36,15 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         [System.Web.Mvc.Authorize]
         public ActionResult Help()
         {
-            TempData["tabName"] = "Help";
-            ViewBag.Message = "Your help page.";
+            TempData["tabName"] = "Help"; //This is the tab name, not text.
+            ViewBag.Message = "Your how to guide page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            TempData["tabName"] = "Contact";
+            TempData["tabName"] = "Contact"; //This is the tab name, not text.
             ViewBag.Message = "Your contact page.";
 
             return View();
