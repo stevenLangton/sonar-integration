@@ -22,7 +22,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <!-- Cache disabling headers -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -108,7 +107,7 @@
                 @if (@ViewBag.Title == "Welcome to Link")
                 {
                     <div class="row">
-                        <div class="col-md-12" style="padding-left:50px;padding-right:50px;padding-top:30px;">
+                    <div class="col-md-12 homeContent">
                             @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
 
                         </div>
@@ -127,16 +126,23 @@
         <div class="navbar navbar-default link-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 footerLinks" style="text-align:center;">
-                        <br />
+                    <div class="col-md-12 footerLinks">
 
-                        <a href="/home/help">@Resources.HelpPageTitle</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="/home/contact">Contact Us</a>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;<a href="#">Log out</a>
+                        <div id="footerContent">
 
-                        <br /><br /><br />
+                            <a class="btn" href="home/help">Help</a>
+                            <a class="btn" href="/home/contact">Contact Us</a>
+                            <a class="btn" href="#">Log out</a>
+
+</div>
+                        <div id="footerCopy">
+                            &copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small>
+                        </div>
+
+                    </div>
 
 
-
-                        <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small> </div>
+                    <div>
 </div>
                 </div>
             </div>

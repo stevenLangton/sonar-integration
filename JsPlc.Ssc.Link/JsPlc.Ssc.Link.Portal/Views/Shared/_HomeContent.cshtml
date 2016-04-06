@@ -1,39 +1,41 @@
 ﻿
 <div class="row">
-    <div class="col-md-9" style="padding-left:100px;">
-        <p>
-            This is your online performance management portal which will enable you to securely capture and save your <a href="/Objective">objectives</a>, <a href="/Home/LinkMeetings">Link conversations</a> and <a href="/Pdp">personal development plans</a>.
-</p>
-        <p>
-            The focus is on having meaningful conversations with your line manager about the difference you make.
-        </p>
+    <div class="col-md-1">
+        </div>
+        <div class="col-md-8">
+            <p>
+                This is your online performance management portal which will enable you to securely capture and save your <a href="/Objective">objectives</a>, <a href="/Home/LinkMeetings">Link conversations</a> and <a href="/Pdp">personal development plans</a>.
+            </p>
+            <p>
+                The focus is on having meaningful conversations with your line manager about the difference you make.
+            </p>
 
-        <p>
-            For further information on our new approach to performance management,
-            please go to the <a href="/Home/help">self-teach guide</a>.
-</p>
+            <p>
+                For further information on our new approach to performance management,
+                please go to the <a href="/Home/help">self-teach guide</a>.
+            </p>
+        </div>
+        <div class="col-md-3">
+            <img src="~/Content/Images/my-performance-icon.png" width="136" height="131">
+        </div>
     </div>
-    <div class="col-md-3" style="">
-        <img src="~/Content/Images/my-performance-icon.png" width="136" height="131">
-    </div>
-</div>
 
 @if (Request.IsAuthenticated)
 {
 <div class="row">
-    <div class="col-md-12" style="text-align:center;">
-        <hr/>
+    <div class="col-md-12 getStarted">
+        <hr />
         <h2>Get started</h2>
-      
-            <p>
+
+        <p>
             1. Create <a href="/Objective">objectives</a> and your <a href="/pdp">personal development plan</a><br />
-    2. Have a regular <a href="/Home/LinkMeetings"> Link conversation</a> with your line manager<br />
-    3. Take notes during your conversation and create a Link conversation record
-</p>
-         
+            2. Have a regular <a href="/Home/LinkMeetings"> Link conversation</a> with your line manager<br />
+            3. Take notes during your conversation and create a Link conversation record
+        </p>
+
 
         <a href="/Objective" class="btn btn-default">Objectives</a>
-        <a href="/pdp"  class="btn btn-default">PDP</a>
+        <a href="/pdp" class="btn btn-default">PDP</a>
         <a href="/Home/LinkMeetings" class="btn btn-default">Link Coversations</a>
     </div>
 </div>
