@@ -84,19 +84,36 @@
 			</div>
 		</div>
 		<br />
-		<div>
 			<!-- Colleague view bottom part -->
-			<div style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
-				&nbsp;&nbsp;
+			<div class="row" style="display: none" data-bind="visible: dataModel().IsColleagueView && dataModel().ManagerSignOff!=1">
+				@*&nbsp;&nbsp;
 				<input id="Checkbox3" type="checkbox" class="pointable"
 					   data-bind="attr: {NOTBOUNDchecked: dataModel().SharingStatus==1},
                                                     value: dataModel().SharingStatus,
                                                     enable: (dataModel().IsColleagueView),
                                                     readonly: !(dataModel().IsColleagueView),
                                                     click: $root.unshareMeeting" name="CheckboxShared" />
-				<span>Share with manager</span>
-			</div>
+				<span>Share with manager</span>*@
 
+                    <div class="col-sm-10">
+                        <div data-bind="visible: !dataModel().SharingStatus">
+                            <span class="h4" data-bind="text: 'Share this record with ' + dataModel().ManagerName"></span>
+                            <br />
+                            <span class="h5" data-bind="text: 'Allow '+ dataModel().ManagerName + ' to view and approve this conversation record' "></span>
+                        </div>
+                        <div data-bind="visible: dataModel().SharingStatus">
+                            @*<span class="h4" data-bind="text: 'You shared this record with ' + dataModel().ManagerName + ' on ' + $root.formatDateShort(dataModel().SharingDate)"></span>*@
+                            <span class="h4" data-bind="text: 'You shared this record with ' + dataModel().ManagerName"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 pull-right">
+                        <input id="Checkbox3" type="button" class="pointable btn btn-primary btn-block pull-right"
+                               data-bind="value: (dataModel().SharingStatus?'Unshare':'Share') + ' record',
+                                        enable: (dataModel().IsColleagueView),
+                                        readonly: !(dataModel().IsColleagueView),
+                                        click: $root.unshareMeeting" name="CheckboxShared" />
+                    </div>
+			</div>
 			<!-- Manager view: Approval -->
 			<div style="display: none" data-bind="visible: !dataModel().IsColleagueView">
 				@*<-- Approval section.. (only show "Approved" box once colleague has marked "Completed") -->*@
@@ -136,8 +153,7 @@
 					<span data-bind="text: $root.formatDateMonthDYHM($root.dataModel().ManagerSignedOffDate) "></span>
 				</div>
 			</div>
-		</div>
-		<br />
+		<hr />
 	</div>
 </div><!-- / ko linkpage -->
 
