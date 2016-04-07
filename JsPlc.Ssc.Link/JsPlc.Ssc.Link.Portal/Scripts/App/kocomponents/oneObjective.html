@@ -47,7 +47,9 @@
 			</div>
 		</div>
 		<br />
+        <!--Save button row-->
 		<div class="row">
+            <!--Only show for existing objective-->
 			<div class="col-sm-10" data-bind="visible: data.Id()!=0">
 				<span data-bind="text: 'Created on ' + meetingService.formatDateMonthDYHM(data.CreatedDate())"></span>
 				<br />
@@ -57,11 +59,15 @@
 				<button class="btn btn-primary btn-block" data-bind="click: update, disable: readOnly">Save</button>
 			</div>
 		</div>
+        <!--Share button row-->
+        <!--Only show for existing objective-->
 		<div data-bind="visible: data.Id()!=0">
 			<hr />
 			<div class="row">
 				<div class="col-sm-9">
-					<span class="" data-bind="text: statusMessage "></span>
+					<span class="h4" data-bind="text: statusMessage "></span>
+                    <br />
+                    <span class="h5" data-bind="text: subMessage"></span>
 				</div>
 				<div class="col-sm-3" data-bind="visible: managerView && !data.Approved()">
 					<button class="btn btn-primary pull-right" data-bind="click: approve">I approve this objective</button>
