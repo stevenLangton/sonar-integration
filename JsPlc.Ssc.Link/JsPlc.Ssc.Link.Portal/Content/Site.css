@@ -1,6 +1,8 @@
 ﻿body {
     color: #777777;
     font-size:16px;
+
+      font-family: Arial;
 }
 
 
@@ -115,7 +117,6 @@ img.comp-logo {
     padding: 20px;
     padding-left: 70px;
     padding-right: 70px;
-    border-top: #02ABCA solid 2px;
 }
 
 
@@ -270,7 +271,6 @@ textarea {
     padding-left: 0;*/
     background-color: #056792;
     padding: 0 0 0 0;
-    font-size: 120%;
     color: whitesmoke;
     border-right: #fff solid 1px;
 }
@@ -318,14 +318,11 @@ textarea.form-control.multilinePdp {
     display: block;
     padding-top: 12px;
     padding-bottom: 12px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 95%;
     color: #428BCA;
     text-decoration: none;
 }
 
 .nav > li > .active {
-    font-size: 150% !important;
     background-color: #3d3d3d;
 }
 
@@ -338,7 +335,7 @@ textarea.form-control.multilinePdp {
     padding: 8px;
     margin: 3px;
     border: solid 1px grey;
-    font-size: 80%;
+
 }
 /* The following rule clipped the menu opton in sm view*/
 /*.nav {margin-left:-25px;}*/
@@ -490,8 +487,30 @@ a:link {
 
 /*UI STYLE GUIDLINES*/
 
-.list-group-item {
-    border: #00acc9 solid 1px;
+
+.list-group {
+     border: none;
+      border-radius: 0px;
+}
+
+.list-group-item: {
+
+      border-radius: 0px;
+   
+   
+}
+
+.list-group-item:first-child {
+
+   border-radius: 0px;
+   
+}
+
+
+.list-group-item:last-child {
+
+   border-radius: 0px;
+
 }
 
 .media-heading {
@@ -503,6 +522,7 @@ a:link {
     color: #fff;
     background-color: #00acc9;
     border-color: #00acc9;
+      border-radius: 0px;
 }
 
 @font-face {
@@ -544,11 +564,12 @@ h4 {
 
 .lead {
     font-family: maryAnnWeb;
-    font-size: 150%;
+    font-size: 22px;
     color: #056792;
     padding: 0px;
     margin: 0px;
     margin-bottom: 10px;
+    margin-left:15px;
 }
 
 .element.style {
@@ -687,40 +708,11 @@ footer {
     margin-left: 0px;
 }
 
-.btn-primary {
-    border-radius: 20px;
-    font-family: maryAnnWeb;
-    background-color: #056792;
-}
-
-    .btn-primary:active {
-        border: none;
-    }
-
-.btn-default {
-    border-radius: 20px;
-    font-family: maryAnnWeb;
-}
-
-.btn-default {
-    color: #006791;
-    background-color: #fff;
-    border-color: #006791;
-}
-
 
 
 
 .expanded-objective .fa {
     color: #337ab7;
-}
-
-
-
-.footerLinks a,
-.footerLinks a:hover,
-.footerLinks a:focus {
-    color: #ffffff;
 }
 
 
@@ -785,4 +777,50 @@ footer {
 
 .homeContent {
 padding-left:50px;padding-right:50px;padding-top:30px;
+}
+
+
+
+
+.btn-primary {
+    font-family: maryAnnWeb;
+    font-size: 16px;
+    background-color: #056792;
+    border-radius: 20px;
+    border: none;
+}
+
+.btn-primary:active {
+
+    }
+
+    .btn-primary:hover {
+
+       
+        background-color: #009bb6;
+    
+    }
+
+.btn-default {
+    border-radius: 20px;
+    font-family: maryAnnWeb;
+}
+
+.btn-default {
+    color: #006791;
+    background-color: #fff;
+    border-color: #006791;
+      font-size:16px;
+}
+
+.footerLinks a,
+.footerLinks a:hover,
+.footerLinks a:focus {
+    color: #ffffff;
+    font-size:16px;
+}
+
+.linkNavContainer {
+    border:solid 1px #056792;
+    margin-top:-11px;
 }
