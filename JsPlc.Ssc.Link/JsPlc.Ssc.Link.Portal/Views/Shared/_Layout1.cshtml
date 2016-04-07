@@ -45,7 +45,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-    require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
+        require(["toastr", "LinkService", "common"], function (toastr, LinkService, common) {
             //common.setUserInfo("@ColleagueId");
             common.setUserInfo(@Html.Raw(Json.Encode(userInfoForUi)));
 
@@ -59,10 +59,10 @@
                 "extendedTimeOut": 1000
             };
             LinkService.setServiceBaseUrl("@(ConfigurationManager.AppSettings["ServicesBaseUrl"])");
-    });
+        });
     </script>
 
- 
+
     <meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />
 </head>
 <body>
@@ -74,125 +74,158 @@
                 <div class="col-md-5 ">
                     <div class="sainsLogo">
                     </div>
-               
+
                 </div>
-                    <div class="col-md-3" stye="text-align:right;">
-                        <h1 style="margin-top:15px;">My Performance</h1>
-                    </div>
-                </div>
-                  
-            </div>
-
-    </header>
-    <div class="row">
-        @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", @ViewBag.Title } })
-    </div>
-
-    <div class="wrapper">
-        <div class="container">
-
-            <div class="row @(Request.IsAuthenticated ? "" : "background1")">
-
-
-
-
-                <div class="col-md-3" id="linkSecondaryNav">
-                    @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
-                </div>
-                <div class="col-md-9">
-                    @RenderBody()
-                </div>
-            </div>
-
-                @if (@ViewBag.Title == "Welcome to Link")
-                {
-                    <div class="row">
-                    <div class="col-md-12 homeContent">
-                            @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
-
-                        </div>
-                    </div>
-                }
-
-
-            </div>
-
-        <div class="push"></div>
-    </div>
-
-
-
-    <footer>
-        <div class="navbar navbar-default link-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 footerLinks">
-
-                        <div id="footerContent">
-
-                            <a class="btn" href="home/help">@Resources.HelpPageTitle</a>
-                            <a class="btn" href="/home/contact">Contact Us</a>
-                            <a class="btn" href="#">Log out</a>
-
-</div>
-                        <div id="footerCopy">
-                            &copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small>
-                        </div>
-
-                    </div>
-
-
-                    <div>
-</div>
+                <div class="col-md-3" stye="text-align:right;">
+                    <h1 style="margin-top:15px;">My Performance</h1>
                 </div>
             </div>
 
         </div>
-        @{
-            var displaySvrInfo = "";
-            displaySvrInfo = Request.QueryString["displaySvrInfo"];
-            if (displaySvrInfo != null && displaySvrInfo.Equals("Yes"))
-            {
-                <!-- Machine name only needed for diagnosing Load balanced env -->
-                <div class="row" style="color: silver">
-                    <div class="col-md-4">Machine name: @Environment.MachineName</div>
-                    <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
-                    <div class="col-md-4"><pre>Server IP: @TempData["IPAddress"]</pre></div>
+
+    </header>
+
+
+
+     
+           
+                @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", @ViewBag.Title } })
+         
+       
+
+
+            <div class="wrapper">
+                <div class="container">
+
+                    <div class="row @(Request.IsAuthenticated ? "" : "background1")">
+
+
+
+
+                        <div class="col-md-3" id="linkSecondaryNav">
+                            @Html.Partial("_Navigation", new ViewDataDictionary { { "Navigation", @ViewBag.Title } })
+                        </div>
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                    </div>
+
+                    @if (@ViewBag.Title == "Welcome to Link")
+                    {
+                        <div class="row">
+                            <div class="col-md-12 homeContent">
+                                @Html.Partial("_HomeContent", new ViewDataDictionary { { "Title", @ViewBag.Title } })
+
+                            </div>
+                        </div>
+                    }
+
+
                 </div>
-            }
-        }
 
-    </footer>
-
+                <div class="push"></div>
+            </div>
 
 
 
+            <footer>
+                <div class="link-footer">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 footerLinks">
 
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @*@Scripts.Render("~/bundles/bootstrap")*@
-    @*@Scripts.Render("~/bundles/knockout")*@
-    @RenderSection("scripts", required: false)
+                                <div id="footerContent">
 
-
-    <script type="text/javascript">
-        require(['bootstrap'], function () {
-        });
-    </script>
+                                    
 
 
-    <script type='text/javascript'>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm1" }))
+                                        {
+                                            <ul class="list-inline">
+                                            <li><a class="btn" href="home/help">@Resources.HelpPageTitle</a></li>
+                                            <li><a class="btn" href="/home/contact">Contact Us</a></li>
+                                            <li><a class="btn" href="javascript:document.getElementById('logoutForm1').submit()">Log out</a></li>
+                                            </ul>
+                                        }
+                                    }
+                                    else
+                                    {
 
-        $(document).ready(function () {
+                                        <ul class="list-inline">
+                                        <li><a class="btn" href="home/help">@Resources.HelpPageTitle</a></li>
+                                        <li><a class="btn" href="/home/contact">Contact Us</a></li>
+                                        <li>@Html.ActionLink("Log in", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                        </ul>
+   
 
-            $('.collapse').on('shown.bs.collapse', function () {
-                $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-            }).on('hidden.bs.collapse', function () {
-                $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-            });
+                                    }
 
-        });
 
-    </script>
+
+
+</div>
+                                <div id="footerCopy">
+                                    &copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small>
+                                </div>
+
+                                @{
+                                    var displaySvrInfo = "";
+                                    displaySvrInfo = Request.QueryString["displaySvrInfo"];
+                                    if (displaySvrInfo != null && displaySvrInfo.Equals("Yes"))
+                                    {
+                <!-- Machine name only needed for diagnosing Load balanced env -->
+                                        <div class="row" style="color:#ffffff">
+                                            <div class="col-md-4">Machine name: @Environment.MachineName</div>
+                                            <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
+                                            <div class="col-md-4"><pre>Server IP: @TempData["IPAddress"]</pre></div>
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+
+
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </footer>
+
+
+
+
+
+            @*@Scripts.Render("~/bundles/jquery")*@
+            @*@Scripts.Render("~/bundles/bootstrap")*@
+            @*@Scripts.Render("~/bundles/knockout")*@
+            @RenderSection("scripts", required: false)
+
+
+            <script type="text/javascript">
+                require(['bootstrap'], function () {
+                });
+            </script>
+
+
+            <script type='text/javascript'>
+
+                $(document).ready(function () {
+
+                    $('.collapse').on('shown.bs.collapse', function () {
+                        $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+                    }).on('hidden.bs.collapse', function () {
+                        $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+                    });
+
+                });
+
+            </script>
 
 </body>
 </html>
