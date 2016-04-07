@@ -1,5 +1,7 @@
 ﻿@using JsPlc.Ssc.Link.Models
 @using JsPlc.Ssc.Link.Portal.Models
+@using JsPlc.Ssc.Link.Portal.Properties
+
 @{
     var tab = TempData["tabName"];
 
@@ -30,7 +32,7 @@
                     @Html.ActionLink("Home", "Welcome", "Home")
                 </li>
                 <li role="presentation" class="@(tabName == "help" ? "active" : "help") tab-heading">
-                    @Html.ActionLink("Help", "help", "Home")
+                    @Html.ActionLink(Resources.HelpPageTitle, "help", "Home")
                 </li>
                 <li role="presentation" class="@(tabName == "contact" ? "active" : "") tab-heading">
                     @Html.ActionLink("Contact", "Contact", "Home")
