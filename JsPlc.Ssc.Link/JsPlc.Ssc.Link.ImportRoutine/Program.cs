@@ -14,8 +14,7 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 			IDataTransformer dataTransformer = new DefaultTransformer();
 			IFileProcessor fileProcessor = new DdatFileProcessor(logger);
 
-			fileProcessor.ProcessFIMFile();
-			fileProcessor.ProcessAbInitioFile();
+			fileProcessor.ProcessFiles();
 			
 			var processedData = fileProcessor.ProcessedData;
 

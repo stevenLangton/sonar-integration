@@ -129,6 +129,10 @@
     <value>Conversation tracker</value>
     <comment>A page title</comment>
   </data>
+  <data name="HelpPageTitle" xml:space="preserve">
+    <value>How to guide</value>
+    <comment>Help page title</comment>
+  </data>
   <data name="LinkConversations" xml:space="preserve">
     <value>Link conversations</value>
     <comment>A page title</comment>

@@ -74,11 +74,8 @@ namespace JsPlc.Ssc.Link.ImportRoutine.Service
 
 						try
 						{
-							//1. - Parsing FIM file
-							_fileProcessor.ProcessFIMFile();
-
-							//2. - Parsing AbInitio file
-							_fileProcessor.ProcessAbInitioFile();
+							//1. - Parsing file(s)
+							_fileProcessor.ProcessFiles();
 
 							var processedData = _fileProcessor.ProcessedData;
 
@@ -86,14 +83,14 @@ namespace JsPlc.Ssc.Link.ImportRoutine.Service
 							{
 								_logger.InfoFormat("Loading {0} records", processedData.Count);
 
-								//3. - Transforming data to DataTable
+								//2. - Transforming data to DataTable
 								var transformedData = _dataTransformer.Transform(processedData);
 
-								//4. - Loading data to database
+								//3. - Loading data to database
 								_dataLoader.Load(transformedData);
 							}
 
-							//5. - Moving processed files
+							//4. - Moving processed files
 							_fileProcessor.MoveFilesToProcessedFolder();
 						}
 						catch (Exception ex)
