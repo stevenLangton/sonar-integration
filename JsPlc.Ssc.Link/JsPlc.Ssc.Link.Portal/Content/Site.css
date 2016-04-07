@@ -1,5 +1,6 @@
 ﻿body {
     color: #777777;
+    font-size:16px;
 }
 
 
@@ -511,21 +512,21 @@ a:link {
 
 h1 {
     font-family: maryAnnWeb;
-    font-size: 250%;
+    font-size: 36px;
     color: #056792;
     text-transform: none;
 }
 
 h2 {
     font-family: maryAnnWeb;
-    font-size: 180%;
+    font-size: 28px;
     color: #056792;
     text-transform: none;
 }
 
 h3 {
     font-family: maryAnnWeb;
-    font-size: 143%;
+    font-size: 22px;
     color: #006791;
     margin-top: 0px;
     text-transform: none;
