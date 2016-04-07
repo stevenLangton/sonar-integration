@@ -78,6 +78,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="JsPlc.Ssc.Link.ImportRoutine.Service.exe.release.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="SampleFiles\Link_AbInitio_DDMMYYYY_HHMMSS.ddat" />
     <None Include="SampleFiles\Link_FIM_DDMMYYYY_HHMMSS.ddat" />

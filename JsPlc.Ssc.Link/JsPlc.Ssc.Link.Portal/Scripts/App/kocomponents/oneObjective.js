@@ -40,13 +40,8 @@
         //Show/hide the +/- top right view toggle control
         vm.enableViewToggle = params.enableViewToggle !== undefined ? params.enableViewToggle : true;
 
-        vm.getStatusMessage = function () {
-            var shared = vm.data.SharedWithManager(),
-                approved = vm.data.Approved(),
-                dateStr = "",
-                mgrName = common.getUserInfo().managerName,
-                statusMsg = "";
-
+        vm.getManagerName = function () {
+            var mgrName = common.getUserInfo().managerName;
             if (vm.managerView) {
                 if (common.getUserInfo().colleagueId === vm.data.ManagerId()) {
                     mgrName = "you";
@@ -57,6 +52,27 @@
             } else {
                 mgrName = mgrName !== "" ? mgrName : "manager";
             }
+            return mgrName;
+        };
+
+        vm.getStatusMessage = function () {
+            var shared = vm.data.SharedWithManager(),
+                approved = vm.data.Approved(),
+                dateStr = "",
+                //mgrName = common.getUserInfo().managerName,
+                mgrName = vm.getManagerName(),
+                statusMsg = "";
+
+            //if (vm.managerView) {
+            //    if (common.getUserInfo().colleagueId === vm.data.ManagerId()) {
+            //        mgrName = "you";
+            //    }
+            //    else {
+            //        mgrName = "another manager";
+            //    }
+            //} else {
+            //    mgrName = mgrName !== "" ? mgrName : "manager";
+            //}
 
             if (shared) {
                 if (approved) {
@@ -69,15 +85,29 @@
                         : "Shared with " + mgrName + " on " + dateStr;
                 }
             } else {
-                statusMsg = "Share this with " + mgrName;
+                statusMsg = "Share this objective with " + mgrName;
             }
 
             return statusMsg;
         };
 
+        vm.getSubMessage = function () {
+            var shared = vm.data.SharedWithManager(),
+                mgrName = vm.getManagerName();
+
+            var subMessage = "";
+
+            if (!shared) {
+                subMessage = "Allow " + mgrName + " to view and approve this objective";
+            }
+
+            return subMessage;
+        };
+
         vm.expandedView = ko.observable(vm.expanded);
         vm.expandedAll = params.expandedAll;
         vm.statusMessage = ko.observable(vm.getStatusMessage());
+        vm.subMessage = ko.observable(vm.getSubMessage());
 
         vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
 
@@ -150,6 +180,7 @@
                     komap.fromJS(data, vm.data);
                     vm.dirtyFlag = ko.oneTimeDirtyFlag(vm.data);
                     vm.statusMessage(vm.getStatusMessage());
+                    vm.subMessage(vm.getSubMessage());
                     if (calledByToggle) {
                         vm.expandedView(false);
                     }
@@ -206,6 +237,8 @@
             }
 
             vm.statusMessage(vm.getStatusMessage());
+            vm.subMessage(vm.getSubMessage());
+
             vm.update();
             //return true;
         };
@@ -221,6 +254,7 @@
             }
 
             vm.statusMessage(vm.getStatusMessage());
+            vm.subMessage(vm.getSubMessage());
 
             //When associated checkbox is ticked it disappear and data is saved (as per UX doc LINK-247)
             vm.update();
