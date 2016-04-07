@@ -109,13 +109,9 @@
 
         var buildViewModels = function (data) {
             moment.locale("en-gb"); // Set Locale for moment (aka moment.locale("en-gb"))
-            //var meetingDate = moment(data.MeetingDate).format("L"); // we get dd/mm/yyyy
 
             // each ColleagueTeamView item
             _.each(data, function (item) {
-
-                // pre process each item
-                item.MeetingDate = moment(item.MeetingDate).format("L");
 
                 var colleague = item.Colleague;
                 // Build the item
