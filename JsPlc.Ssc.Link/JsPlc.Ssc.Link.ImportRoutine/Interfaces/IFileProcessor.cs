@@ -10,9 +10,7 @@ namespace JsPlc.Ssc.Link.ImportRoutine.Interfaces
 	{
 		IReadOnlyCollection<ColleagueModel> ProcessedData { get; }
 
-		void ProcessFIMFile();
-
-		void ProcessAbInitioFile();
+		void ProcessFiles();
 
 		void MoveFilesToProcessedFolder();
 	}

@@ -34,7 +34,7 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 				{
 					// Empty the destination tables. 
 					SqlCommand deleteStubColleague = new SqlCommand(
-						"DELETE FROM dbo.StubColleague;",
+						"TRUNCATE TABLE dbo.StubColleague;",
 						connection);
 
 					deleteStubColleague.ExecuteNonQuery();
