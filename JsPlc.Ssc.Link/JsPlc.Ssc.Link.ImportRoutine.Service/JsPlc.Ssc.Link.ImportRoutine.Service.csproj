@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2C8A6122-E92D-4135-A633-6D0219B8BCE1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JsPlc.Ssc.Link.ImportRoutine.Service</RootNamespace>
     <AssemblyName>JsPlc.Ssc.Link.ImportRoutine.Service</AssemblyName>

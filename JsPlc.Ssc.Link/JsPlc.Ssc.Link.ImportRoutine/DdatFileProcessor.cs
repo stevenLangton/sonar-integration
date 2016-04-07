@@ -17,8 +17,11 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 
 		DirectoryInfo _importFilesLocation = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ImportFilesLocation"]));
 		DirectoryInfo _processedFilesLocation = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ProcessedFilesLocation"]));
-		
-		const string _separator = "\x01";
+
+		const string _ddatSeparator = "\x01";
+		const char _datSeparator = ',';
+		const char _packCharacter = '"';
+
 		private ILogger _logger;
 
 		public DdatFileProcessor(ILogger logger)
@@ -34,7 +37,40 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 			}
 		}
 
-		public void ProcessAbInitioFile()
+		public void MoveFilesToProcessedFolder()
+		{
+			_fileData.Clear();
+
+			var processedFilesToMove = _importFilesLocation.GetFiles("*.ddat");
+
+			foreach (var processedFileToMove in processedFilesToMove)
+			{
+				try
+				{
+					var originalFileName = processedFileToMove.Name;
+					var newFileName = Path.Combine(_processedFilesLocation.FullName, string.Format("{0}_{1}.processed", processedFileToMove.Name, DateTime.Now.Ticks));
+					processedFileToMove.MoveTo(newFileName);
+					_logger.InfoFormat("File {0} moved", originalFileName);
+				}
+				catch (Exception ex)
+				{
+					_logger.Error(ex);
+				}
+			}
+
+			if (processedFilesToMove.Any() == false)
+			{
+				_logger.Info("Files to move not found");
+			}
+		}
+
+		public void ProcessFiles()
+		{
+			ProcessStep1();
+			ProcessStep2();
+		}
+
+		private void ProcessStep1()
 		{
 			var foundAbInitioFiles = _importFilesLocation.GetFiles("Link_AbInitio_*.ddat", SearchOption.TopDirectoryOnly).FirstOrDefault();
 
@@ -50,25 +86,22 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 
 						try
 						{
-							var lineTokens = line.Split(Convert.ToChar(_separator));
+							var lineTokens = line.Split(Convert.ToChar(_ddatSeparator));
 
 							var newColleague = new ColleagueModel
 							{
-								ColleagueId = lineTokens[1],
-								EmailAddress = lineTokens[0]
+								ColleagueId = lineTokens[0],
+								FirstName = lineTokens[1],
+								LastName = lineTokens[3],
+								KnownAsName = lineTokens[2],
+								Grade = lineTokens[9],
+								ManagerId = lineTokens[10],
+								Division = lineTokens[23],
+								Department = lineTokens[18]
 							};
 
-							if (_fileData.ContainsKey(newColleague.ColleagueId))
-							{
-								var existingColleague = _fileData[newColleague.ColleagueId];
-								//update data
-								existingColleague.EmailAddress = newColleague.EmailAddress;
-							}
-							else
-							{
-								//insert data
-								_fileData.Add(newColleague.ColleagueId, newColleague);
-							}
+							//insert data
+							_fileData.Add(newColleague.ColleagueId, newColleague);
 						}
 						catch (Exception ex)
 						{
@@ -87,7 +120,7 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 			}
 		}
 
-		public void ProcessFIMFile()
+		private void ProcessStep2()
 		{
 			var foundFIMFiles = _importFilesLocation.GetFiles("Link_FIM_*.ddat", SearchOption.TopDirectoryOnly).FirstOrDefault();
 
@@ -103,39 +136,21 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 
 						try
 						{
-
-							var lineTokens = line.Split(Convert.ToChar(_separator));
+							var lineTokens = line.Split(_datSeparator);
 
 							var newColleague = new ColleagueModel
 							{
-								ColleagueId = lineTokens[0],
-								FirstName = lineTokens[1],
-								LastName = lineTokens[3],
-								KnownAsName = lineTokens[2],
-								Grade = lineTokens[9],
-								ManagerId = lineTokens[10],
-								Division = lineTokens[23],
-								Department = lineTokens[18]
+								ColleagueId = unpackString(lineTokens[1], _packCharacter),
+								EmailAddress = unpackString(lineTokens[0], _packCharacter)
 							};
 
 							if (_fileData.ContainsKey(newColleague.ColleagueId))
 							{
 								var existingColleague = _fileData[newColleague.ColleagueId];
 								//update data
-								existingColleague.FirstName = newColleague.FirstName;
-								existingColleague.LastName = newColleague.LastName;
-								existingColleague.KnownAsName = newColleague.KnownAsName;
-								existingColleague.Grade = newColleague.Grade;
-								existingColleague.ManagerId = newColleague.ManagerId;
-								existingColleague.Division = newColleague.Division;
-								existingColleague.Department = newColleague.Department;
+								existingColleague.EmailAddress = newColleague.EmailAddress;
+							}
 
-							}
-							else
-							{
-								//insert data
-								_fileData.Add(newColleague.ColleagueId, newColleague);
-							}
 						}
 						catch (Exception ex)
 						{
@@ -154,31 +169,33 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 			}
 		}
 
-		public void MoveFilesToProcessedFolder()
+		private static unsafe string unpackString(string inputString, char packChar)
 		{
-			_fileData.Clear();
+			int len = inputString.Length;
+			char* newChars = stackalloc char[len];
+			char* currentChar = newChars;
 
-			var processedFilesToMove = _importFilesLocation.GetFiles("*.ddat");
-			
-			foreach(var processedFileToMove in processedFilesToMove)
+			if (inputString[0] == packChar && inputString[len - 1] == packChar)
 			{
-				try
+				//from second to pre-last character
+				for (int i = 1; i < len - 1; ++i)
 				{
-					var originalFileName = processedFileToMove.Name;
-					var newFileName = Path.Combine(_processedFilesLocation.FullName, string.Format("{0}_{1}.processed", processedFileToMove.Name, DateTime.Now.Ticks));
-					processedFileToMove.MoveTo(newFileName);
-					_logger.InfoFormat("File {0} moved", originalFileName);
-				} 
-				catch (Exception ex)
-				{
-					_logger.Error(ex);
+					char c = inputString[i];
+					if(c == packChar)
+					{
+						string formattedError = string.Format("String contains Pack Character; String: {0}; Pack Character: {1}; Position: {2}"
+							, inputString
+							, packChar
+							, i);
+						throw new ArgumentOutOfRangeException(formattedError);
+					}
+
+					*currentChar++ = c;
 				}
-			}
-
-			if(processedFilesToMove.Any() == false)
-			{
-				_logger.Info("Files to move not found");
-			}
+			}			
+			
+			return new string(newChars, 0, (int)(currentChar - newChars));
 		}
+
 	}
 }
