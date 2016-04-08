@@ -547,16 +547,21 @@ h2 {
 h3 {
     font-family: maryAnnWeb;
     font-size: 22px;
-    color: #006791;
+    color: #056792;
     margin-top: 0px;
     text-transform: none;
 }
 
-h4 {
+h4, label {
     font-family: maryAnnWeb;
-    font-size: 120%;
+    font-size: 20px;
+    color: #056792;
     text-transform: none;
+    font-weight:normal;
+    
 }
+
+
 
 .special {
     margin-top: 0px;
@@ -618,6 +623,7 @@ hr {
 .LinkBox1Padding {
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 
@@ -835,6 +841,10 @@ width:200px;}
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border:none;
+}
+
+span .glyphicon-minus, span .glyphicon-plus {
+    float:right;font-size:70%
 }
 .print-show{
 	display: none;
