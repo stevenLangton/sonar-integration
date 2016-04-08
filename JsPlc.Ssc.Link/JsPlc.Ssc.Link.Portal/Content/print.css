@@ -1,41 +1,105 @@
-﻿#linkSecondaryNav {visibility:hidden;
+﻿h1 {
+	margin-top: 50px;
 }
 
+h3 {
+	
+}
+
+h4 {
+	font-size: 24px;
+	margin-top: 18px;
+}
+
+hr {
+	border-top: 1px solid black;
+}
+
+.linksection-heading{
+	font-size: 30px;
+	margin-top: 50px;
+}
+.linkBoxTitle{
+	margin: 0;
+}
+#linkSecondaryNav {
+	display: none;
+}
+
+.print-hide {
+	display: none;
+}
+
+.print-show {
+	display: initial;
+}
+
+.print-pre-wrap {
+	white-space: pre-wrap;
+}
 
 .tab-content > .tab-pane {
-  display: block;
+	display: block;
 }
 
 .fade {
-  opacity: 1;
-  -webkit-transition: opacity .15s linear;
-  -o-transition: opacity .15s linear;
-  transition: opacity .15s linear;
+	opacity: 1;
+	-webkit-transition: opacity .15s linear;
+	-o-transition: opacity .15s linear;
+	transition: opacity .15s linear;
 }
 
 .pdpTab {
 }
 
-.pdpTab .active {
+	.pdpTab .active {
+	}
+
+.printSectionTitle {
+	visibility: visible;
 }
 
-.printSectionTitle {visibility:visible;}
+.nav-tabs {
+	display: none;
+	margin: 0px;
+	padding: 0px;
+	margin-top: -60px;
+}
 
-.nav-tabs {visibility:hidden;margin:0px;padding:0px;margin-top:-60px;}
-.tab-pane {margin-top:50px;margin:0px;padding:0px;}
+.tab-pane {
+	margin-top: 50px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.linkPadding {
+	padding: 0;
+}
+
 .linkBox2 {
-    visibility: hidden;
-    margin: 0px;
-    padding: 0px;
-    
+	display: none;
+	margin: 0px;
+	padding: 0px;
 }
 
-.form-horizontal {margin:0px;padding:0px;}
+.linkBox1, .linkBox3 {
+	border: 0;
+}
 
-.container {margin-top:-200px;
+.form-horizontal {
+	margin: 0px;
+	padding: 0px;
 }
 
 .collapse {
-    display: block !important;
-    height: auto !important;
+	display: block !important;
+	height: auto !important;
+}
+
+.row {
+	margin: 0;
+}
+
+.col-sm-9 {
+	padding: 0;
 }

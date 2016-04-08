@@ -7,6 +7,7 @@ using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Properties;
 using System;
 using log4net;
+using JsPlc.Ssc.Link.Portal.Security;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -16,6 +17,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
         public ActionResult Index()
         {
+            //THIS IS TOO DRACONIAN
+            //if (Request.IsAuthenticated && !AuthorizationService.IsOnDatabase())
+            //{
+            //    return RedirectToAction("SignOut", "Account");
+            //}
+
 			TempData["IPAddress"] = GetIPAddress();
             return View("Welcome");
         }
@@ -49,6 +56,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
             return View();
         }
+
         public ActionResult Welcome()
         {
             //ViewBag.Message = "Your contact page.";

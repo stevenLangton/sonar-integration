@@ -846,3 +846,6 @@ width:200px;}
 span .glyphicon-minus, span .glyphicon-plus {
     float:right;font-size:70%
 }
+.print-show{
+	display: none;
+}

@@ -59,20 +59,8 @@
             var shared = vm.data.SharedWithManager(),
                 approved = vm.data.Approved(),
                 dateStr = "",
-                //mgrName = common.getUserInfo().managerName,
                 mgrName = vm.getManagerName(),
                 statusMsg = "";
-
-            //if (vm.managerView) {
-            //    if (common.getUserInfo().colleagueId === vm.data.ManagerId()) {
-            //        mgrName = "you";
-            //    }
-            //    else {
-            //        mgrName = "another manager";
-            //    }
-            //} else {
-            //    mgrName = mgrName !== "" ? mgrName : "manager";
-            //}
 
             if (shared) {
                 if (approved) {
@@ -138,12 +126,12 @@
 
             $promise.done(function (result) {
                 if (result.success) {
-                    vm.data.LastAmendedDate(result.savedObjective.LastAmendedDate);
-                    vm.data.LastAmendedBy(result.savedObjective.LastAmendedBy);
+                    vm.data.LastAmendedDate(result.data.LastAmendedDate);
+                    vm.data.LastAmendedBy(result.data.LastAmendedBy);
 
                     if (mvcAction === mvcCreateAction) {
                         toastr.info("You have successfully created a new objective");
-                        vm.onCreate(result.savedObjective);
+                        vm.onCreate(result.data);
                     } else {
                         toastr.info("Your objective has been updated");
                     }

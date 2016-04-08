@@ -7,7 +7,7 @@
         self.activeTab = '';
         self.tabChangedHandler = params.OnTabChanged || $.noop;
 
-        self.showTab = function () {
+        self.showTab = function (event) {
             var $selectedTab = $(event.target.parentElement);
             var tabNumber = Number($selectedTab.attr("id").slice(-1));
 
