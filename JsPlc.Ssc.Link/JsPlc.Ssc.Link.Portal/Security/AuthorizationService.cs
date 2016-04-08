@@ -102,5 +102,10 @@ namespace JsPlc.Ssc.Link.Portal.Security
         {
             return ColleagueId == obj.ColleagueId;
         }
+
+        public static bool IsUserData(string ColleagueId, MeetingView meeting)
+        {
+            return ColleagueId == meeting.ColleagueId;
+        }
     }
 }

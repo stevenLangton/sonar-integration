@@ -2,10 +2,6 @@
 	margin-top: 50px;
 }
 
-h3 {
-	
-}
-
 h4 {
 	font-size: 24px;
 	margin-top: 18px;
@@ -20,7 +16,7 @@ hr {
 	margin-top: 50px;
 }
 .linkBoxTitle{
-	margin: 0;
+	margin: 15px 0 0 0;
 }
 #linkSecondaryNav {
 	display: none;
@@ -36,6 +32,10 @@ hr {
 
 .print-pre-wrap {
 	white-space: pre-wrap;
+}
+
+.print-pre-line {
+	white-space: pre-line;
 }
 
 .tab-content > .tab-pane {
@@ -67,7 +67,6 @@ hr {
 }
 
 .tab-pane {
-	margin-top: 50px;
 	margin: 0px;
 	padding: 0px;
 }
@@ -82,11 +81,21 @@ hr {
 	padding: 0px;
 }
 
-.linkBox1, .linkBox3 {
+.linkBox1, 
+.linkBox3,
+.linkPanelS,
+.linkPanel {
 	border: 0;
 }
 
-.form-horizontal {
+.linkPanelS,
+.linkPanel{
+	margin-top: 50px;
+}
+
+.form-horizontal,
+.panel-heading,
+.LinkBox1Padding {
 	margin: 0px;
 	padding: 0px;
 }

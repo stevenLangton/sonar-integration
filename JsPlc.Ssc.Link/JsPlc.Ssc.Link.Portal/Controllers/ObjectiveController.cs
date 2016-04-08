@@ -18,6 +18,7 @@ using System.Web.Mvc;
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
 	[Authorize]
+    [ValidateAntiForgeryTokenOnAllPosts]
 	public class ObjectiveController : LinkBaseController
 	{
 		public ObjectiveController() { }

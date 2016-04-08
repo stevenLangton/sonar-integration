@@ -229,6 +229,9 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
                         toastr.error(messages.failure);
                         $('#msgs').html("<strong>" + messages.failure + " : " + response.JsonStatusCode.CustomStatusCode + "</strong>");
                     }
+                    else if (response.JsonStatusCode.CustomStatusCode == "Unauthorized") {
+                        toastr.error("You are only authorized to create/update your own conversation");
+                    }
                     else { // UI validation errors
                         displayErrors(response.ModelErrors);
                     }

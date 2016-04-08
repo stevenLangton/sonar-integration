@@ -14,6 +14,7 @@ using JsPlc.Ssc.Link.Models;
 using JsPlc.Ssc.Link.Models.Entities;
 using JsPlc.Ssc.Link.Portal.Controllers.Base;
 using JsPlc.Ssc.Link.Portal.Properties;
+using JsPlc.Ssc.Link.Portal.Security;
 
 namespace JsPlc.Ssc.Link.Portal.Controllers
 {
@@ -59,6 +60,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryTokenOnAllPosts]
         public JsonResult GetPdp(string ColleagueId)
         {
             var Pdp = ServiceFacade.GetPdp(ColleagueId);

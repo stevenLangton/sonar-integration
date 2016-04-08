@@ -2,7 +2,17 @@
 
 
 
-<div>@Html.MvcSiteMap().SiteMapPath()</div>
+
+@using JsPlc.Ssc.Link.Models
+@{
+	var currentUser = TempData["CurrentUser"] as LinkUserView;
+	if (currentUser == null)
+	{
+		Response.Redirect("~/Home/Unauthorized?unauthPage=Link Meeting");
+		return;
+	}
+}
+<div class="print-hide">@Html.MvcSiteMap().SiteMapPath()</div>
 
 
 @using (Html.BeginForm())
@@ -10,10 +20,12 @@
     @Html.AntiForgeryToken()
 
 
-
     <div class="form-horizontal">
-
-        <div class="row">
+		<div class="print-show">
+			<h1>Personal development plan</h1>
+			<h4>@currentUser.Colleague.FirstName @currentUser.Colleague.LastName</h4>
+		</div>
+		<div class="row print-hide">
             <div class="col-md-2">
                 <img src="~/Content/Images/PDP wheel unlabelled.png" width="106" height="101" style="margin-top:30px;">
             </div>
@@ -25,153 +37,165 @@
                 <hr />
             </div>
         </div>
-
-
-
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="linkPanelS panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
-                    <h3>
+					<h3 class="print-hide">
                         <a role="button" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Achieving my objectives <span class="glyphicon glyphicon-minus"></span>
                         </a>
                     </h3>
+					<h2 class="print-show">Achieving my objectives</h2>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="LinkBox1Padding">
-
-
-
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="achieveObjectives">What areas do I need to develop to achieve my objectives?</label>@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+								<label class="print-hide" for="achieveObjectives">What areas do I need to develop to achieve my objectives?</label>
+								@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+								<h3 class="print-show">What areas do I need to develop to achieve my objectives?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.achieveObjectives)
                         </div>
-
+						</div>
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="achieveObjectivesActions">What actions will I take?</label>
+								<label class="print-hide" for="achieveObjectivesActions">What actions will I take?</label>
+								<h3 class="print-show">What areas do I need to develop to achieve my objectives?</h3>
                         </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.achieveObjectivesActions)
                         </div>
-
+						</div>
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="achieveObjectivesWhen">By when?</label>
+								<label class="print-hide" for="achieveObjectivesWhen">By when?</label>
+								<h3 class="print-show">What areas do I need to develop to achieve my objectives?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.achieveObjectivesWhen, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.achieveObjectivesWhen)
                         </div>
-
-
                     </div>
                 </div>
             </div>
-
+			</div>
             <div class="linkPanel panel-default">
                 <div class="panel-heading" role="tab" id="headingTwo">
-                    <h3>
+					<h3 class="print-hide">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Key Strengths <span class="glyphicon glyphicon-plus" style="float:right;"></span>
                         </a>
                     </h3>
+					<h2 class="print-show">Key Strengths</h2>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="LinkBox1Padding">
-
-
-
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="keyStrengths">What are my key strengths?</label>
+								<label class="print-hide" for="keyStrengths">What are my key strengths?</label>
+								<h3 class="print-show">What areas do I need to develop to achieve my objectives?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.keyStrengths)
+							</div>
                         </div>
-
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="keyStrengthsActions">What actions will I take to further develop these areas?</label>
+								<label class="print-hide" for="keyStrengthsActions">What actions will I take to further develop these areas?</label>
+								<h3 class="print-show">What areas do I need to develop to achieve my objectives?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.keyStrengthsActions)
+							</div>
                         </div>
-
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="keyStrengthsWhen">By when?</label>
+								<label class="print-hide" for="keyStrengthsWhen">By when?</label>
+								<h3 class="print-show">What areas do I need to develop to achieve my objectives?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.keyStrengthsWhen, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.keyStrengthsWhen)
+							</div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
             <div class="linkPanel panel-default">
                 <div class="panel-heading" role="tab" id="headingThree">
-                    <h3>
+					<h3 class="print-hide">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                             Career aspirations <span class="glyphicon glyphicon-plus" style="float:right;"></span>
                         </a>
                     </h3>
+					<h2 class="print-show">Career aspirations</h2>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="LinkBox1Padding">
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="careerAspirations">What are my career aspirations?</label>
+								<label class="print-hide" for="careerAspirations">What are my career aspirations?</label>
+								<h3 class="print-show">What are my career aspirations?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.careerAspirations)
+							</div>
                         </div>
-
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="careerAspirationsActions"> What actions do I need to take to move towards these aspirations?</label>
+								<label class="print-hide" for="careerAspirationsActions">What actions do I need to take to move towards these aspirations?</label>
+								<h3 class="print-show">What actions do I need to take to move towards these aspirations?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.careerAspirationsActions)
+							</div>
                         </div>
-
                         <div>
                             <div class="linkBoxTitle">
-                                <label for="careerAspirationsWhen">By when?</label>
+								<label class="print-hide" for="careerAspirationsWhen">By when?</label>
+								<h3 class="print-show">By when?</h3>
                             </div>
-                            <div class="LinkBox1Padding">
+							<div class="print-hide LinkBox1Padding">
                                 @Html.EditorFor(model => model.careerAspirationsWhen, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
                             </div>
+							<div class="print-show print-pre-line">
+								@Html.ValueFor(model => model.careerAspirationsWhen)
+							</div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
-
-
-    <div>
-
+	<div class="print-hide">
         <br />
         <input type="submit" value="Save" class="btn btn-primary pull-right" />
-
     </div>
-
-    <a href="/Pdp" onclick="window.print()">
+	<a class="print-hide" href="/Pdp" onclick="window.print()">
         <i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
     </a>
 

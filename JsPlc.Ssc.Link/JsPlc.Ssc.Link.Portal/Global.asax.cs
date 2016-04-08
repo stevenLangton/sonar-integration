@@ -13,12 +13,14 @@ using JsPlc.Ssc.Link.Portal.Controllers;
 using JsPlc.Ssc.Link.Portal.ModelBinding;
 using System.IO;
 using log4net;
+using System.Web.Helpers;
+using System.Security.Claims;
 
 namespace JsPlc.Ssc.Link.Portal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-		private static readonly ILog _logger = LogManager.GetLogger("GlobalActionExecutedEx");
+        private static readonly ILog _logger = LogManager.GetLogger("GlobalActionExecutedEx");
 
         [ExcludeFromCodeCoverage]
         protected void Application_Start()
@@ -28,8 +30,8 @@ namespace JsPlc.Ssc.Link.Portal
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             RouteConfig.RegisterApiRoutes(new HttpConfiguration());
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-			log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
 
             // App specific model binding.
             // BindersConfig.RegisterModelBinders(); //not needed for now.. kept for future.
@@ -41,57 +43,57 @@ namespace JsPlc.Ssc.Link.Portal
         /// <param name="e"></param>
         protected void Application_Error(object sender, EventArgs e)
         {
-			_logger.Error(Server.GetLastError());
-			//HttpContext context;
-			//try
-			//{
-			//	ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler fired..")));
+            _logger.Error(Server.GetLastError());
+            //HttpContext context;
+            //try
+            //{
+            //	ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler fired..")));
 
-			//	var app = sender as MvcApplication;
-			//	if (app == null) return;
+            //	var app = sender as MvcApplication;
+            //	if (app == null) return;
 
-			//	context = app.Context;
-			//	var ex = app.Server.GetLastError();
+            //	context = app.Context;
+            //	var ex = app.Server.GetLastError();
 
-			//	context.Response.Clear();
-			//	context.ClearError();
-			//	var httpException = ex as HttpException;
+            //	context.Response.Clear();
+            //	context.ClearError();
+            //	var httpException = ex as HttpException;
 
-			//	if (ex != null) ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception(ex.Message)));
-                
-			//	var routeData = new RouteData();
-			//	routeData.Values["controller"] = "errors";
-			//	routeData.Values["exception"] = ex;
-			//	routeData.Values["action"] = "http500";
-			//	if (httpException != null)
-			//	{
-			//		ErrorLog.GetDefault(context).Log(new Error(httpException));
-			//		switch (httpException.GetHttpCode())
-			//		{
-			//			case 404:
-			//				routeData.Values["action"] = "http404";
-			//				break;
-			//			case 403:
-			//				routeData.Values["action"] = "http403";
-			//				break;
-			//			case 500:
-			//				routeData.Values["action"] = "http500";
-			//				break;
-			//		}
-			//	}
-			//	IController controller = new ErrorsController();
-			//	controller.Execute(new RequestContext(new HttpContextWrapper(context), routeData));
-			//}
-			//catch (Exception ex)
-			//{
-			//	var app = sender as MvcApplication;
-			//	if (app != null)
-			//	{
-			//		context = app.Context;
-			//		ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler FAILED..")));
-			//		ErrorLog.GetDefault(context).Log(new Error(ex));
-			//	}
-			//}
+            //	if (ex != null) ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception(ex.Message)));
+
+            //	var routeData = new RouteData();
+            //	routeData.Values["controller"] = "errors";
+            //	routeData.Values["exception"] = ex;
+            //	routeData.Values["action"] = "http500";
+            //	if (httpException != null)
+            //	{
+            //		ErrorLog.GetDefault(context).Log(new Error(httpException));
+            //		switch (httpException.GetHttpCode())
+            //		{
+            //			case 404:
+            //				routeData.Values["action"] = "http404";
+            //				break;
+            //			case 403:
+            //				routeData.Values["action"] = "http403";
+            //				break;
+            //			case 500:
+            //				routeData.Values["action"] = "http500";
+            //				break;
+            //		}
+            //	}
+            //	IController controller = new ErrorsController();
+            //	controller.Execute(new RequestContext(new HttpContextWrapper(context), routeData));
+            //}
+            //catch (Exception ex)
+            //{
+            //	var app = sender as MvcApplication;
+            //	if (app != null)
+            //	{
+            //		context = app.Context;
+            //		ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler FAILED..")));
+            //		ErrorLog.GetDefault(context).Log(new Error(ex));
+            //	}
+            //}
         }
     }
 }
