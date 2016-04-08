@@ -12,7 +12,7 @@
 
 <div class="myPageContainer">
     <div id="linkpage" style="display: none;" data-bind="visible: true">
-        <div id="breadcrumbs">@Html.MvcSiteMap().SiteMapPath()</div>
+		<div class="print-hide" id="breadcrumbs">@Html.MvcSiteMap().SiteMapPath()</div>
         <!-- knockout binding to this -->
         <div id="msgs" class="linkErrorMsg"></div>
         <div style="display: none;" data-bind="visible: !$root.dataAvailable()">
@@ -27,12 +27,6 @@
                         <h1>@ViewBag.Title<span class="colleagueInfo" data-bind="text: ' with ' + $root.dataModel().ManagerName"></span></h1>
                     </div>
                 </div>
-                <!-- Enter button 
-                <div class="col-md-2" data-bind="visible: (dataModel().SharingStatus()==0)">
-                    <br />
-                    <button type="button" class="btn btn-default" data-bind="visible: $root.dataAvailable, click: saveLinkForm">Enter</button>
-                </div>
-                -->
             </div>
             <br/>
             <!-- Meeting date/time picker, readonly when Shared or Completed -->
