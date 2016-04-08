@@ -109,6 +109,11 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
 			if (ModelState.IsValid)
 			{
+                //Check authorization. User is only allowed to create his own objectives
+                if (!AuthorizationService.IsUserData(CurrentUser.Colleague.ColleagueId, modifiedObjective)) {
+				    return MakeJsonObject(null, false, @"You are only authorized to create your own objective");
+                }
+
 				modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
 				modifiedObjective.LastAmendedDate = DateTime.Now;
 
@@ -130,11 +135,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 				return MakeJsonObject(errors, false, @"Validation errors found");
 			}
 
-			return new JsonResult
-			{
-				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-				Data = new { success = Success, savedObjective = modifiedObjective }
-			};
+			return MakeJsonObject(modifiedObjective, true, @"Success");
+
 		}//Create
 
 		[HttpPost]
@@ -144,16 +146,18 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 
 			if (ModelState.IsValid)
 			{
+                //Check authorization. User is only allowed to create his own objectives
+                if (!AuthorizationService.IsUserData(CurrentUser.Colleague.ColleagueId, modifiedObjective))
+                {
+                    return MakeJsonObject(null, false, @"You are only authorized to update your own objective");
+                }
+
 				modifiedObjective.LastAmendedBy = CurrentUser.Colleague.ColleagueId;
 				modifiedObjective.LastAmendedDate = DateTime.Now;
 				Success = await ServiceFacade.UpdateObjective(modifiedObjective);
 			}
 
-			return new JsonResult
-			{
-				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-				Data = new { success = Success, savedObjective = modifiedObjective }
-			};
+            return MakeJsonObject(modifiedObjective, true, @"Success");
 		}
 		//Update
 	}

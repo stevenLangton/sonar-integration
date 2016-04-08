@@ -126,12 +126,12 @@
 
             $promise.done(function (result) {
                 if (result.success) {
-                    vm.data.LastAmendedDate(result.savedObjective.LastAmendedDate);
-                    vm.data.LastAmendedBy(result.savedObjective.LastAmendedBy);
+                    vm.data.LastAmendedDate(result.data.LastAmendedDate);
+                    vm.data.LastAmendedBy(result.data.LastAmendedBy);
 
                     if (mvcAction === mvcCreateAction) {
                         toastr.info("You have successfully created a new objective");
-                        vm.onCreate(result.savedObjective);
+                        vm.onCreate(result.data);
                     } else {
                         toastr.info("Your objective has been updated");
                     }

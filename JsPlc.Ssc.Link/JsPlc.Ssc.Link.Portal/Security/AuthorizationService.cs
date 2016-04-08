@@ -6,6 +6,7 @@ using System.Web;
 using Microsoft.Ajax.Utilities;
 using System.Threading;
 using JsPlc.Ssc.Link.Models;
+using JsPlc.Ssc.Link.Models.Entities;
 
 
 namespace JsPlc.Ssc.Link.Portal.Security
@@ -95,6 +96,11 @@ namespace JsPlc.Ssc.Link.Portal.Security
             }
 
             return true;
+        }
+
+        public static bool IsUserData(string ColleagueId, LinkObjective obj)
+        {
+            return ColleagueId == obj.ColleagueId;
         }
     }
 }
