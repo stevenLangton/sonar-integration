@@ -15,7 +15,7 @@ namespace JsPlc.Ssc.Link.Portal.Security
         public static string GetEmailAddress() {
             //var authenticatedEmailAddr = User.Identity.Name;
             var emailClaim =
-                ClaimsPrincipal.Current.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+                ClaimsPrincipal.Current.FindFirst(ClaimTypes.Email);
             var authenticatedEmailAddr = "";
             if (emailClaim != null)
             {
@@ -33,7 +33,7 @@ namespace JsPlc.Ssc.Link.Portal.Security
                 var exceptionMsg = "";
                 if (emailClaim == null || emailClaim.Value.IsNullOrWhiteSpace())
                 {
-                    exceptionMsg += "Error: Missing claim = http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+                    exceptionMsg += "Error: Missing claim = " + ClaimTypes.Email;
                 }
                 var test1 = Thread.CurrentPrincipal.Identity;
                 //if (User.Identity.Name.IsNullOrWhiteSpace())
@@ -74,6 +74,27 @@ namespace JsPlc.Ssc.Link.Portal.Security
             {
                 return facade.HasColleagueAccess(Accessor, Owner);
             }
+        }
+
+        public static bool IsOnDatabase()
+        {
+            string EmailAddress = GetEmailAddress();
+
+            using (var facade = new LinkServiceFacade())
+            {
+                ColleagueView Colleague = facade.GetColleagueByUsername(EmailAddress);
+
+                if (Colleague == null)
+                {
+                    return false;
+                }
+                else if (Colleague.Manager == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
