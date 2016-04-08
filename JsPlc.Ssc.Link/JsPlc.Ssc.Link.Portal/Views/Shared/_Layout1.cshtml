@@ -3,6 +3,7 @@
 @using System.Configuration;
 @using JsPlc.Ssc.Link.Models
 @using JsPlc.Ssc.Link.Portal.Properties
+@using JsPlc.Ssc.Link.Portal.Security
 
 
 @{
@@ -61,6 +62,27 @@
 			LinkService.setServiceBaseUrl("@(ConfigurationManager.AppSettings["ServicesBaseUrl"])");
 		});
 	</script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var isAbsoluteURI = new RegExp('^(?:[a-z]+:)?//', 'i');
+        //http://stackoverflow.com/questions/10687099/how-to-test-if-a-url-string-is-absolute-or-relative
+
+        $.ajaxSetup({
+            beforeSend: function (xhr) {
+                if (!isAbsoluteURI.test(this.url)) {
+                    //only add header to relative URLs
+                    xhr.setRequestHeader(
+                       '@ValidateAntiForgeryTokenOnAllPosts.HTTP_HEADER_NAME',
+                       $('@Html.AntiForgeryToken()').val()
+                    );
+                }
+            }
+        });
+    });
+    </script>
+
+
 
 
 	<meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />

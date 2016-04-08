@@ -23,6 +23,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
 {
     [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     [System.Web.Mvc.Authorize]
+    [ValidateAntiForgeryTokenOnAllPosts]
     public class LinkFormController : LinkBaseController
     {
         [ScriptMethod(UseHttpGet = true)]
@@ -179,6 +180,17 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             // http://stackoverflow.com/questions/2845852/asp-net-mvc-how-to-convert-modelstate-errors-to-json
             if (ModelState.IsValid)
             {
+                if (!AuthorizationService.IsUserData(CurrentUser.Colleague.ColleagueId, meetingView))
+                {
+                    var unauthorizedResponse = new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.Unauthorized
+                    };
+                    // key and string of arrays
+                    return unauthorizedResponse.ToJsonResult(null, null, "Unauthorized");
+                    //return MakeJsonObject(null, false, @"You are only authorized to create/update your own meeting");
+                }
+
                 var meetingViewJson = JsonConvert.SerializeObject(meetingView);
                 // DO PUT or POST based on MeetingId =0 which means Create, if not zero then update
                 HttpResponseMessage response;

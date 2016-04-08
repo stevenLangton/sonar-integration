@@ -5,9 +5,46 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using JsPlc.Ssc.Link.Portal.Security;
 using JsPlc.Ssc.Link.Models;
+using System.Net;
+using System.Web.Helpers;
 
 namespace JsPlc.Ssc.Link.Portal.Security
 {
+    public class ValidateAntiForgeryTokenOnAllPosts : AuthorizeAttribute
+    {
+        public const string HTTP_HEADER_NAME = "x-RequestVerificationToken";
+
+        public override void OnAuthorization(System.Web.Mvc.AuthorizationContext filterContext)
+        {
+            var request = filterContext.HttpContext.Request;
+
+            //  Only validate POSTs
+            if (request.HttpMethod == WebRequestMethods.Http.Post)
+            {
+                var headerTokenValue = request.Headers[HTTP_HEADER_NAME];
+
+                // Ajax POSTs using jquery have a header set that defines the token.
+                // However using unobtrusive ajax the token is still submitted normally in the form.
+                // if the header is present then use it, else fall back to processing the form like normal
+                if (headerTokenValue != null)
+                {
+                    var antiForgeryCookie = request.Cookies[AntiForgeryConfig.CookieName];
+
+                    var cookieValue = antiForgeryCookie != null
+                        ? antiForgeryCookie.Value
+                        : null;
+
+                    AntiForgery.Validate(cookieValue, headerTokenValue);
+                }
+                else
+                {
+                    new ValidateAntiForgeryTokenAttribute()
+                        .OnAuthorization(filterContext);
+                }
+            }
+        }
+    }
+
     public class TeamAccessAttribute : LinkAuthorizeBaseAttribute
     {
         //You have team access when you can access your own data and that of your direct reports
