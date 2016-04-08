@@ -36,7 +36,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers
             return View(Pdp);
         }
 
-
+        [ValidateAntiForgeryToken]
         [HttpPost]//Update
         public ActionResult Index(LinkPdp modifiedPdp)
         {

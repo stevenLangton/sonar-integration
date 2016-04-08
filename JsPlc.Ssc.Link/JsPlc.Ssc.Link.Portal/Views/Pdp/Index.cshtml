@@ -1,7 +1,16 @@
 ﻿@model JsPlc.Ssc.Link.Models.Entities.LinkPdp
 
+
+
 <div>@Html.MvcSiteMap().SiteMapPath()</div>
-<form action="pdp" method="post">
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
     <div class="form-horizontal">
 
         <div class="row">
@@ -167,7 +176,7 @@
     </a>
 
 
-</form>
+}
 
 <script type="text/javascript">
     require(["pdp", "knockout", "RegisterKoComponents"], function (pdp, ko) {

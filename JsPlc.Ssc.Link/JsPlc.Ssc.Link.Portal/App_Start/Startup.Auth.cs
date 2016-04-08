@@ -19,6 +19,7 @@ using System.Globalization;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Web.Helpers;
 using AuthenticationContext = Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext;
 
 
@@ -47,6 +48,9 @@ namespace JsPlc.Ssc.Link.Portal
 
         public void ConfigureAuth(IAppBuilder app)
         {
+
+            
+
             app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
             app.UseKentorOwinCookieSaver();
 
@@ -96,6 +100,9 @@ namespace JsPlc.Ssc.Link.Portal
                     }
 
                 });
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+
         }
 
         /// <summary>
