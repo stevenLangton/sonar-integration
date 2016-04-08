@@ -1,9 +1,14 @@
 ﻿
 <div id="ObjectivesListView" style="display:none" data-bind="visible:true">
-	<div>@Html.MvcSiteMap().SiteMapPath()</div>
+	<div class="print-show">
+		<h1>Objectives</h1>
+		<h4>Andrey Shihov</h4>
+		<div style="height: 50px"></div>
+	</div>
+	<div class="print-hide">@Html.MvcSiteMap().SiteMapPath()</div>
 
 
-	<div class="row">
+	<div class="row print-hide">
 		<div class="col-md-2">
 			<img src="~/Content/Images/Objectives wheel unlabelled.png" width="106" height="101" style="margin-top:30px;">
 		</div>
@@ -24,11 +29,8 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
-		<div class="row">
-
-		</div>
-		<div class="">
+	<div class="container-fluid print-hide">
+		<div>
 			<div id="demo" class="collapse">
 				<div data-bind="stopBinding: true">
 					<div id="objectiveContainer"></div>
@@ -36,10 +38,10 @@
 			</div>
 		</div>
 	</div>
-	<br />
-	<br />
+	<br class="print-hide" />
+	<br class="print-hide" />
 	<objectives-list params='data: objectives, readOnly: false'></objectives-list>
-	<hr />
+	<hr class="print-hide" />
 </div>
 <script type="text/javascript">
 	require(["Objectives", "autogrow", "RegisterKoComponents"], function (mod, autogrow) {

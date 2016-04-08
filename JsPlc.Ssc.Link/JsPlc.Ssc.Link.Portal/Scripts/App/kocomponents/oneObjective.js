@@ -59,20 +59,8 @@
             var shared = vm.data.SharedWithManager(),
                 approved = vm.data.Approved(),
                 dateStr = "",
-                //mgrName = common.getUserInfo().managerName,
                 mgrName = vm.getManagerName(),
                 statusMsg = "";
-
-            //if (vm.managerView) {
-            //    if (common.getUserInfo().colleagueId === vm.data.ManagerId()) {
-            //        mgrName = "you";
-            //    }
-            //    else {
-            //        mgrName = "another manager";
-            //    }
-            //} else {
-            //    mgrName = mgrName !== "" ? mgrName : "manager";
-            //}
 
             if (shared) {
                 if (approved) {
