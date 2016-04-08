@@ -370,7 +370,7 @@ textarea.form-control.multilinePdp {
         }
 
 .footerP {
-    font-size: 90%;
+
 }
 
 
@@ -756,10 +756,7 @@ footer {
     text-align: center;
 }
 
-    .footerLinks a {
-        margin-right: 30px;
-        margin-left: 30px;
-    }
+
 
 
 #footerContent {
@@ -820,7 +817,25 @@ padding-left:50px;padding-right:50px;padding-top:30px;
     font-size:16px;
 }
 
+
+#footerContent ul li {
+width:200px;}
+#footerContent ul li:first-child {
+    border-right:solid 1px #009bb6;
+}
+#footerContent ul li:last-child {
+    border-left:solid 1px #009bb6;
+}
+
+
 .linkNavContainer {
     border:solid 1px #056792;
     margin-top:-11px;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border:none;
+}
+.print-show{
+	display: none;
 }

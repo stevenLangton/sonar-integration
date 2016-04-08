@@ -76,9 +76,9 @@
         </div>
 
     </header>
-    <div class="row">
+    
         @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", @ViewBag.Title } })
-    </div>
+  
 
     <div class="wrapper">
         <div class="container">
@@ -115,38 +115,73 @@
 
 
     <footer>
-        <div class="navbar navbar-default link-footer">
+        <div class="link-footer navbar-fixed-bottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 footerLinks" style="text-align:center;">
-                        <br />
+                    <div class="col-md-12 footerLinks">
 
-                        <a href="/home/help">Help</a> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; <a href="/home/contact">Contact Us</a>&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;<a href="#">Log out</a>
-
-                        <br /><br /><br />
+                        <div id="footerContent">
 
 
 
-                        <div class="row">&copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small> </div>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm1" }))
+                                {
+                                    <ul class="list-inline">
+                                        <li><a class="btn" href="home/help">@Resources.HelpPageTitle</a></li>
+                                        <li><a class="btn" href="/home/contact">Contact Us</a></li>
+                                        <li><a class="btn" href="javascript:document.getElementById('logoutForm1').submit()">Log out</a></li>
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+
+                                <ul class="list-inline">
+                                    <li><a class="btn" href="home/help">@Resources.HelpPageTitle</a></li>
+                                    <li><a class="btn" href="/home/contact">Contact Us</a></li>
+                                    <li>@Html.ActionLink("Log in", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                </ul>
+
+
+                            }
+
+
+
+
+                        </div>
+                        <div id="footerCopy">
+                            &copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small>
+                        </div>
+
+                        @{
+                            var displaySvrInfo = "";
+                            displaySvrInfo = Request.QueryString["displaySvrInfo"];
+                            if (displaySvrInfo != null && displaySvrInfo.Equals("Yes"))
+                            {
+                <!-- Machine name only needed for diagnosing Load balanced env -->
+                                <div class="row" style="color:#ffffff">
+                                    <div class="col-md-4">Machine name: @Environment.MachineName</div>
+                                    <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
+                                    <div class="col-md-4"><pre>Server IP: @TempData["IPAddress"]</pre></div>
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+
+
+                    <div>
                     </div>
                 </div>
+
             </div>
 
         </div>
-        @{
-            var displaySvrInfo = "";
-            displaySvrInfo = Request.QueryString["displaySvrInfo"];
-            if (displaySvrInfo != null && displaySvrInfo.Equals("Yes"))
-            {
-                <!-- Machine name only needed for diagnosing Load balanced env -->
-                <div class="row" style="color: silver">
-                    <div class="col-md-4">Machine name: @Environment.MachineName</div>
-                    <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
-                    <div class="col-md-4"><pre>Server IP: @TempData["IPAddress"]</pre></div>
-                </div>
-            }
-        }
-
+     
     </footer>
 
 
