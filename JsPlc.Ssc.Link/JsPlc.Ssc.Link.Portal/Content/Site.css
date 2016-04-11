@@ -788,9 +788,11 @@ padding-left:50px;padding-right:50px;padding-top:30px;
 .btn-primary {
 	font-family: maryAnnWeb;
 	font-size: 16px;
-	background-color: #056792;
+	background-color: #006791;
 	border-radius: 20px;
 	border: none;
+    padding-left:20px;
+    padding-right:20px;
 }
 
 .btn-primary:active {
