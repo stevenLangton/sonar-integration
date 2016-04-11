@@ -154,7 +154,7 @@ img.comp-logo {
 }*/
 .linksection-heading {
 	color: #0C5B94;
-	font-size: 143%;
+	font-size: 24px;
 	margin-top: 15px;
 	margin-bottom: 5px;
 }
@@ -561,8 +561,6 @@ h4, label {
 	
 }
 
-
-
 .special {
 	margin-top: 0px;
 }
@@ -639,6 +637,9 @@ hr {
 	padding: 10px;
 }
 
+.linkMargin {
+	margin: 10px;
+}
 
 .linkBoxTitle {
 	margin-left: 10px;
@@ -854,4 +855,9 @@ width:200px;}
 
 .wheel {
     margin-top: 30px;
+}
+
+.padding-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }

@@ -85,23 +85,12 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             // Oh the IE pain
             $("input[name='CompletedMgr']").prop('checked', (data.ManagerSignOff ==1) ? true: false);
             $("input[name='CompletedColleague']").prop('checked', (data.ColleagueSignOff == 1) ? true : false);
-            //$("input[name='CheckboxShared']").prop('checked', (data.SharingStatus == 1) ? true : false);
-
-            //if (data.ManagerSignOff == 1 || data.ManagerSignOff == true) meetingView.ManagerSignOff = true;
-            //else meetingView.ManagerSignOff = false;
-
-
+            
             ko.utils.arrayForEach(data.Questions, function (ques) {
                 if (!ques.ColleagueComment)
                 { ques.ColleagueComment = ""; } // NOTE TextArea and other input elements need to be bound to "value" not just text, otherwise we dont see user changes in model
                 if (!ques.ManagerComment)
                 { ques.ManagerComment = ""; }
-
-                //ques.UpdCharCount = function (textAreaId, charSpanId) {
-                //    var txtLen = $(textAreaId).val().length; // bit inaccurate this..
-                //    var charCount = (5000 - txtLen-10);
-                //    $(charSpanId).html(charCount + " chars remaining");
-                //};
 
             });
             // split questions by type (not by index)
@@ -113,8 +102,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             meetingView.Questions = data.Questions;
 
             return meetingView;
-            //self.dataModel(meetingView);
-            //adjustBreadcrumbs(self.dataModel().ColleagueId);
         };
 
         self.formatDateMonthDYHM = function (dateObj) {
@@ -171,14 +158,8 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
             data.ManagerSignOff = $("input[name='CompletedMgr']").prop('checked');
             data.ManagerSignOff = data.ManagerSignOff && (data.ManagerSignOff == 1 || data.ManagerSignOff == true) ? "Completed" : "InComplete";
 
-            //data.SharingStatus = $("input[name='CheckboxShared']").prop('checked');
-            //data.SharingStatus = data.SharingStatus && (data.SharingStatus == 1 || data.SharingStatus == true) ? "Shared" : "NotShared";
             data.SharingStatus = data.SharingStatus(); //Get observable value
 
-            //var ukDate = moment(data.MeetingDate, "DD/MM/YYYY");
-            //var yyyymmdd = ukDate.toISOString();
-            //console.log("Proposed postback meetingDate (yyyy-mm-ddThh:mm:ss.xxxZ):" + yyyymmdd);
-            //data.MeetingDate = yyyymmdd;
             if (moment(data.MeetingDate, common.uiDateFormat).isValid()) {
                 data.MeetingDate = moment(data.MeetingDate, common.uiDateFormat).format("YYYY-MM-DD")
                     + ' ' + moment(data.MeetingTime, "HH:mm a").format("HH:mm a");
@@ -338,7 +319,6 @@ function ($, ko, moment, datepicker, datePickerGb, datetimepicker, _, common, he
         vm.bind = binder;
 
         //// Show meeting data once loaded from GET
-        //vm.loadPageData(empId);
         vm.getDataForMeeting();
 
         if (!jQuery || jQuery == undefined) window.jQuery = $;
