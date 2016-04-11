@@ -750,12 +750,12 @@ footer {
 	}
 
 .linkPanel {
-	border-bottom: solid 1px #056792;
+	border: solid 1px #056792;
+	margin-top: 25px;
 }
 
 .linkPanelS {
-	border-top: solid 1px #056792;
-	border-bottom: solid 1px #056792;
+	border: solid 1px #056792;
 }
 
 .footerLinks {

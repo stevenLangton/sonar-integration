@@ -11,13 +11,29 @@ hr {
 	border-top: 1px solid black;
 }
 
-.linksection-heading{
+label {
+	font-family: maryAnnWeb;
+	font-size: 22px;
+	margin-top: 25px;
+	text-transform: none;
+	margin-bottom: 25px;
+	font-weight: 500;
+	line-height: 1.1;
+}
+
+.linkBoxTitle label {
+	margin: 0px;
+}
+
+.linksection-heading {
 	font-size: 30px;
 	margin-top: 50px;
 }
-.linkBoxTitle{
+
+.linkBoxTitle {
 	margin: 15px 0 0 0;
 }
+
 #linkSecondaryNav {
 	display: none;
 }
@@ -81,7 +97,7 @@ hr {
 	padding: 0px;
 }
 
-.linkBox1, 
+.linkBox1,
 .linkBox3,
 .linkPanelS,
 .linkPanel {
@@ -89,7 +105,7 @@ hr {
 }
 
 .linkPanelS,
-.linkPanel{
+.linkPanel {
 	margin-top: 50px;
 }
 
