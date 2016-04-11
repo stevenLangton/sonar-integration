@@ -15,7 +15,7 @@
 	<div data-bind="visible: expandedView() || expandedAll()">
 		<div class="row print-hide">
 			<div class="col-sm-10">
-				<h4 for="objectiveTitle">Objective title</h4>
+				<label for="objectiveTitle">Objective title</label>
 			</div>
 			<div class="col-sm-1 pull-right linkBoxTitle expanded-objective" data-bind="if: enableViewToggle">
 				<a href="#" target="_blank" data-bind="click: toggleView" class="pull-right">
@@ -30,7 +30,7 @@
 			<h1 class="print-show" data-bind="text: data.Title">
 			</h1>
 		</div>
-		<h4>What will I do to make a difference this year? (SPECIFIC and check it's ACHIEVABLE) </h4>
+		<label>What will I do to make a difference this year? (SPECIFIC and check it's ACHIEVABLE) </label>
 		<div class="row">
 			<div class="col-sm-12 print-hide">
 				<textarea data-bind="textInput: data.Objective, disable: readOnly"></textarea>
@@ -38,7 +38,7 @@
 			<div class="print-show print-pre-wrap" data-bind="text: data.Objective">
 			</div>
 		</div>
-		<h4>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)? (MEASURABLE &amp; TIMEBOUND)</h4>
+		<label>How will I know I’ve made a difference (e.g. by improving quality/increasing sales/saving time/reducing cost)? (MEASURABLE &amp; TIMEBOUND)</label>
 		<div class="row">
 			<div class="col-sm-12 print-hide">
 				<textarea data-bind="textInput: data.MeasuredBy, disable: readOnly"></textarea>
@@ -46,7 +46,7 @@
 			<div class="print-show print-pre-wrap" data-bind="text: data.MeasuredBy">
 			</div>
 		</div>
-		<h4>Which company, divisional, zone, regional, team or store priority does this support? (RELEVANT)</h4>
+		<label>Which company, divisional, zone, regional, team or store priority does this support? (RELEVANT)</label>
 		<div class="row">
 			<div class="col-sm-12 print-hide">
 				<textarea data-bind="textInput: data.RelevantTo, disable: readOnly"></textarea>

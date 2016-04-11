@@ -115,7 +115,7 @@
 				<div data-bind="foreach: LookingBackQuestions">
 
 					<div class="linkBox3 linkPadding">
-						<h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+						<label data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></label>
 						<textarea class="print-hide" data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId'"
 								  rows="2" id="ques1text" placeholder="Enter comments here (max 5000 chars)" maxlength="5000"></textarea>
 						<div class="print-show print-pre-wrap" data-bind="text: ColleagueComment">
@@ -129,7 +129,7 @@
 				<!-- QUESTIONS Loop around this -->
 				<div data-bind="foreach: LookingFwdQuestions">
 					<div class="linkBox3 linkPadding">
-						<h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+						<label data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></label>
 						<textarea class="print-hide" data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
 								  rows="2" maxlength="5000"></textarea>
 						<div class="print-show print-pre-wrap" data-bind="text: ColleagueComment">
@@ -145,7 +145,7 @@
 
 					<div class="linkBox3 linkPadding">
 
-						<h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+						<label data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></label>
 						<textarea class="print-hide" data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter colleague here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
 								  rows="2" maxlength="5000"></textarea>
 						<div class="print-show print-pre-wrap" data-bind="text: ColleagueComment">
@@ -160,7 +160,7 @@
 
 					<div class="linkBox3 linkPadding">
 
-						<h4 data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></h4>
+						<label data-bind="text: Question , 'name': 'Question[' + QuestionId + '].Question'"></label>
 						<textarea class="print-hide" data-bind="text: ColleagueComment, value:ColleagueComment, enable: $parent.ColleagueId=='@currentUser.Colleague.ColleagueId', attr: {maxlength:$index()==2?'400':'5000', placeholder: $index()==2?'Enter comments here (max 400 chars)':'Enter comments here (max 5000 chars)' }"
 								  rows="2" maxlength="5000"></textarea>
 						<div class="print-show print-pre-wrap" data-bind="text: ColleagueComment">
