@@ -43,15 +43,7 @@ label {
 }
 
 .print-show {
-	display: initial;
-}
-
-.print-pre-wrap {
-	white-space: pre-wrap;
-}
-
-.print-pre-line {
-	white-space: pre-line;
+	display: block;
 }
 
 .tab-content > .tab-pane {
