@@ -8,12 +8,13 @@
 
 @{
 	var CurrentUser = TempData["CurrentUser"] as LinkUserView;
-	string ColleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId;
+    var CurrentColleague = CurrentUser == null ? null : CurrentUser.Colleague;
+    string ColleagueId = CurrentColleague == null ? "" : CurrentColleague.ColleagueId;
 	var userInfoForUi = new
 	{
-		colleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId,
-		managerId = CurrentUser == null ? "" : CurrentUser.Colleague.ManagerId,
-		managerName = (CurrentUser != null && CurrentUser.Colleague.Manager != null) ? CurrentUser.Colleague.Manager.FirstName + " " + CurrentUser.Colleague.Manager.LastName : ""
+        colleagueId = CurrentColleague == null ? "" : CurrentColleague.ColleagueId,
+        managerId = CurrentColleague == null ? "" : CurrentColleague.ManagerId,
+        managerName = (CurrentColleague != null && CurrentColleague.Manager != null) ? CurrentColleague.Manager.FirstName + " " + CurrentColleague.Manager.LastName : ""
 	};
 }
 <!DOCTYPE html>

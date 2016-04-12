@@ -1,13 +1,10 @@
 ﻿@using System.Activities.Statements
 @{
     ViewBag.Title = "Unauthorized";
+    var suffix = !String.IsNullOrEmpty(ViewBag.UnauthPage) ? " - " + ViewBag.UnauthPage : ".";
 }
-
 <h1 class="text-danger">Unauthorized Access</h1>
-<h2 class="text-danger">
-    Sorry, you are not authorized to access this page
-    @if (!String.IsNullOrEmpty(ViewBag.UnauthPage))
-    {
-        @("- " + @ViewBag.UnauthPage)
-    }
-</h2>
+<div class="h3 text-danger">
+    <span>Sorry, you are not authorized to access this page</span><span>@suffix</span>
+    <p>Please contact HRSS to check if your details are correct.</p>
+</div>

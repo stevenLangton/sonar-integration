@@ -73,9 +73,12 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
         {
             base.OnActionExecuting(filterContext);
 
-			initCurrentUser();
-
             ViewBag.VersionNumber = GetAssemblyVersion();
+
+            if (!initCurrentUser())
+            {
+                filterContext.Result = new ViewResult { ViewName = "~/Views/Shared/Unauthorized.cshtml" };
+            }
         }
 
         [ExcludeFromCodeCoverage]
@@ -175,8 +178,10 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
         }
 
 		#region Private Methods
-		private void initCurrentUser()
+		private bool initCurrentUser()
 		{
+            bool success = true;
+
 			if (Request.IsAuthenticated && !Request.RawUrl.ToLower().Contains("/account/signout"))
 			{
 				_currentUser = new LinkUserView();
@@ -206,8 +211,8 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 					{
 						exceptionMsg += "\n --- Error: Username/Email expected on authentication, Found blank email address claim value";
 					}
-					var ex = new ApplicationException(exceptionMsg);
-					throw ex;
+
+                    success = false;
 				}
 
 				_currentUser.IsLineManager = ServiceFacade.IsManagerByEmail(authenticatedEmailAddr);
@@ -216,15 +221,22 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 				if (_currentUser.Colleague == null)
 				{
 					var exceptionMessage = string.Format("Colleague not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
-					throw new ApplicationException(exceptionMessage);
+                    success = false;
 				}
 				else if (_currentUser.Colleague.EmailAddress.IsNullOrWhiteSpace())
 				{
 					var exceptionMessage = string.Format("Colleague's Email not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
-					throw new ApplicationException(exceptionMessage);
+                    success = false;
 				}
+                else if (_currentUser.Colleague.Manager==null)
+                {
+                    var exceptionMessage = string.Format("Colleague's manager not found. App Name: {0}; AD Email: {1}", Resources.AppName, authenticatedEmailAddr);
+                    success = false;
+                }
 				TempData["CurrentUser"] = _currentUser;
 			}
+
+            return success;
 		}
 
 
