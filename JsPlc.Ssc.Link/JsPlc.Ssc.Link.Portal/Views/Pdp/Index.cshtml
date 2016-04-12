@@ -49,8 +49,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.achieveObjectives, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.achieveObjectives)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.achieveObjectives.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 						<div>
@@ -60,8 +60,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.achieveObjectivesActions, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.achieveObjectivesActions)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.achieveObjectivesActions.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 						<div>
@@ -71,8 +71,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.achieveObjectivesWhen, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.achieveObjectivesWhen)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.achieveObjectivesWhen.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 					</div>
@@ -96,8 +96,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.keyStrengths, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.keyStrengths)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.keyStrengths.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 						<div>
@@ -107,8 +107,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.keyStrengthsActions, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.keyStrengthsActions)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.keyStrengthsActions.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 						<div>
@@ -118,8 +118,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.keyStrengthsWhen, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.keyStrengthsWhen)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.keyStrengthsWhen.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 					</div>
@@ -143,8 +143,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.careerAspirations, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.careerAspirations)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.careerAspirations.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 						<div>
@@ -154,8 +154,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.careerAspirationsActions, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.careerAspirationsActions)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.careerAspirationsActions.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 						<div>
@@ -165,8 +165,8 @@
 							<div class="print-hide LinkBox1Padding">
 								@Html.EditorFor(model => model.careerAspirationsWhen, new { htmlAttributes = new { @class = "form-control singleLinePdp" } })
 							</div>
-							<div class="print-show print-pre-line">
-								@Html.ValueFor(model => model.careerAspirationsWhen)
+							<div class="print-show linkBoxTitle">
+								@Html.Raw(Model.careerAspirationsWhen.Replace(Environment.NewLine, "<br />"))
 							</div>
 						</div>
 					</div>
