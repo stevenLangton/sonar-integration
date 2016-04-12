@@ -861,3 +861,46 @@ width:200px;}
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+
+.error-icon {
+  width: 283px;
+  height: 216px;
+  /*object-fit: contain;*/
+}
+
+.error-page-heading {
+    font-family: MaryAnn;
+    font-size: 36px;
+    line-height: 1.1;
+    color: #006791;
+}
+
+.error-page-text {
+    /*width: 522.7px;
+    height: 20.6px;*/
+    font-family: ArialMT;
+    font-size: 21px;
+    line-height: 1.1;
+    color: #333333;
+}
+
+.error-page-button {
+    width: 130px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #056792;
+}
+
+.error-page-button-text {
+    width: 82px;
+    height: 24px;
+    font-family: MaryAnn;
+    font-size: 18px;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+}
+
+.centered {
+    text-align: center;
+    margin: auto;
+}

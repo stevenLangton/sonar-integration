@@ -1,0 +1,115 @@
+﻿@using System.Activities.Statements
+@using Microsoft.Ajax.Utilities
+@using System.Configuration;
+@using JsPlc.Ssc.Link.Models
+@using JsPlc.Ssc.Link.Portal.Properties
+@{
+    var CurrentUser = TempData["CurrentUser"] as LinkUserView;
+    string ColleagueId = CurrentUser == null ? "" : CurrentUser.Colleague.ColleagueId;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Cache disabling headers -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- End Cache disabling headers -->
+    <base href="@(Request.ApplicationPath == "/" ? "/" : Request.ApplicationPath + "/")">
+    <link rel="shortcut icon icon" type="image/ico" href="@Url.Content("~/favicon.ico")" />
+    <title>@ViewBag.Title - @Resources.AppName</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" media="print" href="~/Content/print.css">
+    <script type="text/javascript" src="~/Scripts/require.js"></script>
+    <script type="text/javascript" src="~/Scripts/require.config.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <meta name="description" content="Link application for Colleague-Manager Link Meetings and Performance appraisals" />
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <div class="container">
+                <div class="row"></div>
+                <div class="col-md-5 ">
+                    <div class="sainsLogo">
+                    </div>
+                </div>
+                <div class="col-md-3" stye="text-align:right;">
+                    <h1 style="margin-top:15px;">My Performance</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    @Html.Partial("_Tabs", new ViewDataDictionary { { "tabName", @ViewBag.Title } })
+    <div class="wrapper">
+        <div class="container">
+                    @RenderBody()
+        </div>
+        <div class="push"></div>
+    </div>
+    <footer>
+        <div class="link-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 footerLinks">
+                        <div id="footerContent">
+                            @if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("SignOut", "Account", FormMethod.Post, new { id = "logoutForm1" }))
+                                {
+                                    <ul class="list-inline">
+                                        <li><a class="btn" href="home/help">@Resources.HelpPageTitle</a></li>
+                                        <li><a class="btn" href="/home/contact">Contact Us</a></li>
+                                        <li><a class="btn" href="javascript:document.getElementById('logoutForm1').submit()">Log out</a></li>
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                                <ul class="list-inline">
+                                    <li><a class="btn" href="home/help">@Resources.HelpPageTitle</a></li>
+                                    <li><a class="btn" href="/home/contact">Contact Us</a></li>
+                                    <li>@Html.ActionLink("Log in", "SignIn", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                </ul>
+                            }
+                        </div>
+                        <div id="footerCopy">
+                            &copy; @DateTime.Now.Year - J Sainsbury PLC<br /><br /><small>@ViewBag.VersionNumber</small>
+                        </div>
+                        @{
+                            var displaySvrInfo = "";
+                            displaySvrInfo = Request.QueryString["displaySvrInfo"];
+                            if (displaySvrInfo != null && displaySvrInfo.Equals("Yes"))
+                            {
+                     <!-- Machine name only needed for diagnosing Load balanced env -->
+                                <div class="row" style="color:#ffffff">
+                                    <div class="col-md-4">Machine name: @Environment.MachineName</div>
+                                    <div class="col-md-4">IIS IP: @Request.ServerVariables["LOCAL_ADDR"]</div>
+                                    <div class="col-md-4">
+                                        <pre>Server IP: @TempData["IPAddress"]</pre>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+        require(['bootstrap']);
+    </script>
+</body>
+</html>

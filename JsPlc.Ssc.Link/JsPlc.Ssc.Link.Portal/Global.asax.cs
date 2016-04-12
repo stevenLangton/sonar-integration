@@ -44,56 +44,6 @@ namespace JsPlc.Ssc.Link.Portal
         protected void Application_Error(object sender, EventArgs e)
         {
             _logger.Error(Server.GetLastError());
-            //HttpContext context;
-            //try
-            //{
-            //	ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler fired..")));
-
-            //	var app = sender as MvcApplication;
-            //	if (app == null) return;
-
-            //	context = app.Context;
-            //	var ex = app.Server.GetLastError();
-
-            //	context.Response.Clear();
-            //	context.ClearError();
-            //	var httpException = ex as HttpException;
-
-            //	if (ex != null) ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception(ex.Message)));
-
-            //	var routeData = new RouteData();
-            //	routeData.Values["controller"] = "errors";
-            //	routeData.Values["exception"] = ex;
-            //	routeData.Values["action"] = "http500";
-            //	if (httpException != null)
-            //	{
-            //		ErrorLog.GetDefault(context).Log(new Error(httpException));
-            //		switch (httpException.GetHttpCode())
-            //		{
-            //			case 404:
-            //				routeData.Values["action"] = "http404";
-            //				break;
-            //			case 403:
-            //				routeData.Values["action"] = "http403";
-            //				break;
-            //			case 500:
-            //				routeData.Values["action"] = "http500";
-            //				break;
-            //		}
-            //	}
-            //	IController controller = new ErrorsController();
-            //	controller.Execute(new RequestContext(new HttpContextWrapper(context), routeData));
-            //}
-            //catch (Exception ex)
-            //{
-            //	var app = sender as MvcApplication;
-            //	if (app != null)
-            //	{
-            //		context = app.Context;
-            //		ErrorLog.GetDefault(HttpContext.Current).Log(new Error(new Exception("Global error handler FAILED..")));
-            //		ErrorLog.GetDefault(context).Log(new Error(ex));
-            //	}
-            //}
         }
     }
 }

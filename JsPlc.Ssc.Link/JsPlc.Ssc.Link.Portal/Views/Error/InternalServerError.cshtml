@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Internal Server Error";
+    Layout = "~/Views/Shared/_ErrorLayout.cshtml";
+}
+<div class="container centered">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="h1">
+                <p class="error-page-heading">Sorry</p>
+            </div>
+            <br />
+            <div class="error-page-text">
+                <p>
+                    For technical reasons, we have not been able to connect you to the page you requested and we hope to be able to do so soon.
+                </p>
+                <p>Please try again.</p>
+            </div>
+            <br />
+            <div>
+                <img src="Content/Images/error-icon.svg" class="error-icon" />
+            </div>
+            <br />
+            <div class="row">
+                <a href="/Home/Index" class="btn btn-large btn-primary error-page-button"><i class="icon-home icon-white"></i><span class="error-page-button-text">Homepage</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

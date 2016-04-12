@@ -59,16 +59,6 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
             ServiceFacade = facade;
         }
 
-        //protected override void OnAuthentication(AuthenticationContext filterContext)
-        //{
-        //    base.OnAuthentication(filterContext);
-        //    // http://stackoverflow.com/questions/12568426/mvc3-windows-authentication-override-user-identity
-        //    //if (Request.IsAuthenticated)
-        //    //{
-        //    //    filterContext.HttpContext.User = new ClaimsPrincipal(User);
-        //    //}
-        //}
-
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
@@ -77,7 +67,7 @@ namespace JsPlc.Ssc.Link.Portal.Controllers.Base
 
             if (!initCurrentUser())
             {
-                filterContext.Result = new ViewResult { ViewName = "~/Views/Shared/Unauthorized.cshtml" };
+                filterContext.Result = new ViewResult { ViewName = "~/Views/Error/Unauthorized.cshtml" };
             }
         }
 

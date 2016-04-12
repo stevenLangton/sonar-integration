@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Not Found";
+    Layout = "~/Views/Shared/_ErrorLayout.cshtml";
+}
+
+<div class="centered">
+    <div class="h1 error-page-heading">
+        <p>Error 404</p>
+    </div>
+    <br />
+    <div>
+        <p class="error-page-text">Sorry, we couldn’t find the page you were looking for</p>
+    </div>
+    <br />
+    <div>
+        <img src="Content/Images/error-icon.svg" class="error-icon" />
+    </div>
+    <br />
+    <div class="row ">
+        <a href="/Home/Index" class="btn btn-large btn-primary error-page-button"><i class="icon-home icon-white"></i><span class="error-page-button-text">Homepage</span></a>
+    </div>
+</div>
+
+
+

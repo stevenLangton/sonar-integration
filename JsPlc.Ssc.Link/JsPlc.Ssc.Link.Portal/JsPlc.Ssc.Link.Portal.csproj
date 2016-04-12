@@ -214,7 +214,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Base\LinkBaseController.cs" />
     <Compile Include="Controllers\LinkFormController.cs" />
@@ -254,8 +254,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="404.html" />
-    <Content Include="500.html" />
     <Content Include="App_Data\Logs\placeholder.txt" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
@@ -276,6 +274,7 @@
     <Content Include="Content\Images\calendar_icon.png" />
     <Content Include="Content\Images\collaboration_icon.PNG" />
     <Content Include="Content\Images\default_profile_picture.png" />
+    <Content Include="Content\Images\error-icon.svg" />
     <Content Include="Content\Images\female.jpg" />
     <Content Include="Content\Images\heart-icon%402x.png" />
     <Content Include="Content\Images\heart-icon%403x.png" />
@@ -493,6 +492,8 @@
     <Content Include="Scripts\UriJs\URI.js" />
     <Content Include="Scripts\Utils\linkDatePickers.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -540,6 +541,9 @@
     <Content Include="Views\Shared\_.cshtml" />
     <Content Include="Views\Shared\_HomeContent.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_ErrorLayout.cshtml" />
+    <Content Include="Views\Error\Unauthorized.cshtml" />
+    <Content Include="Views\Error\Maintenance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Playpit\" />
