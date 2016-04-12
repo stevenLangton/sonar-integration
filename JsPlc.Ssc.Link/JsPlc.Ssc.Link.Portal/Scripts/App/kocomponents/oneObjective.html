@@ -8,9 +8,6 @@
 				<a href="#" target="_blank" data-bind="click: toggleView" class="pull-right"><icon class="fa" data-bind="css: { 'fa-minus': expandedView() || expandedAll(), 'fa-plus': !expandedView() && !expandedAll() }"></icon></a>
 			</div>
 		</div>
-		<p>
-			<span data-bind="text: statusMessage() "></span>
-		</p>
 	</div>
 	<div data-bind="visible: expandedView() || expandedAll()">
 		<div class="row print-hide">

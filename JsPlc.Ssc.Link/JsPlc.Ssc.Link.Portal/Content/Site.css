@@ -455,7 +455,7 @@ a:link, a:visited {
 }
 
 .picker-row {
-	margin-left: 1px;
+	margin: 15px 0 15px 0;
 }
 
 .text-between-pickers {
