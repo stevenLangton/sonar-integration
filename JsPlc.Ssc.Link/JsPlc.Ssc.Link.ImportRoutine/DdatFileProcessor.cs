@@ -17,12 +17,18 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 
 		DirectoryInfo _importFilesLocation = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ImportFilesLocation"]));
 		DirectoryInfo _processedFilesLocation = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ProcessedFilesLocation"]));
+		DirectoryInfo _unexpectedFilesLocation = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["UnexpectedFilesLocation"]));
 
 		const string _ddatSeparator = "\x01";
 		const char _datSeparator = ',';
 		const char _packCharacter = '"';
+		const string _abInitioFileSearchPattern = "Link_AbInitio_{0}_*.ddat";
+		const string _fimFileSearchPattern = "Link_FIM_{0}_*.ddat";
+		const string _fileNameDateFormat = "ddMMyyyy";
 
 		private ILogger _logger;
+
+		private bool _filesProcessed = false;
 
 		public DdatFileProcessor(ILogger logger)
 		{
@@ -39,45 +45,105 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 
 		public void MoveFilesToProcessedFolder()
 		{
-			_fileData.Clear();
-
-			var processedFilesToMove = _importFilesLocation.GetFiles("*.ddat");
-
-			foreach (var processedFileToMove in processedFilesToMove)
+			if (_filesProcessed)
 			{
-				try
+				_fileData.Clear();
+
+				var foundAbInitioFile = findAbInitioFile();
+				var foundFimFile = findFimFile();
+
+				var processedFilesToMove = new FileInfo[] { foundAbInitioFile, foundFimFile };
+
+				foreach (var processedFileToMove in processedFilesToMove)
 				{
-					var originalFileName = processedFileToMove.Name;
-					var newFileName = Path.Combine(_processedFilesLocation.FullName, string.Format("{0}_{1}.processed", processedFileToMove.Name, DateTime.Now.Ticks));
-					processedFileToMove.MoveTo(newFileName);
-					_logger.InfoFormat("File {0} moved", originalFileName);
+					try
+					{
+						var originalFileName = processedFileToMove.Name;
+						var newFileName = Path.Combine(_processedFilesLocation.FullName, string.Format("{0}_{1}.processed", processedFileToMove.Name, DateTime.Now.Ticks));
+						processedFileToMove.MoveTo(newFileName);
+						_logger.InfoFormat("Processed file {0} moved to Processed Files folder", originalFileName);
+					}
+					catch (Exception ex)
+					{
+						_logger.Error(ex);
+					}
 				}
-				catch (Exception ex)
+
+				if (processedFilesToMove.Any() == false)
 				{
-					_logger.Error(ex);
+					_logger.Info("Processed files to move not found");
 				}
 			}
+		}
 
-			if (processedFilesToMove.Any() == false)
+		public void MoveUnexpectedFilesToUnexpectedFolder()
+		{
+			if (_filesProcessed)
 			{
-				_logger.Info("Files to move not found");
+				var processedFilesToMove = _importFilesLocation.GetFiles("*.ddat");
+
+				foreach (var processedFileToMove in processedFilesToMove)
+				{
+					try
+					{
+						var originalFileName = processedFileToMove.Name;
+						var newFileName = Path.Combine(_unexpectedFilesLocation.FullName, string.Format("{0}_{1}.unexpected", processedFileToMove.Name, DateTime.Now.Ticks));
+						processedFileToMove.MoveTo(newFileName);
+						_logger.InfoFormat("Unexpected file {0} moved to Unexpected Files folder", originalFileName);
+					}
+					catch (Exception ex)
+					{
+						_logger.Error(ex);
+					}
+				}
+
+				if (processedFilesToMove.Any() == false)
+				{
+					_logger.Info("Unexpected files to move not found");
+				}
 			}
 		}
 
 		public void ProcessFiles()
 		{
-			ProcessStep1();
-			ProcessStep2();
+			_logger.Info("START process files");
+			_filesProcessed = false;
+			if (bothFilesPresent())
+			{
+				processStep1AbInitio();
+				processStep2FIM();
+				_filesProcessed = true;
+			}
+			else
+			{
+				_logger.Info("One of the files is missing, waiting for 2 files to be present.");
+			}
+			_logger.Info("END processed files");
 		}
 
-		private void ProcessStep1()
-		{
-			var foundAbInitioFiles = _importFilesLocation.GetFiles("Link_AbInitio_*.ddat", SearchOption.TopDirectoryOnly).FirstOrDefault();
+		#region Private Methods
 
-			if (foundAbInitioFiles != null)
+		private bool bothFilesPresent()
+		{
+			bool result = false;
+
+			if (findAbInitioFile() != null && findFimFile() != null)
 			{
-				_logger.InfoFormat("Loading new {0} file", foundAbInitioFiles.Name);
-				using (StreamReader sr = new StreamReader(foundAbInitioFiles.FullName))
+				result = true;
+				_logger.Info("Both files are present, ready to process.");
+			}
+
+			return result;
+		}
+
+		private void processStep1AbInitio()
+		{
+			var foundAbInitioFile = findAbInitioFile();
+
+			if (foundAbInitioFile != null)
+			{
+				_logger.InfoFormat("Processing new AbInitio file: {0}", foundAbInitioFile.Name);
+				using (StreamReader sr = new StreamReader(foundAbInitioFile.FullName))
 				{
 					int lineNumber = 0;
 					while (sr.Peek() >= 0)
@@ -105,29 +171,29 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 						}
 						catch (Exception ex)
 						{
-							string errorMessage = string.Format("Can't parse line {0} in the file {1}", lineNumber, foundAbInitioFiles.FullName);
+							string errorMessage = string.Format("Can't parse AbInitio file {1} line {0}", lineNumber, foundAbInitioFile.FullName);
 							_logger.Error(errorMessage, ex);
 						}
 
 						lineNumber++;
 					}
 				}
-				_logger.InfoFormat("Loaded new {0} file", foundAbInitioFiles.Name);
+				_logger.InfoFormat("Processed new AbInitio file: {0}", foundAbInitioFile.Name);
 			}
 			else
 			{
-				_logger.Info("Nothing to load - AbInitio");
+				_logger.Info("AbInitio file not found");
 			}
 		}
 
-		private void ProcessStep2()
+		private void processStep2FIM()
 		{
-			var foundFIMFiles = _importFilesLocation.GetFiles("Link_FIM_*.ddat", SearchOption.TopDirectoryOnly).FirstOrDefault();
+			var foundFIMFile = findFimFile();
 
-			if (foundFIMFiles != null)
+			if (foundFIMFile != null)
 			{
-				_logger.InfoFormat("Loading new {0} file", foundFIMFiles.Name);
-				using (StreamReader sr = new StreamReader(foundFIMFiles.FullName))
+				_logger.InfoFormat("Processing new FIM file: {0}", foundFIMFile.Name);
+				using (StreamReader sr = new StreamReader(foundFIMFile.FullName))
 				{
 					int lineNumber = 0;
 					while (sr.Peek() >= 0)
@@ -154,19 +220,47 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 						}
 						catch (Exception ex)
 						{
-							string errorMessage = string.Format("Can't parse line {0} in the file {1}", lineNumber, foundFIMFiles.FullName);
+							string errorMessage = string.Format("Can't parse FIM file {1} line {0}", lineNumber, foundFIMFile.FullName);
 							_logger.Error(errorMessage, ex);
 						}
 
 						lineNumber++;
 					}
 				}
-				_logger.InfoFormat("Loaded new {0} file", foundFIMFiles.Name);
+				_logger.InfoFormat("Processed new FIM file {0}", foundFIMFile.Name);
 			}
 			else
 			{
-				_logger.Info("Nothing to load - FIM");
+				_logger.Info("FIM file not found");
 			}
+		}
+
+		private FileInfo findFimFile()
+		{
+			string formattedFileName = string.Format(_fimFileSearchPattern, DateTime.Today.ToString(_fileNameDateFormat));
+
+			var result = _importFilesLocation.GetFiles(formattedFileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
+
+			if(result == null)
+			{
+				_logger.InfoFormat("FIM file not found. Search pattern: {0}", formattedFileName);
+			}
+
+			return result;
+		}
+
+		private FileInfo findAbInitioFile()
+		{
+			string formattedFileName = string.Format(_abInitioFileSearchPattern, DateTime.Today.ToString(_fileNameDateFormat));
+			
+			var result = _importFilesLocation.GetFiles(formattedFileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
+
+			if(result == null)
+			{
+				_logger.InfoFormat("AbInitio file not found. Search pattern: {0}", formattedFileName);
+			}
+
+			return result;
 		}
 
 		private static unsafe string unpackString(string inputString, char packChar)
@@ -197,5 +291,6 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 			return new string(newChars, 0, (int)(currentChar - newChars));
 		}
 
+		#endregion
 	}
 }

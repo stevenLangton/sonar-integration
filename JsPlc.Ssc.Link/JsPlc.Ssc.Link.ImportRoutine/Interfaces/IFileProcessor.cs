@@ -13,5 +13,7 @@ namespace JsPlc.Ssc.Link.ImportRoutine.Interfaces
 		void ProcessFiles();
 
 		void MoveFilesToProcessedFolder();
+
+		void MoveUnexpectedFilesToUnexpectedFolder();
 	}
 }

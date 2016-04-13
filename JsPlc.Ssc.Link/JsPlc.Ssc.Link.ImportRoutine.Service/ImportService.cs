@@ -90,8 +90,11 @@ namespace JsPlc.Ssc.Link.ImportRoutine.Service
 								_dataLoader.Load(transformedData);
 							}
 
-							//4. - Moving processed files
+							//4. - Moving processed files to Processed folder
 							_fileProcessor.MoveFilesToProcessedFolder();
+
+							//5. - Moving unexpected files to Unexpected folder
+							_fileProcessor.MoveUnexpectedFilesToUnexpectedFolder();
 						}
 						catch (Exception ex)
 						{

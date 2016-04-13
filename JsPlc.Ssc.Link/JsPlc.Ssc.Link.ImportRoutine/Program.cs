@@ -23,6 +23,8 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 			dataLoader.Load(transformedData);
 
 			fileProcessor.MoveFilesToProcessedFolder();
+
+			fileProcessor.MoveUnexpectedFilesToUnexpectedFolder();
         }
     }
 }

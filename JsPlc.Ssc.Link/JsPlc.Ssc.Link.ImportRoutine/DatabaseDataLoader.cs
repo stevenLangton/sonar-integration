@@ -32,6 +32,8 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 
 				try
 				{
+					_logger.Info("START Loading data");
+					
 					// Empty the destination tables. 
 					SqlCommand deleteStubColleague = new SqlCommand(
 						"TRUNCATE TABLE dbo.StubColleague;",
@@ -54,10 +56,11 @@ namespace JsPlc.Ssc.Link.ImportRoutine
 						sqlBulkCopy.DestinationTableName = "StubColleague";
 						sqlBulkCopy.WriteToServer(data);
 					}
+					_logger.Info("END Data loaded");
 				}
 				catch(Exception ex)
 				{
-					_logger.Error("Can't upload data", ex);
+					_logger.Error("Can't upload data to database", ex);
 				}
 			}
 		}
