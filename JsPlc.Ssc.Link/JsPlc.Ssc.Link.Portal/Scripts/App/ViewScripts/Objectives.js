@@ -54,7 +54,7 @@ define(["jquery", "knockout", "common", "LinkService", "toastr"], function ($, k
             vm.objectives.push(newObjective);
             vm.objectives.sort(orderObjectives);
         };
-
+        
         //Display a new empty objective panel so user can create a new objective.
         vm.enterNewObjective = function (data, event) {
             var $newObjButton = $(event.currentTarget);
@@ -96,7 +96,7 @@ define(["jquery", "knockout", "common", "LinkService", "toastr"], function ($, k
             if (result.success) {
                 var vm = ObjectivesListVm();
                 vm.objectives(result.data);
-
+                
                 //Sort the objectives. Latest amended first
                 vm.objectives.sort(orderObjectives);
                 ko.applyBindings(vm, document.getElementById(divId));

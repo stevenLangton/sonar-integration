@@ -10,9 +10,15 @@ namespace JsPlc.Ssc.Link.StubService.StubRepository
     {
         public IDbSet<StubColleague> Colleagues { get; set; }
 
-        public StubRepositoryContext() : base("name=StubLinkColleagueRepository") { }
+        public StubRepositoryContext() : base("name=StubLinkColleagueRepository") {
+			//disable DB initialization
+			Database.SetInitializer<StubRepositoryContext>(null);
+		}
 
-        public StubRepositoryContext(DbConnection connection) : base(connection, true) { }
+        public StubRepositoryContext(DbConnection connection) : base(connection, true) {
+			//disable DB initialization
+			Database.SetInitializer<StubRepositoryContext>(null);
+		}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

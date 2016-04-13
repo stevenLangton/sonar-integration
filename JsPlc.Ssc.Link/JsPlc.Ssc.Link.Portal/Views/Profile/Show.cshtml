@@ -2,29 +2,29 @@
 @using JsPlc.Ssc.Link.Models.Entities
 
 @{
-    ColleagueView Colleague = ViewBag.Colleague;
-    LinkMeeting NextMeeting = ViewBag.NextMeeting;
-    string DateFormat = "dddd, MMMM d, yyyy 'at' h:mm tt";
+	ColleagueView Colleague = ViewBag.Colleague;
+	LinkMeeting NextMeeting = ViewBag.NextMeeting;
+	string DateFormat = "dddd, MMMM d, yyyy 'at' h:mm tt";
 
-    ColleagueTeamView ColleagueMeetings = ViewBag.ColleagueMeetings;//4/2/16
+	ColleagueTeamView ColleagueMeetings = ViewBag.ColleagueMeetings;//4/2/16
 }
 
 <div id="ProfileView">
-    <div>@Html.MvcSiteMap().SiteMapPath()</div>
-   
-        <h1>@(Colleague.FirstName + " " + Colleague.LastName)</h1>
-    
-    
-    <current-meeting params="{data: data}"></current-meeting>
-    <div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
-    <br />
-    <div data-bind="stopBinding: true">
-        <div id="featureContainer"></div>
-    </div>
-    <hr />
+	<div class="print-hide">
+		<div>@Html.MvcSiteMap().SiteMapPath()</div>
+
+		<h1>@(Colleague.FirstName + " " + Colleague.LastName)</h1>
+
+		<current-meeting params="{data: data}"></current-meeting>
+		<div data-bind='component: { name: "profile-tabs", params: {OnTabChanged: tabChanged}}'></div>
+		<br />
+	</div>
+	<div data-bind="stopBinding: true">
+		<div id="featureContainer"></div>
+	</div>
 </div>
 <script type="text/javascript">
-    require(["ColleagueProfile", "RegisterKoComponents"], function (cp) {
-        cp.init("ProfileView", "@Colleague.ColleagueId");
-    });
+	require(["ColleagueProfile", "RegisterKoComponents"], function (cp) {
+		cp.init("ProfileView", "@Colleague.ColleagueId");
+	});
 </script>

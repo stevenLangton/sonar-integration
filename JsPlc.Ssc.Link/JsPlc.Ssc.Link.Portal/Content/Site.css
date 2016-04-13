@@ -862,6 +862,10 @@ width:200px;}
     padding-right: 0 !important;
 }
 
+.padding-15 {
+    padding: 15px;
+}
+
 .error-icon {
   width: 283px;
   height: 216px;

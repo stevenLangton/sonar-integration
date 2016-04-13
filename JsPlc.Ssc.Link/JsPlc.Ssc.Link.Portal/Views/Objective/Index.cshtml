@@ -9,28 +9,19 @@
 }
 
 <div id="ObjectivesListView" style="display:none" data-bind="visible:true">
-	<div class="print-show">
-		<h1>Objectives</h1>
-		<h4>@currentUser.Colleague.FirstName @currentUser.Colleague.LastName</h4>
-	</div>
 	<div class="print-hide">@Html.MvcSiteMap().SiteMapPath()</div>
-
 
 	<div class="row print-hide">
 		<div class="col-md-2">
 			<img src="~/Content/Images/Objectives wheel unlabelled.png" width="106" height="101" class="wheel">
 		</div>
-
 		<div class="col-md-10">
 			<h1>Objectives</h1><a class="btn btn-primary" data-toggle="collapse" data-target="#demo" data-bind="click: enterNewObjective" aria-expanded="false" style="float:right;margin-top:-50px;">Add objective</a>
 			<hr />
 			<p>Each of your objectives should be SMART: Specific, Measurable, Achievable, Relevant and Time bound.</p>
 			<hr />
 		</div>
-
-		
 	</div>
-
 	<div class="container-fluid print-hide">
 		<div>
 			<div id="demo" class="collapse">
@@ -42,7 +33,7 @@
 	</div>
 	<br class="print-hide" />
 	<br class="print-hide" />
-	<objectives-list params='data: objectives, readOnly: false'></objectives-list>
+	<objectives-list params='data: objectives, readOnly: false, colleagueFullName: "@currentUser.Colleague.FirstName @currentUser.Colleague.LastName"'></objectives-list>
 	<hr class="print-hide" />
 </div>
 <script type="text/javascript">

@@ -11,7 +11,10 @@ namespace JsPlc.Ssc.Link.Core.Cache
 			if (item == null)
 			{
 				item = getItemCallback();
-				MemoryCache.Default.Add(cacheKey, item, expireAt);
+				if (item != null)
+				{
+					MemoryCache.Default.Add(cacheKey, item, expireAt);
+				}
 			}
 			return (T)item;
 		}

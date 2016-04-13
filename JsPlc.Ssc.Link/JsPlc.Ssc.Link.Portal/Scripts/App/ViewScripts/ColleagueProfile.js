@@ -15,10 +15,11 @@
         refreshTabContent(data, "<past-meetings params='data: $root, ColleagueId: \"" + colleagueId + "\"'></past-meetings>");
     };
 
-    var showPdp = function (colleagueId) {
+    var showPdp = function (colleagueId, data) {
         var $promise = dataService.getPdp(colleagueId);
         $promise.done(function (result) {
-            var pdpTabKoVm = result;
+        	var pdpTabKoVm = result;
+        	pdpTabKoVm.data = data;
             refreshTabContent(pdpTabKoVm, "<pdp-accordion  params='data: $root'></pdp-accordion>");
         });
         $promise.error(function (request, status, error) {
@@ -26,12 +27,12 @@
         });
     };
 
-    var showObjectives = function (colleagueId) {
+    var showObjectives = function (colleagueId, data) {
         var $promise = dataService.getSharedObjectives(colleagueId);
         $promise.done(function (result) {
             var objectivesTabKoVm = {};
             objectivesTabKoVm.objectives = ko.observableArray(result);
-            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives, readOnly: true, managerView: true'></objectives-list>");
+            refreshTabContent(objectivesTabKoVm, "<objectives-list params='data: objectives, readOnly: true, managerView: true, colleagueFullName: \""+data.FullName+"\"'></objectives-list>");
         });
         $promise.error(function (request, status, error) {
             toastr.error(request.responseText);
@@ -54,11 +55,11 @@
                 break;
             case 2:
                 //Show colleague Pdp
-                showPdp(vm.colleagueId);
+            	showPdp(vm.colleagueId, vm.data);
                 break;
             case 3:
                 //Show colleague Objectives
-                showObjectives(vm.colleagueId);
+            	showObjectives(vm.colleagueId, vm.data);
                 break;
             }
         };

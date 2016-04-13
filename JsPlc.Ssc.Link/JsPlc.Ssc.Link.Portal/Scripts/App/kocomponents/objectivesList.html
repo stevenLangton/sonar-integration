@@ -1,8 +1,12 @@
-﻿<div class="list-group" id="objectivesList" data-bind="foreach: objectives, visible: true" style="display: none">
+﻿<div class="print-show">
+	<h1>Objectives</h1>
+	<h4 data-bind="text: colleagueFullName"></h4>
+</div>
+<div class="list-group" id="objectivesList" data-bind="foreach: objectives, visible: true" style="display: none">
     <div class="container-fluid linkBox1 linkPadding" style="display: none;" data-bind="visible: true">
 		<one-objective params="data: $data, readOnly: $component.readOnly, managerView: $component.managerView, expandedAll: $component.expandedAll"></one-objective>
     </div>
 </div>
-<a href="javascript:void(0)" class="print-hide" data-bind="click: expandCollapseAll">
+<a href="javascript:void(0)" class="print-hide" data-bind="click: expandPrintCollapseAll, visible: objectives().length > 0">
 	<i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
 </a>

@@ -1,65 +1,73 @@
-﻿<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-            <h3>
-                <a role="button" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Achieving my objectives <span class="glyphicon glyphicon-plus" style="float:right;"></span>
-                </a>
-            </h3>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-            <div class="panel-body">
-                <label for="achieveObjectives">What areas do I need to develop to achieve my objectives?</label>
-                <div id="achieveObjectives" class="well" data-bind="text: achieveObjectives" />
-
-                <label for="achieveObjectivesActions">What actions will I take?</label>
-                <div id="achieveObjectivesActions" class="well" data-bind="text: achieveObjectivesActions" />
-
-                <label for="achieveObjectivesWhen">By when?</label>
-                <div id="achieveObjectivesWhen" class="well" data-bind="text: achieveObjectivesWhen" />
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo">
-            <h3>
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Key strengths <span class="glyphicon glyphicon-plus" style="float:right;"></span>
-                </a>
-            </h3>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-            <div class="panel-body">
-                <label for="keyStrengths">What are my key strengths?</label>
-                <div id="keyStrengths" class="well" data-bind="text: keyStrengths" />
-
-                <label for="keyStrengthsActions">What actions will I take to further develop these areas?</label>
-                <div id="keyStrengthsActions" class="well" data-bind="text: keyStrengthsActions" />
-
-                <label for="keyStrengthsWhen">By when?</label>
-                <div id="keyStrengthsWhen" class="well" data-bind="text: keyStrengthsWhen" />
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingThree">
-            <h3>
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Career aspirations <span class="glyphicon glyphicon-plus" style="float:right;"></span>
-                </a>
-            </h3>
-        </div>
-        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-            <div class="panel-body">
-                <label for="careerAspirations">What are my career aspirations?</label>
-                <div id="careerAspirations" class="well" data-bind="text: careerAspirations" />
-                <label for="careerAspirationsActions">What actions do I need to take to move towards these aspirations?</label>
-                <div id="careerAspirationsActions" class="well" data-bind="text: careerAspirationsActions" />
-                <label for="careerAspirationsWhen">By when?</label>
-                <div id="careerAspirationsWhen" class="well" data-bind="text: careerAspirationsWhen" />
-            </div>
-        </div>
-    </div>
+﻿<div class="print-show">
+	<h1>Personal development plan</h1>
+	<h4 data-bind="text: data.FullName"></h4>
+	<div class="linkPanel"></div>
 </div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="headingOne">
+			<h3 class="linksection-heading">
+				<a role="button" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					Achieving my objectives <span class="glyphicon glyphicon-plus" style="float:right;"></span>
+				</a>
+			</h3>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			<div class="panel-body">
+				<label for="achieveObjectives">What areas do I need to develop to achieve my objectives?</label>
+				<div id="achieveObjectives" class="well" data-bind="text: achieveObjectives, style: { 'white-space': 'pre-wrap' }" />
+
+				<label for="achieveObjectivesActions">What actions will I take?</label>
+				<div id="achieveObjectivesActions" class="well" data-bind="text: achieveObjectivesActions, style: { 'white-space': 'pre-wrap' }" />
+
+				<label for="achieveObjectivesWhen">By when?</label>
+				<div id="achieveObjectivesWhen" class="well" data-bind="text: achieveObjectivesWhen, style: { 'white-space': 'pre-wrap' }" />
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="headingTwo">
+			<h3 class="linksection-heading">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					Key strengths <span class="glyphicon glyphicon-plus" style="float:right;"></span>
+				</a>
+			</h3>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+			<div class="panel-body">
+				<label for="keyStrengths">What are my key strengths?</label>
+				<div id="keyStrengths" class="well" data-bind="text: keyStrengths, style: { 'white-space': 'pre-wrap' }" />
+
+				<label for="keyStrengthsActions">What actions will I take to further develop these areas?</label>
+				<div id="keyStrengthsActions" class="well" data-bind="text: keyStrengthsActions, style: { 'white-space': 'pre-wrap' }" />
+
+				<label for="keyStrengthsWhen">By when?</label>
+				<div id="keyStrengthsWhen" class="well" data-bind="text: keyStrengthsWhen, style: { 'white-space': 'pre-wrap' }" />
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" role="tab" id="headingThree">
+			<h3 class="linksection-heading">
+				<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+					Career aspirations <span class="glyphicon glyphicon-plus" style="float:right;"></span>
+				</a>
+			</h3>
+		</div>
+		<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+			<div class="panel-body">
+				<label for="careerAspirations">What are my career aspirations?</label>
+				<div id="careerAspirations" class="well" data-bind="text: careerAspirations, style: { 'white-space': 'pre-wrap' }" />
+				<label for="careerAspirationsActions">What actions do I need to take to move towards these aspirations?</label>
+				<div id="careerAspirationsActions" class="well" data-bind="text: careerAspirationsActions, style: { 'white-space': 'pre-wrap' }" />
+				<label for="careerAspirationsWhen">By when?</label>
+				<div id="careerAspirationsWhen" class="well" data-bind="text: careerAspirationsWhen, style: { 'white-space': 'pre-wrap' }" />
+			</div>
+		</div>
+	</div>
+</div>
+<a class="print-hide" href="javascript:void(0)" onclick="window.print()">
+	<i class="indicator glyphicon glyphicon-print fa-2x"></i> Print
+</a>
 
 

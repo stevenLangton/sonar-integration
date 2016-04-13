@@ -38,7 +38,8 @@ label {
 	display: none;
 }
 
-.print-hide {
+.print-hide,
+.glyphicon {
 	display: none;
 }
 
@@ -79,7 +80,8 @@ label {
 	padding: 0px;
 }
 
-.linkPadding {
+.linkPadding,
+.panel-body {
 	padding: 0;
 }
 
@@ -92,7 +94,9 @@ label {
 .linkBox1,
 .linkBox3,
 .linkPanelS,
-.linkPanel {
+.linkPanel,
+.panel-default,
+.panel-group .panel-heading + .panel-collapse > .panel-body {
 	border: 0;
 }
 
@@ -103,6 +107,7 @@ label {
 
 .form-horizontal,
 .panel-heading,
+.padding-15,
 .LinkBox1Padding {
 	margin: 0px;
 	padding: 0px;
@@ -120,4 +125,10 @@ label {
 .col-sm-9,
 .col-sm-10 {
 	padding: 0;
+}
+
+.well {
+	border: 0;
+	margin: 0px;
+	padding: 0px;
 }
