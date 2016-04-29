@@ -26,7 +26,7 @@ choco install msbuild-sonarqube-runner -y
 
 MSBuild.SonarQube.Runner.exe begin
 /k:%Link% 
-/n:%Link% 
+/n:%JsPlc.Ssc.Link\Link.sln% 
 /v:%GitVersion_FullSemVer% 
 /d:sonar.host.url=%http://52.51.78.161% 
 /d:sonar.login=%appveyor%
