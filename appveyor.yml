@@ -26,9 +26,9 @@ after_build:
 
     MSBuild.SonarQube.Runner.exe begin
       /k:%Link% 
-      /n:%sonar-integration01% 
+      /n:%sonar-integration% 
       /v:%GitVersion_FullSemVer% 
-      /d:sonar.host.url=http://52.51.78.161
+      /d:sonar.host.url=%http://52.51.78.161%
       /d:sonar.login=%appveyor%
       /d:sonar.password=%sonar%
 
