@@ -20,13 +20,14 @@ build:
   project: JsPlc.Ssc.Link\Link.sln
   publish_wap: true
 
-- cmd: >-
+
 choco install msbuild-sonarqube-runner -y
 
 
 MSBuild.SonarQube.Runner.exe begin
+
 /k:%Link% 
-/n:%JsPlc.Ssc.Link\Link.sln% 
+/n:%sonar-integration01% 
 /v:%GitVersion_FullSemVer% 
 /d:sonar.host.url=%http://52.51.78.161% 
 /d:sonar.login=%appveyor%
@@ -39,7 +40,8 @@ MSBuild.SonarQube.Runner.exe end
 #  name: Link-development
 #notifications:
 #- provider: Slack
-#  incoming_webhook: https://hooks.slack.com/services/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
+#  incoming_webhook: https://hooks.slack.com/services/T03J4B99C/B0MDF5XH9
+#  UgekfTj9HSj1SE9fWRaLHN3Q
 #  channel: Link
 #  on_build_success: true
 #  on_build_failure: true
