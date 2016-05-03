@@ -18,7 +18,7 @@ before_build:
 
     cd %APPVEYOR_BUILD_FOLDER%\JsPlc.Ssc.Link
 
-    MSBuild.SonarQube.Runner.exe begin /k:Link /n:LinkProject /v:%GitVersion_FullSemVer% /d:sonar.host.url=http://52.51.78.161:80 /d:sonar.login=appveyor /d:sonar.password=sonar
+    MSBuild.SonarQube.Runner.exe begin /k:Link /n:LinkProject /v:1.1 /d:sonar.host.url=http://52.51.78.161:80 /d:sonar.login=appveyor /d:sonar.password=sonar
 
     cd %APPVEYOR_BUILD_FOLDER%
 
