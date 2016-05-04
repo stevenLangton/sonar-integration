@@ -20,6 +20,8 @@ before_build:
 
     MSBuild.SonarQube.Runner.exe begin /k:Link /n:LinkProject /v:1.1 /d:sonar.host.url=http://52.51.78.161:80 /d:sonar.login=appveyor /d:sonar.password=sonar
 
+    dir /w /s
+
     cd %APPVEYOR_BUILD_FOLDER%
 
 build:
@@ -27,11 +29,14 @@ build:
   publish_wap: true
 after_build:
 - cmd: >-
+
+    dir /w /s
+
     cd %APPVEYOR_BUILD_FOLDER%\JsPlc.Ssc.Link
+
+    dir /w
 
     MSBuild.SonarQube.Runner.exe end
 #deploy::
 #- provider: Environment
-#  name: Link-development
-
-
+#  name: Link-developmen
