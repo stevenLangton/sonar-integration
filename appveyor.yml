@@ -16,7 +16,7 @@ before_build:
 
     choco install msbuild-sonarqube-runner -y
 
-    MSBuild.SonarQube.Runner.exe begin /k:Link /n:LinkProject /v:1.1 /d:sonar.host.url=http://52.49.40.87:9000/d:sonar.login=appveyor /d:sonar.password=sonar
+    MSBuild.SonarQube.Runner.exe begin /k:Link /n:LinkProject /v:1.1 /d:sonar.host.url=http://52.49.40.87/d:sonar.login=appveyor /d:sonar.password=sonar
 
 build:
   project: JsPlc.Ssc.Link\Link.sln
