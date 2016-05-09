@@ -24,6 +24,6 @@ build:
 after_build:
 - cmd: MSBuild.SonarQube.Runner.exe end
 #deploy::
-#- provider: Environment_appveyor_poc  
+#- provider: Environment_appveyor_poc1  
 #  name: Link-development
 
